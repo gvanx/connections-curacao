@@ -1072,6 +1072,181 @@
       border-color: var(--surface-border-hover);
       transform: translateY(-1px);
     }
+
+    /* ============================================
+       FOOTER (Task 10)
+       ============================================ */
+    #footer {
+      background: #111;
+      border-top: 1px solid var(--surface-border);
+      padding: 4rem 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .footer-col-heading {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand-name .logo-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .footer-tagline {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+
+    .footer-socials a:hover {
+      background: var(--surface-hover);
+      border-color: var(--surface-border-hover);
+      color: var(--text);
+    }
+
+    .footer-socials a svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .footer-contact-item a {
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-contact-item a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--surface-border);
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom-left {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom-right {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    /* ============================================
+       WHATSAPP FAB (Task 10)
+       ============================================ */
+    #whatsapp-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 90;
+      width: 56px;
+      height: 56px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      transition: all 0.25s ease;
+      animation: fabPulse 2s ease-out 1;
+    }
+
+    #whatsapp-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.55);
+    }
+
+    #whatsapp-fab svg {
+      width: 28px;
+      height: 28px;
+      fill: #fff;
+    }
+
+    @keyframes fabPulse {
+      0% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.5); }
+      70% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 16px rgba(37,211,102,0); }
+      100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
+    }
   </style>
 </head>
 <body>
@@ -1229,10 +1404,68 @@
   </section>
 
   <!-- Footer -->
-  <footer id="footer"></footer>
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Column 1: Brand -->
+        <div>
+          <div class="footer-brand-name">CONNECTIONS<span class="logo-dot"></span></div>
+          <p class="footer-tagline">Cura&ccedil;ao's premium electronics store since 2019.</p>
+          <div class="footer-socials">
+            <a href="https://instagram.com/connectionscuracao" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://facebook.com/connectionscuracao" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div>
+          <h4 class="footer-col-heading">Quick Links</h4>
+          <div class="footer-links">
+            <a href="#deals">Shop Deals</a>
+            <a href="#locations">Locations</a>
+            <a href="https://jbl.connectionscuracao.net" target="_blank" rel="noopener">JBL Audio</a>
+            <a href="https://giftcard.connectionscuracao.net" target="_blank" rel="noopener">Gift Cards</a>
+            <a href="https://trade.connectionscuracao.net" target="_blank" rel="noopener">Trade-In</a>
+          </div>
+        </div>
+
+        <!-- Column 3: Contact -->
+        <div>
+          <h4 class="footer-col-heading">Contact</h4>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+59996782619">+599 9 678 2619</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:info@connectionscuracao.net">info@connectionscuracao.net</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>💬</span>
+            <a href="https://wa.me/59996782619" target="_blank" rel="noopener">Join our WhatsApp</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <span>13 Breedestraat, Willemstad, Cura&ccedil;ao</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">&copy; 2026 Connections Curacao. All rights reserved.</div>
+        <div class="footer-bottom-right">Made in Cura&ccedil;ao 🇨🇼</div>
+      </div>
+    </div>
+  </footer>
 
   <!-- WhatsApp FAB -->
-  <a id="whatsapp-fab"></a>
+  <a id="whatsapp-fab" href="https://wa.me/59996782619" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.738-6.354-1.996l-.244-.167-3.735 1.251 1.251-3.735-.167-.244A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  </a>
 
   <script>
     /* ============================================
