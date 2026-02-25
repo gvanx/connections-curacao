@@ -517,6 +517,77 @@
         max-width: 280px;
       }
     }
+
+    /* ============================================
+       SECTION TITLES
+       ============================================ */
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      text-align: center;
+      letter-spacing: -0.02em;
+      position: relative;
+      padding-bottom: 16px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-orange));
+      border-radius: 2px;
+    }
+
+    /* ============================================
+       CATEGORY GRID (Task 5)
+       ============================================ */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .category-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .category-card .cat-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .category-card .cat-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .category-card .cat-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
@@ -655,17 +726,85 @@
     /* ============================================
        FADE-IN OBSERVER
        ============================================ */
-    (() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    })();
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    /* ============================================
+       PRODUCT DATA LOADING & RENDERING
+       ============================================ */
+    const CATEGORY_META = {
+      apple:   { name: 'Apple',            icon: '\u{1F34E}', gradient: 'linear-gradient(135deg, #1a1a4e, #4b2ca0)' },
+      samsung: { name: 'Samsung',           icon: '\u{1F4F1}', gradient: 'linear-gradient(135deg, #0a1628, #1a3a6e)' },
+      tvs:     { name: 'Televisions',       icon: '\u{1F4FA}', gradient: 'linear-gradient(135deg, #1a1a1a, #3a3a3a)' },
+      laptops: { name: 'Laptops',           icon: '\u{1F4BB}', gradient: 'linear-gradient(135deg, #1a2a1a, #2a4a3a)' },
+      acs:     { name: 'Air Conditioning',  icon: '\u{2744}\u{FE0F}', gradient: 'linear-gradient(135deg, #0a2a3a, #1a4a5e)' },
+      motor:   { name: 'Motorcycles',       icon: '\u{1F3CD}\u{FE0F}', gradient: 'linear-gradient(135deg, #2a1a0a, #5a3a1a)' }
+    };
+
+    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'motor'];
+    const WA_NUMBER = '59996782619';
+
+    function formatPrice(price) {
+      return 'NAf ' + price.toLocaleString('en-US');
+    }
+
+    function waLink(name, price) {
+      const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    /* ---- Category Grid ---- */
+    function renderCategories(products) {
+      const container = document.querySelector('#categories .container');
+      const grouped = {};
+      CATEGORY_ORDER.forEach(c => grouped[c] = 0);
+      products.forEach(p => { if (grouped[p.category] !== undefined) grouped[p.category]++; });
+
+      let html = '<h2 class="section-title fade-in">Browse Categories</h2>';
+      html += '<div class="categories-grid fade-in">';
+
+      CATEGORY_ORDER.forEach(cat => {
+        const meta = CATEGORY_META[cat];
+        html += `
+          <div class="category-card" data-target="cat-${cat}">
+            <div class="cat-icon">${meta.icon}</div>
+            <div class="cat-name">${meta.name}</div>
+            <div class="cat-count">${grouped[cat]} product${grouped[cat] !== 1 ? 's' : ''}</div>
+          </div>`;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+
+      // Click to scroll
+      container.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const target = document.getElementById(card.dataset.target);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Observe new fade-in elements
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
+    /* ---- Init ---- */
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('data/products.json');
+        const products = await res.json();
+        renderCategories(products);
+      } catch (e) {
+        console.error('Failed to load products:', e);
+      }
+    });
   </script>
 
 </body>
