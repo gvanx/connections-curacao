@@ -588,6 +588,172 @@
       font-size: 0.8rem;
       color: var(--text-muted);
     }
+
+    /* ============================================
+       DEALS CAROUSEL (Task 6)
+       ============================================ */
+    .deals-wrapper {
+      position: relative;
+      margin-top: 2.5rem;
+    }
+
+    .deals-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem 0;
+    }
+
+    .deals-track::-webkit-scrollbar { display: none; }
+
+    .deal-card {
+      scroll-snap-align: start;
+      min-width: 280px;
+      max-width: 320px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .deal-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
+    }
+
+    .deal-img {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+    }
+
+    .deal-body {
+      padding: 1.25rem;
+    }
+
+    .deal-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-hso {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent-orange);
+      color: #fff;
+      border-radius: 100px;
+      line-height: 1.4;
+    }
+
+    .deal-price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-orange);
+      margin-bottom: 1rem;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--whatsapp);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-whatsapp:hover {
+      background: #20bd5a;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Carousel arrow buttons */
+    .deals-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .deals-arrow:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: var(--surface-border-hover);
+    }
+
+    .deals-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .deals-arrow--left {
+      left: -16px;
+    }
+
+    .deals-arrow--right {
+      right: -16px;
+    }
+
+    @media (max-width: 768px) {
+      .deals-arrow {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -795,12 +961,71 @@
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
 
+    /* ---- WhatsApp SVG icon ---- */
+    const WA_ICON = `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.738-6.354-1.996l-.244-.167-3.735 1.251 1.251-3.735-.167-.244A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>`;
+
+    /* ---- Deals Carousel ---- */
+    function renderDeals(products) {
+      const featured = products.filter(p => p.featured);
+      if (!featured.length) return;
+
+      const container = document.querySelector('#deals .container');
+      let html = '<h2 class="section-title fade-in">Featured Deals</h2>';
+      html += '<div class="deals-wrapper fade-in">';
+
+      // Arrow buttons
+      html += `<button class="deals-arrow deals-arrow--left" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>`;
+      html += `<button class="deals-arrow deals-arrow--right" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>`;
+
+      html += '<div class="deals-track">';
+
+      featured.forEach(p => {
+        const meta = CATEGORY_META[p.category];
+        const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+        const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+        html += `
+          <div class="deal-card">
+            <div class="deal-img" style="background:${meta.gradient}">${meta.icon}</div>
+            <div class="deal-body">
+              <div class="deal-name">${p.name}${hsoBadge}</div>
+              <div class="deal-price">${formatPrice(p.price)}</div>
+              <a href="${waLink(fullName, p.price)}" target="_blank" rel="noopener" class="btn-whatsapp">
+                ${WA_ICON} Order via WhatsApp
+              </a>
+            </div>
+          </div>`;
+      });
+
+      html += '</div></div>';
+      container.innerHTML = html;
+
+      // Arrow scroll logic
+      const track = container.querySelector('.deals-track');
+      const leftBtn = container.querySelector('.deals-arrow--left');
+      const rightBtn = container.querySelector('.deals-arrow--right');
+      const scrollAmt = 300;
+
+      leftBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+      });
+      rightBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+      });
+
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch('data/products.json');
         const products = await res.json();
         renderCategories(products);
+        renderDeals(products);
       } catch (e) {
         console.error('Failed to load products:', e);
       }
