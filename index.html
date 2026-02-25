@@ -861,6 +861,97 @@
       height: 16px;
       fill: currentColor;
     }
+
+    /* ============================================
+       ECOSYSTEM SECTION (Task 8)
+       ============================================ */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .ecosystem-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .eco-card {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .eco-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .eco-card[data-accent="jbl"]:hover {
+      border-color: #FF6600;
+      box-shadow: 0 12px 40px rgba(255,102,0,0.15), 0 0 20px rgba(255,102,0,0.1);
+    }
+    .eco-card[data-accent="jbl"] .eco-link { color: #FF6600; }
+
+    .eco-card[data-accent="gift"]:hover {
+      border-color: #2d7a9f;
+      box-shadow: 0 12px 40px rgba(45,122,159,0.15), 0 0 20px rgba(45,122,159,0.1);
+    }
+    .eco-card[data-accent="gift"] .eco-link { color: #2d7a9f; }
+
+    .eco-card[data-accent="trade"]:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 40px var(--accent-glow), 0 0 20px rgba(0,122,255,0.1);
+    }
+    .eco-card[data-accent="trade"] .eco-link { color: var(--accent); }
+
+    .eco-card[data-accent="spin"]:hover {
+      border-color: #c0141a;
+      box-shadow: 0 12px 40px rgba(192,20,26,0.15), 0 0 20px rgba(192,20,26,0.1);
+    }
+    .eco-card[data-accent="spin"] .eco-link { color: #c0141a; }
+
+    .eco-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .eco-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .eco-desc {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .eco-link {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s ease;
+    }
+
+    .eco-card:hover .eco-link {
+      opacity: 0.85;
+    }
   </style>
 </head>
 <body>
@@ -938,7 +1029,35 @@
 
   <!-- Ecosystem -->
   <section id="ecosystem">
-    <div class="container"></div>
+    <div class="container">
+      <h2 class="section-title fade-in">More from Connections</h2>
+      <div class="ecosystem-grid">
+        <a href="https://jbl.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="jbl">
+          <div class="eco-icon">🔊</div>
+          <div class="eco-title">JBL Audio</div>
+          <div class="eco-desc">Original JBL speakers, headsets &amp; earbuds. Flip 7, Go 4, Charge 6 and more.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://giftcard.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="gift">
+          <div class="eco-icon">🎮</div>
+          <div class="eco-title">Digital Gift Cards</div>
+          <div class="eco-desc">PSN, Apple, Xbox, Nintendo, Roblox &amp; more. Instant delivery via WhatsApp.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://trade.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="trade">
+          <div class="eco-icon">🔄</div>
+          <div class="eco-title">Trade-In Program</div>
+          <div class="eco-desc">Trade in your old device and get store credit towards a new purchase.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://spin.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="spin">
+          <div class="eco-icon">🎡</div>
+          <div class="eco-title">Spin &amp; Win</div>
+          <div class="eco-desc">Got a spin code? Try your luck and win prizes from Connections.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- Locations -->
