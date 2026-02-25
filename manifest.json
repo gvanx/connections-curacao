@@ -1,0 +1,9 @@
+{
+  "name": "Connections Curacao",
+  "short_name": "Connections",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#007AFF",
+  "description": "Curaçao's premium electronics store"
+}
