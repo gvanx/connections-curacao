@@ -69,7 +69,7 @@
     "price": 2290,
     "category": "apple",
     "featured": true,
-    "image": "iphone-generic.png"
+    "image": "iphone-16.webp"
   },
   {
     "name": "iPhone 17 Air",
@@ -77,7 +77,7 @@
     "price": 2190,
     "category": "apple",
     "featured": true,
-    "image": "iphone-generic.png"
+    "image": "iphone-16.webp"
   },
   {
     "name": "iPhone 17 Pro",
@@ -85,7 +85,7 @@
     "price": 2790,
     "category": "apple",
     "featured": true,
-    "image": "iphone-generic.png"
+    "image": "iphone-16-pro-max.webp"
   },
   {
     "name": "iPhone 17 Pro Max",
@@ -93,7 +93,7 @@
     "price": 3030,
     "category": "apple",
     "featured": true,
-    "image": "iphone-generic.png"
+    "image": "iphone-16-pro-max.webp"
   },
   {
     "name": "iPad 11th 128GB",
@@ -101,7 +101,7 @@
     "price": 790,
     "category": "apple",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "iphone-15.webp"
   },
   {
     "name": "iPad Air M3 128GB",
@@ -109,7 +109,7 @@
     "price": 1590,
     "category": "apple",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "iphone-15-pro-max.webp"
   },
   {
     "name": "Galaxy A06",
@@ -117,7 +117,7 @@
     "price": 175,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A07",
@@ -125,7 +125,7 @@
     "price": 185,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A16",
@@ -133,7 +133,7 @@
     "price": 269,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A17",
@@ -141,7 +141,7 @@
     "price": 325,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A26",
@@ -149,7 +149,7 @@
     "price": 444,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A36",
@@ -157,7 +157,7 @@
     "price": 575,
     "category": "samsung",
     "featured": false,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy A56",
@@ -165,7 +165,7 @@
     "price": 675,
     "category": "samsung",
     "featured": true,
-    "image": "iphone-generic.png"
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy S24 FE",
