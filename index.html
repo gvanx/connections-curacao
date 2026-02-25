@@ -754,6 +754,113 @@
         display: none;
       }
     }
+
+    /* ============================================
+       PRODUCT SECTIONS (Task 7)
+       ============================================ */
+    .product-section {
+      margin-bottom: 4rem;
+    }
+
+    .product-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-section .section-title {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-section .section-title::after {
+      left: 0;
+      transform: none;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 16px var(--accent-glow);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .product-body {
+      padding: 1.25rem;
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .product-price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--accent-orange);
+      margin-bottom: 1rem;
+    }
+
+    .btn-whatsapp-sm {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 10px 14px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: rgba(37,211,102,0.15);
+      color: var(--whatsapp);
+      border: 1px solid rgba(37,211,102,0.25);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-whatsapp-sm:hover {
+      background: var(--whatsapp);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp-sm svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
   </style>
 </head>
 <body>
@@ -1019,6 +1126,47 @@
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
 
+    /* ---- Product Sections ---- */
+    function renderProducts(products) {
+      const container = document.querySelector('#products .container');
+      const grouped = {};
+      CATEGORY_ORDER.forEach(c => grouped[c] = []);
+      products.forEach(p => { if (grouped[p.category]) grouped[p.category].push(p); });
+
+      let html = '';
+
+      CATEGORY_ORDER.forEach(cat => {
+        const items = grouped[cat];
+        if (!items.length) return;
+        const meta = CATEGORY_META[cat];
+
+        html += `<div id="cat-${cat}" class="product-section fade-in">`;
+        html += `<h2 class="section-title">${meta.name}</h2>`;
+        html += '<div class="product-grid">';
+
+        items.forEach(p => {
+          const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+          const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+          html += `
+            <div class="product-card">
+              <div class="product-img" style="background:${meta.gradient}">${meta.icon}</div>
+              <div class="product-body">
+                <div class="product-name">${p.name}${hsoBadge}</div>
+                <div class="product-price">${formatPrice(p.price)}</div>
+                <a href="${waLink(fullName, p.price)}" target="_blank" rel="noopener" class="btn-whatsapp-sm">
+                  ${WA_ICON} Order via WhatsApp
+                </a>
+              </div>
+            </div>`;
+        });
+
+        html += '</div></div>';
+      });
+
+      container.innerHTML = html;
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
@@ -1026,6 +1174,7 @@
         const products = await res.json();
         renderCategories(products);
         renderDeals(products);
+        renderProducts(products);
       } catch (e) {
         console.error('Failed to load products:', e);
       }
