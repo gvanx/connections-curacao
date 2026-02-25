@@ -4,307 +4,351 @@
     "suffix": "HSO",
     "price": 599,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-12.webp"
   },
   {
     "name": "iPhone 13",
     "suffix": "HSO",
     "price": 749,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-13.webp"
   },
   {
     "name": "iPhone 14",
     "suffix": "HSO",
     "price": 950,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-14.webp"
   },
   {
     "name": "iPhone 15",
     "suffix": "HSO",
     "price": 1199,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-15.webp"
   },
   {
     "name": "iPhone 15 Pro Max",
     "suffix": "HSO",
     "price": 1590,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-15-pro-max.webp"
   },
   {
     "name": "iPhone 16",
     "suffix": "",
     "price": 1699,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-16.webp"
   },
   {
     "name": "iPhone 16 Plus",
     "suffix": "",
     "price": 1750,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-16.webp"
   },
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
     "price": 1850,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-16-pro-max.webp"
   },
   {
     "name": "iPhone 17",
     "suffix": "",
     "price": 2290,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-generic.png"
   },
   {
     "name": "iPhone 17 Air",
     "suffix": "",
     "price": 2190,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-generic.png"
   },
   {
     "name": "iPhone 17 Pro",
     "suffix": "",
     "price": 2790,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-generic.png"
   },
   {
     "name": "iPhone 17 Pro Max",
     "suffix": "",
     "price": 3030,
     "category": "apple",
-    "featured": true
+    "featured": true,
+    "image": "iphone-generic.png"
   },
   {
     "name": "iPad 11th 128GB",
     "suffix": "",
     "price": 790,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "iPad Air M3 128GB",
     "suffix": "",
     "price": 1590,
     "category": "apple",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A06",
     "suffix": "",
     "price": 175,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A07",
     "suffix": "",
     "price": 185,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A16",
     "suffix": "",
     "price": 269,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A17",
     "suffix": "",
     "price": 325,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A26",
     "suffix": "",
     "price": 444,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A36",
     "suffix": "",
     "price": 575,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy A56",
     "suffix": "",
     "price": 675,
     "category": "samsung",
-    "featured": true
+    "featured": true,
+    "image": "iphone-generic.png"
   },
   {
     "name": "Galaxy S24 FE",
     "suffix": "",
     "price": 849,
     "category": "samsung",
-    "featured": false
+    "featured": false,
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy S24 Ultra",
     "suffix": "",
     "price": 1750,
     "category": "samsung",
-    "featured": true
+    "featured": true,
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy S25 Plus",
     "suffix": "",
     "price": 1749,
     "category": "samsung",
-    "featured": true
+    "featured": true,
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy S25 FE",
     "suffix": "",
     "price": 1375,
     "category": "samsung",
-    "featured": true
+    "featured": true,
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "Galaxy S25 Ultra",
     "suffix": "",
     "price": 1975,
     "category": "samsung",
-    "featured": true
+    "featured": true,
+    "image": "samsung-galaxy-s25-ultra.jpg"
   },
   {
     "name": "32\" HD Smart TV (Android 14)",
     "suffix": "",
     "price": 245,
     "category": "tvs",
-    "featured": false
+    "featured": false,
+    "image": "tv-generic.png"
   },
   {
     "name": "32\" HD Smart TV (Google 5.0)",
     "suffix": "",
     "price": 267,
     "category": "tvs",
-    "featured": false
+    "featured": false,
+    "image": "tv-generic.png"
   },
   {
     "name": "43\" FHD Smart TV",
     "suffix": "",
     "price": 429,
     "category": "tvs",
-    "featured": true
+    "featured": true,
+    "image": "tv-generic.png"
   },
   {
     "name": "50\" UHD Smart TV (Android 14)",
     "suffix": "",
     "price": 625,
     "category": "tvs",
-    "featured": true
+    "featured": true,
+    "image": "tv-generic.png"
   },
   {
     "name": "55\" UHD Smart TV (Whale OS)",
     "suffix": "",
     "price": 767,
     "category": "tvs",
-    "featured": false
+    "featured": false,
+    "image": "tv-generic.png"
   },
   {
     "name": "60\" UHD Smart TV",
     "suffix": "",
     "price": 835,
     "category": "tvs",
-    "featured": false
+    "featured": false,
+    "image": "tv-generic.png"
   },
   {
     "name": "65\" UHD Smart TV",
     "suffix": "",
     "price": 1044,
     "category": "tvs",
-    "featured": true
+    "featured": true,
+    "image": "tv-generic.png"
   },
   {
     "name": "Lenovo Laptop",
     "suffix": "",
     "price": 399,
     "category": "laptops",
-    "featured": true
+    "featured": true,
+    "image": "laptop-generic.png"
   },
   {
     "name": "HP Laptop",
     "suffix": "",
     "price": 475,
     "category": "laptops",
-    "featured": true
+    "featured": true,
+    "image": "laptop-generic.png"
   },
   {
     "name": "Digital Air Cooler 5.5L",
     "suffix": "",
     "price": 149,
     "category": "acs",
-    "featured": false
+    "featured": false,
+    "image": "ac-generic.png"
   },
   {
     "name": "Portable AC 12000BTU",
     "suffix": "",
     "price": 847,
     "category": "acs",
-    "featured": true
+    "featured": true,
+    "image": "ac-generic.png"
   },
   {
     "name": "Split 9000BTU (1+1)",
     "suffix": "",
     "price": 476,
     "category": "acs",
-    "featured": false
+    "featured": false,
+    "image": "ac-generic.png"
   },
   {
     "name": "Split 12000BTU Non-Inverter",
     "suffix": "",
     "price": 509,
     "category": "acs",
-    "featured": false
+    "featured": false,
+    "image": "ac-generic.png"
   },
   {
     "name": "Split 12000BTU Inverter",
     "suffix": "",
     "price": 675,
     "category": "acs",
-    "featured": true
+    "featured": true,
+    "image": "ac-generic.png"
   },
   {
     "name": "Split 24000BTU Non-Inverter",
     "suffix": "",
     "price": 1121,
     "category": "acs",
-    "featured": false
+    "featured": false,
+    "image": "ac-generic.png"
   },
   {
     "name": "Split 24000BTU Inverter",
     "suffix": "",
     "price": 1335,
     "category": "acs",
-    "featured": false
+    "featured": false,
+    "image": "ac-generic.png"
   },
   {
     "name": "150cc Motorcycle (Blue)",
     "suffix": "",
     "price": 5555,
     "category": "motor",
-    "featured": true
+    "featured": true,
+    "image": "motorcycle-generic.png"
   },
   {
     "name": "150cc Motorcycle (Black)",
     "suffix": "",
     "price": 5555,
     "category": "motor",
-    "featured": true
+    "featured": true,
+    "image": "motorcycle-generic.png"
   }
 ]

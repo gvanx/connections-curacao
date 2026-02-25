@@ -632,11 +632,16 @@
     .deal-img {
       width: 100%;
       height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
       position: relative;
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+    }
+
+    .deal-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
     }
 
     .deal-body {
@@ -801,10 +806,15 @@
     .product-img {
       width: 100%;
       height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
     }
 
     .product-body {
@@ -1548,6 +1558,28 @@
       return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
     }
 
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function productImageSrc(product) {
+      if (product.image) return `img/products/${product.image}`;
+      const fallbackByCategory = {
+        apple: 'iphone-generic.png',
+        samsung: 'iphone-generic.png',
+        tvs: 'tv-generic.png',
+        laptops: 'laptop-generic.png',
+        acs: 'ac-generic.png',
+        motor: 'motorcycle-generic.png'
+      };
+      return `img/products/${fallbackByCategory[product.category] || 'iphone-generic.png'}`;
+    }
+
     /* ---- Category Grid ---- */
     function renderCategories(products) {
       const container = document.querySelector('#categories .container');
@@ -1606,12 +1638,15 @@
       html += '<div class="deals-track">';
 
       featured.forEach(p => {
-        const meta = CATEGORY_META[p.category];
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+        const imageSrc = productImageSrc(p);
+        const imageAlt = escapeHtml(fullName);
         html += `
           <div class="deal-card">
-            <div class="deal-img" style="background:${meta.gradient}">${meta.icon}</div>
+            <div class="deal-img">
+              <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
+            </div>
             <div class="deal-body">
               <div class="deal-name">${p.name}${hsoBadge}</div>
               <div class="deal-price">${formatPrice(p.price)}</div>
@@ -1662,9 +1697,13 @@
         items.forEach(p => {
           const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
           const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+          const imageSrc = productImageSrc(p);
+          const imageAlt = escapeHtml(fullName);
           html += `
             <div class="product-card">
-              <div class="product-img" style="background:${meta.gradient}">${meta.icon}</div>
+              <div class="product-img">
+                <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
+              </div>
               <div class="product-body">
                 <div class="product-name">${p.name}${hsoBadge}</div>
                 <div class="product-price">${formatPrice(p.price)}</div>
