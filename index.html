@@ -137,12 +137,238 @@
         padding: 60px 0;
       }
     }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+      transition: padding 0.3s ease, background 0.3s ease;
+    }
+
+    #nav.nav-scrolled {
+      padding: 10px 0;
+      background: rgba(10,10,10,0.92);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .logo-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    /* Hamburger X state */
+    #nav.menu-open .nav-hamburger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    #nav.menu-open .nav-hamburger span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    #nav.menu-open .nav-hamburger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile menu overlay */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 105;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #nav.menu-open .nav-mobile-menu {
+      display: flex;
+      opacity: 1;
+    }
+
+    .nav-mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 14px 0;
+      transition: color 0.2s ease;
+    }
+
+    .nav-mobile-menu a:hover,
+    .nav-mobile-menu a:active {
+      color: var(--text);
+    }
+
+    .nav-mobile-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--surface-border);
+      margin: 20px 0;
+    }
+
+    .nav-mobile-menu .nav-pill {
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      margin: 4px 0;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-pills {
+        display: none;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Navigation -->
-  <nav id="nav"></nav>
+  <nav id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">CONNECTIONS<span class="logo-dot"></span></a>
+
+      <div class="nav-links">
+        <a href="#deals">Deals</a>
+        <a href="#products" data-cat="apple">Apple</a>
+        <a href="#products" data-cat="samsung">Samsung</a>
+        <a href="#products" data-cat="tvs">TVs</a>
+        <a href="#locations">Locations</a>
+        <a href="#footer">Contact</a>
+      </div>
+
+      <div class="nav-pills">
+        <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
+        <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
+        <a href="https://trade.connectionscuracao.net" class="nav-pill" target="_blank">Trade-In</a>
+      </div>
+
+      <button class="nav-hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="nav-mobile-menu">
+      <a href="#deals" class="nav-mobile-link">Deals</a>
+      <a href="#products" class="nav-mobile-link" data-cat="apple">Apple</a>
+      <a href="#products" class="nav-mobile-link" data-cat="samsung">Samsung</a>
+      <a href="#products" class="nav-mobile-link" data-cat="tvs">TVs</a>
+      <a href="#locations" class="nav-mobile-link">Locations</a>
+      <a href="#footer" class="nav-mobile-link">Contact</a>
+      <div class="nav-mobile-divider"></div>
+      <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
+      <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
+      <a href="https://trade.connectionscuracao.net" class="nav-pill" target="_blank">Trade-In</a>
+    </div>
+  </nav>
 
   <!-- Hero -->
   <section id="hero"></section>
@@ -177,6 +403,51 @@
 
   <!-- WhatsApp FAB -->
   <a id="whatsapp-fab"></a>
+
+  <script>
+    /* ============================================
+       NAVIGATION JS
+       ============================================ */
+    (() => {
+      const nav = document.getElementById('nav');
+      const hamburger = nav.querySelector('.nav-hamburger');
+      const mobileLinks = nav.querySelectorAll('.nav-mobile-menu a');
+
+      // Scroll: add/remove nav-scrolled class
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Hamburger toggle
+      hamburger.addEventListener('click', () => {
+        nav.classList.toggle('menu-open');
+        document.body.style.overflow = nav.classList.contains('menu-open') ? 'hidden' : '';
+      });
+
+      // Close mobile menu on link click
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('menu-open')) {
+          nav.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
