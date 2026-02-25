@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connections Curacao — Premium Electronics in Curaçao</title>
+  <meta name="description" content="Apple, Samsung, TVs, laptops and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="Connections Curacao — Premium Electronics in Curaçao">
+  <meta property="og:description" content="Apple, Samsung, TVs, laptops and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#007AFF">
+
+  <!-- Favicon — inline SVG lightning bolt -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23007AFF'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* ============================================
+       CSS DESIGN SYSTEM
+       ============================================ */
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-elevated: #111111;
+      --surface: rgba(255,255,255,0.05);
+      --surface-hover: rgba(255,255,255,0.08);
+      --surface-border: rgba(255,255,255,0.1);
+      --surface-border-hover: rgba(255,255,255,0.2);
+      --accent: #007AFF;
+      --accent-glow: rgba(0,122,255,0.3);
+      --accent-orange: #FF6600;
+      --accent-orange-glow: rgba(255,102,0,0.3);
+      --text: #FFFFFF;
+      --text-muted: rgba(255,255,255,0.6);
+      --text-dim: rgba(255,255,255,0.4);
+      --whatsapp: #25D366;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-lg: 28px;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    /* ---- Reset ---- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ---- Utility Classes ---- */
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- Section Spacing ---- */
+    section {
+      padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav"></nav>
+
+  <!-- Hero -->
+  <section id="hero"></section>
+
+  <!-- Categories -->
+  <section id="categories">
+    <div class="container"></div>
+  </section>
+
+  <!-- Deals -->
+  <section id="deals">
+    <div class="container"></div>
+  </section>
+
+  <!-- Products -->
+  <section id="products">
+    <div class="container"></div>
+  </section>
+
+  <!-- Ecosystem -->
+  <section id="ecosystem">
+    <div class="container"></div>
+  </section>
+
+  <!-- Locations -->
+  <section id="locations">
+    <div class="container"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer"></footer>
+
+  <!-- WhatsApp FAB -->
+  <a id="whatsapp-fab"></a>
+
+</body>
+</html>
