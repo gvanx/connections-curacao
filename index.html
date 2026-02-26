@@ -1839,7 +1839,11 @@
     }
 
     function productImageSrc(product) {
-      if (product.image) return `img/products/${product.image}`;
+      if (product.image) {
+        // Prefer .png (transparent) over .jpg
+        const img = product.image.replace(/\.jpe?g$/i, '.png');
+        return `img/products/${img}`;
+      }
       const fallbackByName = {
         'iPhone 12': 'iphone-12-model.png',
         'iPhone 13': 'iphone-13-model.png',
