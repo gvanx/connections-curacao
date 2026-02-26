@@ -50,7 +50,7 @@
   {
     "name": "iPhone 16 Plus",
     "suffix": "",
-    "price": 1750,
+    "price": 1850,
     "category": "apple",
     "featured": false,
     "image": "iphone-16-plus-model.jpg"
@@ -58,7 +58,7 @@
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
-    "price": 1850,
+    "price": 1890,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-pro-max-model.jpg"
@@ -66,7 +66,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2290,
+    "price": 2190,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -82,7 +82,7 @@
   {
     "name": "iPhone 17 Pro",
     "suffix": "",
-    "price": 2790,
+    "price": 2890,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-model.jpg"
@@ -100,7 +100,7 @@
     "suffix": "",
     "price": 790,
     "category": "apple",
-    "featured": false,
+    "featured": true,
     "image": "ipad-11th-model.jpg"
   },
   {
@@ -122,7 +122,7 @@
   {
     "name": "Galaxy A07",
     "suffix": "",
-    "price": 185,
+    "price": 199,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a07-model.jpg"
@@ -130,7 +130,7 @@
   {
     "name": "Galaxy A16",
     "suffix": "",
-    "price": 269,
+    "price": 275,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a16-model.jpg"
@@ -178,7 +178,7 @@
   {
     "name": "Galaxy S24 Ultra",
     "suffix": "",
-    "price": 1750,
+    "price": 1850,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s24-ultra-model.jpg"
@@ -186,7 +186,7 @@
   {
     "name": "Galaxy S25 Plus",
     "suffix": "",
-    "price": 1749,
+    "price": 1549,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-plus-model.jpg"
@@ -202,7 +202,7 @@
   {
     "name": "Galaxy S25 Ultra",
     "suffix": "",
-    "price": 1975,
+    "price": 2090,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-ultra-model.jpg"
@@ -274,7 +274,7 @@
   {
     "name": "HP Laptop",
     "suffix": "",
-    "price": 475,
+    "price": 525,
     "category": "laptops",
     "featured": true,
     "image": "laptop-generic.png"
