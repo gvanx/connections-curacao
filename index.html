@@ -898,9 +898,10 @@
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       display: none;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 20px;
+      overflow-y: auto;
     }
 
     .checkout-overlay.visible {
@@ -915,6 +916,9 @@
       padding: 1.5rem;
       position: relative;
       box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      max-height: calc(100dvh - 40px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     .checkout-close {
@@ -1052,6 +1056,20 @@
 
     .checkout-submit {
       margin-top: 0.4rem;
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    @media (max-width: 640px) {
+      .checkout-overlay {
+        padding: 10px;
+      }
+
+      .checkout-modal {
+        max-height: calc(100dvh - 20px);
+        padding: 1rem;
+      }
     }
 
     /* ============================================
