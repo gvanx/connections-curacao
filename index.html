@@ -1569,6 +1569,35 @@
 
     function productImageSrc(product) {
       if (product.image) return `img/products/${product.image}`;
+      const fallbackByName = {
+        'iPhone 12': 'iphone-12-model.jpg',
+        'iPhone 13': 'iphone-13-model.jpg',
+        'iPhone 14': 'iphone-14-model.jpg',
+        'iPhone 15': 'iphone-15-model.jpg',
+        'iPhone 15 Pro Max': 'iphone-15-pro-max-model.jpg',
+        'iPhone 16': 'iphone-16-model.jpg',
+        'iPhone 16 Plus': 'iphone-16-plus-model.jpg',
+        'iPhone 16 Pro Max': 'iphone-16-pro-max-model.jpg',
+        'iPhone 17': 'iphone-17-model.jpg',
+        'iPhone 17 Air': 'iphone-17-air-model.jpg',
+        'iPhone 17 Pro': 'iphone-17-pro-model.jpg',
+        'iPhone 17 Pro Max': 'iphone-17-pro-max-model.jpg',
+        'iPad 11th 128GB': 'ipad-11th-model.jpg',
+        'iPad Air M3 128GB': 'ipad-air-m3-model.jpg',
+        'Galaxy A06': 'galaxy-a06-model.jpg',
+        'Galaxy A07': 'galaxy-a07-model.jpg',
+        'Galaxy A16': 'galaxy-a16-model.jpg',
+        'Galaxy A17': 'galaxy-a17-model.jpg',
+        'Galaxy A26': 'galaxy-a26-model.jpg',
+        'Galaxy A36': 'galaxy-a36-model.jpg',
+        'Galaxy A56': 'galaxy-a56-model.jpg',
+        'Galaxy S24 FE': 'galaxy-s24-fe-model.jpg',
+        'Galaxy S24 Ultra': 'galaxy-s24-ultra-model.jpg',
+        'Galaxy S25 Plus': 'galaxy-s25-plus-model.jpg',
+        'Galaxy S25 FE': 'galaxy-s25-fe-model.jpg',
+        'Galaxy S25 Ultra': 'galaxy-s25-ultra-model.jpg'
+      };
+      if (fallbackByName[product.name]) return `img/products/${fallbackByName[product.name]}`;
       const fallbackByCategory = {
         apple: 'iphone-16.webp',
         samsung: 'samsung-galaxy-s25-ultra.jpg',
