@@ -888,6 +888,173 @@
     }
 
     /* ============================================
+       CHECKOUT MODAL
+       ============================================ */
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .checkout-overlay.visible {
+      display: flex;
+    }
+
+    .checkout-modal {
+      width: min(520px, 100%);
+      background: #101010;
+      border: 1px solid var(--surface-border-hover);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+
+    .checkout-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .checkout-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding-right: 2.25rem;
+    }
+
+    .checkout-lines {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+    }
+
+    .checkout-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .checkout-line strong {
+      color: var(--text);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .checkout-line.total {
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 0.2rem;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 0.55rem;
+    }
+
+    .checkout-label {
+      display: block;
+      margin-bottom: 0.4rem;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 700;
+    }
+
+    .checkout-input {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+    }
+
+    .checkout-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.15);
+    }
+
+    .checkout-options {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.75rem;
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.2rem;
+    }
+
+    .checkout-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkout-radio input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .checkout-terms {
+      margin-top: 0.9rem;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .checkout-terms input {
+      accent-color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .checkout-error {
+      margin-top: 0.7rem;
+      color: #ff7b7b;
+      font-size: 0.84rem;
+      min-height: 1.25rem;
+    }
+
+    .checkout-submit {
+      margin-top: 0.4rem;
+    }
+
+    /* ============================================
        ECOSYSTEM SECTION (Task 8)
        ============================================ */
     .ecosystem-grid {
@@ -1492,6 +1659,49 @@
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.738-6.354-1.996l-.244-.167-3.735 1.251 1.251-3.735-.167-.244A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
   </a>
 
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="checkout-overlay" hidden>
+    <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <button id="checkout-close" class="checkout-close" type="button" aria-label="Close checkout">×</button>
+      <h3 id="checkout-title" class="checkout-title">Checkout</h3>
+
+      <div class="checkout-lines">
+        <div class="checkout-line"><span>Product</span><strong id="checkout-product">-</strong></div>
+        <div class="checkout-line"><span>Base Price</span><strong id="checkout-base">NAf 0</strong></div>
+        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">NAf 0</strong></div>
+        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">NAf 0</strong></div>
+      </div>
+
+      <form id="checkout-form">
+        <label class="checkout-label" for="checkout-name">Your Name</label>
+        <input id="checkout-name" class="checkout-input" type="text" placeholder="Your name">
+
+        <label class="checkout-label" for="checkout-phone">WhatsApp Number</label>
+        <input id="checkout-phone" class="checkout-input" type="text" placeholder="e.g. +599 9 678 2619">
+
+        <div class="checkout-label">Delivery Option</div>
+        <div class="checkout-options">
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="pickup" checked> Pickup (Free)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+NAf 35)</label>
+        </div>
+
+        <div id="checkout-address-wrap" style="display:none;">
+          <label class="checkout-label" for="checkout-address">Delivery Address</label>
+          <input id="checkout-address" class="checkout-input" type="text" placeholder="Street, area, house number">
+        </div>
+
+        <label class="checkout-terms">
+          <input id="checkout-terms" type="checkbox">
+          <span>I agree to share this order information for confirmation and delivery.</span>
+        </label>
+
+        <div id="checkout-error" class="checkout-error"></div>
+        <button type="submit" class="btn-whatsapp checkout-submit">Open Sentoo + WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     /* ============================================
        NAVIGATION JS
@@ -1572,6 +1782,17 @@
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'motor'];
     const WA_NUMBER = '59996782619';
+    const CHECKOUT_CONFIG = {
+      sentooBaseUrl: 'https://sentoo.pro/connections-curacao',
+      deliveryFee: 35,
+      email: {
+        serviceID: 'service_jbzcbpk',
+        templateID: 'template_ckyri4m',
+        publicKey: 'H4OR1MKdC7n5o8A4G'
+      }
+    };
+
+    let activeCheckout = null;
 
     function formatPrice(price) {
       return 'NAf ' + price.toLocaleString('en-US');
@@ -1671,6 +1892,186 @@
     /* ---- WhatsApp SVG icon ---- */
     const WA_ICON = `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.738-6.354-1.996l-.244-.167-3.735 1.251 1.251-3.735-.167-.244A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>`;
 
+    function initEmailJS() {
+      try {
+        if (window.emailjs && CHECKOUT_CONFIG.email.publicKey) {
+          emailjs.init(CHECKOUT_CONFIG.email.publicKey);
+        }
+      } catch (e) {
+        console.warn('EmailJS init failed', e);
+      }
+    }
+
+    function sentooLink(amount) {
+      return `${CHECKOUT_CONFIG.sentooBaseUrl}/${Math.round(amount * 100)}`;
+    }
+
+    function getCheckoutTotals() {
+      if (!activeCheckout) return { fee: 0, total: 0, deliveryType: 'pickup' };
+      const deliveryType = (document.querySelector('input[name="checkout-delivery"]:checked') || {}).value || 'pickup';
+      const fee = deliveryType === 'delivery' ? CHECKOUT_CONFIG.deliveryFee : 0;
+      return { fee, total: activeCheckout.price + fee, deliveryType };
+    }
+
+    function updateCheckoutSummary() {
+      if (!activeCheckout) return;
+      const { fee, total, deliveryType } = getCheckoutTotals();
+      document.getElementById('checkout-product').textContent = activeCheckout.name;
+      document.getElementById('checkout-base').textContent = formatPrice(activeCheckout.price);
+      document.getElementById('checkout-fee').textContent = formatPrice(fee);
+      document.getElementById('checkout-total').textContent = formatPrice(total);
+      document.getElementById('checkout-address-wrap').style.display = deliveryType === 'delivery' ? 'block' : 'none';
+    }
+
+    function closeCheckout() {
+      const overlay = document.getElementById('checkout-modal');
+      if (!overlay) return;
+      overlay.classList.remove('visible');
+      overlay.setAttribute('hidden', '');
+      activeCheckout = null;
+    }
+
+    function openCheckout(name, price) {
+      const overlay = document.getElementById('checkout-modal');
+      if (!overlay) return;
+
+      activeCheckout = { name, price };
+      const form = document.getElementById('checkout-form');
+      form.reset();
+      document.getElementById('checkout-error').textContent = '';
+      document.querySelector('input[name="checkout-delivery"][value="pickup"]').checked = true;
+      updateCheckoutSummary();
+
+      overlay.classList.add('visible');
+      overlay.removeAttribute('hidden');
+      document.getElementById('checkout-name').focus();
+    }
+
+    function orderMessage(details) {
+      const deliveryLine = details.deliveryType === 'delivery'
+        ? `Delivery (+${formatPrice(details.deliveryFee)})`
+        : 'Pickup (Free)';
+
+      const lines = [
+        'Hi Connections!',
+        `Order: ${details.orderId}`,
+        `Product: ${details.productName}`,
+        `Base price: ${formatPrice(details.basePrice)}`,
+        `Delivery: ${deliveryLine}`,
+        `Total: ${formatPrice(details.total)}`,
+        `Name: ${details.customerName}`,
+        `Phone: ${details.customerPhone}`
+      ];
+      if (details.address) lines.push(`Address: ${details.address}`);
+      lines.push('', 'Payment: Sentoo');
+      return lines.join('\n');
+    }
+
+    function attachOrderButtons(scope) {
+      scope.querySelectorAll('.js-order-btn').forEach((btn) => {
+        if (btn.dataset.bound === '1') return;
+        btn.dataset.bound = '1';
+        btn.addEventListener('click', () => {
+          const productName = decodeURIComponent(btn.dataset.productName || '');
+          const productPrice = Number(btn.dataset.productPrice || 0);
+          if (!productName || Number.isNaN(productPrice)) return;
+          openCheckout(productName, productPrice);
+        });
+      });
+    }
+
+    function initCheckoutModal() {
+      initEmailJS();
+
+      const overlay = document.getElementById('checkout-modal');
+      const closeBtn = document.getElementById('checkout-close');
+      const form = document.getElementById('checkout-form');
+      const errorEl = document.getElementById('checkout-error');
+
+      if (!overlay || !closeBtn || !form || !errorEl) return;
+
+      closeBtn.addEventListener('click', closeCheckout);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeCheckout();
+      });
+
+      document.querySelectorAll('input[name="checkout-delivery"]').forEach((radio) => {
+        radio.addEventListener('change', updateCheckoutSummary);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+          closeCheckout();
+        }
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!activeCheckout) return;
+
+        const customerName = document.getElementById('checkout-name').value.trim();
+        const customerPhone = document.getElementById('checkout-phone').value.trim();
+        const address = document.getElementById('checkout-address').value.trim();
+        const termsAccepted = document.getElementById('checkout-terms').checked;
+        const { fee, total, deliveryType } = getCheckoutTotals();
+
+        if (!customerName) {
+          errorEl.textContent = 'Please enter your name.';
+          return;
+        }
+        if (!customerPhone) {
+          errorEl.textContent = 'Please enter your WhatsApp number.';
+          return;
+        }
+        if (deliveryType === 'delivery' && !address) {
+          errorEl.textContent = 'Please enter your delivery address.';
+          return;
+        }
+        if (!termsAccepted) {
+          errorEl.textContent = 'Please accept the terms to continue.';
+          return;
+        }
+
+        errorEl.textContent = '';
+        const orderId = `CON-${Date.now().toString(36).toUpperCase()}`;
+        const message = orderMessage({
+          orderId,
+          productName: activeCheckout.name,
+          basePrice: activeCheckout.price,
+          deliveryType,
+          deliveryFee: fee,
+          total,
+          customerName,
+          customerPhone,
+          address
+        });
+
+        const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+        const payUrl = sentooLink(total);
+
+        try {
+          if (window.emailjs && CHECKOUT_CONFIG.email.serviceID && CHECKOUT_CONFIG.email.templateID) {
+            await emailjs.send(CHECKOUT_CONFIG.email.serviceID, CHECKOUT_CONFIG.email.templateID, {
+              orderId,
+              name: customerName,
+              whatsapp: customerPhone,
+              product: activeCheckout.name,
+              amount: formatPrice(total),
+              delivery: deliveryType === 'delivery' ? 'Delivery' : 'Pickup',
+              address: address || '',
+              payment: 'Sentoo'
+            });
+          }
+        } catch (err) {
+          console.warn('EmailJS send failed', err);
+        }
+
+        window.open(payUrl, '_blank', 'noopener');
+        window.open(waUrl, '_blank', 'noopener');
+        closeCheckout();
+      });
+    }
+
     /* ---- Deals Carousel ---- */
     function renderDeals(products) {
       const featured = products.filter(p => p.featured);
@@ -1695,6 +2096,7 @@
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
+        const encodedName = encodeURIComponent(fullName);
         html += `
           <div class="deal-card">
             <div class="deal-img">
@@ -1703,9 +2105,9 @@
             <div class="deal-body">
               <div class="deal-name">${p.name}${hsoBadge}</div>
               <div class="deal-price">${formatPrice(p.price)}</div>
-              <a href="${waLink(fullName, p.price)}" target="_blank" rel="noopener" class="btn-whatsapp">
-                ${WA_ICON} Order via WhatsApp
-              </a>
+              <button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+                ${WA_ICON} Checkout & Pay
+              </button>
             </div>
           </div>`;
       });
@@ -1726,6 +2128,7 @@
         track.scrollBy({ left: scrollAmt, behavior: 'smooth' });
       });
 
+      attachOrderButtons(container);
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
 
@@ -1752,6 +2155,7 @@
           const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
+          const encodedName = encodeURIComponent(fullName);
           html += `
             <div class="product-card">
               <div class="product-img">
@@ -1760,9 +2164,9 @@
               <div class="product-body">
                 <div class="product-name">${p.name}${hsoBadge}</div>
                 <div class="product-price">${formatPrice(p.price)}</div>
-                <a href="${waLink(fullName, p.price)}" target="_blank" rel="noopener" class="btn-whatsapp-sm">
-                  ${WA_ICON} Order via WhatsApp
-                </a>
+                <button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+                  ${WA_ICON} Checkout & Pay
+                </button>
               </div>
             </div>`;
         });
@@ -1771,6 +2175,7 @@
       });
 
       container.innerHTML = html;
+      attachOrderButtons(container);
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
 
@@ -1782,6 +2187,7 @@
         renderCategories(products);
         renderDeals(products);
         renderProducts(products);
+        initCheckoutModal();
       } catch (e) {
         console.error('Failed to load products:', e);
       }
