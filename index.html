@@ -1665,7 +1665,7 @@
       <h2 class="section-title fade-in">Visit Our Stores</h2>
       <div class="locations-grid">
         <div class="location-card fade-in">
-          <span class="location-badge">Main Store</span>
+          <span class="location-badge">Punda</span>
           <h3 class="location-name">Connections Punda</h3>
           <div class="location-detail">
             <span class="loc-icon">📍</span>
@@ -1685,10 +1685,11 @@
           </div>
         </div>
         <div class="location-card fade-in">
+          <span class="location-badge">Otrobanda</span>
           <h3 class="location-name">Connections Otrobanda</h3>
           <div class="location-detail">
             <span class="loc-icon">📍</span>
-            <span>Breedestraat 13, Otrobanda, Willemstad, Cura&ccedil;ao</span>
+            <span>Bredestraat 12, Otrobanda, Willemstad, Cura&ccedil;ao</span>
           </div>
           <div class="location-detail">
             <span class="loc-icon">🕐</span>
@@ -1696,11 +1697,11 @@
           </div>
           <div class="location-detail">
             <span class="loc-icon">📞</span>
-            <a href="tel:+59996782619">+599 9 678 2619</a>
+            <a href="tel:+59996912424">+599 9 691 2424</a>
           </div>
           <div class="location-buttons">
-            <a href="https://maps.google.com/?q=Breedestraat+13+Otrobanda+Willemstad+Curacao" target="_blank" rel="noopener" class="btn-loc btn-loc-primary">Get Directions</a>
-            <a href="tel:+59996782619" class="btn-loc btn-loc-outline">Call Us</a>
+            <a href="https://maps.google.com/?q=Bredestraat+12+Otrobanda+Willemstad+Curacao" target="_blank" rel="noopener" class="btn-loc btn-loc-primary">Get Directions</a>
+            <a href="tel:+59996912424" class="btn-loc btn-loc-outline">Call Us</a>
           </div>
         </div>
       </div>
@@ -1755,7 +1756,7 @@
           </div>
           <div class="footer-contact-item">
             <span>📍</span>
-            <span>Punda: Ruyterkade 28 · Otrobanda: Breedestraat 13</span>
+            <span>Punda: Ruyterkade 28 · Otrobanda: Bredestraat 12</span>
           </div>
         </div>
       </div>
@@ -1913,6 +1914,7 @@
         publicKey: 'H4OR1MKdC7n5o8A4G'
       }
     };
+    const PRODUCTS_DATA_VERSION = '2026-02-27-1';
 
     let activeCheckout = null;
 
@@ -1955,7 +1957,6 @@
         'iPhone 17 Pro Max': 'iphone-17-pro-max-model.png',
         'iPad 11th 128GB': 'ipad-11th-model.png',
         'iPad Air M3 128GB': 'ipad-air-m3-model.png',
-        'Galaxy A06': 'galaxy-a06-model.png',
         'Galaxy A07': 'galaxy-a07-model.png',
         'Galaxy A16': 'galaxy-a16-model.png',
         'Galaxy A17': 'galaxy-a17-model.png',
@@ -2332,7 +2333,8 @@
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
-        const res = await fetch('data/products.json');
+        const res = await fetch(`data/products.json?v=${PRODUCTS_DATA_VERSION}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
         const products = await res.json();
         renderCategories(products);
         renderDeals(products);

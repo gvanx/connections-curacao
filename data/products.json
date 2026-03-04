@@ -18,7 +18,7 @@
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 950,
+    "price": 849,
     "category": "apple",
     "featured": false,
     "image": "iphone-14-model.jpg"
@@ -58,7 +58,7 @@
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
-    "price": 1890,
+    "price": 1990,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-pro-max-model.jpg"
@@ -66,7 +66,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2190,
+    "price": 2100,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -74,7 +74,7 @@
   {
     "name": "iPhone 17 Air",
     "suffix": "",
-    "price": 2190,
+    "price": 2290,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-air-model.jpg"
@@ -103,22 +103,7 @@
     "featured": true,
     "image": "ipad-11th-model.jpg"
   },
-  {
-    "name": "iPad Air M3 128GB",
-    "suffix": "",
-    "price": 1590,
-    "category": "apple",
-    "featured": false,
-    "image": "ipad-air-m3-model.jpg"
-  },
-  {
-    "name": "Galaxy A06",
-    "suffix": "",
-    "price": 175,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-a06-model.jpg"
-  },
+
   {
     "name": "Galaxy A07",
     "suffix": "",
@@ -130,7 +115,7 @@
   {
     "name": "Galaxy A16",
     "suffix": "",
-    "price": 275,
+    "price": 289,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a16-model.jpg"
@@ -138,7 +123,7 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 325,
+    "price": 349,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a17-model.jpg"
@@ -146,7 +131,7 @@
   {
     "name": "Galaxy A26",
     "suffix": "",
-    "price": 444,
+    "price": 399,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a26-model.jpg"
@@ -194,7 +179,7 @@
   {
     "name": "Galaxy S25 FE",
     "suffix": "",
-    "price": 1375,
+    "price": 1290,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-fe-model.jpg"
@@ -337,18 +322,18 @@
   },
   {
     "name": "150cc Motorcycle (Blue)",
-    "suffix": "",
+    "suffix": "MOT9184G",
     "price": 5555,
     "category": "motor",
     "featured": true,
-    "image": "motorcycle-generic.png"
+    "image": "mot9184g.png"
   },
   {
     "name": "150cc Motorcycle (Black)",
-    "suffix": "",
+    "suffix": "MOT9185G",
     "price": 5555,
     "category": "motor",
     "featured": true,
-    "image": "motorcycle-generic.png"
+    "image": "mot9185g.png"
   }
 ]
