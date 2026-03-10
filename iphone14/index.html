@@ -269,6 +269,7 @@
       text-transform: uppercase;
     }
 
+    .float-tags-row { display: contents; }
     .float-tag {
       position: absolute;
       padding: 0.5rem 0.85rem;
@@ -453,7 +454,21 @@
       .hero-visual { margin-top: 1rem; }
       .phone-frame { width: 220px; height: 440px; }
       .phone-screen .phone-time { font-size: 3.4rem; }
-      .float-tag { display: none; }
+      .hero-visual {
+        flex-direction: column;
+      }
+      .float-tag {
+        position: static;
+        animation: none;
+        transform: none;
+      }
+      .float-tags-row {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
     }
     @media (max-width: 680px) {
       .highlights-grid { grid-template-columns: 1fr; }
@@ -507,9 +522,11 @@
         </div>
 
         <div class="hero-visual">
-          <div class="float-tag tag-1"><span class="tag-val">128GB</span> Storage</div>
-          <div class="float-tag tag-2"><span class="tag-green">Save ANG 340</span></div>
-          <div class="float-tag tag-3">A16 <span class="tag-val">Bionic</span></div>
+          <div class="float-tags-row">
+            <div class="float-tag tag-1"><span class="tag-val">128GB</span> Storage</div>
+            <div class="float-tag tag-2"><span class="tag-green">Save ANG 340</span></div>
+            <div class="float-tag tag-3">A16 <span class="tag-val">Bionic</span></div>
+          </div>
           <div class="phone-frame">
             <div class="phone-screen">
               <span class="phone-date">Monday, March 10</span>
