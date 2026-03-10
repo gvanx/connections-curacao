@@ -240,11 +240,17 @@
     .phone-screen::before {
       content: '';
       position: absolute;
-      top: 8px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 28px;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 56%; height: 28px;
       background: #000;
-      border-radius: 20px;
+      border-radius: 0 0 20px 20px;
       z-index: 2;
+    }
+    .phone-screen .phone-date {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      margin-top: 3rem;
     }
     .phone-screen .phone-time {
       font-size: 4.5rem;
@@ -252,12 +258,6 @@
       color: #fff;
       letter-spacing: -0.03em;
       line-height: 1;
-      margin-top: 2rem;
-    }
-    .phone-screen .phone-date {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.5);
-      font-weight: 500;
     }
     .phone-screen .phone-logo {
       margin-top: auto;
