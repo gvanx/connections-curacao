@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Repair | Connections Curacao — #2 Best Repair on the Island</title>
+  <meta name="description" content="Award-winning phone repair in Curaçao. iPhone & Samsung screen repair, charging ports, batteries and more. Walk in or WhatsApp us.">
+  <meta property="og:title" content="Phone Repair | Connections Curacao">
+  <meta property="og:description" content="Curaçao's #2 best phone repair. iPhone & Samsung screens, batteries, charging ports. Fast turnaround.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net/repair/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://connectionscuracao.net/repair/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23007AFF'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.07);
+      --line: rgba(255,255,255,0.08);
+      --line-hover: rgba(255,255,255,0.16);
+      --text: #f5f5f7;
+      --muted: #8e8e93;
+      --accent: #007AFF;
+      --accent-glow: rgba(0,122,255,0.25);
+      --green: #30d158;
+      --green-glow: rgba(48,209,88,0.2);
+      --gold: #ffd60a;
+      --gold-glow: rgba(255,214,10,0.2);
+      --orange: #ff9f0a;
+      --red: #ff453a;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .shell { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      min-height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+    }
+    .brand-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      box-shadow: 0 0 0 5px rgba(0,122,255,0.12);
+    }
+    .topbar-actions { display: flex; gap: 0.5rem; align-items: center; }
+    .topbar-link {
+      padding: 0.5rem 0.85rem; border-radius: 999px;
+      font-size: 0.82rem; font-weight: 600;
+      border: 1px solid var(--line); color: var(--muted);
+      transition: all 0.2s;
+    }
+    .topbar-link:hover { border-color: var(--accent); color: var(--accent); }
+    .topbar-link.filled { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .topbar-link.filled:hover { background: #0066d6; }
+
+    /* ── Award Banner ── */
+    .award-banner {
+      background: linear-gradient(135deg, #1a1500 0%, #0f0a00 100%);
+      border-bottom: 1px solid rgba(255,214,10,0.15);
+      padding: 0.7rem 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+    .award-banner .trophy { font-size: 1rem; margin: 0 0.3rem; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(circle, rgba(0,122,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem; border-radius: 999px;
+      background: var(--gold-glow); border: 1px solid rgba(255,214,10,0.3);
+      font-size: 0.8rem; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent), #5ac8fa, var(--green));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--muted);
+      max-width: 540px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 1.8rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 4px 24px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
+    .btn-outline {
+      border: 1px solid var(--line); color: var(--text);
+      background: var(--surface);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-whatsapp {
+      background: #25D366; color: #fff;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.25);
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,0.35); }
+
+    /* ── Stats ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--muted));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* ── Section Headings ── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); opacity: 0.5;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Repair Services (interactive selector) ── */
+    .services { padding: 4rem 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .brand-tabs {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .brand-tab {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.25rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--line); background: var(--surface);
+      font-weight: 600; font-size: 0.95rem;
+      transition: all 0.25s; cursor: pointer;
+      text-align: left; width: 100%;
+    }
+    .brand-tab:hover { border-color: var(--line-hover); background: var(--surface-hover); }
+    .brand-tab.active {
+      border-color: var(--accent);
+      background: rgba(0,122,255,0.08);
+      color: var(--accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .brand-tab-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .brand-tab.active .brand-tab-icon { background: rgba(0,122,255,0.15); }
+
+    .repair-panel { display: none; }
+    .repair-panel.active { display: block; }
+
+    .repair-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .repair-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .repair-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .repair-card:hover {
+      border-color: var(--line-hover);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .repair-card:hover::before { opacity: 1; }
+    .repair-card-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1rem;
+      background: rgba(0,122,255,0.08);
+    }
+    .repair-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+    .repair-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .repair-card .tag {
+      display: inline-block; margin-top: 0.75rem;
+      padding: 0.25rem 0.6rem; border-radius: 6px;
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tag-popular { background: var(--green-glow); color: var(--green); }
+    .tag-fast { background: rgba(0,122,255,0.1); color: var(--accent); }
+    .tag-specialist { background: var(--gold-glow); color: var(--gold); }
+
+    /* ── Process ── */
+    .process { padding: 4rem 0; border-top: 1px solid var(--line); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .step {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      position: relative;
+      transition: all 0.3s;
+    }
+    .step:hover {
+      border-color: var(--line-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+      background: rgba(0,122,255,0.1); color: var(--accent);
+      margin: 0 auto 1rem;
+    }
+    .step-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .step h3 {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem;
+    }
+    .step p { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Devices ── */
+    .devices { padding: 4rem 0; border-top: 1px solid var(--line); }
+    .device-list {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .device-chip {
+      padding: 0.55rem 1.1rem; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface);
+      font-size: 0.85rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .device-chip:hover {
+      border-color: var(--accent); color: var(--accent);
+      background: rgba(0,122,255,0.05);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 4rem 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .cta-card {
+      background: linear-gradient(135deg, rgba(0,122,255,0.08), rgba(48,209,88,0.05));
+      border: 1px solid rgba(0,122,255,0.15);
+      border-radius: var(--radius);
+      padding: 3.5rem 2rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .cta-card p { color: var(--muted); margin-bottom: 2rem; max-width: 420px; margin-inline: auto; }
+    .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .footer p { font-size: 0.82rem; color: var(--muted); }
+    .footer a { color: var(--accent); }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      .brand-tabs::-webkit-scrollbar { display: none; }
+      .brand-tab {
+        flex-shrink: 0;
+        min-width: auto;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+      }
+      .brand-tab-icon { width: 28px; height: 28px; font-size: 1rem; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .hero { padding: 3.5rem 0 3rem; }
+      .repair-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .repair-cards { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    /* ── WhatsApp FAB ── */
+    .whatsapp-fab {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.25s;
+    }
+    .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .whatsapp-fab svg { width: 28px; height: 28px; }
+  </style>
+</head>
+<body>
+
+  <!-- Award Banner -->
+  <div class="award-banner">
+    <span class="trophy">&#127942;</span>
+    Voted #2 Best Phone Repair in Curaçao 2025
+    <span class="trophy">&#127942;</span>
+  </div>
+
+  <!-- Topbar -->
+  <nav class="topbar">
+    <div class="shell topbar-inner">
+      <a href="/" class="brand"><span class="brand-dot"></span> Connections Curacao</a>
+      <div class="topbar-actions">
+        <a href="/" class="topbar-link">Store</a>
+        <a href="https://wa.me/59994618989?text=Hi%2C%20I%20need%20a%20phone%20repair" class="topbar-link filled">Get a Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="shell">
+      <div class="hero-badge">&#127942; Award-Winning Repair</div>
+      <h1>We Fix Phones.<br><span class="gradient">Better Than Almost Anyone.</span></h1>
+      <p class="hero-sub">Cracked screen? Dead battery? We've got you. Expert repairs for iPhone and Samsung with fast turnaround and quality parts.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/59994618989?text=Hi%2C%20I%20need%20a%20phone%20repair" class="btn btn-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us
+        </a>
+        <a href="#services" class="btn btn-outline">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="shell">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">2nd</div>
+        <div class="stat-label">Best on the Island</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Phones Repaired</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">Same Day</div>
+        <div class="stat-label">Most Repairs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services (Interactive) -->
+  <section id="services" class="services">
+    <div class="shell">
+      <div class="section-label">What We Repair</div>
+      <div class="section-title">Select your device</div>
+
+      <div class="services-grid">
+        <!-- Brand Tabs -->
+        <div class="brand-tabs">
+          <button class="brand-tab active" data-brand="iphone">
+            <span class="brand-tab-icon">&#63743;</span>
+            iPhone
+          </button>
+          <button class="brand-tab" data-brand="samsung">
+            <span class="brand-tab-icon">&#9733;</span>
+            Samsung
+          </button>
+          <button class="brand-tab" data-brand="other">
+            <span class="brand-tab-icon">&#128260;</span>
+            Other Brands
+          </button>
+        </div>
+
+        <!-- iPhone Panel -->
+        <div class="repair-panel active" data-panel="iphone">
+          <div class="repair-cards">
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128241;</div>
+              <h3>Screen Replacement</h3>
+              <p>LCD &amp; OLED display repair. Original quality screens for all iPhone models.</p>
+              <span class="tag tag-popular">Most Popular</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Charging Port</h3>
+              <p>Lightning and USB-C port repair. Fix slow or no charging issues.</p>
+              <span class="tag tag-fast">Quick Fix</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Battery Replacement</h3>
+              <p>Restore your battery health to 100%. Genuine replacement cells.</p>
+              <span class="tag tag-popular">Most Popular</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128247;</div>
+              <h3>Camera Repair</h3>
+              <p>Front and rear camera module replacements. Get your photos sharp again.</p>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128266;</div>
+              <h3>Speaker &amp; Mic</h3>
+              <p>Ear speaker, loudspeaker, and microphone replacements.</p>
+              <span class="tag tag-fast">Quick Fix</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128275;</div>
+              <h3>Back Glass</h3>
+              <p>Cracked back panel repair for iPhone 8 and newer models.</p>
+              <span class="tag tag-specialist">Specialist</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Samsung Panel -->
+        <div class="repair-panel" data-panel="samsung">
+          <div class="repair-cards">
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128241;</div>
+              <h3>Screen Replacement</h3>
+              <p>AMOLED &amp; LCD display repair for Galaxy S, A, and Note series.</p>
+              <span class="tag tag-popular">Most Popular</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Charging Port</h3>
+              <p>USB-C port replacement. Fix charging and data transfer issues.</p>
+              <span class="tag tag-fast">Quick Fix</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Battery Replacement</h3>
+              <p>New battery for any Galaxy model. Same-day service available.</p>
+              <span class="tag tag-popular">Most Popular</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128247;</div>
+              <h3>Camera Repair</h3>
+              <p>Fix blurry or broken camera modules. All Galaxy models supported.</p>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128266;</div>
+              <h3>Speaker &amp; Mic</h3>
+              <p>Audio component repairs for clear calls and media playback.</p>
+              <span class="tag tag-fast">Quick Fix</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128260;</div>
+              <h3>Fold / Flip Repair</h3>
+              <p>Specialized hinge and inner screen repair for Galaxy Fold &amp; Flip.</p>
+              <span class="tag tag-specialist">Specialist</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Panel -->
+        <div class="repair-panel" data-panel="other">
+          <div class="repair-cards">
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128241;</div>
+              <h3>Screen Replacement</h3>
+              <p>Display repair for Xiaomi, Huawei, OnePlus, Google Pixel and more.</p>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Charging Port</h3>
+              <p>USB-C port repair for any Android device.</p>
+              <span class="tag tag-fast">Quick Fix</span>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128267;</div>
+              <h3>Battery Replacement</h3>
+              <p>Battery swaps for most major Android brands.</p>
+            </div>
+            <div class="repair-card">
+              <div class="repair-card-icon">&#128187;</div>
+              <h3>Tablet Repair</h3>
+              <p>iPad and Android tablet screen and battery repairs.</p>
+              <span class="tag tag-specialist">Specialist</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process">
+    <div class="shell">
+      <div class="section-label">How It Works</div>
+      <div class="section-title">4 simple steps</div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-icon">&#128172;</div>
+          <h3>WhatsApp Us</h3>
+          <p>Describe the issue and send a photo if possible</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-icon">&#128269;</div>
+          <h3>Free Diagnosis</h3>
+          <p>Bring your device in for a free check-up and quote</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-icon">&#128295;</div>
+          <h3>Expert Repair</h3>
+          <p>Our certified techs fix your device — most done same day</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-icon">&#10004;&#65039;</div>
+          <h3>Pick Up</h3>
+          <p>Tested, quality-checked, and ready to go</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Devices We Service -->
+  <section class="devices">
+    <div class="shell">
+      <div class="section-label">Devices We Service</div>
+      <div class="section-title">If it has a screen, we can probably fix it</div>
+      <div class="device-list">
+        <span class="device-chip">iPhone 16 Pro Max</span>
+        <span class="device-chip">iPhone 16 Pro</span>
+        <span class="device-chip">iPhone 16</span>
+        <span class="device-chip">iPhone 15 Pro Max</span>
+        <span class="device-chip">iPhone 15 Pro</span>
+        <span class="device-chip">iPhone 15</span>
+        <span class="device-chip">iPhone 14 Pro Max</span>
+        <span class="device-chip">iPhone 14 Pro</span>
+        <span class="device-chip">iPhone 14</span>
+        <span class="device-chip">iPhone 13 series</span>
+        <span class="device-chip">iPhone 12 series</span>
+        <span class="device-chip">iPhone 11 series</span>
+        <span class="device-chip">iPhone SE</span>
+        <span class="device-chip">Galaxy S25 Ultra</span>
+        <span class="device-chip">Galaxy S25+</span>
+        <span class="device-chip">Galaxy S25</span>
+        <span class="device-chip">Galaxy S24 series</span>
+        <span class="device-chip">Galaxy S23 series</span>
+        <span class="device-chip">Galaxy Z Fold</span>
+        <span class="device-chip">Galaxy Z Flip</span>
+        <span class="device-chip">Galaxy A series</span>
+        <span class="device-chip">iPad Pro / Air / Mini</span>
+        <span class="device-chip">Samsung Tablets</span>
+        <span class="device-chip">Xiaomi</span>
+        <span class="device-chip">Huawei</span>
+        <span class="device-chip">Google Pixel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="shell">
+      <div class="cta-card">
+        <h2>Broken phone? Let's fix it.</h2>
+        <p>Walk in or message us on WhatsApp for a free diagnosis and quote. No appointment needed.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/59994618989?text=Hi%2C%20I%20need%20a%20phone%20repair" class="btn btn-whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp for a Quote
+          </a>
+          <a href="/" class="btn btn-outline">Back to Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="shell">
+      <p>&copy; 2025 <a href="/">Connections Curacao</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/59994618989?text=Hi%2C%20I%20need%20a%20phone%20repair" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+<script>
+/* ── Brand tab switching ── */
+document.querySelectorAll('.brand-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.repair-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`[data-panel="${tab.dataset.brand}"]`).classList.add('active');
+  });
+});
+
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.repair-card, .step, .device-chip').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
