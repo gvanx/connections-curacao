@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone 17e | Connections Curacao</title>
+  <meta name="description" content="iPhone 17e with A19 chip, 6.1-inch Super Retina XDR display, 48MP Fusion camera, and 26-hour battery. Available now at Connections Curacao for XCG 1,650.">
+  <meta property="og:title" content="iPhone 17e | Connections Curacao">
+  <meta property="og:description" content="iPhone 17e — A19 chip, 48MP Fusion camera, 26hr battery. XCG 1,650.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net/iphone17e/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://connectionscuracao.net/iphone17e/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230071e3'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfbfd;
+      --bg-alt: #f5f5f7;
+      --surface: #ffffff;
+      --line: rgba(0,0,0,0.08);
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --accent-glow: rgba(0,113,227,0.12);
+      --whatsapp: #25d366;
+      --whatsapp-hover: #1ebe57;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Color theme — shifts with swatch selection */
+      --theme-h: 0;
+      --theme-s: 0%;
+      --theme-l: 15%;
+      --phone-body: #1d1d1f;
+      --phone-bezel: #0a0a0a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .shell { width: min(1080px, calc(100% - 2rem)); margin: 0 auto; }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251,251,253,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      min-height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .topbar-brand {
+      font-family: var(--font-display);
+      font-weight: 700; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--text);
+    }
+    .topbar-brand svg { width: 18px; height: 18px; }
+    .topbar-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .topbar-nav a { color: var(--muted); font-weight: 500; transition: color 0.2s; }
+    .topbar-nav a:hover { color: var(--text); }
+    .topbar-cta {
+      padding: 0.45rem 1.1rem; border-radius: 999px;
+      background: var(--accent); color: #fff;
+      font-weight: 600; font-size: 0.82rem;
+      transition: background 0.2s;
+    }
+    .topbar-cta:hover { background: var(--accent-hover); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 1400px; height: 700px;
+      background: radial-gradient(ellipse, hsla(var(--theme-h), var(--theme-s), var(--theme-l), 0.15) 0%, transparent 65%);
+      pointer-events: none;
+      transition: background 0.6s ease;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .hero h1 .e {
+      background: linear-gradient(135deg, #5856d6, #0071e3, #34c759);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .hero-price {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.8rem; border-radius: 999px;
+      font-family: var(--font-display);
+      font-weight: 600; font-size: 0.95rem;
+      transition: all 0.25s;
+    }
+    .btn-wa {
+      background: var(--whatsapp); color: #fff;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+    }
+    .btn-wa:hover { background: var(--whatsapp-hover); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.3); }
+    .btn-wa svg { width: 18px; height: 18px; }
+    .btn-outline {
+      border: 1.5px solid var(--line);
+      color: var(--accent);
+      background: var(--surface);
+    }
+    .btn-outline:hover { border-color: var(--accent); background: var(--accent-glow); }
+
+    /* ── Phone Mockup ── */
+    .phone-wrap {
+      position: relative;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .phone {
+      position: relative;
+      width: 100%;
+      transition: all 0.5s ease;
+    }
+    .phone-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9/19.5;
+      background: var(--phone-body);
+      border-radius: 36px;
+      padding: 8px;
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.1) inset,
+        0 20px 60px rgba(0,0,0,0.15),
+        0 8px 24px rgba(0,0,0,0.1);
+      transition: background 0.5s ease, box-shadow 0.5s ease;
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 28px;
+      background: linear-gradient(
+        165deg,
+        hsl(var(--theme-h), calc(var(--theme-s) + 10%), 18%),
+        hsl(var(--theme-h), calc(var(--theme-s) + 5%), 12%),
+        hsl(var(--theme-h), var(--theme-s), 8%)
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+    .phone-screen::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(circle at 30% 25%, hsla(var(--theme-h), 60%, 50%, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 75%, hsla(calc(var(--theme-h) + 40), 50%, 50%, 0.08) 0%, transparent 50%);
+      transition: background 0.5s ease;
+    }
+    .phone-screen-text {
+      position: relative; z-index: 1;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      letter-spacing: -0.03em;
+      color: #fff;
+      opacity: 0.7;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 8px; left: 50%; transform: translateX(-50%);
+      width: 35%;
+      height: 24px;
+      background: var(--phone-bezel);
+      border-radius: 0 0 14px 14px;
+      z-index: 2;
+      transition: background 0.5s ease;
+    }
+    .phone-notch::after {
+      content: '';
+      position: absolute;
+      top: 8px; left: 50%; transform: translateX(-50%);
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #1a1a1c;
+      box-shadow: inset 0 0 3px rgba(0,0,0,0.6);
+    }
+    .phone-button-right {
+      position: absolute;
+      right: -3px; top: 28%;
+      width: 3px; height: 32px;
+      background: var(--phone-body);
+      border-radius: 0 2px 2px 0;
+      transition: background 0.5s ease;
+    }
+    .phone-action-btn {
+      position: absolute;
+      left: -3px; top: 22%;
+      width: 3px; height: 22px;
+      background: var(--phone-body);
+      border-radius: 2px 0 0 2px;
+      transition: background 0.5s ease;
+    }
+    .phone-volume-up {
+      position: absolute;
+      left: -3px; top: 32%;
+      width: 3px; height: 28px;
+      background: var(--phone-body);
+      border-radius: 2px 0 0 2px;
+      transition: background 0.5s ease;
+    }
+    .phone-volume-down {
+      position: absolute;
+      left: -3px; top: 40%;
+      width: 3px; height: 28px;
+      background: var(--phone-body);
+      border-radius: 2px 0 0 2px;
+      transition: background 0.5s ease;
+    }
+    .phone-shadow {
+      width: 70%;
+      height: 20px;
+      margin: 12px auto 0;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%);
+    }
+
+    /* ── Color Swatches ── */
+    .color-picker {
+      display: flex; gap: 0.75rem; justify-content: center;
+      margin-top: 2rem;
+    }
+    .swatch {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .swatch::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .swatch.active::after { border-color: var(--accent); }
+    .swatch:hover { transform: scale(1.15); }
+    .swatch-black { background: linear-gradient(135deg, #2c2c2e, #1d1d1f); }
+    .swatch-white { background: linear-gradient(135deg, #f5f5f7, #e8e8ed); border: 1px solid rgba(0,0,0,0.1); }
+    .swatch-pink { background: linear-gradient(135deg, #f5cdd6, #eab0bc); }
+
+    .color-label {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 0.6rem;
+      text-align: center;
+      min-height: 1.4em;
+      transition: color 0.3s;
+    }
+
+    /* ── Highlights Strip ── */
+    .highlights {
+      padding: 3rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .highlight-pill {
+      text-align: center;
+      padding: 1.2rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      transition: all 0.3s;
+    }
+    .highlight-pill:hover {
+      border-color: rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .highlight-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .highlight-value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .highlight-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.15rem;
+    }
+
+    /* ── Specs Section ── */
+    .specs {
+      padding: 5rem 0;
+    }
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 3rem;
+      max-width: 520px;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .spec-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+    .spec-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    .spec-card:hover::before { opacity: 1; }
+    .spec-card:hover {
+      border-color: rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .spec-icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--bg-alt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .spec-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .spec-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .spec-detail {
+      font-size: 0.78rem;
+      color: #a1a1a6;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+
+    /* ── Colors Showcase ── */
+    .colors-section {
+      padding: 5rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .color-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .color-card {
+      padding: 2rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: var(--bg);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .color-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    }
+    .color-dot {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .color-dot-black { background: linear-gradient(145deg, #3a3a3c, #1d1d1f); }
+    .color-dot-white { background: linear-gradient(145deg, #fafafa, #e8e8ed); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .color-dot-pink { background: linear-gradient(145deg, #f8d4dc, #eab0bc); }
+    .color-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    /* ── Why Buy Here ── */
+    .why-section { padding: 5rem 0; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .why-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .why-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.06);
+    }
+    .why-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .why-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Footer CTA ── */
+    .footer-cta {
+      padding: 5rem 0;
+      text-align: center;
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+    }
+    .footer-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      margin-bottom: 0.5rem;
+    }
+    .footer-cta .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+    .footer-cta-actions {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .store-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .store-info strong { color: var(--text); }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer a { color: var(--accent); }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+      .spec-grid { grid-template-columns: 1fr 1fr; }
+      .color-showcase { grid-template-columns: repeat(3, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .topbar-nav a:not(.topbar-cta) { display: none; }
+      .hero { padding: 3.5rem 0 3rem; }
+      .phone-wrap { max-width: 220px; }
+    }
+    @media (max-width: 480px) {
+      .highlights-grid { grid-template-columns: 1fr 1fr; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+      .footer-cta-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <nav class="topbar">
+    <div class="shell topbar-inner">
+      <a href="/" class="topbar-brand">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Connections Curacao
+      </a>
+      <div class="topbar-nav">
+        <a href="#specs">Specs</a>
+        <a href="#colors">Colors</a>
+        <a href="#order" class="topbar-cta">Order Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="shell">
+      <div class="hero-eyebrow">Now available</div>
+      <h1>iPhone 17<span class="e">e</span></h1>
+      <p class="hero-tagline">All iPhone. Easy on the wallet.</p>
+      <p class="hero-price">XCG 1,650</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/59996782619?text=Hi!%20I'm%20interested%20in%20the%20iPhone%2017e" class="btn btn-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </a>
+        <a href="#specs" class="btn btn-outline">Learn more</a>
+      </div>
+
+      <!-- Phone Mockup -->
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-screen-text">iPhone 17e</div>
+            </div>
+            <div class="phone-button-right"></div>
+            <div class="phone-action-btn"></div>
+            <div class="phone-volume-up"></div>
+            <div class="phone-volume-down"></div>
+          </div>
+        </div>
+        <div class="phone-shadow"></div>
+      </div>
+
+      <!-- Color Swatches -->
+      <div class="color-picker">
+        <button class="swatch swatch-black active" data-color="black" data-h="0" data-s="0%" data-l="15%" data-body="#1d1d1f" data-bezel="#0a0a0a" aria-label="Black"></button>
+        <button class="swatch swatch-white" data-color="white" data-h="240" data-s="5%" data-l="95%" data-body="#e8e8ed" data-bezel="#d2d2d7" aria-label="White"></button>
+        <button class="swatch swatch-pink" data-color="pink" data-h="345" data-s="45%" data-l="82%" data-body="#eab0bc" data-bezel="#c4899a" aria-label="Soft Pink"></button>
+      </div>
+      <div class="color-label">Black</div>
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  <section class="highlights">
+    <div class="shell">
+      <div class="highlights-grid">
+        <div class="highlight-pill reveal">
+          <span class="highlight-icon">&#9889;</span>
+          <div class="highlight-value">A19</div>
+          <div class="highlight-label">Apple chip</div>
+        </div>
+        <div class="highlight-pill reveal">
+          <span class="highlight-icon">&#128241;</span>
+          <div class="highlight-value">6.1"</div>
+          <div class="highlight-label">Super Retina XDR</div>
+        </div>
+        <div class="highlight-pill reveal">
+          <span class="highlight-icon">&#128247;</span>
+          <div class="highlight-value">48MP</div>
+          <div class="highlight-label">Fusion camera</div>
+        </div>
+        <div class="highlight-pill reveal">
+          <span class="highlight-icon">&#128267;</span>
+          <div class="highlight-value">26 hrs</div>
+          <div class="highlight-label">Video playback</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs -->
+  <section id="specs" class="specs">
+    <div class="shell">
+      <div class="section-label">Performance</div>
+      <h2 class="section-title">Serious power. Seriously affordable.</h2>
+      <p class="section-sub">The iPhone 17e packs the A19 chip, a 48MP Fusion camera, and 26-hour battery into a design that feels anything but entry-level.</p>
+      <div class="spec-grid">
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#9889;</div>
+          <div class="spec-value">A19 chip</div>
+          <div class="spec-label">4-core GPU &middot; Neural Engine</div>
+          <div class="spec-detail">The same generation chip as iPhone 17 Pro. Powers Apple Intelligence on device.</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#128241;</div>
+          <div class="spec-value">6.1" OLED</div>
+          <div class="spec-label">Super Retina XDR &middot; Ceramic Shield 2</div>
+          <div class="spec-detail">Vivid colors, deep blacks, and 3x better scratch resistance than before.</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#128247;</div>
+          <div class="spec-value">48MP Fusion</div>
+          <div class="spec-label">2x Tele &middot; 4K Dolby Vision</div>
+          <div class="spec-detail">Two cameras in one. Optical zoom, night mode, and 4K video at 60fps.</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#128267;</div>
+          <div class="spec-value">26 hours</div>
+          <div class="spec-label">Video playback &middot; USB-C</div>
+          <div class="spec-detail">All-day battery. 50% charge in just 30 minutes with fast charging.</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#128274;</div>
+          <div class="spec-value">Face ID</div>
+          <div class="spec-label">Secure unlock &amp; Apple Pay</div>
+          <div class="spec-detail">Your face is your password. Fast, secure, effortless.</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-icon-wrap">&#129302;</div>
+          <div class="spec-value">Apple Intelligence</div>
+          <div class="spec-label">AI built in &middot; Action button</div>
+          <div class="spec-detail">Writing tools, smart summaries, Clean Up, and a customizable Action button.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors -->
+  <section id="colors" class="colors-section">
+    <div class="shell">
+      <div class="section-label">Finish</div>
+      <h2 class="section-title">Three colors. All you.</h2>
+      <p class="section-sub" style="margin: 0 auto 3rem;">Aluminum and glass with Ceramic Shield 2 front. 30% recycled materials by weight.</p>
+      <div class="color-showcase">
+        <div class="color-card reveal" data-color="black">
+          <div class="color-dot color-dot-black"></div>
+          <div class="color-name">Black</div>
+        </div>
+        <div class="color-card reveal" data-color="white">
+          <div class="color-dot color-dot-white"></div>
+          <div class="color-name">White</div>
+        </div>
+        <div class="color-card reveal" data-color="pink">
+          <div class="color-dot color-dot-pink"></div>
+          <div class="color-name">Soft Pink</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Buy Here -->
+  <section class="why-section">
+    <div class="shell">
+      <div class="section-label" style="text-align:center;">Why Connections</div>
+      <h2 class="section-title" style="text-align:center;">Your iPhone, your way.</h2>
+      <p class="section-sub" style="text-align:center; margin: 0 auto 3rem;">Buy with confidence from Curacao's trusted electronics store.</p>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="why-icon">&#128205;</span>
+          <h3>In-Store Pickup</h3>
+          <p>Walk in, pick up your iPhone 17e, and start using it the same day.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">&#128172;</span>
+          <h3>WhatsApp Ordering</h3>
+          <p>Send us a message and we'll handle everything. Fast, easy, personal.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">&#128736;</span>
+          <h3>Local Support</h3>
+          <p>Warranty and tech support right here on the island. No shipping hassles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer CTA -->
+  <section id="order" class="footer-cta">
+    <div class="shell">
+      <h2>Ready for your new iPhone?</h2>
+      <p class="subtitle">iPhone 17e &mdash; starting at XCG 1,650</p>
+      <div class="footer-cta-actions">
+        <a href="https://wa.me/59996782619?text=Hi!%20I'm%20interested%20in%20the%20iPhone%2017e" class="btn btn-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </a>
+        <a href="/" class="btn btn-outline">Back to Store</a>
+      </div>
+      <div class="store-info">
+        <strong>Connections Curacao</strong><br>
+        Visit us in-store or order via WhatsApp
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="shell">
+      <p>&copy; 2025 <a href="/">Connections Curacao</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+/* ── Color Swatch Interaction ── */
+const root = document.documentElement;
+const swatches = document.querySelectorAll('.swatch');
+const colorLabel = document.querySelector('.color-label');
+const colorCards = document.querySelectorAll('.color-card[data-color]');
+
+const colorNames = {
+  black: 'Black',
+  white: 'White',
+  pink: 'Soft Pink'
+};
+
+function setColor(el) {
+  swatches.forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+
+  root.style.setProperty('--theme-h', el.dataset.h);
+  root.style.setProperty('--theme-s', el.dataset.s);
+  root.style.setProperty('--theme-l', el.dataset.l);
+  root.style.setProperty('--phone-body', el.dataset.body);
+  root.style.setProperty('--phone-bezel', el.dataset.bezel);
+
+  colorLabel.textContent = colorNames[el.dataset.color];
+}
+
+swatches.forEach(s => s.addEventListener('click', () => setColor(s)));
+
+/* Color cards also trigger swatch */
+colorCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const target = document.querySelector(`.swatch[data-color="${card.dataset.color}"]`);
+    if (target) {
+      setColor(target);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ── Scroll Reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
