@@ -2255,10 +2255,12 @@
             </div>
             <div class="deal-body">
               <div class="deal-name">${p.name}${hsoBadge}</div>
-              <div class="deal-price">${formatPrice(p.price)}</div>
-              <button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
-                ${WA_ICON} Checkout & Pay
-              </button>
+              <div class="deal-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
+              ${p.price ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+                ${WA_ICON} Checkout &amp; Pay
+              </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/59996782619?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+                ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask via WhatsApp'}
+              </a>`}
             </div>
           </div>`;
       });
@@ -2314,10 +2316,12 @@
               </div>
               <div class="product-body">
                 <div class="product-name">${p.name}${hsoBadge}</div>
-                <div class="product-price">${formatPrice(p.price)}</div>
-                <button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
-                  ${WA_ICON} Checkout & Pay
-                </button>
+                <div class="product-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
+                ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+                  ${WA_ICON} Checkout &amp; Pay
+                </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/59996782619?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+                  ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask via WhatsApp'}
+                </a>`}
               </div>
             </div>`;
         });

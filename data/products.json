@@ -145,12 +145,30 @@
     "image": "galaxy-a36-model.jpg"
   },
   {
+    "name": "Galaxy A37 5G",
+    "suffix": "",
+    "price": 0,
+    "category": "samsung",
+    "featured": true,
+    "image": "galaxy-a37-model.jpg",
+    "landingPage": "/galaxy-a/"
+  },
+  {
     "name": "Galaxy A56",
     "suffix": "",
     "price": 675,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a56-model.jpg"
+  },
+  {
+    "name": "Galaxy A57 5G",
+    "suffix": "",
+    "price": 0,
+    "category": "samsung",
+    "featured": true,
+    "image": "galaxy-a57-model.jpg",
+    "landingPage": "/galaxy-a/"
   },
   {
     "name": "Galaxy S24 FE",
