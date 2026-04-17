@@ -151,7 +151,7 @@
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a37-model.jpg",
-    "landingPage": "/galaxy-a/"
+    "landingPage": "https://samsungcuracao.com/a37"
   },
   {
     "name": "Galaxy A56",
@@ -168,7 +168,7 @@
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
-    "landingPage": "/galaxy-a/"
+    "landingPage": "https://samsungcuracao.com/a57"
   },
   {
     "name": "Galaxy S24 FE",

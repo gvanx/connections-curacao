@@ -1543,6 +1543,50 @@
       70% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 16px rgba(37,211,102,0); }
       100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
     }
+
+    /* ---- Galaxy A-series launch banner ---- */
+    .launch-banner {
+      position: relative;
+      margin: 1.2rem auto 0;
+      width: min(1100px, calc(100% - 2rem));
+      border-radius: 18px;
+      border: 1px solid rgba(120,130,210,0.35);
+      background:
+        linear-gradient(135deg, rgba(76,164,212,0.12), rgba(180,132,240,0.12)),
+        rgba(12,12,18,0.6);
+      padding: 1.2rem 3rem 1.2rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .launch-banner[hidden] { display: none; }
+    .launch-banner-text strong {
+      display: block; font-family: "Outfit", sans-serif; font-weight: 800; font-size: 1.05rem;
+      background: linear-gradient(90deg, #4ca4d4, #b484f0);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .launch-banner-text p { margin: 0.2rem 0 0; color: #b0b0c8; font-size: 0.92rem; }
+    .launch-banner-cta {
+      display: inline-block; padding: 0.65rem 1.2rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.88rem;
+      color: #08060e;
+      background: linear-gradient(135deg, #b484f0, #4ca4d4);
+      box-shadow: 0 10px 25px rgba(120,130,210,0.25);
+      transition: transform 160ms ease;
+    }
+    .launch-banner-cta:hover { transform: translateY(-2px); }
+    .launch-banner-close {
+      position: absolute; top: 0.6rem; right: 0.8rem;
+      background: none; border: 0; color: #8a8aa0; cursor: pointer;
+      font-size: 1.1rem; line-height: 1; padding: 0.3rem 0.5rem;
+    }
+    .launch-banner-close:hover { color: #eceaf5; }
+
+    @media (max-width: 600px) {
+      .launch-banner { padding: 1rem 2.6rem 1rem 1.1rem; }
+      .launch-banner-text strong { font-size: 0.95rem; }
+      .launch-banner-text p { font-size: 0.82rem; }
+      .launch-banner-cta { font-size: 0.82rem; padding: 0.55rem 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -1611,6 +1655,23 @@
   <section id="categories">
     <div class="container"></div>
   </section>
+
+  <!-- Galaxy A-series launch banner -->
+  <aside id="launch-banner" class="launch-banner" role="region" aria-label="Samsung Galaxy A-series launch">
+    <div class="launch-banner-text">
+      <strong>The new Galaxy A-series is here.</strong>
+      <p>A37 &amp; A57 5G, now at Connections. Dedicated site with full specs &amp; comparison.</p>
+    </div>
+    <a class="launch-banner-cta" href="https://samsungcuracao.com/?utm_source=connectionscuracao&amp;utm_medium=referral&amp;utm_campaign=galaxy-a-launch">Explore at samsungcuracao.com →</a>
+    <button class="launch-banner-close" type="button" aria-label="Dismiss banner" onclick="this.parentElement.hidden=true;try{localStorage.setItem('launch-banner-galaxy-a-dismissed','1')}catch(e){}">✕</button>
+  </aside>
+  <script>
+    try {
+      if (localStorage.getItem('launch-banner-galaxy-a-dismissed') === '1') {
+        document.getElementById('launch-banner').hidden = true;
+      }
+    } catch (e) {}
+  </script>
 
   <!-- Deals -->
   <section id="deals">
