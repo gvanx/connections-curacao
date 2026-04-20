@@ -353,20 +353,31 @@
     "image": "tv-generic.png"
   },
   {
-    "name": "Lenovo Laptop",
+    "name": "Lenovo IdeaPad 1i",
     "suffix": "",
-    "price": 399,
+    "price": 499,
     "category": "laptops",
     "featured": true,
-    "image": "laptop-generic.png"
+    "image": "laptop-generic.png",
+    "spec": "Celeron N4500 · 4GB · 128GB eMMC · 14\" 1920×1080 · W11 · Gray"
   },
   {
     "name": "HP Laptop",
     "suffix": "",
-    "price": 525,
+    "price": 499,
     "category": "laptops",
     "featured": true,
-    "image": "laptop-generic.png"
+    "image": "laptop-generic.png",
+    "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11 · Sky Blue"
+  },
+  {
+    "name": "Lenovo IdeaPad Slim 3i",
+    "suffix": "",
+    "price": 549,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Intel N100 · 4GB · 128GB SSD · 15.6\" 1920×1080 · Arctic Gray"
   },
   {
     "name": "Digital Air Cooler 5.5L",
@@ -430,6 +441,7 @@
     "price": 5555,
     "category": "motor",
     "featured": true,
+    "kingsday": false,
     "image": "mot9184g.png"
   },
   {
@@ -438,6 +450,7 @@
     "price": 5555,
     "category": "motor",
     "featured": true,
+    "kingsday": false,
     "image": "mot9185g.png"
   }
 ]
