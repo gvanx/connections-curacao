@@ -2,7 +2,7 @@
   {
     "name": "iPhone 12",
     "suffix": "HSO",
-    "price": 599,
+    "price": 549,
     "category": "apple",
     "featured": false,
     "image": "iphone-12-model.jpg"
@@ -10,7 +10,7 @@
   {
     "name": "iPhone 13",
     "suffix": "HSO",
-    "price": 749,
+    "price": 699,
     "category": "apple",
     "featured": false,
     "image": "iphone-13-model.jpg"
@@ -18,7 +18,7 @@
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 849,
+    "price": 775,
     "category": "apple",
     "featured": false,
     "image": "iphone-14-model.jpg"
@@ -26,7 +26,15 @@
   {
     "name": "iPhone 15",
     "suffix": "HSO",
-    "price": 1199,
+    "price": 999,
+    "category": "apple",
+    "featured": true,
+    "image": "iphone-15-model.jpg"
+  },
+  {
+    "name": "iPhone 15",
+    "suffix": "",
+    "price": 1499,
     "category": "apple",
     "featured": true,
     "image": "iphone-15-model.jpg"
@@ -34,7 +42,7 @@
   {
     "name": "iPhone 15 Pro Max",
     "suffix": "HSO",
-    "price": 1590,
+    "price": 1499,
     "category": "apple",
     "featured": false,
     "image": "iphone-15-pro-max-model.jpg"
@@ -42,7 +50,7 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1699,
+    "price": 1599,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-model.jpg"
@@ -58,7 +66,7 @@
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
-    "price": 1990,
+    "price": 1849,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-pro-max-model.jpg"
@@ -66,7 +74,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2100,
+    "price": 1999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -82,7 +90,7 @@
   {
     "name": "iPhone 17 Pro",
     "suffix": "",
-    "price": 2890,
+    "price": 2649,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-model.jpg"
@@ -90,7 +98,7 @@
   {
     "name": "iPhone 17 Pro Max",
     "suffix": "",
-    "price": 3030,
+    "price": 2999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-max-model.jpg"
@@ -98,10 +106,18 @@
   {
     "name": "iPad 11th 128GB",
     "suffix": "",
-    "price": 790,
+    "price": 739,
     "category": "apple",
     "featured": true,
     "image": "ipad-11th-model.jpg"
+  },
+  {
+    "name": "MacBook Neo 256GB/8GB",
+    "suffix": "",
+    "price": 1499,
+    "category": "apple",
+    "featured": true,
+    "image": "macbook-generic.png"
   },
 
   {
