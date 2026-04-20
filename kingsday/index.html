@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kingsday Week 2026 — Connections Curaçao</title>
+  <meta name="description" content="Kingsday Week Apr 27 – May 2. Royal deals on iPhone, Samsung Galaxy, iPad, laptops, TVs and more at Connections Curaçao.">
+  <meta property="og:title" content="Kingsday Week 2026 — Connections Curaçao">
+  <meta property="og:description" content="Royal deals on the full catalog. April 27 – May 2.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net/kingsday/">
+  <meta name="theme-color" content="#FF6600">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FF6600'/><text x='50' y='68' font-size='60' text-anchor='middle' fill='white'>👑</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: rgba(255,255,255,0.05);
+      --surface-border: rgba(255,255,255,0.1);
+      --accent: #FF6600;
+      --accent-glow: rgba(255,102,0,0.3);
+      --text: #fff;
+      --text-muted: rgba(255,255,255,0.6);
+      --whatsapp: #25D366;
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .shell { max-width: 1200px; margin: 0 auto; padding: 0 1.2rem; }
+
+    /* Topbar */
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .topbar-row { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 0; }
+    .brand { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
+    .brand span.accent { color: var(--accent); }
+    .top-cta { font-size: 0.85rem; padding: 0.55rem 1rem; border-radius: 999px; border: 1px solid var(--surface-border); }
+    .top-cta:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 0 3rem; text-align: center; position: relative;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      border-bottom: 3px solid var(--accent);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(60% 60% at 50% 30%, rgba(255,102,0,0.15), transparent 70%);
+    }
+    .hero-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(255,102,0,0.12);
+      padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,102,0,0.45);
+    }
+    .hero h1 {
+      font-family: 'Outfit', sans-serif; font-weight: 900;
+      font-size: clamp(2.4rem, 6vw, 4.2rem); margin: 1rem 0 0.5rem;
+      letter-spacing: -0.02em; line-height: 1;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero p.sub { color: var(--text-muted); font-size: 1.05rem; max-width: 52ch; margin: 0 auto 1.6rem; }
+    .hero-ctas { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.85rem 1.4rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.95rem; transition: transform 180ms ease;
+    }
+    .btn-primary { background: var(--accent); color: #0a0a0a; font-weight: 800; }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+    .btn-whatsapp { background: var(--whatsapp); color: #fff; font-weight: 700; }
+
+    /* Section */
+    section { padding: 3rem 0; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.4rem; }
+    .section-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 2.5vw, 1.9rem); letter-spacing: -0.01em; }
+    .section-title .accent { color: var(--accent); }
+
+    /* Product grid */
+    .grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    .card {
+      position: relative;
+      background: linear-gradient(165deg, rgba(18,18,30,0.9), rgba(12,12,18,0.9));
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-sm); padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+    .card:hover { border-color: rgba(255,102,0,0.4); transform: translateY(-3px); }
+    .card-badge {
+      position: absolute; top: 0.6rem; right: 0.6rem;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); background: rgba(255,102,0,0.12);
+      border: 1px solid rgba(255,102,0,0.4);
+      padding: 0.22rem 0.5rem; border-radius: 999px;
+    }
+    .card-img { height: 130px; display: grid; place-items: center; }
+    .card-img img { max-height: 100%; object-fit: contain; }
+    .card-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em; }
+    .hso { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; padding: 0.12rem 0.4rem; border-radius: 4px; background: rgba(255,255,255,0.1); color: var(--text-muted); margin-left: 0.3rem; vertical-align: middle; }
+    .card-spec { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+    .card-price { font-weight: 700; font-size: 0.95rem; margin-top: auto; }
+    .card-cta { font-size: 0.82rem; padding: 0.6rem 0.9rem; border-radius: 999px; background: var(--whatsapp); color: #fff; text-align: center; font-weight: 700; }
+
+    /* Store panel */
+    .store-panel {
+      margin-top: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--surface-border);
+      background: linear-gradient(165deg, rgba(18,18,30,0.9), rgba(12,12,18,0.9));
+      padding: 1.8rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: start;
+    }
+    .store-panel h3 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.15rem; margin-bottom: 0.8rem; }
+    .store-list { list-style: none; display: grid; gap: 0.55rem; color: var(--text-muted); font-size: 0.92rem; }
+    .store-list strong { color: #fff; }
+    .store-cta { display: flex; flex-direction: column; gap: 0.6rem; align-self: center; }
+    .store-cta .btn { text-align: center; min-width: 220px; }
+
+    /* Checkout modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: none; align-items: center; justify-content: center; z-index: 100; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #111; border: 1px solid var(--surface-border);
+      border-radius: var(--radius); padding: 1.8rem; max-width: 440px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal h2 { font-family: 'Outfit', sans-serif; font-weight: 800; margin-bottom: 1rem; }
+    .checkout-line { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid var(--surface-border); font-size: 0.9rem; }
+    .checkout-line.total { border: none; font-size: 1.05rem; margin-top: 0.5rem; font-weight: 700; }
+    .checkout-line strong { font-weight: 700; }
+    .checkout-row { margin-top: 1rem; }
+    .checkout-row label.lbl { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .checkout-radio { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; font-size: 0.9rem; }
+    .checkout-submit { display: block; width: 100%; background: var(--whatsapp); color: #fff; padding: 0.85rem; border-radius: 999px; font-weight: 800; margin-top: 1.2rem; }
+    .checkout-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.4rem; }
+
+    /* Footer */
+    footer { padding: 2rem 0 3rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--surface-border); }
+
+    @media (max-width: 720px) {
+      .store-panel { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="shell topbar-row">
+      <a class="brand" href="/">Connections <span class="accent">Curaçao</span></a>
+      <a class="top-cta" href="https://wa.me/59996782619" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <span class="hero-tag">April 27 – May 2</span>
+        <h1><span class="accent">Kingsday</span> Week</h1>
+        <p class="sub">Royal deals across the catalog. iPhone, Galaxy, iPad, laptops, TVs and more — at Kingsday prices.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#cat-apple">Shop deals</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20your%20Kingsday%20deals." target="_blank" rel="noopener">Ask via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-apple"><span class="accent">Apple</span> · Kingsday</h2>
+        </div>
+        <div id="grid-apple" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-samsung"><span class="accent">Samsung</span> · Kingsday</h2>
+        </div>
+        <div id="grid-samsung" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-tablets"><span class="accent">Tablets</span> · Kingsday</h2>
+        </div>
+        <div id="grid-tablets" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-laptops"><span class="accent">Laptops</span> · Kingsday</h2>
+        </div>
+        <div id="grid-laptops" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-tvs"><span class="accent">TVs</span> · Kingsday</h2>
+        </div>
+        <div id="grid-tvs" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <h2 class="section-title" id="cat-acs"><span class="accent">Air Conditioning</span> · Kingsday</h2>
+        </div>
+        <div id="grid-acs" class="grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="store-panel">
+          <div>
+            <h3>Visit us this Kingsday</h3>
+            <ul class="store-list">
+              <li>📍 <strong>Connections Punda</strong> · Ruyterkade 28, Willemstad</li>
+              <li>📍 <strong>Connections Otrobanda</strong> · Bredestraat 12, Willemstad</li>
+              <li>🕔 Mon–Sat 9:30–18:00</li>
+              <li>💬 WhatsApp +599 9678 2619</li>
+            </ul>
+          </div>
+          <div class="store-cta">
+            <a class="btn btn-whatsapp" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20your%20Kingsday%20deals." target="_blank" rel="noopener">Ask via WhatsApp</a>
+            <a class="btn btn-ghost" href="/">Back to full catalog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sentoo checkout modal -->
+  <div class="modal-overlay" id="checkout-overlay">
+    <div class="modal" style="position: relative;">
+      <button class="checkout-close" aria-label="Close" onclick="closeCheckout()">&times;</button>
+      <h2 id="checkout-title">Checkout</h2>
+      <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">XCG 0</strong></div>
+      <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">XCG 0</strong></div>
+      <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">XCG 0</strong></div>
+      <div class="checkout-line total"><span>Total</span><strong id="checkout-total">XCG 0</strong></div>
+
+      <div class="checkout-row">
+        <span class="lbl">Payment</span>
+        <label class="checkout-radio"><input type="radio" name="checkout-payment" value="full" checked> Pay full</label>
+        <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+XCG 100 downpayment)</label>
+      </div>
+      <div class="checkout-row">
+        <span class="lbl">Delivery</span>
+        <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="pickup" checked> Pickup in store</label>
+        <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+XCG 35)</label>
+      </div>
+
+      <button type="button" class="checkout-submit" id="checkout-submit" onclick="submitCheckout()">Open Sentoo + WhatsApp</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="shell">
+      Connections Curaçao · Kingsday Week Apr 27 – May 2, 2026 · Punda · Otrobanda
+    </div>
+  </footer>
+
+  <script>
+    const CHECKOUT_CONFIG = {
+      sentooBaseUrl: 'https://sentoo.pro/connections-curacao',
+      whatsappNumber: '59996782619',
+      reserveDown: 100,
+      deliveryFee: 35
+    };
+
+    const WA_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.1-1.3A10 10 0 1012 2zm5.9 14.2c-.3.7-1.4 1.3-1.9 1.4-.5.1-1 .2-3.2-.7-2.7-1.1-4.5-3.9-4.6-4.1-.1-.1-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.9.8 2 .1.2.1.3 0 .5-.1.2-.1.3-.3.5-.2.2-.3.3-.5.5-.1.2-.3.4-.1.7.1.4.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.7.8 2 1 .3.1.5.2.5.3.1.1.1.7-.2 1.4z"/></svg>`;
+
+    function formatPrice(price) { return 'XCG ' + price.toLocaleString('en-US'); }
+    function sentooLink(amount) { return `${CHECKOUT_CONFIG.sentooBaseUrl}/${Math.round(amount * 100)}`; }
+    function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    let activeCheckout = null;
+
+    function openCheckout(name, price) {
+      activeCheckout = { name, price };
+      document.getElementById('checkout-title').textContent = name;
+      updateCheckoutTotals();
+      document.getElementById('checkout-overlay').classList.add('open');
+    }
+    function closeCheckout() {
+      document.getElementById('checkout-overlay').classList.remove('open');
+      activeCheckout = null;
+    }
+    function getCheckoutMode() {
+      const payment = document.querySelector('input[name="checkout-payment"]:checked').value;
+      const delivery = document.querySelector('input[name="checkout-delivery"]:checked').value;
+      return { payment, delivery };
+    }
+    function updateCheckoutTotals() {
+      if (!activeCheckout) return;
+      const { payment, delivery } = getCheckoutMode();
+      const base = activeCheckout.price;
+      const fee = delivery === 'delivery' ? CHECKOUT_CONFIG.deliveryFee : 0;
+      const payNow = payment === 'reserve' ? CHECKOUT_CONFIG.reserveDown : base;
+      const total = payNow + fee;
+      document.getElementById('checkout-base').textContent = formatPrice(base);
+      document.getElementById('checkout-pay-now').textContent = formatPrice(payNow);
+      document.getElementById('checkout-fee').textContent = formatPrice(fee);
+      document.getElementById('checkout-total').textContent = formatPrice(total);
+      document.getElementById('checkout-submit').textContent = payment === 'reserve'
+        ? `Reserve for ${formatPrice(total)}`
+        : `Pay ${formatPrice(total)} via Sentoo`;
+    }
+    function submitCheckout() {
+      if (!activeCheckout) return;
+      const { payment, delivery } = getCheckoutMode();
+      const base = activeCheckout.price;
+      const fee = delivery === 'delivery' ? CHECKOUT_CONFIG.deliveryFee : 0;
+      const payNow = payment === 'reserve' ? CHECKOUT_CONFIG.reserveDown : base;
+      const total = payNow + fee;
+
+      const lines = [
+        `Hi, I want to order ${activeCheckout.name}.`,
+        `Product price: ${formatPrice(base)}`,
+        `Payment: ${payment === 'reserve' ? 'Reserve (down ' + formatPrice(payNow) + ')' : 'Pay full'}`,
+        `Delivery: ${delivery === 'delivery' ? 'Delivery (+' + formatPrice(fee) + ')' : 'Pickup'}`,
+        `Total: ${formatPrice(total)}`,
+        '',
+        'Payment: Sentoo'
+      ];
+      const waUrl = `https://wa.me/${CHECKOUT_CONFIG.whatsappNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
+      const payUrl = sentooLink(total);
+      window.open(payUrl, '_blank', 'noopener');
+      window.open(waUrl, '_blank', 'noopener');
+      closeCheckout();
+    }
+
+    document.querySelectorAll('input[name="checkout-payment"], input[name="checkout-delivery"]').forEach(el => {
+      el.addEventListener('change', updateCheckoutTotals);
+    });
+    document.getElementById('checkout-overlay').addEventListener('click', e => {
+      if (e.target.id === 'checkout-overlay') closeCheckout();
+    });
+
+    function buildCardHtml(p) {
+      const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+      const hsoBadge = p.suffix === 'HSO' ? '<span class="hso">HSO</span>' : '';
+      const specLine = p.spec ? `<p class="card-spec">${escapeHtml(p.spec)}</p>` : '';
+      const priceLine = p.price ? `<div class="card-price">${formatPrice(p.price)}</div>` : `<div class="card-price" style="color:var(--text-muted);font-weight:500">Ask in store</div>`;
+      const cta = p.price
+        ? `<button type="button" class="card-cta js-buy" data-name="${encodeURIComponent(fullName)}" data-price="${p.price}">${WA_ICON} Checkout &amp; Pay</button>`
+        : `<a class="card-cta" href="${p.landingPage || ('https://wa.me/59996782619?text=' + encodeURIComponent('Hi, I\'m interested in the ' + fullName + '. Is it available?'))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask via WhatsApp'}</a>`;
+      return `
+        <div class="card">
+          <span class="card-badge">Kingsday</span>
+          <div class="card-img"><img src="../img/products/${p.image}" alt="${escapeHtml(fullName)}" loading="lazy" onerror="this.onerror=null;this.src='../img/products/${p.image.replace(/\.png$/,'.jpg')}'"></div>
+          <div class="card-name">${escapeHtml(p.name)}${hsoBadge}</div>
+          ${specLine}
+          ${priceLine}
+          ${cta}
+        </div>`;
+    }
+
+    function renderGrid(containerId, items) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      if (!items.length) { el.innerHTML = '<p style="color:var(--text-muted)">Coming soon.</p>'; return; }
+      el.innerHTML = items.map(buildCardHtml).join('');
+      el.querySelectorAll('.js-buy').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = decodeURIComponent(btn.dataset.name);
+          const price = Number(btn.dataset.price);
+          openCheckout(name, price);
+        });
+      });
+    }
+
+    async function loadKingsday() {
+      const res = await fetch('../data/products.json', { cache: 'no-store' });
+      const products = await res.json();
+      const active = products.filter(p => p.kingsday !== false);
+      const isTablet = p => p.subcategory === 'tablet';
+
+      const apple = active.filter(p => p.category === 'apple' && !isTablet(p));
+      const samsung = active.filter(p => p.category === 'samsung' && !isTablet(p));
+      const tablets = active.filter(isTablet);
+      const laptops = active.filter(p => p.category === 'laptops');
+      const tvs = active.filter(p => p.category === 'tvs');
+      const acs = active.filter(p => p.category === 'acs');
+
+      renderGrid('grid-apple', apple);
+      renderGrid('grid-samsung', samsung);
+      renderGrid('grid-tablets', tablets);
+      renderGrid('grid-laptops', laptops);
+      renderGrid('grid-tvs', tvs);
+      renderGrid('grid-acs', acs);
+    }
+
+    loadKingsday().catch(err => console.error('Kingsday load failed:', err));
+  </script>
+</body>
+</html>
