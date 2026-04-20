@@ -726,6 +726,37 @@
       border-radius: 100px;
       line-height: 1.4;
     }
+    .badge-kingsday {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .deal-card, .product-card { position: relative; }
+    .deal-card .badge-kingsday-corner,
+    .product-card .badge-kingsday-corner {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.22rem 0.5rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
 
     .deal-price {
       font-family: var(--font-display);
@@ -2311,8 +2342,10 @@
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
+        const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
         html += `
           <div class="deal-card">
+            ${kingsdayBadge}
             <div class="deal-img">
               <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
             </div>
@@ -2372,8 +2405,10 @@
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
+          const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
           html += `
             <div class="product-card">
+              ${kingsdayBadge}
               <div class="product-img">
                 <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
               </div>
