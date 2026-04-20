@@ -1844,11 +1844,11 @@
 
       <div class="checkout-lines">
         <div class="checkout-line"><span>Product</span><strong id="checkout-product">-</strong></div>
-        <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">NAf 0</strong></div>
+        <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">XCG 0</strong></div>
         <div class="checkout-line"><span>Payment Type</span><strong id="checkout-type">Full</strong></div>
-        <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">NAf 0</strong></div>
-        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">NAf 0</strong></div>
-        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">NAf 0</strong></div>
+        <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">XCG 0</strong></div>
+        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">XCG 0</strong></div>
+        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">XCG 0</strong></div>
       </div>
 
       <form id="checkout-form">
@@ -1861,13 +1861,13 @@
         <div class="checkout-label">Payment Option</div>
         <div class="checkout-options">
           <label class="checkout-radio"><input type="radio" name="checkout-payment" value="full" checked> Full Payment</label>
-          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+NAf 100 downpayment)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+XCG 100 downpayment)</label>
         </div>
 
         <div class="checkout-label">Delivery Option</div>
         <div class="checkout-options">
           <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="pickup" checked> Pickup (Free)</label>
-          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+NAf 35)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+XCG 35)</label>
         </div>
 
         <div id="checkout-address-wrap" style="display:none;">
@@ -1982,7 +1982,7 @@
     let activeCheckout = null;
 
     function formatPrice(price) {
-      return 'NAf ' + price.toLocaleString('en-US');
+      return 'XCG ' + price.toLocaleString('en-US');
     }
 
     function waLink(name, price) {
