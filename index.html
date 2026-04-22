@@ -726,6 +726,37 @@
       border-radius: 100px;
       line-height: 1.4;
     }
+    .badge-kingsday {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .deal-card, .product-card { position: relative; }
+    .deal-card .badge-kingsday-corner,
+    .product-card .badge-kingsday-corner {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.22rem 0.5rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
 
     .deal-price {
       font-family: var(--font-display);
@@ -1544,49 +1575,6 @@
       100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
     }
 
-    /* ---- Galaxy A-series launch banner ---- */
-    .launch-banner {
-      position: relative;
-      margin: 1.2rem auto 0;
-      width: min(1100px, calc(100% - 2rem));
-      border-radius: 18px;
-      border: 1px solid rgba(120,130,210,0.35);
-      background:
-        linear-gradient(135deg, rgba(76,164,212,0.12), rgba(180,132,240,0.12)),
-        rgba(12,12,18,0.6);
-      padding: 1.2rem 3rem 1.2rem 1.4rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .launch-banner[hidden] { display: none; }
-    .launch-banner-text strong {
-      display: block; font-family: "Outfit", sans-serif; font-weight: 800; font-size: 1.05rem;
-      background: linear-gradient(90deg, #4ca4d4, #b484f0);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .launch-banner-text p { margin: 0.2rem 0 0; color: #b0b0c8; font-size: 0.92rem; }
-    .launch-banner-cta {
-      display: inline-block; padding: 0.65rem 1.2rem; border-radius: 999px;
-      font-weight: 700; font-size: 0.88rem;
-      color: #08060e;
-      background: linear-gradient(135deg, #b484f0, #4ca4d4);
-      box-shadow: 0 10px 25px rgba(120,130,210,0.25);
-      transition: transform 160ms ease;
-    }
-    .launch-banner-cta:hover { transform: translateY(-2px); }
-    .launch-banner-close {
-      position: absolute; top: 0.6rem; right: 0.8rem;
-      background: none; border: 0; color: #8a8aa0; cursor: pointer;
-      font-size: 1.1rem; line-height: 1; padding: 0.3rem 0.5rem;
-    }
-    .launch-banner-close:hover { color: #eceaf5; }
-
-    @media (max-width: 600px) {
-      .launch-banner { padding: 1rem 2.6rem 1rem 1.1rem; }
-      .launch-banner-text strong { font-size: 0.95rem; }
-      .launch-banner-text p { font-size: 0.82rem; }
-      .launch-banner-cta { font-size: 0.82rem; padding: 0.55rem 1rem; }
-    }
   </style>
 </head>
 <body>
@@ -1639,10 +1627,11 @@
   <!-- Hero -->
   <section id="hero">
     <div class="hero-content">
-      <h1 class="hero-tagline">Cura&ccedil;ao's Premium Electronics</h1>
-      <p class="hero-subtitle">Apple <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning <span>&middot;</span> and more</p>
+      <span class="hero-kingsday-tag" style="display:inline-block;font-size:0.78rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#FF6600;background:rgba(255,102,0,0.12);padding:0.35rem 0.9rem;border-radius:999px;border:1px solid rgba(255,102,0,0.45);margin-bottom:1rem">👑 April 27 – May 2</span>
+      <h1 class="hero-tagline"><span style="color:#FF6600">Kingsday</span> Week</h1>
+      <p class="hero-subtitle">Royal deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
       <div class="hero-ctas">
-        <a href="#deals" class="btn-primary">Shop Deals</a>
+        <a href="#deals" class="btn-primary">Shop Kingsday deals</a>
         <a href="#locations" class="btn-glass">Visit Us</a>
       </div>
     </div>
@@ -1655,23 +1644,6 @@
   <section id="categories">
     <div class="container"></div>
   </section>
-
-  <!-- Galaxy A-series launch banner -->
-  <aside id="launch-banner" class="launch-banner" role="region" aria-label="Samsung Galaxy A-series launch">
-    <div class="launch-banner-text">
-      <strong>The new Galaxy A-series is here.</strong>
-      <p>A37 &amp; A57 5G, now at Connections. Dedicated site with full specs &amp; comparison.</p>
-    </div>
-    <a class="launch-banner-cta" href="https://samsungcuracao.com/?utm_source=connectionscuracao&amp;utm_medium=referral&amp;utm_campaign=galaxy-a-launch">Explore at samsungcuracao.com →</a>
-    <button class="launch-banner-close" type="button" aria-label="Dismiss banner" onclick="this.parentElement.hidden=true;try{localStorage.setItem('launch-banner-galaxy-a-dismissed','1')}catch(e){}">✕</button>
-  </aside>
-  <script>
-    try {
-      if (localStorage.getItem('launch-banner-galaxy-a-dismissed') === '1') {
-        document.getElementById('launch-banner').hidden = true;
-      }
-    } catch (e) {}
-  </script>
 
   <!-- Deals -->
   <section id="deals">
@@ -1844,11 +1816,11 @@
 
       <div class="checkout-lines">
         <div class="checkout-line"><span>Product</span><strong id="checkout-product">-</strong></div>
-        <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">NAf 0</strong></div>
+        <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">XCG 0</strong></div>
         <div class="checkout-line"><span>Payment Type</span><strong id="checkout-type">Full</strong></div>
-        <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">NAf 0</strong></div>
-        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">NAf 0</strong></div>
-        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">NAf 0</strong></div>
+        <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">XCG 0</strong></div>
+        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">XCG 0</strong></div>
+        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">XCG 0</strong></div>
       </div>
 
       <form id="checkout-form">
@@ -1861,13 +1833,13 @@
         <div class="checkout-label">Payment Option</div>
         <div class="checkout-options">
           <label class="checkout-radio"><input type="radio" name="checkout-payment" value="full" checked> Full Payment</label>
-          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+NAf 100 downpayment)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+XCG 100 downpayment)</label>
         </div>
 
         <div class="checkout-label">Delivery Option</div>
         <div class="checkout-options">
           <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="pickup" checked> Pickup (Free)</label>
-          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+NAf 35)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+XCG 35)</label>
         </div>
 
         <div id="checkout-address-wrap" style="display:none;">
@@ -1982,7 +1954,7 @@
     let activeCheckout = null;
 
     function formatPrice(price) {
-      return 'NAf ' + price.toLocaleString('en-US');
+      return 'XCG ' + price.toLocaleString('en-US');
     }
 
     function waLink(name, price) {
@@ -2311,8 +2283,10 @@
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
+        const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
         html += `
           <div class="deal-card">
+            ${kingsdayBadge}
             <div class="deal-img">
               <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
             </div>
@@ -2372,8 +2346,10 @@
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
+          const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
           html += `
             <div class="product-card">
+              ${kingsdayBadge}
               <div class="product-img">
                 <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
               </div>

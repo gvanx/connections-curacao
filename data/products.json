@@ -2,7 +2,7 @@
   {
     "name": "iPhone 12",
     "suffix": "HSO",
-    "price": 599,
+    "price": 549,
     "category": "apple",
     "featured": false,
     "image": "iphone-12-model.jpg"
@@ -10,7 +10,7 @@
   {
     "name": "iPhone 13",
     "suffix": "HSO",
-    "price": 749,
+    "price": 699,
     "category": "apple",
     "featured": false,
     "image": "iphone-13-model.jpg"
@@ -18,7 +18,7 @@
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 849,
+    "price": 775,
     "category": "apple",
     "featured": false,
     "image": "iphone-14-model.jpg"
@@ -26,7 +26,15 @@
   {
     "name": "iPhone 15",
     "suffix": "HSO",
-    "price": 1199,
+    "price": 999,
+    "category": "apple",
+    "featured": true,
+    "image": "iphone-15-model.jpg"
+  },
+  {
+    "name": "iPhone 15",
+    "suffix": "",
+    "price": 1499,
     "category": "apple",
     "featured": true,
     "image": "iphone-15-model.jpg"
@@ -34,7 +42,7 @@
   {
     "name": "iPhone 15 Pro Max",
     "suffix": "HSO",
-    "price": 1590,
+    "price": 1499,
     "category": "apple",
     "featured": false,
     "image": "iphone-15-pro-max-model.jpg"
@@ -42,7 +50,7 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1699,
+    "price": 1599,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-model.jpg"
@@ -58,7 +66,7 @@
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
-    "price": 1990,
+    "price": 1849,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-pro-max-model.jpg"
@@ -66,7 +74,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2100,
+    "price": 1999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -82,7 +90,7 @@
   {
     "name": "iPhone 17 Pro",
     "suffix": "",
-    "price": 2890,
+    "price": 2649,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-model.jpg"
@@ -90,7 +98,7 @@
   {
     "name": "iPhone 17 Pro Max",
     "suffix": "",
-    "price": 3030,
+    "price": 2999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-max-model.jpg"
@@ -98,24 +106,40 @@
   {
     "name": "iPad 11th 128GB",
     "suffix": "",
-    "price": 790,
+    "price": 739,
     "category": "apple",
     "featured": true,
+    "subcategory": "tablet",
     "image": "ipad-11th-model.jpg"
   },
-
+  {
+    "name": "MacBook Neo 256GB/8GB",
+    "suffix": "",
+    "price": 1499,
+    "category": "apple",
+    "featured": true,
+    "image": "macbook-generic.png"
+  },
   {
     "name": "Galaxy A07",
     "suffix": "",
-    "price": 199,
+    "price": 189,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a07-model.jpg"
   },
   {
+    "name": "Samsung M04 128GB",
+    "suffix": "",
+    "price": 250,
+    "category": "samsung",
+    "featured": false,
+    "image": "samsung-m04-model.png"
+  },
+  {
     "name": "Galaxy A16",
     "suffix": "",
-    "price": 289,
+    "price": 299,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a16-model.jpg"
@@ -123,7 +147,7 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 349,
+    "price": 339,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a17-model.jpg"
@@ -131,7 +155,7 @@
   {
     "name": "Galaxy A26",
     "suffix": "",
-    "price": 399,
+    "price": 425,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a26-model.jpg"
@@ -139,7 +163,7 @@
   {
     "name": "Galaxy A36",
     "suffix": "",
-    "price": 575,
+    "price": 549,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a36-model.jpg"
@@ -147,7 +171,7 @@
   {
     "name": "Galaxy A37 5G",
     "suffix": "",
-    "price": 0,
+    "price": 789,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a37-model.jpg",
@@ -156,7 +180,7 @@
   {
     "name": "Galaxy A56",
     "suffix": "",
-    "price": 675,
+    "price": 649,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a56-model.jpg"
@@ -164,7 +188,7 @@
   {
     "name": "Galaxy A57 5G",
     "suffix": "",
-    "price": 0,
+    "price": 969,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
@@ -195,20 +219,80 @@
     "image": "galaxy-s25-plus-model.jpg"
   },
   {
-    "name": "Galaxy S25 FE",
+    "name": "Galaxy S25 FE 128GB",
     "suffix": "",
-    "price": 1290,
+    "price": 1099,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-fe-model.jpg"
   },
   {
+    "name": "Galaxy S25 FE 256GB",
+    "suffix": "",
+    "price": 1249,
+    "category": "samsung",
+    "featured": false,
+    "image": "galaxy-s25-fe-model.jpg"
+  },
+  {
     "name": "Galaxy S25 Ultra",
     "suffix": "",
-    "price": 2190,
+    "price": 1989,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-ultra-model.jpg"
+  },
+  {
+    "name": "Galaxy S26 Ultra",
+    "suffix": "",
+    "price": 2690,
+    "category": "samsung",
+    "featured": true,
+    "image": "galaxy-s26-ultra-model.png"
+  },
+  {
+    "name": "Galaxy S26 Ultra 512GB",
+    "suffix": "",
+    "price": 2890,
+    "category": "samsung",
+    "featured": false,
+    "image": "galaxy-s26-ultra-model.png"
+  },
+  {
+    "name": "Galaxy Tab A9+ WiFi",
+    "suffix": "",
+    "price": 399,
+    "category": "samsung",
+    "featured": false,
+    "subcategory": "tablet",
+    "image": "galaxy-tab-a9-plus-model.png"
+  },
+  {
+    "name": "Galaxy Tab A9 5G+",
+    "suffix": "",
+    "price": 499,
+    "category": "samsung",
+    "featured": false,
+    "subcategory": "tablet",
+    "image": "galaxy-tab-a9-plus-model.png"
+  },
+  {
+    "name": "Galaxy Tab A11",
+    "suffix": "",
+    "price": 279,
+    "category": "samsung",
+    "featured": false,
+    "subcategory": "tablet",
+    "image": "galaxy-tab-a11-model.png"
+  },
+  {
+    "name": "Galaxy Tab A11+",
+    "suffix": "",
+    "price": 475,
+    "category": "samsung",
+    "featured": false,
+    "subcategory": "tablet",
+    "image": "galaxy-tab-a11-plus-model.png"
   },
   {
     "name": "32\" HD Smart TV (Android 14)",
@@ -267,20 +351,31 @@
     "image": "tv-generic.png"
   },
   {
-    "name": "Lenovo Laptop",
+    "name": "Lenovo IdeaPad 1i",
     "suffix": "",
-    "price": 399,
+    "price": 499,
     "category": "laptops",
     "featured": true,
-    "image": "laptop-generic.png"
+    "image": "laptop-generic.png",
+    "spec": "Celeron N4500 · 4GB · 128GB eMMC · 14\" 1920×1080 · W11 · Gray"
   },
   {
     "name": "HP Laptop",
     "suffix": "",
-    "price": 525,
+    "price": 499,
     "category": "laptops",
     "featured": true,
-    "image": "laptop-generic.png"
+    "image": "laptop-generic.png",
+    "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11 · Sky Blue"
+  },
+  {
+    "name": "Lenovo IdeaPad Slim 3i",
+    "suffix": "",
+    "price": 549,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Intel N100 · 4GB · 128GB SSD · 15.6\" 1920×1080 · Arctic Gray"
   },
   {
     "name": "Digital Air Cooler 5.5L",
@@ -344,6 +439,7 @@
     "price": 5555,
     "category": "motor",
     "featured": true,
+    "kingsday": false,
     "image": "mot9184g.png"
   },
   {
@@ -352,6 +448,7 @@
     "price": 5555,
     "category": "motor",
     "featured": true,
+    "kingsday": false,
     "image": "mot9185g.png"
   }
 ]
