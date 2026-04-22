@@ -120,7 +120,6 @@
     "featured": true,
     "image": "macbook-generic.png"
   },
-
   {
     "name": "Galaxy A07",
     "suffix": "",
@@ -266,7 +265,7 @@
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
-    "image": "galaxy-tab-generic.png"
+    "image": "galaxy-tab-a9-plus-model.png"
   },
   {
     "name": "Galaxy Tab A9 5G+",
@@ -275,7 +274,7 @@
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
-    "image": "galaxy-tab-generic.png"
+    "image": "galaxy-tab-a9-plus-model.png"
   },
   {
     "name": "Galaxy Tab A11",
@@ -284,7 +283,7 @@
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
-    "image": "galaxy-tab-generic.png"
+    "image": "galaxy-tab-a11-model.png"
   },
   {
     "name": "Galaxy Tab A11+",
@@ -293,9 +292,8 @@
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
-    "image": "galaxy-tab-generic.png"
+    "image": "galaxy-tab-a11-plus-model.png"
   },
-
   {
     "name": "32\" HD Smart TV (Android 14)",
     "suffix": "",
