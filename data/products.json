@@ -121,6 +121,55 @@
     "image": "macbook-generic.png"
   },
   {
+    "name": "MacBook Air M3 256GB/16GB",
+    "suffix": "",
+    "price": 1999,
+    "category": "apple",
+    "featured": true,
+    "image": "macbook-generic.png"
+  },
+  {
+    "name": "iPad Air M3 128GB",
+    "suffix": "",
+    "price": 1499,
+    "category": "apple",
+    "featured": true,
+    "subcategory": "tablet",
+    "image": "ipad-air-m3-model.jpg"
+  },
+  {
+    "name": "Apple Watch SE 3 40mm",
+    "suffix": "",
+    "price": 699,
+    "category": "apple",
+    "featured": true,
+    "image": "apple-watch-se-3-model.jpg"
+  },
+  {
+    "name": "Apple Watch SE 3 44mm",
+    "suffix": "",
+    "price": 750,
+    "category": "apple",
+    "featured": false,
+    "image": "apple-watch-se-3-model.jpg"
+  },
+  {
+    "name": "Apple Watch 11 42mm",
+    "suffix": "",
+    "price": 990,
+    "category": "apple",
+    "featured": true,
+    "image": "apple-watch-series-11-model.jpg"
+  },
+  {
+    "name": "Apple Watch 11 46mm",
+    "suffix": "",
+    "price": 1090,
+    "category": "apple",
+    "featured": false,
+    "image": "apple-watch-series-11-model.jpg"
+  },
+  {
     "name": "Galaxy A07",
     "suffix": "",
     "price": 189,
@@ -450,5 +499,14 @@
     "featured": true,
     "kingsday": false,
     "image": "mot9185g.png"
+  },
+  {
+    "name": "Q Link Scepter Tablet",
+    "suffix": "",
+    "price": 135,
+    "category": "other",
+    "featured": false,
+    "subcategory": "tablet",
+    "image": "galaxy-tab-generic.png"
   }
 ]
