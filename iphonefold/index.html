@@ -600,21 +600,23 @@
     </div>
   </footer>
 
-  <!-- April Fools Reveal Overlay -->
+  <!-- Joke's-over Reveal Overlay -->
   <div class="reveal-overlay" id="revealOverlay">
     <div class="reveal-content">
-      <div class="reveal-emoji">&#128514;</div>
-      <h2>April Fools!</h2>
-      <p>The iPhone Fold isn't real... <em>yet</em>. But you know what IS real? Our actual deals on iPhones, Samsung Galaxy phones, and more. Come visit us!</p>
-      <a href="/" class="btn btn-primary">Shop Real Phones &#8594;</a>
-      <a href="https://hso2.connectionscuracao.net" class="btn btn-ghost">Shop Second-Hand Phones &#8594;</a>
+      <div class="reveal-emoji">&#128081;</div>
+      <h2>Joke&rsquo;s over.</h2>
+      <p>The iPhone Fold isn&rsquo;t real (sorry). But our <strong>Kingsday deals</strong> are &mdash; running April 27 &ndash; May 2. Real iPhones, Samsung, MacBooks, TVs, gift cards and more.</p>
+      <a href="https://connectionscuracao.net/kingsday/" class="btn btn-primary">Shop Kingsday &#8594;</a>
+      <a href="/" class="btn btn-ghost">Visit Store &#8594;</a>
     </div>
   </div>
 
 <script>
-/* ── April Fools reveal on any CTA click ── */
+/* ── Joke's-over reveal: shows immediately, plus on any CTA click ── */
 const overlay = document.getElementById('revealOverlay');
 const triggers = document.querySelectorAll('#orderBtn, #heroCta, #topCta');
+
+overlay.classList.add('active');
 
 triggers.forEach(btn => {
   btn.addEventListener('click', (e) => {
