@@ -180,6 +180,30 @@
     "image": "apple-watch-series-11-model.jpg"
   },
   {
+    "name": "AirPods 4",
+    "suffix": "",
+    "price": 299,
+    "category": "apple",
+    "featured": false,
+    "image": "airpods-4-model.jpg"
+  },
+  {
+    "name": "AirPods 4 ANC",
+    "suffix": "",
+    "price": 349,
+    "category": "apple",
+    "featured": true,
+    "image": "airpods-4-anc-model.jpg"
+  },
+  {
+    "name": "AirPods Pro 3",
+    "suffix": "",
+    "price": 550,
+    "category": "apple",
+    "featured": true,
+    "image": "airpods-pro-3-model.jpg"
+  },
+  {
     "name": "Galaxy A07",
     "suffix": "",
     "price": 189,
@@ -518,5 +542,13 @@
     "featured": false,
     "subcategory": "tablet",
     "image": "tablet-generic.png"
+  },
+  {
+    "name": "Nintendo Switch 2",
+    "suffix": "",
+    "price": 1199,
+    "category": "other",
+    "featured": true,
+    "image": "nintendo-switch-2-model.png"
   }
 ]
