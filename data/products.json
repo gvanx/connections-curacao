@@ -72,6 +72,16 @@
     "image": "iphone-16-pro-max-model.jpg"
   },
   {
+    "name": "iPhone 17e",
+    "suffix": "",
+    "price": 1550,
+    "originalPrice": 1650,
+    "category": "apple",
+    "featured": true,
+    "landingPage": "https://connectionscuracao.net/iphone17e/",
+    "image": "iphone-17-model.jpg"
+  },
+  {
     "name": "iPhone 17",
     "suffix": "",
     "price": 1999,
