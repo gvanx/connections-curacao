@@ -85,19 +85,8 @@
     .topbar-link.filled:hover { background: #333; }
 
     /* ── Urgency Banner ── */
-    .urgency {
-      background: linear-gradient(135deg, #ff8a3d 0%, #ff6600 50%, #cc4400 100%);
-      color: #fff;
-      text-align: center;
-      padding: 0.65rem 1rem;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      box-shadow: 0 4px 14px rgba(204,68,0,0.18);
-    }
-    .urgency .kd-crown { font-size: 1.05em; margin: 0 0.35rem; }
-    .urgency .kd-dates { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(255,255,255,0.22); margin-left: 0.4rem; font-size: 0.78rem; letter-spacing: 0.14em; font-weight: 800; }
-    @media (max-width: 600px) { .urgency .kd-dates { display: block; margin: 4px auto 0; max-width: max-content; } }
+    .urgency { background: var(--ink); color: #fff; text-align: center; padding: 0.6rem 1rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; }
+    .urgency span { color: #fbbf24; }
 
     /* ── Hero ── */
     .hero {
@@ -487,7 +476,7 @@
 <body>
 
   <div class="urgency">
-    <span class="kd-crown">👑</span>Kingsday Deals &mdash; iPhone 14 still XCG 775, while supplies last<span class="kd-dates">APR 27 – MAY 2</span>
+    <span>LIMITED STOCK</span> &mdash; While supplies last. Available at Punda &amp; Otrobanda.
   </div>
 
   <header class="topbar">
