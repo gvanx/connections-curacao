@@ -549,5 +549,133 @@
     "category": "other",
     "featured": true,
     "image": "nintendo-switch-2-model.png"
+  },
+  {
+    "name": "Electric Coffee Maker 12 Cups",
+    "suffix": "CM-6428",
+    "price": 135,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Coffee Maker 12 Cups w/Glass Jug",
+    "suffix": "CM-9236",
+    "price": 135,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Air Cooler 3L",
+    "suffix": "CR-9001",
+    "price": 149,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Air Fryer 5.5L",
+    "suffix": "FRD-8101AFL",
+    "price": 175,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Air Fryer Oven 8L Black",
+    "suffix": "FRD-8864AF(B)",
+    "price": 225,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Air Fryer 8L w/Digital Screen Black",
+    "suffix": "FRD-9441AF",
+    "price": 225,
+    "category": "appliances",
+    "featured": true,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Air Fryer 10.5L Digital Control",
+    "suffix": "FRD-9473AF",
+    "price": 249,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Microwave Oven 20L/0.7CuFt Silver",
+    "suffix": "MW-6647S",
+    "price": 225,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Microwave 20L/0.7CF Black",
+    "suffix": "MW-8305B",
+    "price": 199,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Microwave 20L/0.7CF White",
+    "suffix": "MW-8928",
+    "price": 199,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RT1N320NMDA",
+    "suffix": "RT1N320NMDA",
+    "price": 1278.12,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RT16N6CDX",
+    "suffix": "RT16N6CDX",
+    "price": 1500.40,
+    "category": "appliances",
+    "featured": true,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RT14N6CDX",
+    "suffix": "RT14N6CDX",
+    "price": 1440.56,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RS3P428NEDA2",
+    "suffix": "RS3P428NEDA2",
+    "price": 1393.54,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RS19W6WSN",
+    "suffix": "RS19W6WSN",
+    "price": 2504.95,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
+  },
+  {
+    "name": "Hisense Refrigerator RB15N6FBX1",
+    "suffix": "RB15N6FBX1",
+    "price": 1876.57,
+    "category": "appliances",
+    "featured": false,
+    "image": "appliance-generic.png"
   }
 ]
