@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connections Curacao — Premium Electronics in Curaçao</title>
-  <meta name="description" content="Apple, Samsung, TVs, laptops and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+  <meta name="description" content="Apple, Samsung, TVs, laptops, appliances and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
 
   <!-- OG Tags -->
   <meta property="og:title" content="Connections Curacao — Premium Electronics in Curaçao">
-  <meta property="og:description" content="Apple, Samsung, TVs, laptops and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+  <meta property="og:description" content="Apple, Samsung, TVs, laptops, appliances and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://connectionscuracao.net">
 
@@ -1589,6 +1589,7 @@
         <a href="#cat-apple" data-cat="apple">Apple</a>
         <a href="#cat-samsung" data-cat="samsung">Samsung</a>
         <a href="#cat-tvs" data-cat="tvs">TVs</a>
+        <a href="#cat-appliances" data-cat="appliances">Appliances</a>
         <a href="#locations">Locations</a>
         <a href="/repair">Repair</a>
         <a href="#footer">Contact</a>
@@ -1613,6 +1614,7 @@
       <a href="#cat-apple" class="nav-mobile-link" data-cat="apple">Apple</a>
       <a href="#cat-samsung" class="nav-mobile-link" data-cat="samsung">Samsung</a>
       <a href="#cat-tvs" class="nav-mobile-link" data-cat="tvs">TVs</a>
+      <a href="#cat-appliances" class="nav-mobile-link" data-cat="appliances">Appliances</a>
       <a href="#locations" class="nav-mobile-link">Locations</a>
       <a href="/repair" class="nav-mobile-link">Repair</a>
       <a href="#footer" class="nav-mobile-link">Contact</a>
@@ -1927,6 +1929,7 @@
       laptops: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="10" rx="1.8"></rect><path d="M3 18h18"></path><path d="M8 18h8"></path></svg>`,
       acs: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M4.5 7.5l15 9"></path><path d="M19.5 7.5l-15 9"></path><circle cx="12" cy="12" r="2.4"></circle></svg>`,
       motor: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="16.5" r="2.5"></circle><circle cx="17.5" cy="16.5" r="2.5"></circle><path d="M9 16.5h5l2-4h2.5"></path><path d="M7.5 12.5h4l1.2 2"></path><path d="M13 10h2.5"></path></svg>`,
+      appliances: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="11" x2="20" y2="11"></line><circle cx="7" cy="7" r="0.8" fill="currentColor"></circle><circle cx="7" cy="15" r="0.8" fill="currentColor"></circle></svg>`,
       other:   `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>`
     };
 
@@ -1937,11 +1940,12 @@
       laptops: { name: 'Laptops',         icon: CATEGORY_ICONS.laptops, gradient: 'linear-gradient(135deg, #1a2a1a, #2a4a3a)' },
       acs:     { name: 'Air Conditioning', icon: CATEGORY_ICONS.acs, gradient: 'linear-gradient(135deg, #0a2a3a, #1a4a5e)' },
       motor:   { name: 'Motorcycles',     icon: CATEGORY_ICONS.motor, gradient: 'linear-gradient(135deg, #2a1a0a, #5a3a1a)' },
+      appliances: { name: 'Appliances',     icon: CATEGORY_ICONS.appliances, gradient: 'linear-gradient(135deg, #2a1a3a, #4a2a5e)' },
       other:   { name: 'Other',           icon: CATEGORY_ICONS.other, gradient: 'linear-gradient(135deg, #2a2a3a, #4a4a5e)' }
     };
 
-    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-04-24-kingsday-2';
+    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
+    const PRODUCTS_DATA_VERSION = '2026-05-06-appliances-1';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -1998,6 +2002,7 @@
         laptops: 'laptop-generic.png',
         acs: 'ac-generic.png',
         motor: 'motorcycle-generic.png',
+        appliances: 'appliance-generic.png',
         other: 'tablet-generic.png'
       };
       return `img/products/${fallbackByCategory[product.category] || 'iphone-generic.png'}`;
