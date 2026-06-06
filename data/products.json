@@ -49,6 +49,14 @@
   },
   {
     "name": "iPhone 16",
+    "suffix": "HSO",
+    "price": 1250,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-16-model.jpg"
+  },
+  {
+    "name": "iPhone 16",
     "suffix": "",
     "price": 1599,
     "category": "apple",
@@ -205,7 +213,7 @@
   {
     "name": "Galaxy A07",
     "suffix": "",
-    "price": 189,
+    "price": 199,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a07-model.jpg"
@@ -327,7 +335,7 @@
   {
     "name": "Galaxy S26 Ultra",
     "suffix": "",
-    "price": 2690,
+    "price": 2549,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s26-ultra-model.png"
