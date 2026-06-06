@@ -2107,10 +2107,10 @@
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
-        const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
+        const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
         html += `
           <div class="deal-card">
-            ${kingsdayBadge}
+            ${bluewaveBadge}
             <div class="deal-img">
               <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
             </div>
@@ -2170,10 +2170,10 @@
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
-          const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
+          const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
           html += `
             <div class="product-card">
-              ${kingsdayBadge}
+              ${bluewaveBadge}
               <div class="product-img">
                 <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
               </div>
