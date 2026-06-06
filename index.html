@@ -1606,6 +1606,9 @@
     .hero-tagline .wc-accent{color:var(--accent);text-shadow:0 0 24px var(--accent-glow)}
     .btn-primary{background:var(--wc-gold)!important;color:var(--wc-blue)!important;
       box-shadow:0 8px 28px var(--wc-gold-glow)!important;font-weight:800!important}
+    /* repurpose the Kingsday product tag as a Bluewave tag (gold, on-theme) */
+    .badge-kingsday-corner,.badge-kingsday{color:var(--wc-gold)!important;
+      background:rgba(252,209,22,0.14)!important;border-color:rgba(252,209,22,0.5)!important}
   </style>
   <!-- ===== BLUEWAVE WORLD CUP THEME — END ===== -->
 </head>
@@ -2104,7 +2107,7 @@
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
-        const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
+        const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
         html += `
           <div class="deal-card">
             ${kingsdayBadge}
@@ -2167,7 +2170,7 @@
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
-          const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Kingsday</span>` : '';
+          const kingsdayBadge = p.kingsday !== false ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
           html += `
             <div class="product-card">
               ${kingsdayBadge}
