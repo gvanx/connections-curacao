@@ -278,8 +278,11 @@
       z-index: 105;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 0;
+      padding: 88px 0 48px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -1588,13 +1591,66 @@
     }
     .logo-dot{background:var(--wc-gold)!important;box-shadow:0 0 10px var(--wc-gold-glow)!important}
     #wc-ribbon{
+      display:block;text-decoration:none;cursor:pointer;
       position:relative;z-index:50;
       background:linear-gradient(90deg,var(--wc-blue),#1455d6 45%,var(--wc-blue));
       color:#fff;text-align:center;font:700 .82rem/1.2 var(--font-display);
       letter-spacing:.04em;padding:.55rem 1rem;
       border-bottom:2px solid var(--wc-gold);
+      transition:filter .25s;
     }
+    #wc-ribbon:hover{filter:brightness(1.12)}
     #wc-ribbon b{color:var(--wc-gold)}
+    .wc-ribbon-cta{display:inline-block;color:var(--wc-gold);transition:transform .25s}
+    #wc-ribbon:hover .wc-ribbon-cta{transform:translateX(4px)}
+
+    /* ---- World Cup banner card ---- */
+    .wc-banner{display:block;max-width:1200px;margin:64px auto;padding:0 24px;text-decoration:none}
+    .wc-banner-inner{
+      position:relative;overflow:hidden;border-radius:var(--radius-lg);
+      border:1px solid rgba(252,209,22,0.35);
+      background:
+        radial-gradient(120% 140% at 85% -20%,rgba(252,209,22,0.18),transparent 55%),
+        radial-gradient(120% 140% at 0% 120%,rgba(43,109,255,0.35),transparent 55%),
+        linear-gradient(105deg,var(--wc-blue),#0d2f73 55%,#08245c);
+      padding:38px 40px;display:flex;align-items:center;justify-content:space-between;
+      gap:28px;flex-wrap:wrap;box-shadow:0 24px 60px rgba(8,20,60,0.45);
+      transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+    }
+    .wc-banner-inner::before{
+      content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+      background:repeating-linear-gradient(115deg,rgba(255,255,255,0.05) 0 2px,transparent 2px 60px);
+    }
+    .wc-banner:hover .wc-banner-inner{
+      transform:translateY(-3px);border-color:rgba(252,209,22,0.6);
+      box-shadow:0 30px 72px rgba(8,20,60,0.6);
+    }
+    .wc-banner-copy{position:relative;z-index:1}
+    .wc-banner-eyebrow{
+      display:inline-block;font-family:var(--font-display);font-weight:800;font-size:.72rem;
+      letter-spacing:.16em;text-transform:uppercase;color:var(--wc-gold);margin-bottom:.6rem;
+    }
+    .wc-banner-eyebrow .stars{color:#fff;letter-spacing:.1em;text-shadow:0 0 10px var(--wc-gold-glow)}
+    .wc-banner-title{
+      font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
+      font-size:clamp(1.9rem,4.5vw,2.9rem);color:#fff;letter-spacing:-0.01em;
+    }
+    .wc-banner-title span{color:var(--wc-gold);text-shadow:0 0 28px var(--wc-gold-glow)}
+    .wc-banner-sub{margin:0;color:rgba(238,242,255,0.82);font-size:1rem;max-width:40ch;line-height:1.5}
+    .wc-banner-btn{
+      position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.55rem;
+      background:var(--wc-gold);color:var(--wc-blue);font-family:var(--font-display);font-weight:800;
+      font-size:1rem;padding:.85rem 1.5rem;border-radius:999px;white-space:nowrap;
+      box-shadow:0 10px 30px var(--wc-gold-glow);transition:box-shadow .3s;
+    }
+    .wc-banner:hover .wc-banner-btn{box-shadow:0 14px 38px var(--wc-gold-glow)}
+    .wc-banner-arrow{transition:transform .3s}
+    .wc-banner:hover .wc-banner-arrow{transform:translateX(4px)}
+    @media (max-width:600px){
+      .wc-banner{margin:44px auto}
+      .wc-banner-inner{padding:30px 24px;flex-direction:column;align-items:flex-start;gap:22px}
+      .wc-banner-btn{width:100%;justify-content:center}
+    }
     #hero{background:
       radial-gradient(120% 80% at 50% -10%,rgba(43,109,255,0.22),transparent 60%),
       radial-gradient(80% 50% at 80% 110%,rgba(252,209,22,0.10),transparent 60%),
@@ -1615,7 +1671,7 @@
 <body>
 
   <!-- BLUEWAVE WORLD CUP — ribbon (remove after tournament) -->
-  <div id="wc-ribbon">🇨🇼 CURAÇAO AT THE <b>2026 WORLD CUP</b> &nbsp;·&nbsp; Ride the <b>Bluewave</b> — special deals across the catalog ⚽</div>
+  <a id="wc-ribbon" href="/worldcup">🇨🇼 CURAÇAO AT THE <b>2026 WORLD CUP</b> &nbsp;·&nbsp; Ride the <b>Bluewave</b> — Schedule &amp; live countdown <span class="wc-ribbon-cta">→</span></a>
 
   <!-- Navigation -->
   <nav id="nav">
@@ -1680,6 +1736,18 @@
       <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
   </section>
+
+  <!-- BLUEWAVE WORLD CUP — banner card (remove after tournament) -->
+  <a class="wc-banner" href="/worldcup" aria-label="Curaçao at the 2026 World Cup — schedule and live countdown">
+    <div class="wc-banner-inner">
+      <div class="wc-banner-copy">
+        <span class="wc-banner-eyebrow"><span class="stars">★★</span> Curaçao 2026 World Cup</span>
+        <h2 class="wc-banner-title">Ride the <span>Bluewave</span></h2>
+        <p class="wc-banner-sub">Curaçao's first-ever World Cup — Group E vs Germany, Ecuador &amp; Ivory Coast.</p>
+      </div>
+      <span class="wc-banner-btn">See schedule &amp; countdown <span class="wc-banner-arrow">→</span></span>
+    </div>
+  </a>
 
   <!-- Categories -->
   <section id="categories">
