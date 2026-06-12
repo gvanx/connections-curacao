@@ -9,9 +9,14 @@
   <meta property="og:description" content="Curaçao's first-ever World Cup. Group E vs Germany, Ecuador & Ivory Coast. Schedule, countdown & celebrations from Connections Curaçao.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://connectionscuracao.net/worldcup/">
+  <meta property="og:image" content="https://connectionscuracao.net/worldcup/og-worldcup.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ride the Bluewave — Connections Curaçao online store, 2026 FIFA World Cup">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ride the Bluewave — Curaçao at the 2026 World Cup">
   <meta name="twitter:description" content="Curaçao's first-ever World Cup. Schedule, live countdown & celebrations from Connections Curaçao.">
+  <meta name="twitter:image" content="https://connectionscuracao.net/worldcup/og-worldcup.jpg">
   <link rel="canonical" href="https://connectionscuracao.net/worldcup/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a3a8c'/><path d='M30 30l4 11h12l-10 7 4 12-10-8-10 8 4-12-10-7h12z' fill='%23FCD116'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -290,7 +295,7 @@
         </div>
 
         <div class="deals">
-          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%2065%22%20UHD%20Smart%20TV%20(XCG%201%2C044)" target="_blank" rel="noopener">
+          <a class="deal reveal" data-sku="65&quot; UHD Smart TV" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%2065%22%20UHD%20Smart%20TV%20(XCG%201%2C044)" target="_blank" rel="noopener">
             <div class="deal-media"><span class="deal-tag">Watch Party</span><img src="https://connectionscuracao.net/img/products/tv-generic.png" alt="65 inch UHD Smart TV" loading="lazy"></div>
             <div class="deal-body">
               <div class="deal-name">65" UHD Smart TV</div>
@@ -299,7 +304,7 @@
               <span class="deal-cta">Order on WhatsApp</span>
             </div>
           </a>
-          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A37%205G%20(XCG%20699)" target="_blank" rel="noopener">
+          <a class="deal reveal" data-sku="Galaxy A37 5G" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A37%205G%20(XCG%20699)" target="_blank" rel="noopener">
             <div class="deal-media"><span class="deal-tag">New Price</span><img src="https://connectionscuracao.net/img/products/galaxy-a37-model.png" alt="Samsung Galaxy A37 5G" loading="lazy"></div>
             <div class="deal-body">
               <div class="deal-name">Galaxy A37 5G</div>
@@ -308,7 +313,7 @@
               <span class="deal-cta">Order on WhatsApp</span>
             </div>
           </a>
-          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A57%205G%20(XCG%20899)" target="_blank" rel="noopener">
+          <a class="deal reveal" data-sku="Galaxy A57 5G" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A57%205G%20(XCG%20899)" target="_blank" rel="noopener">
             <div class="deal-media"><span class="deal-tag">New Price</span><img src="https://connectionscuracao.net/img/products/galaxy-a57-model.png" alt="Samsung Galaxy A57 5G" loading="lazy"></div>
             <div class="deal-body">
               <div class="deal-name">Galaxy A57 5G</div>
@@ -317,7 +322,7 @@
               <span class="deal-cta">Order on WhatsApp</span>
             </div>
           </a>
-          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20HP%2014-dq3000dx%20laptop%20(XCG%20549)" target="_blank" rel="noopener">
+          <a class="deal reveal" data-sku="HP 14-dq3000dx" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20HP%2014-dq3000dx%20laptop%20(XCG%20549)" target="_blank" rel="noopener">
             <div class="deal-media"><span class="deal-tag">Deal</span><img src="https://connectionscuracao.net/img/products/laptop-generic.png" alt="HP 14-dq3000dx laptop" loading="lazy"></div>
             <div class="deal-body">
               <div class="deal-name">HP 14-dq3000dx</div>
@@ -478,6 +483,26 @@
     (function share() {
       const txt = "🇨🇼 Curaçao is at the 2026 World Cup! Schedule + countdown 👉 https://connectionscuracao.net/worldcup/ #RideTheBluewave";
       document.getElementById("shareWa").href = "https://wa.me/?text=" + encodeURIComponent(txt);
+    })();
+
+    // ---- keep deal prices in sync with the live catalog (static values are the fallback) ----
+    (function syncDeals() {
+      const fmt = n => "XCG " + Number(n).toLocaleString("en-US");
+      fetch("/data/products.json")
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(list => {
+          const byName = {};
+          list.forEach(p => { byName[p.name] = p; });
+          document.querySelectorAll(".deal[data-sku]").forEach(card => {
+            const p = byName[card.dataset.sku];
+            if (!p || !p.price) return;
+            const priceEl = card.querySelector(".deal-price");
+            if (priceEl) priceEl.textContent = fmt(p.price);
+            const msg = "Hi, I'm interested in the " + p.name + " (" + fmt(p.price) + ")";
+            card.href = "https://wa.me/59996782619?text=" + encodeURIComponent(msg);
+          });
+        })
+        .catch(() => {}); // offline / blocked → keep the hardcoded prices
     })();
   </script>
 </body>

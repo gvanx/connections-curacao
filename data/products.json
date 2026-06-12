@@ -573,7 +573,7 @@
     "price": 135,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "coffee-maker-12cup.png"
   },
   {
     "name": "Coffee Maker 12 Cups w/Glass Jug",
@@ -621,7 +621,7 @@
     "price": 249,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "air-fryer-10l.png"
   },
   {
     "name": "Microwave Oven 20L/0.7CuFt Silver",
@@ -637,7 +637,7 @@
     "price": 199,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "microwave-20l-black.png"
   },
   {
     "name": "Microwave 20L/0.7CF White",
@@ -645,28 +645,28 @@
     "price": 199,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "microwave-20l-white.png"
   },
   {
     "name": "Hisense Refrigerator RT1N320NMDA",
     "suffix": "RT1N320NMDA",
-    "price": 1278.12,
+    "price": 1278,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "hisense-rt1n320nmda.png"
   },
   {
     "name": "Hisense Refrigerator RT16N6CDX",
     "suffix": "RT16N6CDX",
-    "price": 1500.40,
+    "price": 1500,
     "category": "appliances",
     "featured": true,
-    "image": "appliance-generic.png"
+    "image": "hisense-rt16n6cdx.png"
   },
   {
     "name": "Hisense Refrigerator RT14N6CDX",
     "suffix": "RT14N6CDX",
-    "price": 1440.56,
+    "price": 1441,
     "category": "appliances",
     "featured": false,
     "image": "appliance-generic.png"
@@ -674,15 +674,15 @@
   {
     "name": "Hisense Refrigerator RS3P428NEDA2",
     "suffix": "RS3P428NEDA2",
-    "price": 1393.54,
+    "price": 1394,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "hisense-rs3p428neda2.png"
   },
   {
     "name": "Hisense Refrigerator RS19W6WSN",
     "suffix": "RS19W6WSN",
-    "price": 2504.95,
+    "price": 2505,
     "category": "appliances",
     "featured": false,
     "image": "appliance-generic.png"
@@ -690,15 +690,15 @@
   {
     "name": "Hisense Refrigerator RB15N6FBX1",
     "suffix": "RB15N6FBX1",
-    "price": 1876.57,
+    "price": 1877,
     "category": "appliances",
     "featured": false,
-    "image": "appliance-generic.png"
+    "image": "hisense-rb15n6fbx1.png"
   },
   {
     "name": "AC Split 12000BTU (1+1) R410A",
     "suffix": "AA-8400SC12WN2",
-    "price": 499.6766775,
+    "price": 500,
     "category": "acs",
     "featured": false,
     "image": "ac-generic.png"
@@ -706,7 +706,7 @@
   {
     "name": "AC Split 24000BTU (1+1) R410A",
     "suffix": "AA-8402SC24WN2",
-    "price": 1090.692103,
+    "price": 1091,
     "category": "acs",
     "featured": false,
     "image": "ac-generic.png"
@@ -714,7 +714,7 @@
   {
     "name": "Air Conditioner Split 18000BTU",
     "suffix": "AA-9454SC18",
-    "price": 779.0657875,
+    "price": 779,
     "category": "acs",
     "featured": false,
     "image": "ac-generic.png"
@@ -722,7 +722,7 @@
   {
     "name": "AC Split 12000BTU Inverter (1+1) R410A White SEER 21",
     "suffix": "AA-9456SI12",
-    "price": 576.5086828,
+    "price": 577,
     "category": "acs",
     "featured": false,
     "image": "ac-generic.png"
@@ -738,7 +738,7 @@
   {
     "name": "65\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
     "suffix": "TV-9304SF65WKL",
-    "price": 992.905914,
+    "price": 993,
     "category": "tvs",
     "featured": false,
     "image": "tv-generic.png"
@@ -746,7 +746,7 @@
   {
     "name": "50\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
     "suffix": "TV-9308SF50WKL",
-    "price": 646.893247,
+    "price": 647,
     "category": "tvs",
     "featured": false,
     "image": "tv-generic.png"
@@ -762,7 +762,7 @@
   {
     "name": "55\" QLED Smart TV w/DVB-T2 Tizen Frameless w/Voice RC",
     "suffix": "TV-9370SF55WQL",
-    "price": 812.377566,
+    "price": 812,
     "category": "tvs",
     "featured": true,
     "image": "tv-generic.png"
@@ -778,7 +778,7 @@
   {
     "name": "43\" FHD Smart TV w/DVB-T2 Android Frameless w/RC",
     "suffix": "TV-9412SF43WFN",
-    "price": 436.276841,
+    "price": 436,
     "category": "tvs",
     "featured": false,
     "image": "tv-generic.png"
@@ -786,7 +786,7 @@
   {
     "name": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC",
     "suffix": "TV-9480SF40WFN",
-    "price": 361.056696,
+    "price": 361,
     "category": "tvs",
     "featured": false,
     "image": "tv-generic.png"
