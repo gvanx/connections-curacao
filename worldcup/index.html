@@ -79,10 +79,13 @@
     }
     .topbar-row { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .brand { display: inline-flex; align-items: center; gap: 0.65rem; font-family: var(--font-display); font-weight: 800; letter-spacing: 0.01em; }
-    .brand-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(252,209,22,0.16), 0 0 14px var(--gold-glow); }
+    .brand-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(252,209,22,0.16), 0 0 14px var(--gold-glow); flex: none; }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-text small { font-family: var(--font-body); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.04em; color: var(--blue-2); text-transform: none; }
     .topbar-actions { display: inline-flex; align-items: center; gap: 0.55rem; }
-    .nav-back { border-radius: 999px; border: 1px solid var(--line); background: rgba(13,22,46,0.5); padding: 0.5rem 0.85rem; font-size: 0.85rem; color: #cdd8f5; font-weight: 600; transition: 0.2s; }
-    .nav-back:hover { border-color: var(--blue-2); color: #fff; }
+    .nav-shop { border-radius: 999px; border: 1px solid transparent; background: var(--gold); color: #0a1230; padding: 0.55rem 1.05rem; font-size: 0.88rem; font-weight: 800; font-family: var(--font-display); letter-spacing: 0.02em; box-shadow: 0 10px 26px var(--gold-glow); transition: transform 0.18s, box-shadow 0.18s; white-space: nowrap; }
+    .nav-shop:hover { transform: translateY(-2px); box-shadow: 0 14px 32px var(--gold-glow); }
+    @media (max-width: 480px) { .brand-text small { display: none; } }
 
     /* ---------- Hero ---------- */
     .hero { position: relative; isolation: isolate; padding: clamp(3rem, 7vw, 6rem) 0 3rem; text-align: center; }
@@ -159,6 +162,33 @@
     .group-note { text-align: center; margin-top: 1.8rem; color: var(--muted); font-size: 0.92rem; }
     .group-note b { color: var(--text); }
 
+    /* ---------- Online store deals ---------- */
+    .store-banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem 1rem;
+      margin: 0 auto 2rem; max-width: 720px; text-align: center; padding: 0.9rem 1.2rem;
+      border: 1px dashed var(--line); border-radius: 999px; background: rgba(43,109,255,0.08); color: var(--muted); font-size: 0.95rem; }
+    .store-banner b { color: var(--text); }
+    .store-banner .pulse-dot { width: 9px; height: 9px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 0 rgba(37,211,102,0.6); animation: pulse-g 1.6s infinite; }
+    @keyframes pulse-g { 0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6)} 70%{box-shadow:0 0 0 9px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
+    .deals { display: grid; gap: 1rem; grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 900px) { .deals { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 460px) { .deals { grid-template-columns: 1fr; } }
+    .deal { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-md);
+      background: var(--surface); overflow: hidden; transition: transform 0.25s, border-color 0.25s; }
+    .deal:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .deal-media { position: relative; aspect-ratio: 4/3; background: linear-gradient(160deg, rgba(91,155,255,0.14), rgba(10,58,140,0.06)); display: flex; align-items: center; justify-content: center; padding: 0.8rem; }
+    .deal-media img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .deal-tag { position: absolute; top: 0.6rem; left: 0.6rem; background: var(--gold); color: #0a1230; font-family: var(--font-display); font-weight: 800; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; }
+    .deal-body { padding: 0.9rem 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
+    .deal-name { font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; }
+    .deal-spec { color: var(--muted); font-size: 0.78rem; min-height: 1.1em; }
+    .deal-price { font-family: var(--font-poster); font-size: 1.5rem; color: var(--gold); margin-top: 0.35rem; }
+    .deal-price small { font-family: var(--font-body); font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+    .deal-cta { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      background: #25D366; color: #04210f; font-family: var(--font-display); font-weight: 800; font-size: 0.82rem;
+      padding: 0.6rem 0.8rem; border-radius: 999px; transition: 0.2s; }
+    .deal-cta:hover { filter: brightness(1.06); }
+    .deals-all { text-align: center; margin-top: 1.8rem; }
+
     /* ---------- Shop CTA ---------- */
     .celebrate { border: 1px solid var(--line); border-radius: var(--radius-lg);
       background: linear-gradient(135deg, rgba(10,58,140,0.5), rgba(43,109,255,0.16)); padding: clamp(1.8rem, 4vw, 3rem); text-align: center; position: relative; overflow: hidden; }
@@ -200,10 +230,10 @@
     <div class="shell topbar-row">
       <a href="https://connectionscuracao.net" class="brand" aria-label="Connections Curacao home">
         <span class="brand-dot" aria-hidden="true"></span>
-        <span>Connections Curaçao</span>
+        <span class="brand-text">Connections Curaçao<small>Online Store · connectionscuracao.net</small></span>
       </a>
       <div class="topbar-actions">
-        <a class="nav-back" href="https://connectionscuracao.net">Back to Shop</a>
+        <a class="nav-shop" href="https://connectionscuracao.net">🛒 Shop Online</a>
       </div>
     </div>
   </header>
@@ -247,13 +277,70 @@
       </div>
     </section>
 
+    <!-- ===================== ONLINE STORE DEALS ===================== -->
+    <section class="band" id="shop">
+      <div class="shell">
+        <p class="eyebrow">Shop Online</p>
+        <h2 class="section-title">Gear Up For The Watch Party</h2>
+        <p class="section-note">Yes — Connections Curaçao is a full online store. Browse the catalog, see live prices, and order on WhatsApp for pickup or island-wide delivery.</p>
+
+        <div class="store-banner reveal">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span><b>Order online</b> · tap any price to message us on WhatsApp · delivery across Curaçao</span>
+        </div>
+
+        <div class="deals">
+          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%2065%22%20UHD%20Smart%20TV%20(XCG%201%2C044)" target="_blank" rel="noopener">
+            <div class="deal-media"><span class="deal-tag">Watch Party</span><img src="https://connectionscuracao.net/img/products/tv-generic.png" alt="65 inch UHD Smart TV" loading="lazy"></div>
+            <div class="deal-body">
+              <div class="deal-name">65" UHD Smart TV</div>
+              <div class="deal-spec">Big-screen 4K · for every goal</div>
+              <div class="deal-price">XCG 1,044</div>
+              <span class="deal-cta">Order on WhatsApp</span>
+            </div>
+          </a>
+          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A37%205G%20(XCG%20699)" target="_blank" rel="noopener">
+            <div class="deal-media"><span class="deal-tag">New Price</span><img src="https://connectionscuracao.net/img/products/galaxy-a37-model.png" alt="Samsung Galaxy A37 5G" loading="lazy"></div>
+            <div class="deal-body">
+              <div class="deal-name">Galaxy A37 5G</div>
+              <div class="deal-spec">5G · capture the celebrations</div>
+              <div class="deal-price">XCG 699</div>
+              <span class="deal-cta">Order on WhatsApp</span>
+            </div>
+          </a>
+          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20Galaxy%20A57%205G%20(XCG%20899)" target="_blank" rel="noopener">
+            <div class="deal-media"><span class="deal-tag">New Price</span><img src="https://connectionscuracao.net/img/products/galaxy-a57-model.png" alt="Samsung Galaxy A57 5G" loading="lazy"></div>
+            <div class="deal-body">
+              <div class="deal-name">Galaxy A57 5G</div>
+              <div class="deal-spec">5G · bigger battery, sharper camera</div>
+              <div class="deal-price">XCG 899</div>
+              <span class="deal-cta">Order on WhatsApp</span>
+            </div>
+          </a>
+          <a class="deal reveal" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20interested%20in%20the%20HP%2014-dq3000dx%20laptop%20(XCG%20549)" target="_blank" rel="noopener">
+            <div class="deal-media"><span class="deal-tag">Deal</span><img src="https://connectionscuracao.net/img/products/laptop-generic.png" alt="HP 14-dq3000dx laptop" loading="lazy"></div>
+            <div class="deal-body">
+              <div class="deal-name">HP 14-dq3000dx</div>
+              <div class="deal-spec">14" · Windows 11 Home</div>
+              <div class="deal-price">XCG 549</div>
+              <span class="deal-cta">Order on WhatsApp</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="deals-all">
+          <a class="btn btn-gold" href="https://connectionscuracao.net">🛒 Browse the full online store</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== SHOP CTA ===================== -->
     <section class="band" id="celebrate">
       <div class="shell">
         <div class="celebrate">
           <p class="eyebrow">Celebrate With Us</p>
           <h2 class="section-title">Big Match. Bigger Screen.</h2>
-          <p class="section-note">New TV for the watch party? Phone to film the street celebrations? We've got the gear — at both Willemstad stores or on WhatsApp.</p>
+          <p class="section-note">New TV for the watch party? Phone to film the street celebrations? Shop the full range online, or visit either Willemstad store. Order on WhatsApp for pickup or delivery.</p>
           <div class="chips">
             <a class="chip" href="https://connectionscuracao.net/#cat-tvs">📺 TVs</a>
             <a class="chip" href="https://connectionscuracao.net/#cat-apple"> Apple</a>
@@ -261,7 +348,7 @@
             <a class="chip" href="https://connectionscuracao.net/#cat-appliances">🔌 Appliances</a>
           </div>
           <div class="actions">
-            <a class="btn btn-gold" href="https://connectionscuracao.net">Shop the Store</a>
+            <a class="btn btn-gold" href="https://connectionscuracao.net">🛒 Shop Online</a>
             <a class="btn btn-wa" href="https://wa.me/59996782619?text=Hi%2C%20I%27m%20getting%20ready%20for%20the%20World%20Cup.%20What%20deals%20do%20you%20have%3F" target="_blank" rel="noopener">Ask on WhatsApp</a>
           </div>
         </div>

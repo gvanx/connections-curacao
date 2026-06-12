@@ -189,7 +189,7 @@
   {
     "name": "AirPods 4",
     "suffix": "",
-    "price": 299,
+    "price": 349,
     "category": "apple",
     "featured": false,
     "image": "airpods-4-model.jpg"
@@ -197,7 +197,7 @@
   {
     "name": "AirPods 4 ANC",
     "suffix": "",
-    "price": 349,
+    "price": 449,
     "category": "apple",
     "featured": true,
     "image": "airpods-4-anc-model.jpg"
@@ -261,7 +261,7 @@
   {
     "name": "Galaxy A37 5G",
     "suffix": "",
-    "price": 789,
+    "price": 699,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a37-model.jpg",
@@ -278,7 +278,7 @@
   {
     "name": "Galaxy A57 5G",
     "suffix": "",
-    "price": 969,
+    "price": 899,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
@@ -457,6 +457,15 @@
     "featured": true,
     "image": "laptop-generic.png",
     "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11 · Sky Blue"
+  },
+  {
+    "name": "HP 14-dq3000dx",
+    "suffix": "",
+    "price": 549,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Intel · 14\" HD · Windows 11 Home"
   },
   {
     "name": "Lenovo IdeaPad Slim 3i",
@@ -685,5 +694,101 @@
     "category": "appliances",
     "featured": false,
     "image": "appliance-generic.png"
+  },
+  {
+    "name": "AC Split 12000BTU (1+1) R410A",
+    "suffix": "AA-8400SC12WN2",
+    "price": 499.6766775,
+    "category": "acs",
+    "featured": false,
+    "image": "ac-generic.png"
+  },
+  {
+    "name": "AC Split 24000BTU (1+1) R410A",
+    "suffix": "AA-8402SC24WN2",
+    "price": 1090.692103,
+    "category": "acs",
+    "featured": false,
+    "image": "ac-generic.png"
+  },
+  {
+    "name": "Air Conditioner Split 18000BTU",
+    "suffix": "AA-9454SC18",
+    "price": 779.0657875,
+    "category": "acs",
+    "featured": false,
+    "image": "ac-generic.png"
+  },
+  {
+    "name": "AC Split 12000BTU Inverter (1+1) R410A White SEER 21",
+    "suffix": "AA-9456SI12",
+    "price": 576.5086828,
+    "category": "acs",
+    "featured": false,
+    "image": "ac-generic.png"
+  },
+  {
+    "name": "Gasoline Motorcycle 150CC",
+    "suffix": "MOT-9184G",
+    "price": 4500,
+    "category": "motor",
+    "featured": false,
+    "image": "motorcycle-generic.png"
+  },
+  {
+    "name": "65\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
+    "suffix": "TV-9304SF65WKL",
+    "price": 992.905914,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "50\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
+    "suffix": "TV-9308SF50WKL",
+    "price": 646.893247,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "32\" HD Smart TV w/DVB-T2 Tizen Frameless w/Voice RC",
+    "suffix": "TV-9362SF32WHL",
+    "price": 249,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "55\" QLED Smart TV w/DVB-T2 Tizen Frameless w/Voice RC",
+    "suffix": "TV-9370SF55WQL",
+    "price": 812.377566,
+    "category": "tvs",
+    "featured": true,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "32\" HD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC (1+1)",
+    "suffix": "TV-9371SF32WHL",
+    "price": 249,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "43\" FHD Smart TV w/DVB-T2 Android Frameless w/RC",
+    "suffix": "TV-9412SF43WFN",
+    "price": 436.276841,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
+  },
+  {
+    "name": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC",
+    "suffix": "TV-9480SF40WFN",
+    "price": 361.056696,
+    "category": "tvs",
+    "featured": false,
+    "image": "tv-generic.png"
   }
 ]
