@@ -14,8 +14,8 @@ the `connections-curacao` homepage. Tie the retail brand to the national moment
 
 - **Replace** the Bluewave World Cup theme on the homepage with a dedicated
   Dia di Bandera treatment (not layered alongside it).
-- Treatment is **auto-gated to a July 1–3, 2026 window** — it activates and
-  reverts on its own, no manual edit needed.
+- Treatment is **auto-gated to a Jun 30 – Jul 3, 2026 window** — it activates
+  and reverts on its own, no manual edit needed (launched early, on Jun 30).
 - Outside the window the homepage falls back to a **neutral baseline** (the
   site's original `#007AFF` Apple-blue accent, generic hero copy).
 
@@ -39,7 +39,7 @@ the `connections-curacao` homepage. Tie the retail brand to the national moment
 ## Mechanics (window + removability)
 
 A tiny inline script in `<head>` adds `class="flagday"` to `<html>` when the
-local date is **1–3 July 2026** (`?flagday` or `#flagday` forces a preview any
+local date is **Jun 30 – Jul 3, 2026** (`?flagday` or `#flagday` forces a preview any
 time). **All** flag-day CSS is scoped under `html.flagday`, and the ribbon /
 banner / flag-day hero are `display:none` until the class is present — so the
 neutral baseline shows automatically outside the window with zero edits.
@@ -59,7 +59,7 @@ Plus the ribbon (`#fd-ribbon`), the hero `.hero-flagday` variant, and the
 
 ## Success criteria
 
-- During Jul 1–3 the homepage carries the flag ribbon, yellow/blue accents and
-  the flag banner; on Jul 4 it reverts to the neutral baseline on its own.
+- From Jun 30 through Jul 3 the homepage carries the flag ribbon, yellow/blue
+  accents and the flag banner; on Jul 4 it reverts to the neutral baseline on its own.
 - WhatsApp number stays canonical `59996782619`; store hours unchanged.
 - Theme strips out by deleting the marked blocks with no leftover artifacts.
