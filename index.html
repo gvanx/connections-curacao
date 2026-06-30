@@ -1580,98 +1580,107 @@
 
   </style>
 
-  <!-- ===== BLUEWAVE WORLD CUP THEME — START (remove after tournament) ===== -->
-  <style id="wc-theme">
-    :root{
-      --accent:#2b6dff;                 /* electric Curaçao blue */
-      --accent-glow:rgba(43,109,255,0.35);
-      --wc-blue:#0a3a8c;                /* deep flag blue */
-      --wc-gold:#FCD116;                /* flag yellow      */
-      --wc-gold-glow:rgba(252,209,22,0.5);
-    }
-    .logo-dot{background:var(--wc-gold)!important;box-shadow:0 0 10px var(--wc-gold-glow)!important}
-    #wc-ribbon{
-      display:block;text-decoration:none;cursor:pointer;
-      position:relative;z-index:50;
-      background:linear-gradient(90deg,var(--wc-blue),#1455d6 45%,var(--wc-blue));
-      color:#fff;text-align:center;font:700 .82rem/1.2 var(--font-display);
-      letter-spacing:.04em;padding:.55rem 1rem;
-      border-bottom:2px solid var(--wc-gold);
-      transition:filter .25s;
-    }
-    #wc-ribbon:hover{filter:brightness(1.12)}
-    #wc-ribbon b{color:var(--wc-gold)}
-    .wc-ribbon-cta{display:inline-block;color:var(--wc-gold);transition:transform .25s}
-    #wc-ribbon:hover .wc-ribbon-cta{transform:translateX(4px)}
+  <!-- ===== DIA DI BANDERA / FLAG DAY THEME — START (auto-active Jun 30 – Jul 3, 2026; remove after) ===== -->
+  <script>
+    /* Dia di Bandera window: Jun 30 – Jul 3, 2026 (local time). ?flagday or #flagday forces a preview. */
+    (function(){
+      try{
+        var d=new Date(), y=d.getFullYear(), mo=d.getMonth(), day=d.getDate(),
+            live=y===2026 && ((mo===5 && day===30) || (mo===6 && day<=3));
+        if(/flagday/.test(location.search)||/flagday/.test(location.hash)) live=true;
+        if(live){
+          document.documentElement.classList.add('flagday');
+          var m=document.querySelector('meta[name="theme-color"]');
+          if(m) m.setAttribute('content','#002B7F');
+        }
+      }catch(e){}
+    })();
+  </script>
+  <style id="fd-theme">
+    /* outside the window: flag-day elements hidden; site keeps its base #007AFF accent */
+    #fd-ribbon,.fd-banner,.hero-flagday{display:none}
 
-    /* ---- World Cup banner card ---- */
-    .wc-banner{display:block;max-width:1200px;margin:64px auto;padding:0 24px;text-decoration:none}
-    .wc-banner-inner{
+    html.flagday{
+      --accent:#0a4fc4;                 /* vivid flag blue */
+      --accent-glow:rgba(10,79,196,0.35);
+      --fd-blue:#002B7F;                /* Curaçao flag cobalt */
+      --fd-blue-deep:#001a52;
+      --fd-yellow:#F9D616;              /* flag yellow stripe       */
+      --fd-yellow-glow:rgba(249,214,22,0.5);
+    }
+    html.flagday .logo-dot{background:var(--fd-yellow)!important;box-shadow:0 0 10px var(--fd-yellow-glow)!important}
+    html.flagday .btn-primary{background:var(--fd-yellow)!important;color:var(--fd-blue)!important;
+      box-shadow:0 8px 28px var(--fd-yellow-glow)!important;font-weight:800!important}
+
+    /* ---- top ribbon ---- */
+    html.flagday #fd-ribbon{
+      display:block;position:relative;z-index:50;text-align:center;color:#fff;
+      font:700 .82rem/1.2 var(--font-display);letter-spacing:.05em;
+      padding:.55rem 1rem;border-bottom:2px solid var(--fd-yellow);
+      background:linear-gradient(90deg,var(--fd-blue),#0a3aa0 45%,var(--fd-blue));
+    }
+    #fd-ribbon b{color:var(--fd-yellow)}
+    #fd-ribbon .stars{color:#fff;letter-spacing:.12em;text-shadow:0 0 8px var(--fd-yellow-glow)}
+
+    /* ---- hero flag-day swap ---- */
+    html.flagday .hero-default{display:none}
+    html.flagday .hero-flagday{display:block}
+    html.flagday #hero{background:
+      radial-gradient(120% 80% at 50% -10%,rgba(10,79,196,0.28),transparent 60%),
+      radial-gradient(80% 50% at 80% 110%,rgba(249,214,22,0.10),transparent 60%),
+      var(--bg)!important;}
+    .hero-fd-tag{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--fd-yellow);background:rgba(249,214,22,0.12);
+      padding:.35rem .9rem;border-radius:999px;border:1px solid rgba(249,214,22,0.45);margin-bottom:1rem}
+    .hero-fd-tag .stars{color:#fff;text-shadow:0 0 8px var(--fd-yellow-glow)}
+    .hero-flagday .hero-tagline .fd-accent{color:var(--fd-yellow);text-shadow:0 0 24px var(--fd-yellow-glow)}
+
+    /* ---- flag banner card ---- */
+    .fd-banner{max-width:1200px;margin:64px auto;padding:0 24px;text-decoration:none}
+    html.flagday .fd-banner{display:block}
+    .fd-banner-inner{
       position:relative;overflow:hidden;border-radius:var(--radius-lg);
-      border:1px solid rgba(252,209,22,0.35);
-      background:
-        radial-gradient(120% 140% at 85% -20%,rgba(252,209,22,0.18),transparent 55%),
-        radial-gradient(120% 140% at 0% 120%,rgba(43,109,255,0.35),transparent 55%),
-        linear-gradient(105deg,var(--wc-blue),#0d2f73 55%,#08245c);
-      padding:38px 40px;display:flex;align-items:center;justify-content:space-between;
-      gap:28px;flex-wrap:wrap;box-shadow:0 24px 60px rgba(8,20,60,0.45);
+      border:1px solid rgba(249,214,22,0.40);
+      background:linear-gradient(105deg,var(--fd-blue),#0a2f86 55%,var(--fd-blue-deep));
+      padding:42px 44px;display:flex;align-items:center;justify-content:space-between;
+      gap:28px;flex-wrap:wrap;box-shadow:0 24px 60px rgba(0,16,60,0.5);
       transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
     }
-    .wc-banner-inner::before{
-      content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-      background:repeating-linear-gradient(115deg,rgba(255,255,255,0.05) 0 2px,transparent 2px 60px);
-    }
-    .wc-banner:hover .wc-banner-inner{
-      transform:translateY(-3px);border-color:rgba(252,209,22,0.6);
-      box-shadow:0 30px 72px rgba(8,20,60,0.6);
-    }
-    .wc-banner-copy{position:relative;z-index:1}
-    .wc-banner-eyebrow{
-      display:inline-block;font-family:var(--font-display);font-weight:800;font-size:.72rem;
-      letter-spacing:.16em;text-transform:uppercase;color:var(--wc-gold);margin-bottom:.6rem;
-    }
-    .wc-banner-eyebrow .stars{color:#fff;letter-spacing:.1em;text-shadow:0 0 10px var(--wc-gold-glow)}
-    .wc-banner-title{
-      font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
-      font-size:clamp(1.9rem,4.5vw,2.9rem);color:#fff;letter-spacing:-0.01em;
-    }
-    .wc-banner-title span{color:var(--wc-gold);text-shadow:0 0 28px var(--wc-gold-glow)}
-    .wc-banner-sub{margin:0;color:rgba(238,242,255,0.82);font-size:1rem;max-width:40ch;line-height:1.5}
-    .wc-banner-btn{
-      position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.55rem;
-      background:var(--wc-gold);color:var(--wc-blue);font-family:var(--font-display);font-weight:800;
+    /* two white stars of the flag, upper hoist */
+    .fd-banner-inner::before{content:"★ ★";position:absolute;top:18px;left:30px;color:#fff;
+      font-size:1.05rem;letter-spacing:.22em;text-shadow:0 0 12px rgba(255,255,255,.6);opacity:.95}
+    /* yellow flag stripe along the bottom */
+    .fd-banner-inner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;
+      background:var(--fd-yellow);opacity:.92}
+    .fd-banner:hover .fd-banner-inner{transform:translateY(-3px);border-color:rgba(249,214,22,0.65);
+      box-shadow:0 30px 72px rgba(0,16,60,0.62)}
+    .fd-banner-copy{position:relative;z-index:1}
+    .fd-banner-eyebrow{display:inline-block;font-family:var(--font-display);font-weight:800;font-size:.72rem;
+      letter-spacing:.16em;text-transform:uppercase;color:var(--fd-yellow);margin:.4rem 0 .6rem}
+    .fd-banner-title{font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
+      font-size:clamp(1.9rem,4.5vw,2.9rem);color:#fff;letter-spacing:-0.01em}
+    .fd-banner-title span{color:var(--fd-yellow);text-shadow:0 0 28px var(--fd-yellow-glow)}
+    .fd-banner-sub{margin:0;color:rgba(238,242,255,0.85);font-size:1rem;max-width:46ch;line-height:1.5}
+    .fd-banner-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.55rem;
+      background:var(--fd-yellow);color:var(--fd-blue);font-family:var(--font-display);font-weight:800;
       font-size:1rem;padding:.85rem 1.5rem;border-radius:999px;white-space:nowrap;
-      box-shadow:0 10px 30px var(--wc-gold-glow);transition:box-shadow .3s;
-    }
-    .wc-banner:hover .wc-banner-btn{box-shadow:0 14px 38px var(--wc-gold-glow)}
-    .wc-banner-arrow{transition:transform .3s}
-    .wc-banner:hover .wc-banner-arrow{transform:translateX(4px)}
+      box-shadow:0 10px 30px var(--fd-yellow-glow);transition:box-shadow .3s}
+    .fd-banner:hover .fd-banner-btn{box-shadow:0 14px 38px var(--fd-yellow-glow)}
+    .fd-banner-arrow{transition:transform .3s}
+    .fd-banner:hover .fd-banner-arrow{transform:translateX(4px)}
     @media (max-width:600px){
-      .wc-banner{margin:44px auto}
-      .wc-banner-inner{padding:30px 24px;flex-direction:column;align-items:flex-start;gap:22px}
-      .wc-banner-btn{width:100%;justify-content:center}
+      .fd-banner{margin:44px auto}
+      .fd-banner-inner{padding:38px 24px 30px;flex-direction:column;align-items:flex-start;gap:22px}
+      .fd-banner-inner::before{top:16px;left:24px}
+      .fd-banner-btn{width:100%;justify-content:center}
     }
-    #hero{background:
-      radial-gradient(120% 80% at 50% -10%,rgba(43,109,255,0.22),transparent 60%),
-      radial-gradient(80% 50% at 80% 110%,rgba(252,209,22,0.10),transparent 60%),
-      var(--bg)!important;}
-    .hero-wc-tag{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;
-      text-transform:uppercase;color:var(--wc-gold);background:rgba(252,209,22,0.12);
-      padding:.35rem .9rem;border-radius:999px;border:1px solid rgba(252,209,22,0.45);margin-bottom:1rem}
-    .hero-wc-tag .stars{color:#fff;text-shadow:0 0 8px var(--wc-gold-glow)}
-    .hero-tagline .wc-accent{color:var(--accent);text-shadow:0 0 24px var(--accent-glow)}
-    .btn-primary{background:var(--wc-gold)!important;color:var(--wc-blue)!important;
-      box-shadow:0 8px 28px var(--wc-gold-glow)!important;font-weight:800!important}
-    /* repurpose the Kingsday product tag as a Bluewave tag (gold, on-theme) */
-    .badge-kingsday-corner,.badge-kingsday{color:var(--wc-gold)!important;
-      background:rgba(252,209,22,0.14)!important;border-color:rgba(252,209,22,0.5)!important}
   </style>
-  <!-- ===== BLUEWAVE WORLD CUP THEME — END ===== -->
+  <!-- ===== DIA DI BANDERA / FLAG DAY THEME — END ===== -->
 </head>
 <body>
 
-  <!-- BLUEWAVE WORLD CUP — ribbon (remove after tournament) -->
-  <a id="wc-ribbon" href="/worldcup">🇨🇼 CURAÇAO AT THE <b>2026 WORLD CUP</b> &nbsp;·&nbsp; Ride the <b>Bluewave</b> — Schedule &amp; live countdown <span class="wc-ribbon-cta">→</span></a>
+  <!-- DIA DI BANDERA — ribbon (auto-hidden outside the Jul 1–3 window) -->
+  <div id="fd-ribbon"><span class="stars">★★</span>&nbsp; Bon Dia di Bandera, Kòrsou! &nbsp;·&nbsp; <b>2 di yüli</b> &nbsp;·&nbsp; Pabien na nos bandera, himno i pais 🇨🇼</div>
 
   <!-- Navigation -->
   <nav id="nav">
@@ -1723,13 +1732,24 @@
   <!-- Hero -->
   <section id="hero">
     <div class="hero-content">
-      <!-- BLUEWAVE WORLD CUP — hero copy (revert after tournament) -->
-      <span class="hero-wc-tag"><span class="stars">★★</span> Curaçao 2026 World Cup</span>
-      <h1 class="hero-tagline">Ride the <span class="wc-accent">Bluewave</span></h1>
-      <p class="hero-subtitle">World Cup deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
-      <div class="hero-ctas">
-        <a href="#deals" class="btn-primary">Shop World Cup deals</a>
-        <a href="#locations" class="btn-glass">Visit Us</a>
+      <!-- Hero copy (default baseline, shown outside the Flag Day window) -->
+      <div class="hero-default">
+        <h1 class="hero-tagline">The latest tech, on island</h1>
+        <p class="hero-subtitle">Deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
+        <div class="hero-ctas">
+          <a href="#deals" class="btn-primary">Shop deals</a>
+          <a href="#locations" class="btn-glass">Visit Us</a>
+        </div>
+      </div>
+      <!-- DIA DI BANDERA — hero copy (auto-shown only Jul 1–3) -->
+      <div class="hero-flagday">
+        <span class="hero-fd-tag"><span class="stars">★★</span> Dia di Bandera · 2 di yüli</span>
+        <h1 class="hero-tagline">Bon <span class="fd-accent">Dia di Bandera</span></h1>
+        <p class="hero-subtitle">Celebrating our flag with deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
+        <div class="hero-ctas">
+          <a href="#deals" class="btn-primary">Shop Flag Day deals</a>
+          <a href="#locations" class="btn-glass">Visit Us</a>
+        </div>
       </div>
     </div>
     <div class="scroll-indicator" aria-hidden="true">
@@ -1737,15 +1757,15 @@
     </div>
   </section>
 
-  <!-- BLUEWAVE WORLD CUP — banner card (remove after tournament) -->
-  <a class="wc-banner" href="/worldcup" aria-label="Curaçao at the 2026 World Cup — schedule and live countdown">
-    <div class="wc-banner-inner">
-      <div class="wc-banner-copy">
-        <span class="wc-banner-eyebrow"><span class="stars">★★</span> Curaçao 2026 World Cup</span>
-        <h2 class="wc-banner-title">Ride the <span>Bluewave</span></h2>
-        <p class="wc-banner-sub">Curaçao's first-ever World Cup — Group E vs Germany, Ecuador &amp; Ivory Coast.</p>
+  <!-- DIA DI BANDERA — banner card (auto-hidden outside the Jul 1–3 window) -->
+  <a class="fd-banner" href="#deals" aria-label="Dia di Bandera — Flag Day deals at Connections Curaçao">
+    <div class="fd-banner-inner">
+      <div class="fd-banner-copy">
+        <span class="fd-banner-eyebrow">2 di yüli · Dia di Bandera</span>
+        <h2 class="fd-banner-title">Bon <span>Bandera</span>, Kòrsou!</h2>
+        <p class="fd-banner-sub">Celebrating Curaçao’s flag, anthem and country — with island deals across the catalog.</p>
       </div>
-      <span class="wc-banner-btn">See schedule &amp; countdown <span class="wc-banner-arrow">→</span></span>
+      <span class="fd-banner-btn">Shop Flag Day deals <span class="fd-banner-arrow">→</span></span>
     </div>
   </a>
 
