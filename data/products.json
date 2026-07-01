@@ -121,6 +121,14 @@
     "image": "iphone-17-pro-max-model.jpg"
   },
   {
+    "name": "iPhone 17 Pro Max SIM",
+    "suffix": "",
+    "price": 3390,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-17-pro-max-model.jpg"
+  },
+  {
     "name": "iPad 11th 128GB",
     "suffix": "",
     "price": 899,
