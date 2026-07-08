@@ -219,9 +219,17 @@
     "image": "airpods-pro-3-model.jpg"
   },
   {
-    "name": "Galaxy A07",
+    "name": "Galaxy A06",
     "suffix": "",
     "price": 199,
+    "category": "samsung",
+    "featured": false,
+    "image": "galaxy-a06-model.jpg"
+  },
+  {
+    "name": "Galaxy A07",
+    "suffix": "",
+    "price": 225,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a07-model.jpg"
@@ -229,7 +237,7 @@
   {
     "name": "Samsung M04 128GB",
     "suffix": "",
-    "price": 250,
+    "price": 199,
     "category": "samsung",
     "featured": false,
     "image": "samsung-m04-model.png"
