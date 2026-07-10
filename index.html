@@ -729,10 +729,21 @@
       border-radius: 100px;
       line-height: 1.4;
     }
+    .active-note {
+      margin: 6px 0 2px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: #166534;
+      background: rgba(22, 163, 74, 0.10);
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      border-radius: 8px;
+    }
+    .active-note[hidden] { display: none; }
     .badge-active {
       display: inline-block;
       margin-left: 6px;
-      cursor: help;
+      cursor: pointer;
       padding: 2px 8px;
       font-size: 0.65rem;
       font-weight: 700;
@@ -2206,7 +2217,8 @@
       featured.forEach(p => {
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active</span>' : '';
+        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+        const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
@@ -2219,6 +2231,7 @@
             </div>
             <div class="deal-body">
               <div class="deal-name">${p.name}${hsoBadge}${activeBadge}</div>
+              ${activeNote}
               <div class="deal-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
               ${p.price ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
@@ -2270,7 +2283,8 @@
         items.forEach(p => {
           const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
           const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-          const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active</span>' : '';
+          const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+        const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
@@ -2283,6 +2297,7 @@
               </div>
               <div class="product-body">
                 <div class="product-name">${p.name}${hsoBadge}${activeBadge}</div>
+                ${activeNote}
                 <div class="product-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
                 ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                   ${WA_ICON} Checkout &amp; Pay
@@ -2300,6 +2315,22 @@
       attachOrderButtons(container);
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
+
+    /* ---- Active badge: tap/click to reveal warranty note ---- */
+    function toggleActiveNote(badge) {
+      const card = badge.closest('.deal-card, .product-card');
+      const note = card && card.querySelector('.active-note');
+      if (note) note.hidden = !note.hidden;
+    }
+    document.addEventListener('click', (e) => {
+      const badge = e.target.closest('.badge-active');
+      if (badge) { e.stopPropagation(); toggleActiveNote(badge); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const badge = e.target.closest && e.target.closest('.badge-active');
+      if (badge) { e.preventDefault(); toggleActiveNote(badge); }
+    });
 
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
