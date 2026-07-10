@@ -786,12 +786,18 @@
       z-index: 2;
     }
 
-    /* ---- Sale ribbon & old price ---- */
-    .badge-sale {
+    /* ---- Corner ribbons (sale / limited) & old price ---- */
+    .card-ribbons {
       position: absolute;
       top: 0.6rem;
       left: 0.6rem;
       z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+    .badge-sale {
       font-family: var(--font-display);
       font-weight: 800;
       font-size: 0.72rem;
@@ -802,6 +808,30 @@
       border-radius: 999px;
       box-shadow: 0 2px 10px rgba(225,29,72,0.45);
     }
+    .badge-limited {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.01em;
+      color: #1a1200;
+      background: #f5b301;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(245,179,1,0.4);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .limited-note {
+      margin: 6px 0 2px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: #f5d67a;
+      background: rgba(245,179,1,0.10);
+      border: 1px solid rgba(245,179,1,0.40);
+      border-radius: 8px;
+    }
+    .limited-note[hidden] { display: none; }
     .old-price {
       color: var(--text-dim);
       text-decoration: line-through;
@@ -2403,15 +2433,18 @@
         const encodedName = encodeURIComponent(fullName);
         const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
         const { ribbon, oldPriceHtml } = saleInfo(p);
+        const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
+        const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+        const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
         html += `
           <div class="deal-card">
-            ${ribbon}${bluewaveBadge}
+            ${corner}${bluewaveBadge}
             <div class="deal-img">
               <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
             </div>
             <div class="deal-body">
               <div class="deal-name">${p.name}${hsoBadge}${activeBadge}</div>
-              ${activeNote}
+              ${activeNote}${limitedNote}
               <div class="deal-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
               ${p.price ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
@@ -2453,15 +2486,18 @@
       const encodedName = encodeURIComponent(fullName);
       const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
       const { ribbon, oldPriceHtml } = saleInfo(p);
+      const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
+      const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+      const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
       return `
         <div class="product-card">
-          ${ribbon}${bluewaveBadge}
+          ${corner}${bluewaveBadge}
           <div class="product-img">
             <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
           </div>
           <div class="product-body">
             <div class="product-name">${p.name}${hsoBadge}${activeBadge}</div>
-            ${activeNote}
+            ${activeNote}${limitedNote}
             <div class="product-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
             ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
@@ -2643,19 +2679,31 @@
     }
 
     /* ---- Active badge: tap/click to reveal warranty note ---- */
-    function toggleActiveNote(badge) {
+    const NOTE_BADGES = [
+      { sel: '.badge-active', note: '.active-note' },
+      { sel: '.badge-limited', note: '.limited-note' }
+    ];
+    function findNoteBadge(target) {
+      if (!target || !target.closest) return null;
+      for (const nb of NOTE_BADGES) {
+        const badge = target.closest(nb.sel);
+        if (badge) return { badge, noteSel: nb.note };
+      }
+      return null;
+    }
+    function toggleCardNote(badge, noteSel) {
       const card = badge.closest('.deal-card, .product-card');
-      const note = card && card.querySelector('.active-note');
+      const note = card && card.querySelector(noteSel);
       if (note) note.hidden = !note.hidden;
     }
     document.addEventListener('click', (e) => {
-      const badge = e.target.closest('.badge-active');
-      if (badge) { e.stopPropagation(); toggleActiveNote(badge); }
+      const hit = findNoteBadge(e.target);
+      if (hit) { e.stopPropagation(); toggleCardNote(hit.badge, hit.noteSel); }
     });
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      const badge = e.target.closest && e.target.closest('.badge-active');
-      if (badge) { e.preventDefault(); toggleActiveNote(badge); }
+      const hit = findNoteBadge(e.target);
+      if (hit) { e.preventDefault(); toggleCardNote(hit.badge, hit.noteSel); }
     });
 
     /* ---- Init ---- */
