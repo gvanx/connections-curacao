@@ -729,6 +729,19 @@
       border-radius: 100px;
       line-height: 1.4;
     }
+    .badge-active {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: #16a34a;
+      color: #fff;
+      border-radius: 100px;
+      line-height: 1.4;
+    }
     .badge-kingsday {
       display: inline-block;
       font-size: 0.62rem;
@@ -2192,6 +2205,7 @@
       featured.forEach(p => {
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active">Active</span>' : '';
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
@@ -2203,7 +2217,7 @@
               <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
             </div>
             <div class="deal-body">
-              <div class="deal-name">${p.name}${hsoBadge}</div>
+              <div class="deal-name">${p.name}${hsoBadge}${activeBadge}</div>
               <div class="deal-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
               ${p.price ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
@@ -2255,6 +2269,7 @@
         items.forEach(p => {
           const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
           const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+          const activeBadge = p.suffix === 'Active' ? '<span class="badge-active">Active</span>' : '';
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
@@ -2266,7 +2281,7 @@
                 <img src="${imageSrc}" alt="${imageAlt}" loading="lazy" decoding="async">
               </div>
               <div class="product-body">
-                <div class="product-name">${p.name}${hsoBadge}</div>
+                <div class="product-name">${p.name}${hsoBadge}${activeBadge}</div>
                 <div class="product-price">${p.price ? formatPrice(p.price) : 'Ask in store'}</div>
                 ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                   ${WA_ICON} Checkout &amp; Pay
