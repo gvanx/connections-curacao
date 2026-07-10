@@ -732,6 +732,7 @@
     .badge-active {
       display: inline-block;
       margin-left: 6px;
+      cursor: help;
       padding: 2px 8px;
       font-size: 0.65rem;
       font-weight: 700;
@@ -2205,7 +2206,7 @@
       featured.forEach(p => {
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active">Active</span>' : '';
+        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active</span>' : '';
         const imageSrc = productImageSrc(p);
         const imageAlt = escapeHtml(fullName);
         const encodedName = encodeURIComponent(fullName);
@@ -2269,7 +2270,7 @@
         items.forEach(p => {
           const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
           const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-          const activeBadge = p.suffix === 'Active' ? '<span class="badge-active">Active</span>' : '';
+          const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active</span>' : '';
           const imageSrc = productImageSrc(p);
           const imageAlt = escapeHtml(fullName);
           const encodedName = encodeURIComponent(fullName);
