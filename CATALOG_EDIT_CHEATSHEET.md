@@ -49,6 +49,20 @@ Edit:
 "price": 575
 ```
 
+### Put a Product on Sale (discount ribbon)
+
+Add an `oldPrice` field with the original (higher) price. Keep `price`
+as the new/current price:
+
+```json
+"price": 1499,
+"oldPrice": 1699
+```
+
+This automatically shows a red **-12%** ribbon on the card and the old
+price struck through next to the new one. The percentage is calculated
+for you. To end the sale, just delete the `oldPrice` line.
+
 ### Add Product
 
 1. Copy an existing object in `data/products.json`
