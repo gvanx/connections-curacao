@@ -63,6 +63,19 @@ This automatically shows a red **-12%** ribbon on the card and the old
 price struck through next to the new one. The percentage is calculated
 for you. To end the sale, just delete the `oldPrice` line.
 
+### Mark a Product as Limited Supply
+
+Add `"limited": true`:
+
+```json
+"price": 899,
+"limited": true
+```
+
+This shows a **⚡ Limited supply** ribbon on the card. Tapping/hovering
+it reveals a note: "Limited stock. Price rises once this batch sells out."
+Remove the `limited` line when stock is back to normal.
+
 ### Add Product
 
 1. Copy an existing object in `data/products.json`

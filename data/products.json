@@ -142,6 +142,7 @@
     "price": 899,
     "category": "apple",
     "featured": true,
+    "limited": true,
     "subcategory": "tablet",
     "image": "ipad-11th-model.jpg"
   },
