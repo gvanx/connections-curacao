@@ -58,6 +58,14 @@
   {
     "name": "iPhone 16",
     "suffix": "",
+    "price": 1599,
+    "category": "apple",
+    "featured": true,
+    "image": "iphone-16-model.jpg"
+  },
+  {
+    "name": "iPhone 16",
+    "suffix": "Active",
     "price": 1499,
     "category": "apple",
     "featured": true,
