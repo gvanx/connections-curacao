@@ -64,9 +64,17 @@
     "image": "iphone-16-model.jpg"
   },
   {
+    "name": "iPhone 16",
+    "suffix": "Active",
+    "price": 1499,
+    "category": "apple",
+    "featured": true,
+    "image": "iphone-16-model.jpg"
+  },
+  {
     "name": "iPhone 16 Plus",
     "suffix": "",
-    "price": 1850,
+    "price": 1990,
     "category": "apple",
     "featured": false,
     "image": "iphone-16-plus-model.jpg"
