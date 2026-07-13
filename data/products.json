@@ -502,6 +502,24 @@
     "spec": "Intel N100 · 4GB · 128GB SSD · 15.6\" 1920×1080 · Arctic Gray"
   },
   {
+    "name": "HP 15-fd0182wm",
+    "suffix": "",
+    "price": 1900,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Core i7-1355U · 16GB DDR4 · 1TB SSD · 15.6\" FHD IPS (300 nits) · Fingerprint · W11 · Silver"
+  },
+  {
+    "name": "HP AI 15-fd2050wm",
+    "suffix": "",
+    "price": 1450,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Core Ultra 5 225U · 8GB DDR5 · 512GB SSD · 15.6\" FHD IPS Touch (300 nits) · W11"
+  },
+  {
     "name": "Digital Air Cooler 5.5L",
     "suffix": "",
     "price": 149,
