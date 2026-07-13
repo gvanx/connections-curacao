@@ -1135,6 +1135,13 @@
       flex-wrap: wrap;
     }
 
+    .product-spec {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
     .product-price {
       font-family: var(--font-display);
       font-weight: 700;
@@ -2498,6 +2505,7 @@
           <div class="product-body">
             <div class="product-name">${p.name}${hsoBadge}${activeBadge}</div>
             ${activeNote}${limitedNote}
+            ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
             <div class="product-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
             ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
