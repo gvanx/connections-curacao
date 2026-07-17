@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Connections Curaçao — woah 🫨 the genz plug</title>
+  <meta name="description" content="tech that hits different 🫨 — Curaçao's plug for iPhones, Samsung, TVs, laptops & more. shop straight from WhatsApp. no cap.">
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="Connections Curaçao — woah 🫨">
+  <meta property="og:description" content="tech that hits different. Curaçao's plug for phones, TVs & everything electronic. shop straight from WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net/woah">
+  <meta property="og:image" content="https://connectionscuracao.net/woah/media/reel1-favorite.jpg">
+
+  <meta name="theme-color" content="#FF2E93">
+
+  <!-- Favicon — inline SVG lightning bolt (matches main site) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FF2E93'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #08070d;
+      --bg-2: #0f0a1e;
+      --card: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.62);
+      --dim: rgba(255,255,255,0.4);
+      --pink: #FF2E93;
+      --purple: #7B2FF7;
+      --cyan: #00E0FF;
+      --lime: #C8FF3D;
+      --grad: linear-gradient(120deg, #FF2E93 0%, #7B2FF7 48%, #00E0FF 100%);
+      --grad-soft: linear-gradient(120deg, rgba(255,46,147,.18), rgba(123,47,247,.18), rgba(0,224,255,.18));
+      --whatsapp: #25D366;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    ::selection { background: var(--pink); color: #fff; }
+
+    /* ---- Animated aurora background ---- */
+    .aurora {
+      position: fixed; inset: 0; z-index: -2; overflow: hidden;
+      background: radial-gradient(ellipse at top, var(--bg-2), var(--bg) 60%);
+    }
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .blob.b1 { width: 46vw; height: 46vw; background: var(--pink);   top: -8vw; left: -6vw; }
+    .blob.b2 { width: 42vw; height: 42vw; background: var(--purple); top: 30vh; right: -10vw; animation-delay: -4s; }
+    .blob.b3 { width: 38vw; height: 38vw; background: var(--cyan);   bottom: -10vw; left: 20vw; animation-delay: -8s; opacity:.4;}
+    @keyframes drift {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to   { transform: translate3d(4vw,3vh,0) scale(1.15); }
+    }
+
+    /* ---- Floating emoji layer ---- */
+    #emoji-layer {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .fe {
+      position: absolute; bottom: -12vh; font-size: 2rem; line-height: 1;
+      opacity: 0; will-change: transform, opacity;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.35));
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg) scale(.8); opacity: 0; }
+      10%  { opacity: .9; }
+      50%  { transform: translateY(-58vh) rotate(18deg) scale(1.1); }
+      90%  { opacity: .85; }
+      100% { transform: translateY(-118vh) rotate(-12deg) scale(.9); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fe, .blob { animation: none; }
+      .fe { display: none; }
+    }
+
+    .wrap { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(8,7,13,0.6);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 9px; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em; }
+    .brand .bolt {
+      width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+      background: var(--grad); font-size: 15px;
+    }
+    .brand .woah-tag {
+      font-size: .62rem; font-weight: 700; padding: 2px 7px; border-radius: 999px;
+      background: var(--grad); color: #fff; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .topbar .to-full {
+      font-size: .82rem; font-weight: 600; color: var(--muted);
+      padding: 7px 13px; border-radius: 999px; border: 1px solid var(--card-border);
+      transition: .2s;
+    }
+    .topbar .to-full:hover { color: #fff; border-color: rgba(255,255,255,.35); }
+
+    /* ---- Hero ---- */
+    .hero { padding: 46px 0 26px; text-align: center; }
+    .hero .kicker {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 999px; background: var(--grad-soft);
+      border: 1px solid var(--card-border); color: #fff; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-weight: 700; letter-spacing: -.03em;
+      font-size: clamp(2.6rem, 9vw, 5rem); line-height: .98; margin-bottom: 16px;
+    }
+    .hero h1 .grad {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero h1 .shake { display: inline-block; animation: shakeE 2.4s ease-in-out infinite; }
+    @keyframes shakeE {
+      0%,88%,100% { transform: translate(0,0) rotate(0); }
+      90% { transform: translate(-2px,1px) rotate(-6deg); }
+      93% { transform: translate(2px,-1px) rotate(6deg); }
+      96% { transform: translate(-1px,1px) rotate(-3deg); }
+    }
+    .hero p.sub {
+      color: var(--muted); font-size: clamp(1rem, 2.4vw, 1.18rem); max-width: 560px;
+      margin: 0 auto 26px;
+    }
+    .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-main {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 14px 24px; border-radius: 999px; font-weight: 700; font-size: 1rem;
+      background: var(--grad); color: #fff; box-shadow: 0 10px 30px rgba(255,46,147,.32);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-main:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 40px rgba(123,47,247,.45); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 22px; border-radius: 999px; font-weight: 600; font-size: 1rem;
+      border: 1px solid var(--card-border); color: #fff; background: var(--card);
+      transition: .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); }
+
+    .marquee {
+      margin-top: 30px; overflow: hidden; white-space: nowrap;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .marquee span {
+      display: inline-block; font-family: var(--font-display); font-weight: 700;
+      font-size: 1.1rem; color: var(--dim); animation: scrollX 22s linear infinite; padding-left: 100%;
+    }
+    .marquee b { color: var(--pink); }
+    @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+    /* ---- Section heads ---- */
+    .sec { padding: 40px 0 10px; }
+    .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .sec-head h2 {
+      font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em;
+      font-size: clamp(1.6rem, 5vw, 2.3rem);
+    }
+    .sec-head .note { color: var(--dim); font-size: .92rem; }
+
+    /* ---- Reels ---- */
+    .reels {
+      display: flex; gap: 14px; overflow-x: auto; padding: 4px 2px 18px;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .reels::-webkit-scrollbar { display: none; }
+    .reel {
+      position: relative; flex: 0 0 auto; width: 210px; aspect-ratio: 9/16;
+      border-radius: var(--radius); overflow: hidden; scroll-snap-align: center;
+      border: 1px solid var(--card-border); background: #000; cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0,0,0,.4);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .reel:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(123,47,247,.35); }
+    .reel video { width: 100%; height: 100%; object-fit: cover; }
+    .reel .cap {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 12px 12px;
+      font-size: .8rem; font-weight: 600; line-height: 1.25;
+      background: linear-gradient(transparent, rgba(0,0,0,.82));
+      text-shadow: 0 1px 4px rgba(0,0,0,.6);
+    }
+    .reel .sound {
+      position: absolute; top: 10px; right: 10px; z-index: 3;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(6px);
+      display: grid; place-items: center; font-size: 14px;
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .reel .live {
+      position: absolute; top: 10px; left: 10px; z-index: 3;
+      font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 999px; background: var(--grad); color: #fff;
+    }
+
+    /* ---- Category chips ---- */
+    .chips { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip {
+      flex: 0 0 auto; padding: 9px 16px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+      border: 1px solid var(--card-border); background: var(--card); color: var(--muted);
+      white-space: nowrap; transition: .18s;
+    }
+    .chip:hover { color: #fff; }
+    .chip.active { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 6px 18px rgba(255,46,147,.3); }
+
+    /* ---- Product grid ---- */
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 14px;
+      margin-top: 20px;
+    }
+    .prod {
+      position: relative; border-radius: var(--radius); overflow: hidden;
+      background: var(--card); border: 1px solid var(--card-border);
+      display: flex; flex-direction: column; transition: transform .18s ease, border-color .2s ease;
+    }
+    .prod:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.28); }
+    .prod .imgwrap {
+      aspect-ratio: 1/1; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.08), transparent 70%);
+      display: grid; place-items: center; padding: 14px;
+    }
+    .prod .imgwrap img { width: 100%; height: 100%; object-fit: contain; }
+    .prod .meta { padding: 12px 13px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .prod .pname { font-weight: 600; font-size: .92rem; line-height: 1.25; }
+    .prod .psuffix { font-size: .64rem; font-weight: 700; color: var(--cyan); letter-spacing: .04em; }
+    .prod .price-row { display: flex; align-items: baseline; gap: 7px; margin-top: 2px; }
+    .prod .price { font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; }
+    .prod .old { font-size: .78rem; color: var(--dim); text-decoration: line-through; }
+    .prod .ask { font-family: var(--font-display); font-weight: 700; font-size: .95rem; color: var(--muted); }
+    .prod .buy {
+      margin-top: auto; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 10px; border-radius: 12px; font-weight: 700; font-size: .86rem;
+      background: var(--grad); color: #fff; transition: filter .2s, transform .12s;
+    }
+    .prod .buy:active { transform: scale(.97); }
+    .prod .buy:hover { filter: brightness(1.08); }
+    .ribbon {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      font-size: .64rem; font-weight: 800; letter-spacing: .03em;
+      padding: 4px 9px; border-radius: 999px; color: #fff;
+    }
+    .ribbon.sale { background: linear-gradient(120deg,#FF2E93,#FF6B00); }
+    .ribbon.hot  { background: linear-gradient(120deg,#7B2FF7,#00E0FF); top: auto; bottom: auto; }
+    .ribbon.limited { background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(6px); }
+
+    .loading { text-align: center; color: var(--dim); padding: 40px 0; font-size: 1rem; }
+
+    /* ---- CTA band ---- */
+    .band {
+      margin: 46px 0 20px; padding: 34px 24px; border-radius: 28px; text-align: center;
+      background: var(--grad-soft); border: 1px solid var(--card-border);
+      position: relative; overflow: hidden;
+    }
+    .band h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem,5vw,2.1rem); margin-bottom: 8px; }
+    .band p { color: var(--muted); margin-bottom: 18px; }
+
+    /* ---- Footer ---- */
+    footer.f { padding: 34px 0 90px; text-align: center; color: var(--dim); font-size: .86rem; }
+    footer.f a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+    footer.f .row { margin-top: 8px; }
+
+    /* ---- WhatsApp FAB ---- */
+    .wa-fab {
+      position: fixed; right: 16px; bottom: 18px; z-index: 60;
+      width: 56px; height: 56px; border-radius: 50%; background: var(--whatsapp);
+      display: grid; place-items: center; box-shadow: 0 8px 24px rgba(37,211,102,.45);
+      animation: bob 2.6s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-6px);} }
+    .wa-fab svg { width: 30px; height: 30px; }
+
+    /* burst */
+    .burst { position: fixed; z-index: 80; pointer-events: none; font-size: 1.4rem; will-change: transform, opacity; }
+
+    @media (max-width: 480px) {
+      .reel { width: 168px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(46%, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  </div>
+  <div id="emoji-layer" aria-hidden="true"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/woah">
+        <span class="bolt">⚡</span>
+        Connections <span class="woah-tag">woah 🫨</span>
+      </a>
+      <a class="to-full" href="/">full site →</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <span class="kicker">🫨 curaçao's tech plug</span>
+      <h1>tech that hits<br><span class="grad">different</span> <span class="shake">🫨</span></h1>
+      <p class="sub">iPhones, Samsung, TVs, laptops &amp; everything electronic on the island. shop straight from WhatsApp. no cap. fr.</p>
+      <div class="hero-ctas">
+        <a class="btn-main" href="#shop">shop the drop 🛍️</a>
+        <a class="btn-ghost" href="#reels">watch the reels ▶️</a>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <span>iPhone 17 &nbsp;🫨&nbsp; Galaxy S26 &nbsp;🔥&nbsp; PS5 &nbsp;🎮&nbsp; smart TVs &nbsp;📺&nbsp; laptops &nbsp;💻&nbsp; airpods &nbsp;🎧&nbsp; <b>lowkey the best prices on the island</b> &nbsp;💸&nbsp; free pickup &nbsp;✨&nbsp;</span>
+      </div>
+    </section>
+
+    <!-- Reels -->
+    <section class="sec" id="reels">
+      <div class="sec-head">
+        <h2>caught in 4k 📸</h2>
+        <span class="note">real ones from the store · tap to unmute</span>
+      </div>
+      <div class="reels" id="reels-row"></div>
+    </section>
+
+    <!-- Shop -->
+    <section class="sec" id="shop">
+      <div class="sec-head">
+        <h2>the goods 🛒</h2>
+        <span class="note">tap a vibe to filter</span>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div id="grid" class="grid"><div class="loading">loading the drip… 🫨</div></div>
+    </section>
+
+    <!-- CTA band -->
+    <section class="band">
+      <h3>can't find it? we prob have it 👀</h3>
+      <p>slide into our WhatsApp and ask — new stock drops every week.</p>
+      <a class="btn-main" id="band-wa" href="#" target="_blank" rel="noopener">message us 💬</a>
+    </section>
+  </div>
+
+  <footer class="f wrap">
+    <div>© 2026 Connections Curaçao · Willemstad 🇨🇼</div>
+    <div class="row">want the classic look? <a href="/">visit the full site →</a></div>
+  </footer>
+
+  <a class="wa-fab" id="wa-fab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5c-1.3-2-2-4.4-2-6.9C3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.7 16 28.7zm7.7-9.5c-.4-.2-2.5-1.2-2.9-1.4-.4-.1-.7-.2-1 .2s-1.1 1.4-1.3 1.7c-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7-.1-.2-1-2.3-1.3-3.2-.3-.8-.7-.7-1-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.5 1.4-1.5 3.5s1.5 4.1 1.7 4.3c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.8-2 .4-1 .4-1.8.3-2-.1-.2-.4-.3-.8-.5z"/></svg>
+  </a>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var WA_NUMBER = '59996782619';
+    var IMG_BASE = '../img/products/';
+
+    function formatPrice(n) { return 'XCG ' + Number(n).toLocaleString('en-US'); }
+    function esc(v) {
+      return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+    function waLink(text) {
+      return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
+    }
+
+    /* ---------- floating emojis ---------- */
+    (function floatingEmojis() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var layer = document.getElementById('emoji-layer');
+      var pool = ['🫨','🫨','🫨','🔥','💀','✨','🤩','🛍️','📱','💸','⚡','🫶','😭','😮‍💨','🎮'];
+      var COUNT = window.innerWidth < 600 ? 12 : 20;
+      for (var i = 0; i < COUNT; i++) spawn(i);
+      function spawn(i) {
+        var e = document.createElement('span');
+        e.className = 'fe';
+        e.textContent = pool[Math.floor(seeded(i * 3.7) * pool.length)];
+        e.style.left = (seeded(i * 1.3) * 100).toFixed(2) + 'vw';
+        var dur = 12 + seeded(i * 2.1) * 14;
+        e.style.animationDuration = dur.toFixed(1) + 's';
+        e.style.animationDelay = (-seeded(i * 5.9) * dur).toFixed(1) + 's';
+        e.style.fontSize = (1.3 + seeded(i * 4.4) * 1.7).toFixed(2) + 'rem';
+        layer.appendChild(e);
+      }
+      // deterministic pseudo-random (no Math.random dependency for stable layout)
+      function seeded(x) { var s = Math.sin(x * 999.13) * 43758.5453; return s - Math.floor(s); }
+    })();
+
+    /* ---------- reels ---------- */
+    var REELS = [
+      { src: 'media/reel1-favorite.mp4',     poster: 'media/reel1-favorite.jpg',     cap: "oh look it's our FAVORITE customer 🫨" },
+      { src: 'media/reel3-case-or-phone.mp4', poster: 'media/reel3-case-or-phone.jpg', cap: 'came for a case… left eyeing a new iPhone 💀' },
+      { src: 'media/reel2-electronics.mp4',   poster: 'media/reel2-electronics.jpg',   cap: 'POV: someone needs electronics on the island 👀' },
+      { src: 'media/reel4-samsung.mp4',       poster: 'media/reel4-samsung.jpg',       cap: 'the Samsung wall is crazy rn 🔥' },
+      { src: 'media/reel5-playstation.mp4',   poster: 'media/reel5-playstation.jpg',   cap: 'PS5 pull-up? say less 🎮' }
+    ];
+    (function buildReels() {
+      var row = document.getElementById('reels-row');
+      REELS.forEach(function (r) {
+        var card = document.createElement('div');
+        card.className = 'reel';
+        card.innerHTML =
+          '<span class="live">● live</span>' +
+          '<span class="sound">🔇</span>' +
+          '<video muted loop playsinline preload="metadata" poster="' + r.poster + '">' +
+            '<source src="' + r.src + '" type="video/mp4">' +
+          '</video>' +
+          '<div class="cap">' + esc(r.cap) + '</div>';
+        var video = card.querySelector('video');
+        var sound = card.querySelector('.sound');
+        card.addEventListener('click', function () {
+          video.muted = !video.muted;
+          sound.textContent = video.muted ? '🔇' : '🔊';
+          if (video.paused) video.play().catch(function(){});
+        });
+        row.appendChild(card);
+      });
+      // autoplay muted when in view, pause when out
+      var vids = row.querySelectorAll('video');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            var v = en.target;
+            if (en.isIntersecting) { v.play().catch(function(){}); }
+            else { v.pause(); }
+          });
+        }, { threshold: 0.6 });
+        vids.forEach(function (v) { io.observe(v); });
+      } else {
+        vids.forEach(function (v) { v.play().catch(function(){}); });
+      }
+    })();
+
+    /* ---------- catalog ---------- */
+    var CATS = [
+      { key: 'all',        label: 'all', emoji: '🫨' },
+      { key: 'apple',      label: 'apple', emoji: '🍏' },
+      { key: 'samsung',    label: 'samsung', emoji: '💚' },
+      { key: 'tvs',        label: 'TVs', emoji: '📺' },
+      { key: 'laptops',    label: 'laptops', emoji: '💻' },
+      { key: 'acs',        label: 'AC', emoji: '❄️' },
+      { key: 'appliances', label: 'home', emoji: '🧺' },
+      { key: 'motor',      label: 'motor', emoji: '🏍️' },
+      { key: 'other',      label: 'other', emoji: '🎧' }
+    ];
+    var CAT_FALLBACK = {
+      apple: 'iphone-generic.png', samsung: 'samsung-galaxy-s25-ultra.jpg',
+      tvs: 'tv-generic.png', laptops: 'laptop-generic.png', acs: 'ac-generic.png',
+      motor: 'motorcycle-generic.png', appliances: 'appliance-generic.png', other: 'tablet-generic.png'
+    };
+    function imgSrc(p) {
+      if (p.image) return IMG_BASE + p.image.replace(/\.jpe?g$/i, '.png');
+      return IMG_BASE + (CAT_FALLBACK[p.category] || 'iphone-generic.png');
+    }
+    function onImgErr(el, p) {
+      // try original extension, then category fallback, once each
+      if (!el.dataset.step) {
+        el.dataset.step = '1';
+        if (p.image) { el.src = IMG_BASE + p.image; return; }
+      }
+      if (el.dataset.step !== '2') {
+        el.dataset.step = '2';
+        el.src = IMG_BASE + (CAT_FALLBACK[p.category] || 'iphone-generic.png');
+      }
+    }
+
+    var ALL = [];
+    var activeCat = 'all';
+
+    function cardHTML(p, idx) {
+      var full = (p.name + (p.suffix ? ' ' + p.suffix : '')).trim();
+      var onSale = p.oldPrice && p.price && p.oldPrice > p.price;
+      var pct = onSale ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+      var ribbon = '';
+      if (onSale) ribbon = '<span class="ribbon sale">-' + pct + '%</span>';
+      else if (p.limited) ribbon = '<span class="ribbon limited">⚡ limited</span>';
+      else if (p.featured) ribbon = '<span class="ribbon hot">🔥 hot</span>';
+
+      var priceHTML = p.price
+        ? '<div class="price-row"><span class="price">' + formatPrice(p.price) + '</span>' +
+          (onSale ? '<span class="old">' + formatPrice(p.oldPrice) + '</span>' : '') + '</div>'
+        : '<div class="price-row"><span class="ask">ask in store</span></div>';
+
+      var askText = p.price
+        ? "yo is the " + full + " (" + formatPrice(p.price) + ") available? 🫨"
+        : "yo is the " + full + " available? 🫨";
+
+      return '' +
+        '<article class="prod">' +
+          ribbon +
+          '<div class="imgwrap"><img loading="lazy" alt="' + esc(full) + '" src="' + esc(imgSrc(p)) + '"' +
+            ' data-idx="' + idx + '"></div>' +
+          '<div class="meta">' +
+            (p.suffix ? '<span class="psuffix">' + esc(p.suffix) + '</span>' : '') +
+            '<h3 class="pname">' + esc(p.name) + '</h3>' +
+            priceHTML +
+            '<a class="buy" href="' + waLink(askText) + '" target="_blank" rel="noopener" data-buy="1">cop it 🛍️</a>' +
+          '</div>' +
+        '</article>';
+    }
+
+    function render() {
+      var grid = document.getElementById('grid');
+      var list = activeCat === 'all' ? ALL : ALL.filter(function (p) { return p.category === activeCat; });
+      if (!list.length) { grid.innerHTML = '<div class="loading">nothing here yet 😮‍💨</div>'; return; }
+      grid.innerHTML = list.map(cardHTML).join('');
+      // attach image error handlers + buy burst
+      grid.querySelectorAll('img[data-idx]').forEach(function (img) {
+        var p = list[+img.dataset.idx];
+        img.addEventListener('error', function () { onImgErr(img, p); });
+      });
+      grid.querySelectorAll('[data-buy]').forEach(function (b) {
+        b.addEventListener('click', function (e) { burst(e.clientX, e.clientY); });
+      });
+    }
+
+    function buildChips() {
+      var wrap = document.getElementById('chips');
+      // only show categories that have products (plus 'all')
+      var present = {};
+      ALL.forEach(function (p) { present[p.category] = true; });
+      wrap.innerHTML = CATS.filter(function (c) { return c.key === 'all' || present[c.key]; })
+        .map(function (c) {
+          return '<button class="chip' + (c.key === activeCat ? ' active' : '') +
+            '" data-cat="' + c.key + '">' + c.emoji + ' ' + c.label + '</button>';
+        }).join('');
+      wrap.querySelectorAll('.chip').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          activeCat = btn.dataset.cat;
+          wrap.querySelectorAll('.chip').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          render();
+        });
+      });
+    }
+
+    /* emoji burst on buy */
+    function burst(x, y) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var emojis = ['🫨','🔥','✨','💸','🛍️'];
+      for (var i = 0; i < 10; i++) {
+        var s = document.createElement('span');
+        s.className = 'burst';
+        s.textContent = emojis[i % emojis.length];
+        s.style.left = x + 'px'; s.style.top = y + 'px';
+        document.body.appendChild(s);
+        var ang = (Math.PI * 2 * i) / 10;
+        var dist = 60 + (i % 3) * 26;
+        var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 40;
+        s.animate([
+          { transform: 'translate(0,0) scale(.6)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(1.2)', opacity: 0 }
+        ], { duration: 720, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = function () { this.effect.target.remove(); };
+      }
+    }
+
+    /* wire WhatsApp links */
+    var greet = waLink("hey Connections 🫨 what's new in stock?");
+    document.getElementById('wa-fab').href = greet;
+    document.getElementById('band-wa').href = greet;
+
+    /* load catalog */
+    fetch('../data/products.json', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        ALL = Array.isArray(data) ? data : [];
+        buildChips();
+        render();
+      })
+      .catch(function () {
+        document.getElementById('grid').innerHTML =
+          '<div class="loading">couldn\'t load the catalog 😭 <a href="/" style="color:#00E0FF">try the full site</a></div>';
+      });
+  })();
+  </script>
+</body>
+</html>
