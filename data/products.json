@@ -149,7 +149,7 @@
   {
     "name": "MacBook Neo 256GB/8GB",
     "suffix": "",
-    "price": 1499,
+    "price": 1599,
     "category": "apple",
     "featured": true,
     "image": "macbook-generic.png"
@@ -274,6 +274,15 @@
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a26-model.jpg"
+  },
+  {
+    "name": "Galaxy A27",
+    "suffix": "",
+    "price": 690,
+    "category": "samsung",
+    "featured": true,
+    "landingPage": "https://connectionscuracao.net/galaxya27/",
+    "image": "galaxy-a27-model.jpg"
   },
   {
     "name": "Galaxy A36",
