@@ -82,7 +82,7 @@
   {
     "name": "iPhone 16 Pro Max",
     "suffix": "HSO",
-    "price": 1849,
+    "price": 1990,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-pro-max-model.jpg"
@@ -139,7 +139,7 @@
   {
     "name": "iPad 11th 128GB",
     "suffix": "",
-    "price": 899,
+    "price": 1090,
     "category": "apple",
     "featured": true,
     "limited": true,
