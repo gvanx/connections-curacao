@@ -231,6 +231,21 @@
       color: var(--text);
     }
 
+    /* "woah" Gen-Z pill — gradient, stands out from the rest */
+    .nav-pill.woah {
+      background: linear-gradient(120deg, #FF2E93, #7B2FF7 55%, #00E0FF);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(255,46,147,0.35);
+    }
+    .nav-pill.woah:hover {
+      color: #fff;
+      border-color: transparent;
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
     /* Hamburger */
     .nav-hamburger {
       display: none;
@@ -1919,6 +1934,7 @@
       </div>
 
       <div class="nav-pills">
+        <a href="/woah" class="nav-pill woah">woah 🫨</a>
         <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
         <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
         <a href="https://hso2.connectionscuracao.net" class="nav-pill" target="_blank">HSO2</a>
@@ -1942,6 +1958,7 @@
       <a href="/repair" class="nav-mobile-link">Repair</a>
       <a href="#footer" class="nav-mobile-link">Contact</a>
       <div class="nav-mobile-divider"></div>
+      <a href="/woah" class="nav-pill woah">woah 🫨</a>
       <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
       <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
       <a href="https://hso2.connectionscuracao.net" class="nav-pill" target="_blank">HSO2</a>
