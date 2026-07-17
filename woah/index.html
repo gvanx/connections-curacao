@@ -304,6 +304,36 @@
     /* burst */
     .burst { position: fixed; z-index: 80; pointer-events: none; font-size: 1.4rem; will-change: transform, opacity; }
 
+    /* ---- Music toggle ---- */
+    .music-fab {
+      position: fixed; left: 16px; bottom: 18px; z-index: 60;
+      display: inline-flex; align-items: center; gap: 9px;
+      height: 46px; padding: 0 16px 0 14px; border-radius: 999px;
+      background: var(--grad); color: #fff; font-weight: 700; font-size: .86rem;
+      box-shadow: 0 8px 24px rgba(123,47,247,.4);
+      transition: transform .15s ease, filter .2s ease;
+    }
+    .music-fab:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .music-fab .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; }
+    .music-fab .eq i {
+      width: 3px; height: 5px; background: #fff; border-radius: 2px;
+      animation: eqbar .9s ease-in-out infinite;
+    }
+    .music-fab .eq i:nth-child(2) { animation-delay: .15s; }
+    .music-fab .eq i:nth-child(3) { animation-delay: .3s; }
+    .music-fab .eq i:nth-child(4) { animation-delay: .45s; }
+    @keyframes eqbar { 0%,100% { height: 4px; } 50% { height: 16px; } }
+    /* paused: bars freeze low, label hints */
+    .music-fab.paused .eq i { animation-play-state: paused; height: 4px; }
+    .music-fab.hint { animation: musicPulse 1.6s ease-in-out infinite; }
+    @keyframes musicPulse {
+      0%,100% { box-shadow: 0 8px 24px rgba(123,47,247,.4); }
+      50% { box-shadow: 0 8px 30px rgba(255,46,147,.7); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .music-fab .eq i, .music-fab.hint { animation: none; }
+    }
+
     @media (max-width: 480px) {
       .reel { width: 168px; }
       .grid { grid-template-columns: repeat(auto-fill, minmax(46%, 1fr)); }
@@ -374,6 +404,12 @@
     <div class="row">want the classic look? <a href="/">visit the full site →</a></div>
   </footer>
 
+  <audio id="woah-music" src="media/woah-loop.mp3" loop preload="auto"></audio>
+  <button class="music-fab paused hint" id="music-fab" type="button" aria-pressed="false" aria-label="Toggle background music">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span id="music-label">music 🔈</span>
+  </button>
+
   <a class="wa-fab" id="wa-fab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5c-1.3-2-2-4.4-2-6.9C3.3 9 9 3.3 16 3.3S28.7 9 28.7 16 23 28.7 16 28.7zm7.7-9.5c-.4-.2-2.5-1.2-2.9-1.4-.4-.1-.7-.2-1 .2s-1.1 1.4-1.3 1.7c-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7-.1-.2-1-2.3-1.3-3.2-.3-.8-.7-.7-1-.7h-.8c-.3 0-.7.1-1.1.5-.4.4-1.5 1.4-1.5 3.5s1.5 4.1 1.7 4.3c.2.3 2.9 4.5 7.1 6.3 1 .4 1.8.7 2.4.9 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.8-2 .4-1 .4-1.8.3-2-.1-.2-.4-.3-.8-.5z"/></svg>
   </a>
@@ -416,6 +452,64 @@
       function seeded(x) { var s = Math.sin(x * 999.13) * 43758.5453; return s - Math.floor(s); }
     })();
 
+    /* ---------- background music ---------- */
+    var Music = (function () {
+      var audio = document.getElementById('woah-music');
+      audio.loop = true; audio.volume = 0;
+      var TARGET = 0.5;
+      var fab = document.getElementById('music-fab');
+      var label = document.getElementById('music-label');
+      var wantOn = false;   // user's intent
+      var ducked = false;   // temporarily lowered while a reel plays sound
+      var started = false;  // has music ever been engaged
+      var fadeTimer = null;
+
+      function fadeTo(target, ms) {
+        if (fadeTimer) clearInterval(fadeTimer);
+        var steps = Math.max(1, Math.round(ms / 40)), from = audio.volume, i = 0;
+        fadeTimer = setInterval(function () {
+          i++; audio.volume = Math.max(0, Math.min(1, from + (target - from) * (i / steps)));
+          if (i >= steps) { clearInterval(fadeTimer); fadeTimer = null; if (target === 0) audio.pause(); }
+        }, 40);
+      }
+      function reflect() {
+        var playing = wantOn && !ducked;
+        fab.classList.toggle('paused', !playing);
+        label.textContent = wantOn ? 'music 🔊' : 'music 🔈';
+        fab.setAttribute('aria-pressed', wantOn ? 'true' : 'false');
+      }
+      function on() {
+        wantOn = true; started = true; fab.classList.remove('hint');
+        if (!ducked) audio.play().then(function () { fadeTo(TARGET, 500); })
+          .catch(function () { wantOn = false; reflect(); });
+        reflect();
+      }
+      function off() { wantOn = false; fadeTo(0, 350); reflect(); }
+      function toggle() { wantOn ? off() : on(); }
+      function duck(state) {
+        ducked = state;
+        if (wantOn) {
+          if (state) fadeTo(0, 200);
+          else { audio.play().catch(function () {}); fadeTo(TARGET, 400); }
+        }
+        reflect();
+      }
+      fab.addEventListener('click', toggle);
+
+      // Autoplay policy: engage on the first real page gesture (not a reel/music tap).
+      var gestures = ['pointerdown', 'touchstart', 'keydown'];
+      function firstGesture(e) {
+        if (started) { cleanup(); return; }
+        if (e && e.target && e.target.closest && e.target.closest('#music-fab, .reel')) return;
+        on(); cleanup();
+      }
+      function cleanup() { gestures.forEach(function (ev) { window.removeEventListener(ev, firstGesture); }); }
+      gestures.forEach(function (ev) { window.addEventListener(ev, firstGesture, { passive: true }); });
+
+      reflect();
+      return { duck: duck };
+    })();
+
     /* ---------- reels ---------- */
     var REELS = [
       { src: 'media/reel1-favorite.mp4',     poster: 'media/reel1-favorite.jpg',     cap: "oh look it's our FAVORITE customer 🫨" },
@@ -426,6 +520,9 @@
     ];
     (function buildReels() {
       var row = document.getElementById('reels-row');
+      function anyReelAudible() {
+        return Array.prototype.some.call(row.querySelectorAll('video'), function (v) { return !v.muted; });
+      }
       REELS.forEach(function (r) {
         var card = document.createElement('div');
         card.className = 'reel';
@@ -442,6 +539,16 @@
           video.muted = !video.muted;
           sound.textContent = video.muted ? '🔇' : '🔊';
           if (video.paused) video.play().catch(function(){});
+          if (!video.muted) {
+            // only one reel plays sound at a time; duck the music under it
+            row.querySelectorAll('.reel').forEach(function (other) {
+              var ov = other.querySelector('video');
+              if (ov !== video) { ov.muted = true; other.querySelector('.sound').textContent = '🔇'; }
+            });
+            Music.duck(true);
+          } else if (!anyReelAudible()) {
+            Music.duck(false);
+          }
         });
         row.appendChild(card);
       });
@@ -452,7 +559,15 @@
           entries.forEach(function (en) {
             var v = en.target;
             if (en.isIntersecting) { v.play().catch(function(){}); }
-            else { v.pause(); }
+            else {
+              v.pause();
+              if (!v.muted) {   // scrolled a playing-with-sound reel off-screen
+                v.muted = true;
+                var s = v.closest('.reel').querySelector('.sound');
+                if (s) s.textContent = '🔇';
+                if (!anyReelAudible()) Music.duck(false);
+              }
+            }
           });
         }, { threshold: 0.6 });
         vids.forEach(function (v) { io.observe(v); });
