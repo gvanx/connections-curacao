@@ -611,7 +611,10 @@
     // USD -> XCG pricing formula
     const USD_MULTIPLIER = 1.15 * 1.82; // supplier USD conversion/markup
     const FLAT_MARKUP = 600;            // flat XCG added on top
-    function xcgPrice(usd) { return Math.round(usd * USD_MULTIPLIER + FLAT_MARKUP); }
+    // Raw cost-based price, then rounded to a "beautiful" charm price ending in 99
+    // (nearest hundred, minus 1). Change the rounding here to reprice the whole line.
+    function rawXcg(usd) { return usd * USD_MULTIPLIER + FLAT_MARKUP; }
+    function xcgPrice(usd) { return Math.round(rawXcg(usd) / 100) * 100 - 1; }
 
     // Colors -> swatch gradient used for the round color dots
     const COLOR_SWATCH = {
