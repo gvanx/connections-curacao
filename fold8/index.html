@@ -473,7 +473,7 @@
               <p class="secure-note">🔒 Secure payment via Sentoo &middot; You'll also get a WhatsApp confirmation</p>
             </form>
 
-            <p class="price-note" id="priceNote">Prices shown are placeholders. Update the real prices in the <code>VARIANTS</code> block at the top of the page script before going live.</p>
+            <p class="price-note" id="priceNote">Prices are in XCG and include applicable duties. Your 50% deposit secures your color and storage; the balance is paid on pickup.</p>
           </div>
         </div>
       </div>
@@ -598,16 +598,20 @@
     /* =========================================================================
        PRE-ORDER CONFIG  —  EDIT THIS BLOCK
        -------------------------------------------------------------------------
-       Set the real full price (in XCG) for each variant below. The 50% deposit
-       and remaining balance are calculated automatically. Colors and storage
-       tiers come straight from the variant list. To add/remove a variant, edit
-       the arrays below.
-
-       NOTE: The prices below are PLACEHOLDERS — replace them before going live.
+       Each variant's price is stored as the supplier USD price. The XCG selling
+       price is computed with:   XCG = round(USD * 1.15 * 1.82 + 600)
+       The 50% deposit and remaining balance are then derived automatically.
+       To reprice, just update the "usd" number for a variant (or the constants
+       below). To add/remove a variant, edit the skus arrays.
        ========================================================================= */
     const WHATSAPP_NUMBER = "59996782619";
     const SENTOO_BASE_URL = "https://sentoo.pro/connections-curacao";
     const DEPOSIT_RATE = 0.5; // 50% deposit
+
+    // USD -> XCG pricing formula
+    const USD_MULTIPLIER = 1.15 * 1.82; // supplier USD conversion/markup
+    const FLAT_MARKUP = 600;            // flat XCG added on top
+    function xcgPrice(usd) { return Math.round(usd * USD_MULTIPLIER + FLAT_MARKUP); }
 
     // Colors -> swatch gradient used for the round color dots
     const COLOR_SWATCH = {
@@ -626,13 +630,13 @@
           "512GB": { ram: "12GB" },
           "1TB":   { ram: "16GB" }
         },
-        // one entry per real SKU: storage, color, price (PLACEHOLDER prices)
+        // one entry per real SKU: storage, color, usd (supplier USD price)
         skus: [
-          { storage: "256GB", color: "Lavender", price: 2999 },
-          { storage: "512GB", color: "Lavender", price: 3199 },
-          { storage: "512GB", color: "Graphite", price: 3199 },
-          { storage: "512GB", color: "Cream",    price: 3199 },
-          { storage: "1TB",   color: "Graphite", price: 3599 }
+          { storage: "256GB", color: "Lavender", usd: 1366 },
+          { storage: "512GB", color: "Lavender", usd: 1529 },
+          { storage: "512GB", color: "Graphite", usd: 1529 },
+          { storage: "512GB", color: "Cream",    usd: 1529 },
+          { storage: "1TB",   color: "Graphite", usd: 1855 }
         ]
       },
       fold8ultra: {
@@ -643,13 +647,13 @@
           "1TB":   { ram: "16GB" }
         },
         skus: [
-          { storage: "256GB", color: "Graphite",      price: 3499 },
-          { storage: "256GB", color: "Violet Shadow", price: 3499 },
-          { storage: "256GB", color: "Cream",         price: 3499 },
-          { storage: "512GB", color: "Graphite",      price: 3799 },
-          { storage: "512GB", color: "Violet Shadow", price: 3799 },
-          { storage: "512GB", color: "Cream",         price: 3799 },
-          { storage: "1TB",   color: "Graphite",      price: 4199 }
+          { storage: "256GB", color: "Graphite",      usd: 1628 },
+          { storage: "256GB", color: "Violet Shadow", usd: 1628 },
+          { storage: "256GB", color: "Cream",         usd: 1628 },
+          { storage: "512GB", color: "Graphite",      usd: 1791 },
+          { storage: "512GB", color: "Violet Shadow", usd: 1791 },
+          { storage: "512GB", color: "Cream",         usd: 1791 },
+          { storage: "1TB",   color: "Graphite",      usd: 2118 }
         ]
       }
     };
@@ -735,7 +739,7 @@
         document.getElementById("sumConfig").textContent = ram + " + " + state.storage;
         document.getElementById("sumColor").textContent = state.color || "-";
 
-        const price = sku ? sku.price : 0;
+        const price = sku ? xcgPrice(sku.usd) : 0;
         const deposit = Math.round(price * DEPOSIT_RATE);
         const balance = price - deposit;
         document.getElementById("sumPrice").textContent = formatPrice(price);
@@ -778,7 +782,7 @@
         errorEl.textContent = "";
 
         const ram = VARIANTS[state.model].storages[state.storage].ram;
-        const price = sku.price;
+        const price = xcgPrice(sku.usd);
         const deposit = Math.round(price * DEPOSIT_RATE);
         const balance = price - deposit;
         const orderId = "FOLD8-" + Date.now().toString(36).toUpperCase();
