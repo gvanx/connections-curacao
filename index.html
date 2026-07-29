@@ -2791,7 +2791,15 @@
         : 'img/products/';
       if (product.image) {
         // Prefer .png (transparent) over .jpg
-        const img = product.image.replace(/\.jpe?g$/i, '.png');
+        const requested = product.image.replace(/\.jpe?g$/i, '.png');
+        const upgradedCatalogImages = {
+          'tv-generic.png': 'tv-catalog.webp',
+          'laptop-generic.png': 'laptop-catalog.webp'
+        };
+        const img = upgradedCatalogImages[requested] || requested;
+        if (upgradedCatalogImages[requested] && ['localhost', '127.0.0.1'].includes(location.hostname)) {
+          return `img/products/${img}`;
+        }
         return `${imageBase}${img}`;
       }
       const fallbackByName = {
@@ -2836,8 +2844,6 @@
     }
 
     const GENERIC_IMAGE_FILES = new Set([
-      'tv-generic.png',
-      'laptop-generic.png',
       'ac-generic.png',
       'appliance-generic.png',
       'tablet-generic.png'
