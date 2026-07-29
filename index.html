@@ -1,1 +1,3006 @@
-[placeholder]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connections Curacao — Premium Electronics in Curaçao</title>
+  <meta name="description" content="Apple, Samsung, TVs, laptops, appliances and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="Connections Curacao — Premium Electronics in Curaçao">
+  <meta property="og:description" content="Apple, Samsung, TVs, laptops, appliances and more. Curaçao's premium electronics store. Shop online or visit us in Willemstad.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#007AFF">
+
+  <!-- Favicon — inline SVG lightning bolt -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23007AFF'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* ============================================
+       CSS DESIGN SYSTEM
+       ============================================ */
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-elevated: #111111;
+      --surface: rgba(255,255,255,0.05);
+      --surface-hover: rgba(255,255,255,0.08);
+      --surface-border: rgba(255,255,255,0.1);
+      --surface-border-hover: rgba(255,255,255,0.2);
+      --accent: #007AFF;
+      --accent-glow: rgba(0,122,255,0.3);
+      --accent-orange: #FF6600;
+      --accent-orange-glow: rgba(255,102,0,0.3);
+      --text: #FFFFFF;
+      --text-muted: rgba(255,255,255,0.6);
+      --text-dim: rgba(255,255,255,0.4);
+      --whatsapp: #25D366;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-lg: 28px;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    /* ---- Reset ---- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ---- Utility Classes ---- */
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- Section Spacing ---- */
+    section {
+      padding: 56px 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 44px 0;
+      }
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+      transition: padding 0.3s ease, background 0.3s ease;
+    }
+
+    #nav.nav-scrolled {
+      padding: 10px 0;
+      background: rgba(10,10,10,0.92);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .logo-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* "woah" Gen-Z pill — gradient, stands out from the rest */
+    .nav-pill.woah {
+      background: linear-gradient(120deg, #FF2E93, #7B2FF7 55%, #00E0FF);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(255,46,147,0.35);
+    }
+    .nav-pill.woah:hover {
+      color: #fff;
+      border-color: transparent;
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    /* Hamburger X state */
+    #nav.menu-open .nav-hamburger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    #nav.menu-open .nav-hamburger span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    #nav.menu-open .nav-hamburger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile menu overlay */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: var(--bg);
+      z-index: 105;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 88px 0 48px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #nav.menu-open .nav-mobile-menu {
+      display: flex;
+      opacity: 1;
+    }
+
+    .nav-mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 14px 0;
+      transition: color 0.2s ease;
+    }
+
+    .nav-mobile-menu a:hover,
+    .nav-mobile-menu a:active {
+      color: var(--text);
+    }
+
+    .nav-mobile-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--surface-border);
+      margin: 20px 0;
+    }
+
+    .nav-mobile-menu .nav-pill {
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      margin: 4px 0;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-pills {
+        display: none;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* Animated gradient mesh background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0,122,255,0.35), transparent),
+        radial-gradient(ellipse 60% 60% at 80% 60%, rgba(255,102,0,0.25), transparent);
+      animation: meshMove 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    /* Subtle noise texture overlay */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 50% 50%, transparent 40%, var(--bg) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes meshMove {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, 3%) scale(1.05); }
+      100% { transform: translate(3%, -2%) scale(1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      inset: -100px;
+      background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 60%, rgba(255,255,255,0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400;
+      margin-bottom: 40px;
+      letter-spacing: 0.02em;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .hero-subtitle::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-orange));
+      border-radius: 1px;
+    }
+
+    .hero-subtitle span {
+      color: var(--text-dim);
+      margin: 0 4px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #0088ff;
+      box-shadow: 0 0 30px var(--accent-glow), 0 8px 32px rgba(0,0,0,0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-glass {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--surface-border);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-decoration: none;
+    }
+
+    .btn-glass:hover {
+      background: var(--surface-hover);
+      border-color: var(--surface-border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-glass:active {
+      transform: translateY(0);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .scroll-indicator svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--text-dim);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.4;
+      }
+      50% {
+        transform: translateX(-50%) translateY(10px);
+        opacity: 1;
+      }
+    }
+
+    /* Hero responsive tweaks */
+    @media (max-width: 768px) {
+      #hero {
+        min-height: 90vh;
+        min-height: 90svh;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-ctas a {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    /* ============================================
+       SECTION TITLES
+       ============================================ */
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      text-align: center;
+      letter-spacing: -0.02em;
+      position: relative;
+      padding-bottom: 16px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-orange));
+      border-radius: 2px;
+      box-shadow: 0 0 12px rgba(0,122,255,0.3), 0 0 4px rgba(255,102,0,0.2);
+    }
+
+    /* ============================================
+       CATEGORY GRID (Task 5)
+       ============================================ */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .category-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent);
+      pointer-events: none;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .category-card .cat-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 0.9rem;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--surface-border);
+      position: relative;
+    }
+
+    .category-card .cat-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .category-card .cat-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .category-card .cat-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       DEALS CAROUSEL (Task 6)
+       ============================================ */
+    .deals-wrapper {
+      position: relative;
+      margin-top: 2.5rem;
+    }
+
+    .deals-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem 0;
+    }
+
+    .deals-track::-webkit-scrollbar { display: none; }
+
+    .deal-card {
+      scroll-snap-align: start;
+      min-width: 280px;
+      max-width: 320px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .deal-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
+    }
+
+    .deal-img {
+      width: 100%;
+      height: 180px;
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+    }
+
+    .deal-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .deal-body {
+      padding: 1.25rem;
+    }
+
+    .deal-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-hso {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent-orange);
+      color: #fff;
+      border-radius: 100px;
+      line-height: 1.4;
+    }
+    .active-note {
+      margin: 6px 0 2px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: #166534;
+      background: rgba(22, 163, 74, 0.10);
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      border-radius: 8px;
+    }
+    .active-note[hidden] { display: none; }
+    .badge-active {
+      display: inline-block;
+      margin-left: 6px;
+      cursor: pointer;
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: #16a34a;
+      color: #fff;
+      border-radius: 100px;
+      line-height: 1.4;
+    }
+    .badge-kingsday {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .deal-card, .product-card { position: relative; }
+    .deal-card .badge-kingsday-corner,
+    .product-card .badge-kingsday-corner {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      background: rgba(255, 102, 0, 0.12);
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      padding: 0.22rem 0.5rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
+
+    /* ---- Corner ribbons (sale / limited) & old price ---- */
+    .card-ribbons {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+    .badge-sale {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      color: #fff;
+      background: #e11d48;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(225,29,72,0.45);
+    }
+    .badge-limited {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.01em;
+      color: #1a1200;
+      background: #f5b301;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(245,179,1,0.4);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .limited-note {
+      margin: 6px 0 2px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: #f5d67a;
+      background: rgba(245,179,1,0.10);
+      border: 1px solid rgba(245,179,1,0.40);
+      border-radius: 8px;
+    }
+    .limited-note[hidden] { display: none; }
+    .old-price {
+      color: var(--text-dim);
+      text-decoration: line-through;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
+      -webkit-text-decoration-color: var(--text-dim);
+    }
+
+    /* ---- Product filter toolbar ---- */
+    .pf-toolbar {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .pf-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .pf-search {
+      position: relative;
+      flex: 1 1 240px;
+      display: flex;
+      align-items: center;
+    }
+    .pf-search svg {
+      position: absolute;
+      left: 0.9rem;
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--text-dim);
+      stroke-width: 2;
+      pointer-events: none;
+    }
+    .pf-search input {
+      width: 100%;
+      padding: 0.7rem 2.4rem 0.7rem 2.7rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 999px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .pf-search input:focus { border-color: var(--accent); }
+    .pf-search input::placeholder { color: var(--text-dim); }
+    .pf-clear {
+      position: absolute;
+      right: 0.65rem;
+      width: 22px;
+      height: 22px;
+      border: none;
+      border-radius: 50%;
+      background: var(--surface-hover);
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .pf-search.has-value .pf-clear { display: flex; }
+    .pf-select {
+      padding: 0.7rem 2.2rem 0.7rem 0.95rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 0.85rem center;
+      border: 1px solid var(--surface-border);
+      border-radius: 999px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+    }
+    .pf-select:focus { border-color: var(--accent); }
+    .pf-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pf-pill {
+      padding: 0.45rem 0.9rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .pf-pill:hover { color: var(--text); border-color: var(--surface-border-hover); }
+    .pf-pill.active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .pf-count {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .pf-empty {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+    }
+    .pf-empty-emoji { font-size: 2.5rem; margin-bottom: 0.6rem; }
+    .pf-empty button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--surface-border-hover);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .results-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .deal-price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-orange);
+      margin-bottom: 1rem;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--whatsapp);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-whatsapp:hover {
+      background: #20bd5a;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Carousel arrow buttons */
+    .deals-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .deals-arrow:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: var(--surface-border-hover);
+    }
+
+    .deals-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .deals-arrow--left {
+      left: -16px;
+    }
+
+    .deals-arrow--right {
+      right: -16px;
+    }
+
+    @media (max-width: 768px) {
+      .deals-arrow {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       PRODUCT SECTIONS (Task 7)
+       ============================================ */
+    .product-section {
+      margin-bottom: 4rem;
+    }
+
+    .product-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-section .section-title {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-section .section-title::after {
+      left: 0;
+      transform: none;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .product-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025));
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 16px var(--accent-glow);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 210px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(0,122,255,0.18), transparent 35%),
+        linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
+      border-bottom: 1px solid var(--surface-border);
+      position: relative;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 14px;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover .product-img img {
+      transform: scale(1.055);
+    }
+
+    .model-art {
+      --art-a: #1473e6;
+      --art-b: #06172e;
+      height: 100%;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.25rem;
+      background:
+        radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--art-a) 75%, white), transparent 24%),
+        linear-gradient(145deg, var(--art-a), var(--art-b) 72%);
+    }
+
+    .model-art::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      width: 155px;
+      height: 155px;
+      right: -24px;
+      top: -30px;
+      border: 1px solid rgba(255,255,255,.23);
+      border-radius: 38px;
+      transform: rotate(18deg);
+      box-shadow: 0 0 0 18px rgba(255,255,255,.055), 0 0 0 42px rgba(255,255,255,.025);
+    }
+
+    .model-art::after {
+      content: attr(data-mark);
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      font-family: var(--font-display);
+      font-size: 4.8rem;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(255,255,255,.14);
+    }
+
+    .model-art[data-category="tvs"] { --art-a: #6b3df5; --art-b: #160c37; }
+    .model-art[data-category="laptops"] { --art-a: #00a57a; --art-b: #062a25; }
+    .model-art[data-category="acs"] { --art-a: #00a9e8; --art-b: #06364a; }
+    .model-art[data-category="appliances"] { --art-a: #ef6c2f; --art-b: #411407; }
+
+    .model-art-brand {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-bottom: auto;
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.2);
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .model-art-type {
+      color: rgba(255,255,255,.68);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .25rem;
+    }
+
+    .model-art-name {
+      max-width: 88%;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.05;
+      text-wrap: balance;
+    }
+
+    .product-body {
+      padding: 1.25rem;
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .product-spec {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .product-price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--accent-orange);
+      margin-bottom: 1rem;
+    }
+
+    .btn-whatsapp-sm {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 10px 14px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: rgba(37,211,102,0.15);
+      color: var(--whatsapp);
+      border: 1px solid rgba(37,211,102,0.25);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-whatsapp-sm:hover {
+      background: var(--whatsapp);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp-sm svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ============================================
+       CHECKOUT MODAL
+       ============================================ */
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .checkout-overlay.visible {
+      display: flex;
+    }
+
+    .checkout-modal {
+      width: min(520px, 100%);
+      background: #101010;
+      border: 1px solid var(--surface-border-hover);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      max-height: calc(100dvh - 40px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .checkout-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .checkout-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding-right: 2.25rem;
+    }
+
+    .checkout-lines {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+    }
+
+    .checkout-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .checkout-line strong {
+      color: var(--text);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .checkout-line.total {
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 0.2rem;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 0.55rem;
+    }
+
+    .checkout-label {
+      display: block;
+      margin-bottom: 0.4rem;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 700;
+    }
+
+    .checkout-input {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+    }
+
+    .checkout-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.15);
+    }
+
+    .checkout-options {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.75rem;
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.2rem;
+    }
+
+    .checkout-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkout-radio input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .checkout-terms {
+      margin-top: 0.9rem;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .checkout-terms input {
+      accent-color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .checkout-error {
+      margin-top: 0.7rem;
+      color: #ff7b7b;
+      font-size: 0.84rem;
+      min-height: 1.25rem;
+    }
+
+    .checkout-submit {
+      margin-top: 0.4rem;
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    @media (max-width: 640px) {
+      .checkout-overlay {
+        padding: 10px;
+      }
+
+      .checkout-modal {
+        max-height: calc(100dvh - 20px);
+        padding: 1rem;
+      }
+    }
+
+    /* ============================================
+       ECOSYSTEM SECTION (Task 8)
+       ============================================ */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .ecosystem-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .eco-card {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .eco-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .eco-card[data-accent="jbl"] {
+      background: linear-gradient(135deg, rgba(255,102,0,0.08), transparent 60%);
+      border-left: 3px solid #FF6600;
+    }
+    .eco-card[data-accent="jbl"]:hover {
+      border-color: #FF6600;
+      border-left: 3px solid #FF6600;
+      box-shadow: 0 12px 40px rgba(255,102,0,0.15), 0 0 20px rgba(255,102,0,0.1);
+    }
+    .eco-card[data-accent="jbl"] .eco-link { color: #FF6600; }
+
+    .eco-card[data-accent="gift"] {
+      background: linear-gradient(135deg, rgba(45,122,159,0.08), transparent 60%);
+      border-left: 3px solid #2d7a9f;
+    }
+    .eco-card[data-accent="gift"]:hover {
+      border-color: #2d7a9f;
+      border-left: 3px solid #2d7a9f;
+      box-shadow: 0 12px 40px rgba(45,122,159,0.15), 0 0 20px rgba(45,122,159,0.1);
+    }
+    .eco-card[data-accent="gift"] .eco-link { color: #2d7a9f; }
+
+    .eco-card[data-accent="hso"] {
+      background: linear-gradient(135deg, rgba(83,70,229,0.08), transparent 60%);
+      border-left: 3px solid #5346e5;
+    }
+    .eco-card[data-accent="hso"]:hover {
+      border-color: #5346e5;
+      border-left: 3px solid #5346e5;
+      box-shadow: 0 12px 40px rgba(83,70,229,0.15), 0 0 20px rgba(83,70,229,0.1);
+    }
+    .eco-card[data-accent="hso"] .eco-link { color: #5346e5; }
+
+    .eco-card[data-accent="trade"] {
+      background: linear-gradient(135deg, rgba(0,122,255,0.08), transparent 60%);
+      border-left: 3px solid var(--accent);
+    }
+    .eco-card[data-accent="trade"]:hover {
+      border-color: var(--accent);
+      border-left: 3px solid var(--accent);
+      box-shadow: 0 12px 40px var(--accent-glow), 0 0 20px rgba(0,122,255,0.1);
+    }
+    .eco-card[data-accent="trade"] .eco-link { color: var(--accent); }
+
+    .eco-card[data-accent="spin"] {
+      background: linear-gradient(135deg, rgba(192,20,26,0.08), transparent 60%);
+      border-left: 3px solid #c0141a;
+    }
+    .eco-card[data-accent="spin"]:hover {
+      border-color: #c0141a;
+      border-left: 3px solid #c0141a;
+      box-shadow: 0 12px 40px rgba(192,20,26,0.15), 0 0 20px rgba(192,20,26,0.1);
+    }
+    .eco-card[data-accent="spin"] .eco-link { color: #c0141a; }
+
+    .eco-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .eco-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .eco-desc {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .eco-link {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s ease;
+    }
+
+    .eco-card:hover .eco-link {
+      opacity: 0.85;
+    }
+
+    /* ============================================
+       LOCATIONS SECTION (Task 9)
+       ============================================ */
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .location-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 2rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .location-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-orange));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .location-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 16px var(--accent-glow);
+    }
+
+    .location-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 100px;
+      margin-bottom: 0.75rem;
+    }
+
+    .location-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .location-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+    }
+
+    .location-detail .loc-icon {
+      flex-shrink: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .location-detail a {
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .location-detail a:hover {
+      color: var(--text);
+    }
+
+    .location-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-loc {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-loc-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-loc-primary:hover {
+      background: #0088ff;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-loc-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .btn-loc-outline:hover {
+      background: var(--surface-hover);
+      border-color: var(--surface-border-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ============================================
+       FOOTER (Task 10)
+       ============================================ */
+    #footer {
+      background: linear-gradient(180deg, #0d0d0d, #111 40%);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 4rem 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .footer-col-heading {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand-name .logo-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .footer-tagline {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+
+    .footer-socials a:hover {
+      background: var(--surface-hover);
+      border-color: var(--surface-border-hover);
+      color: var(--text);
+      box-shadow: 0 0 12px rgba(0,122,255,0.3);
+    }
+
+    .footer-socials a svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .footer-contact-item a {
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-contact-item a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--surface-border);
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom-left {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom-right {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    /* ============================================
+       WHATSAPP FAB (Task 10)
+       ============================================ */
+    #whatsapp-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 90;
+      width: 56px;
+      height: 56px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      transition: all 0.25s ease;
+      animation: fabPulse 2s ease-out 1;
+    }
+
+    #whatsapp-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.55);
+    }
+
+    #whatsapp-fab svg {
+      width: 28px;
+      height: 28px;
+      fill: #fff;
+    }
+
+    @keyframes fabPulse {
+      0% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.5); }
+      70% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 16px rgba(37,211,102,0); }
+      100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
+    }
+
+    .deal-img .model-art { min-height: 180px; }
+    .deal-img .model-art-name { font-size: 1.05rem; }
+
+    .school-banner {
+      display: block;
+      margin: -34px auto 20px;
+      max-width: 1148px;
+      position: relative;
+      z-index: 4;
+      border-radius: 24px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 30%, rgba(255,255,255,.35), transparent 18%),
+        linear-gradient(118deg, #1264ff, #6a38e8 48%, #ff6a2a);
+      box-shadow: 0 24px 70px rgba(0,0,0,.42);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .school-banner:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 80px rgba(0,0,0,.52);
+    }
+    .school-banner-inner {
+      padding: 1.3rem 1.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .school-banner-kicker {
+      display: block;
+      margin-bottom: .15rem;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .82;
+    }
+    .school-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.45rem, 3vw, 2.25rem);
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+    .school-banner p {
+      margin-top: .45rem;
+      color: rgba(255,255,255,.82);
+      font-size: .9rem;
+    }
+    .school-banner-button {
+      flex: 0 0 auto;
+      padding: .85rem 1.15rem;
+      border-radius: 999px;
+      color: #151515;
+      background: #fff;
+      font-weight: 800;
+      font-size: .88rem;
+    }
+    @media (max-width: 768px) {
+      .school-banner { margin: -18px 16px 12px; border-radius: 20px; }
+      .school-banner-inner { align-items: flex-start; flex-direction: column; gap: 1rem; }
+      .school-banner-button { width: 100%; text-align: center; }
+      .product-img { height: 190px; }
+    }
+  </style>
+
+  <!-- ===== DIA DI BANDERA / FLAG DAY THEME — START (auto-active Jun 30 – Jul 3, 2026; remove after) ===== -->
+  <script>
+    /* Dia di Bandera window: Jun 30 – Jul 3, 2026 (local time). ?flagday or #flagday forces a preview. */
+    (function(){
+      try{
+        var d=new Date(), y=d.getFullYear(), mo=d.getMonth(), day=d.getDate(),
+            live=y===2026 && ((mo===5 && day===30) || (mo===6 && day<=3));
+        if(/flagday/.test(location.search)||/flagday/.test(location.hash)) live=true;
+        if(live){
+          document.documentElement.classList.add('flagday');
+          var m=document.querySelector('meta[name="theme-color"]');
+          if(m) m.setAttribute('content','#002B7F');
+        }
+      }catch(e){}
+    })();
+  </script>
+  <style id="fd-theme">
+    /* outside the window: flag-day elements hidden; site keeps its base #007AFF accent */
+    #fd-ribbon,.fd-banner,.hero-flagday{display:none}
+
+    html.flagday{
+      --accent:#0a4fc4;                 /* vivid flag blue */
+      --accent-glow:rgba(10,79,196,0.35);
+      --fd-blue:#002B7F;                /* Curaçao flag cobalt */
+      --fd-blue-deep:#001a52;
+      --fd-yellow:#F9D616;              /* flag yellow stripe       */
+      --fd-yellow-glow:rgba(249,214,22,0.5);
+    }
+    html.flagday .logo-dot{background:var(--fd-yellow)!important;box-shadow:0 0 10px var(--fd-yellow-glow)!important}
+    html.flagday .btn-primary{background:var(--fd-yellow)!important;color:var(--fd-blue)!important;
+      box-shadow:0 8px 28px var(--fd-yellow-glow)!important;font-weight:800!important}
+
+    /* ---- top ribbon ---- */
+    html.flagday #fd-ribbon{
+      display:block;position:relative;z-index:50;text-align:center;color:#fff;
+      font:700 .82rem/1.2 var(--font-display);letter-spacing:.05em;
+      padding:.55rem 1rem;border-bottom:2px solid var(--fd-yellow);
+      background:linear-gradient(90deg,var(--fd-blue),#0a3aa0 45%,var(--fd-blue));
+    }
+    #fd-ribbon b{color:var(--fd-yellow)}
+    #fd-ribbon .stars{color:#fff;letter-spacing:.12em;text-shadow:0 0 8px var(--fd-yellow-glow)}
+
+    /* ---- hero flag-day swap ---- */
+    html.flagday .hero-default{display:none}
+    html.flagday .hero-flagday{display:block}
+    html.flagday #hero{background:
+      radial-gradient(120% 80% at 50% -10%,rgba(10,79,196,0.28),transparent 60%),
+      radial-gradient(80% 50% at 80% 110%,rgba(249,214,22,0.10),transparent 60%),
+      var(--bg)!important;}
+    .hero-fd-tag{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--fd-yellow);background:rgba(249,214,22,0.12);
+      padding:.35rem .9rem;border-radius:999px;border:1px solid rgba(249,214,22,0.45);margin-bottom:1rem}
+    .hero-fd-tag .stars{color:#fff;text-shadow:0 0 8px var(--fd-yellow-glow)}
+    .hero-flagday .hero-tagline .fd-accent{color:var(--fd-yellow);text-shadow:0 0 24px var(--fd-yellow-glow)}
+
+    /* ---- flag banner card ---- */
+    .fd-banner{max-width:1200px;margin:64px auto;padding:0 24px;text-decoration:none}
+    html.flagday .fd-banner{display:block}
+    .fd-banner-inner{
+      position:relative;overflow:hidden;border-radius:var(--radius-lg);
+      border:1px solid rgba(249,214,22,0.40);
+      background:linear-gradient(105deg,var(--fd-blue),#0a2f86 55%,var(--fd-blue-deep));
+      padding:42px 44px;display:flex;align-items:center;justify-content:space-between;
+      gap:28px;flex-wrap:wrap;box-shadow:0 24px 60px rgba(0,16,60,0.5);
+      transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+    }
+    /* two white stars of the flag, upper hoist */
+    .fd-banner-inner::before{content:"★ ★";position:absolute;top:18px;left:30px;color:#fff;
+      font-size:1.05rem;letter-spacing:.22em;text-shadow:0 0 12px rgba(255,255,255,.6);opacity:.95}
+    /* yellow flag stripe along the bottom */
+    .fd-banner-inner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;
+      background:var(--fd-yellow);opacity:.92}
+    .fd-banner:hover .fd-banner-inner{transform:translateY(-3px);border-color:rgba(249,214,22,0.65);
+      box-shadow:0 30px 72px rgba(0,16,60,0.62)}
+    .fd-banner-copy{position:relative;z-index:1}
+    .fd-banner-eyebrow{display:inline-block;font-family:var(--font-display);font-weight:800;font-size:.72rem;
+      letter-spacing:.16em;text-transform:uppercase;color:var(--fd-yellow);margin:.4rem 0 .6rem}
+    .fd-banner-title{font-family:var(--font-display);font-weight:800;line-height:1.02;margin:0 0 .5rem;
+      font-size:clamp(1.9rem,4.5vw,2.9rem);color:#fff;letter-spacing:-0.01em}
+    .fd-banner-title span{color:var(--fd-yellow);text-shadow:0 0 28px var(--fd-yellow-glow)}
+    .fd-banner-sub{margin:0;color:rgba(238,242,255,0.85);font-size:1rem;max-width:46ch;line-height:1.5}
+    .fd-banner-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.55rem;
+      background:var(--fd-yellow);color:var(--fd-blue);font-family:var(--font-display);font-weight:800;
+      font-size:1rem;padding:.85rem 1.5rem;border-radius:999px;white-space:nowrap;
+      box-shadow:0 10px 30px var(--fd-yellow-glow);transition:box-shadow .3s}
+    .fd-banner:hover .fd-banner-btn{box-shadow:0 14px 38px var(--fd-yellow-glow)}
+    .fd-banner-arrow{transition:transform .3s}
+    .fd-banner:hover .fd-banner-arrow{transform:translateX(4px)}
+    @media (max-width:600px){
+      .fd-banner{margin:44px auto}
+      .fd-banner-inner{padding:38px 24px 30px;flex-direction:column;align-items:flex-start;gap:22px}
+      .fd-banner-inner::before{top:16px;left:24px}
+      .fd-banner-btn{width:100%;justify-content:center}
+    }
+  </style>
+  <!-- ===== DIA DI BANDERA / FLAG DAY THEME — END ===== -->
+
+  <!-- ===== GALAXY Z FOLD 8 PRE-ORDER BANNER ===== -->
+  <style>
+    .fold-banner{max-width:1200px;margin:64px auto;padding:0 24px;text-decoration:none;display:block}
+    .fold-banner-inner{
+      position:relative;overflow:hidden;border-radius:var(--radius-lg);
+      border:1px solid rgba(152,152,240,0.35);
+      background:linear-gradient(105deg,#151a4a,#2a2170 52%,#4a2a86);
+      padding:42px 44px;display:flex;align-items:center;justify-content:space-between;
+      gap:28px;flex-wrap:wrap;box-shadow:0 24px 60px rgba(20,10,60,0.5);
+      transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+    }
+    /* soft glow accents */
+    .fold-banner-inner::before{content:"";position:absolute;top:-40%;right:-6%;width:340px;height:340px;
+      background:radial-gradient(circle,rgba(152,152,240,0.35),transparent 62%);pointer-events:none}
+    .fold-banner-inner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+      background:linear-gradient(90deg,#9898f0,#57e6c0)}
+    .fold-banner:hover .fold-banner-inner{transform:translateY(-3px);border-color:rgba(152,152,240,0.6);
+      box-shadow:0 30px 72px rgba(20,10,60,0.62)}
+    .fold-banner-copy{position:relative;z-index:1;flex:1 1 420px}
+    .fold-banner-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-display);
+      font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      color:#b9b9f6;margin:0 0 .6rem}
+    .fold-banner-eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;
+      background:#57e6c0;box-shadow:0 0 10px rgba(87,230,192,0.9)}
+    .fold-banner-title{font-family:var(--font-display);font-weight:800;line-height:1.04;margin:0 0 .5rem;
+      font-size:clamp(1.8rem,4.4vw,2.8rem);color:#fff;letter-spacing:-0.01em}
+    .fold-banner-title span{background:linear-gradient(90deg,#b9b9f6,#57e6c0);-webkit-background-clip:text;
+      background-clip:text;color:transparent}
+    .fold-banner-sub{margin:0;color:rgba(238,242,255,0.82);font-size:1rem;max-width:50ch;line-height:1.5}
+    .fold-banner-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.55rem;
+      background:linear-gradient(135deg,#9898f0,#7878d4);color:#0b0b26;font-family:var(--font-display);
+      font-weight:800;font-size:1rem;padding:.85rem 1.6rem;border-radius:999px;white-space:nowrap;
+      box-shadow:0 10px 30px rgba(120,120,212,0.45);transition:box-shadow .3s}
+    .fold-banner:hover .fold-banner-btn{box-shadow:0 14px 38px rgba(120,120,212,0.6)}
+    .fold-banner-arrow{transition:transform .3s}
+    .fold-banner:hover .fold-banner-arrow{transform:translateX(4px)}
+    @media (max-width:600px){
+      .fold-banner{margin:44px auto}
+      .fold-banner-inner{padding:34px 24px 28px;flex-direction:column;align-items:flex-start;gap:22px}
+      .fold-banner-btn{width:100%;justify-content:center}
+    }
+  </style>
+  <!-- ===== GALAXY Z FOLD 8 PRE-ORDER BANNER — END ===== -->
+</head>
+<body>
+
+  <!-- DIA DI BANDERA — ribbon (auto-hidden outside the Jul 1–3 window) -->
+  <div id="fd-ribbon"><span class="stars">★★</span>&nbsp; <b>Dia di Bandera</b> &nbsp;·&nbsp; 2 di yüli &nbsp;·&nbsp; Pabien na nos bandera, himno i pais 🇨🇼</div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">CONNECTIONS<span class="logo-dot"></span></a>
+
+      <div class="nav-links">
+        <a href="#deals">Deals</a>
+        <a href="#cat-apple" data-cat="apple">Apple</a>
+        <a href="#cat-samsung" data-cat="samsung">Samsung</a>
+        <a href="#cat-tvs" data-cat="tvs">TVs</a>
+        <a href="#cat-appliances" data-cat="appliances">Appliances</a>
+        <a href="#locations">Locations</a>
+        <a href="/repair">Repair</a>
+        <a href="#footer">Contact</a>
+      </div>
+
+      <div class="nav-pills">
+        <a href="/woah" class="nav-pill woah">woah 🫨</a>
+        <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
+        <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
+        <a href="https://hso2.connectionscuracao.net" class="nav-pill" target="_blank">HSO2</a>
+        <a href="https://trade.connectionscuracao.net" class="nav-pill" target="_blank">Trade-In</a>
+      </div>
+
+      <button class="nav-hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="nav-mobile-menu">
+      <a href="#deals" class="nav-mobile-link">Deals</a>
+      <a href="#cat-apple" class="nav-mobile-link" data-cat="apple">Apple</a>
+      <a href="#cat-samsung" class="nav-mobile-link" data-cat="samsung">Samsung</a>
+      <a href="#cat-tvs" class="nav-mobile-link" data-cat="tvs">TVs</a>
+      <a href="#cat-appliances" class="nav-mobile-link" data-cat="appliances">Appliances</a>
+      <a href="#locations" class="nav-mobile-link">Locations</a>
+      <a href="/repair" class="nav-mobile-link">Repair</a>
+      <a href="#footer" class="nav-mobile-link">Contact</a>
+      <div class="nav-mobile-divider"></div>
+      <a href="/woah" class="nav-pill woah">woah 🫨</a>
+      <a href="https://jbl.connectionscuracao.net" class="nav-pill" target="_blank">JBL</a>
+      <a href="https://giftcard.connectionscuracao.net" class="nav-pill" target="_blank">Gift Cards</a>
+      <a href="https://hso2.connectionscuracao.net" class="nav-pill" target="_blank">HSO2</a>
+      <a href="https://trade.connectionscuracao.net" class="nav-pill" target="_blank">Trade-In</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-content">
+      <!-- Hero copy (default baseline, shown outside the Flag Day window) -->
+      <div class="hero-default">
+        <h1 class="hero-tagline">The latest tech, on island</h1>
+        <p class="hero-subtitle">Deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
+        <div class="hero-ctas">
+          <a href="#deals" class="btn-primary">Shop deals</a>
+          <a href="#locations" class="btn-glass">Visit Us</a>
+        </div>
+      </div>
+      <!-- DIA DI BANDERA — hero copy (auto-shown only Jul 1–3) -->
+      <div class="hero-flagday">
+        <span class="hero-fd-tag"><span class="stars">★★</span> Dia di Bandera · 2 di yüli</span>
+        <h1 class="hero-tagline">Biba <span class="fd-accent">Kòrsou</span></h1>
+        <p class="hero-subtitle">Celebrating our flag with deals across the catalog <span>&middot;</span> iPhone <span>&middot;</span> Samsung <span>&middot;</span> TVs <span>&middot;</span> Laptops <span>&middot;</span> Air Conditioning</p>
+        <div class="hero-ctas">
+          <a href="#deals" class="btn-primary">Shop Flag Day deals</a>
+          <a href="#locations" class="btn-glass">Visit Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  </section>
+
+  <a class="school-banner" href="/back-to-school/" aria-label="Shop the Back to School sale">
+    <div class="school-banner-inner">
+      <div>
+        <span class="school-banner-kicker">Limited-time campaign · Prices valid through August 19</span>
+        <h2>Back to School is live.</h2>
+        <p>Phones, tablets, laptops and watches—curated in one easy sale page.</p>
+      </div>
+      <span class="school-banner-button">Explore 39 deals →</span>
+    </div>
+  </a>
+
+  <!-- DIA DI BANDERA — banner card (auto-hidden outside the Jul 1–3 window) -->
+  <a class="fd-banner" href="#deals" aria-label="Dia di Bandera — Flag Day deals at Connections Curaçao">
+    <div class="fd-banner-inner">
+      <div class="fd-banner-copy">
+        <span class="fd-banner-eyebrow">2 di yüli · Dia di Bandera</span>
+        <h2 class="fd-banner-title">Pabien, <span>Kòrsou</span>!</h2>
+        <p class="fd-banner-sub">Celebrating Curaçao’s flag, anthem and country — with island deals across the catalog.</p>
+      </div>
+      <span class="fd-banner-btn">Shop Flag Day deals <span class="fd-banner-arrow">→</span></span>
+    </div>
+  </a>
+
+  <!-- Galaxy Z Fold 8 pre-order banner -->
+  <a class="fold-banner" href="/fold8" aria-label="Pre-order the Galaxy Z Fold 8 and Fold 8 Ultra at Connections Curaçao">
+    <div class="fold-banner-inner">
+      <div class="fold-banner-copy">
+        <p class="fold-banner-eyebrow">Now open · Pre-order</p>
+        <h2 class="fold-banner-title">Pre-order your Galaxy Z <span>Fold 8</span> &amp; Fold 8 Ultra</h2>
+        <p class="fold-banner-sub">Reserve your color and storage with a 50% deposit via Sentoo. Pay the balance on pickup.</p>
+      </div>
+      <span class="fold-banner-btn">Pre-order now <span class="fold-banner-arrow">→</span></span>
+    </div>
+  </a>
+
+  <!-- Categories -->
+  <section id="categories">
+    <div class="container"></div>
+  </section>
+
+  <!-- Deals -->
+  <section id="deals">
+    <div class="container"></div>
+  </section>
+
+  <!-- Products -->
+  <section id="products">
+    <div class="container">
+      <div id="product-toolbar"></div>
+      <div id="product-results"></div>
+    </div>
+  </section>
+
+  <!-- Ecosystem -->
+  <section id="ecosystem">
+    <div class="container">
+      <h2 class="section-title fade-in">More from Connections</h2>
+      <div class="ecosystem-grid">
+        <a href="https://jbl.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="jbl">
+          <div class="eco-icon">🔊</div>
+          <div class="eco-title">JBL Audio</div>
+          <div class="eco-desc">Original JBL speakers, headsets &amp; earbuds. Flip 7, Go 4, Charge 6 and more.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://giftcard.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="gift">
+          <div class="eco-icon">🎮</div>
+          <div class="eco-title">Digital Gift Cards</div>
+          <div class="eco-desc">PSN, Apple, Xbox, Nintendo, Roblox &amp; more. Instant delivery via WhatsApp.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://hso2.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="hso">
+          <div class="eco-icon">🛒</div>
+          <div class="eco-title">HSO2</div>
+          <div class="eco-desc">Shop HSO2 with direct Sentoo checkout and fast WhatsApp confirmation.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://trade.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="trade">
+          <div class="eco-icon">🔄</div>
+          <div class="eco-title">Trade-In Program</div>
+          <div class="eco-desc">Trade in your old device and get store credit towards a new purchase.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+        <a href="https://spin.connectionscuracao.net" target="_blank" rel="noopener" class="eco-card fade-in" data-accent="spin">
+          <div class="eco-icon">🎡</div>
+          <div class="eco-title">Spin &amp; Win</div>
+          <div class="eco-desc">Got a spin code? Try your luck and win prizes from Connections.</div>
+          <span class="eco-link">Visit →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section id="locations">
+    <div class="container">
+      <h2 class="section-title fade-in">Visit Our Stores</h2>
+      <div class="locations-grid">
+        <div class="location-card fade-in">
+          <span class="location-badge">Punda</span>
+          <h3 class="location-name">Connections Punda</h3>
+          <div class="location-detail">
+            <span class="loc-icon">📍</span>
+            <span>Ruyterkade 28, Punda, Willemstad, Cura&ccedil;ao</span>
+          </div>
+          <div class="location-detail">
+            <span class="loc-icon">🕐</span>
+            <span>Mon–Sat 9:30am – 6:00pm &nbsp;|&nbsp; Sunday: Closed</span>
+          </div>
+          <div class="location-detail">
+            <span class="loc-icon">📞</span>
+            <a href="tel:+59996782619">+599 9 678 2619</a>
+          </div>
+          <div class="location-buttons">
+            <a href="https://maps.google.com/?q=Ruyterkade+28+Punda+Willemstad+Curacao" target="_blank" rel="noopener" class="btn-loc btn-loc-primary">Get Directions</a>
+            <a href="tel:+59996782619" class="btn-loc btn-loc-outline">Call Us</a>
+          </div>
+        </div>
+        <div class="location-card fade-in">
+          <span class="location-badge">Otrobanda</span>
+          <h3 class="location-name">Connections Otrobanda</h3>
+          <div class="location-detail">
+            <span class="loc-icon">📍</span>
+            <span>Bredestraat 12, Otrobanda, Willemstad, Cura&ccedil;ao</span>
+          </div>
+          <div class="location-detail">
+            <span class="loc-icon">🕐</span>
+            <span>Mon–Sat 9:30am – 6:00pm &nbsp;|&nbsp; Sunday: Closed</span>
+          </div>
+          <div class="location-detail">
+            <span class="loc-icon">📞</span>
+            <a href="tel:+59996912424">+599 9 691 2424</a>
+          </div>
+          <div class="location-buttons">
+            <a href="https://maps.google.com/?q=Bredestraat+12+Otrobanda+Willemstad+Curacao" target="_blank" rel="noopener" class="btn-loc btn-loc-primary">Get Directions</a>
+            <a href="tel:+59996912424" class="btn-loc btn-loc-outline">Call Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Column 1: Brand -->
+        <div>
+          <div class="footer-brand-name">CONNECTIONS<span class="logo-dot"></span></div>
+          <p class="footer-tagline">Cura&ccedil;ao's premium electronics store since 2019.</p>
+          <div class="footer-socials">
+            <a href="https://instagram.com/connectionscuracao" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://facebook.com/connectionscuracao123" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div>
+          <h4 class="footer-col-heading">Quick Links</h4>
+          <div class="footer-links">
+            <a href="#deals">Shop Deals</a>
+            <a href="#locations">Locations</a>
+            <a href="https://jbl.connectionscuracao.net" target="_blank" rel="noopener">JBL Audio</a>
+            <a href="https://giftcard.connectionscuracao.net" target="_blank" rel="noopener">Gift Cards</a>
+            <a href="https://hso2.connectionscuracao.net" target="_blank" rel="noopener">HSO2</a>
+            <a href="https://trade.connectionscuracao.net" target="_blank" rel="noopener">Trade-In</a>
+          </div>
+        </div>
+
+        <!-- Column 3: Contact -->
+        <div>
+          <h4 class="footer-col-heading">Contact</h4>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+59996782619">+599 9 678 2619</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:info@connectionscuracao.net">info@connectionscuracao.net</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>💬</span>
+            <a href="https://chat.whatsapp.com/IVFg1kg3DWd57q9JELXiQ8?mode=gi_t" target="_blank" rel="noopener">Join our WhatsApp</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <span>Punda: Ruyterkade 28 · Otrobanda: Bredestraat 12</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">&copy; 2026 Connections Curacao. All rights reserved.</div>
+        <div class="footer-bottom-right">Made in Cura&ccedil;ao 🇨🇼</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <a id="whatsapp-fab" href="https://wa.me/59996782619" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.738-6.354-1.996l-.244-.167-3.735 1.251 1.251-3.735-.167-.244A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  </a>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="checkout-overlay" hidden>
+    <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <button id="checkout-close" class="checkout-close" type="button" aria-label="Close checkout">×</button>
+      <h3 id="checkout-title" class="checkout-title">Checkout</h3>
+
+      <div class="checkout-lines">
+        <div class="checkout-line"><span>Product</span><strong id="checkout-product">-</strong></div>
+        <div class="checkout-line"><span>Product Price</span><strong id="checkout-base">XCG 0</strong></div>
+        <div class="checkout-line"><span>Payment Type</span><strong id="checkout-type">Full</strong></div>
+        <div class="checkout-line"><span>Pay Now</span><strong id="checkout-pay-now">XCG 0</strong></div>
+        <div class="checkout-line"><span>Delivery Fee</span><strong id="checkout-fee">XCG 0</strong></div>
+        <div class="checkout-line total"><span>Total</span><strong id="checkout-total">XCG 0</strong></div>
+      </div>
+
+      <form id="checkout-form">
+        <label class="checkout-label" for="checkout-name">Your Name</label>
+        <input id="checkout-name" class="checkout-input" type="text" placeholder="Your name">
+
+        <label class="checkout-label" for="checkout-phone">WhatsApp Number</label>
+        <input id="checkout-phone" class="checkout-input" type="text" placeholder="e.g. +599 9 678 2619">
+
+        <div class="checkout-label">Payment Option</div>
+        <div class="checkout-options">
+          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="full" checked> Full Payment</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-payment" value="reserve"> Reserve (+XCG 100 downpayment)</label>
+        </div>
+
+        <div class="checkout-label">Delivery Option</div>
+        <div class="checkout-options">
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="pickup" checked> Pickup (Free)</label>
+          <label class="checkout-radio"><input type="radio" name="checkout-delivery" value="delivery"> Delivery (+XCG 35)</label>
+        </div>
+
+        <div id="checkout-address-wrap" style="display:none;">
+          <label class="checkout-label" for="checkout-address">Delivery Address</label>
+          <input id="checkout-address" class="checkout-input" type="text" placeholder="Street, area, house number">
+        </div>
+
+        <label class="checkout-terms">
+          <input id="checkout-terms" type="checkbox">
+          <span>I agree to share this order information for confirmation and delivery.</span>
+        </label>
+
+        <div id="checkout-error" class="checkout-error"></div>
+        <button type="submit" class="btn-whatsapp checkout-submit">Open Sentoo + WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="js/checkout.js?v=2026-05-06-1"></script>
+  <script>
+    /* ============================================
+       NAVIGATION JS
+       ============================================ */
+    (() => {
+      const nav = document.getElementById('nav');
+      const hamburger = nav.querySelector('.nav-hamburger');
+      const mobileLinks = nav.querySelectorAll('.nav-mobile-menu a');
+
+      // Scroll: add/remove nav-scrolled class
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Hamburger toggle
+      hamburger.addEventListener('click', () => {
+        nav.classList.toggle('menu-open');
+        document.body.style.overflow = nav.classList.contains('menu-open') ? 'hidden' : '';
+      });
+
+      // Close mobile menu on link click
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('menu-open')) {
+          nav.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+
+    /* ============================================
+       FADE-IN OBSERVER
+       ============================================ */
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    /* ============================================
+       PRODUCT DATA LOADING & RENDERING
+       ============================================ */
+    const CATEGORY_ICONS = {
+      apple: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"></rect><line x1="10" y1="5.5" x2="14" y2="5.5"></line><line x1="11" y1="18.5" x2="13" y2="18.5"></line></svg>`,
+      samsung: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect><line x1="9.5" y1="5.5" x2="14.5" y2="5.5"></line><circle cx="12" cy="18.5" r="1"></circle></svg>`,
+      tvs: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
+      laptops: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="10" rx="1.8"></rect><path d="M3 18h18"></path><path d="M8 18h8"></path></svg>`,
+      acs: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M4.5 7.5l15 9"></path><path d="M19.5 7.5l-15 9"></path><circle cx="12" cy="12" r="2.4"></circle></svg>`,
+      motor: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="16.5" r="2.5"></circle><circle cx="17.5" cy="16.5" r="2.5"></circle><path d="M9 16.5h5l2-4h2.5"></path><path d="M7.5 12.5h4l1.2 2"></path><path d="M13 10h2.5"></path></svg>`,
+      appliances: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="11" x2="20" y2="11"></line></svg>`,
+      other:   `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>`
+    };
+
+    const CATEGORY_META = {
+      apple:   { name: 'Apple',           icon: CATEGORY_ICONS.apple, gradient: 'linear-gradient(135deg, #1a1a4e, #4b2ca0)' },
+      samsung: { name: 'Samsung',         icon: CATEGORY_ICONS.samsung, gradient: 'linear-gradient(135deg, #0a1628, #1a3a6e)' },
+      tvs:     { name: 'Televisions',     icon: CATEGORY_ICONS.tvs, gradient: 'linear-gradient(135deg, #1a1a1a, #3a3a3a)' },
+      laptops: { name: 'Laptops',         icon: CATEGORY_ICONS.laptops, gradient: 'linear-gradient(135deg, #1a2a1a, #2a4a3a)' },
+      acs:     { name: 'Air Conditioning', icon: CATEGORY_ICONS.acs, gradient: 'linear-gradient(135deg, #0a2a3a, #1a4a5e)' },
+      motor:   { name: 'Motorcycles',     icon: CATEGORY_ICONS.motor, gradient: 'linear-gradient(135deg, #2a1a0a, #5a3a1a)' },
+      appliances: { name: 'Appliances',     icon: CATEGORY_ICONS.appliances, gradient: 'linear-gradient(135deg, #2a1a3a, #4a2a5e)' },
+      other:   { name: 'Other',           icon: CATEGORY_ICONS.other, gradient: 'linear-gradient(135deg, #2a2a3a, #4a4a5e)' }
+    };
+
+    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
+    const PRODUCTS_DATA_VERSION = '2026-07-29-back-to-school';
+
+    function waLink(name, price) {
+      const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function productImageSrc(product) {
+      if (product.image) {
+        // Prefer .png (transparent) over .jpg
+        const img = product.image.replace(/\.jpe?g$/i, '.png');
+        return `img/products/${img}`;
+      }
+      const fallbackByName = {
+        'iPhone 12': 'iphone-12-model.png',
+        'iPhone 13': 'iphone-13-model.png',
+        'iPhone 14': 'iphone-14-model.png',
+        'iPhone 15': 'iphone-15-model.png',
+        'iPhone 15 Pro Max': 'iphone-15-pro-max-model.png',
+        'iPhone 16': 'iphone-16-model.png',
+        'iPhone 16 Plus': 'iphone-16-plus-model.png',
+        'iPhone 16 Pro Max': 'iphone-16-pro-max-model.png',
+        'iPhone 17': 'iphone-17-model.png',
+        'iPhone 17 Air': 'iphone-17-air-model.png',
+        'iPhone 17 Pro': 'iphone-17-pro-model.png',
+        'iPhone 17 Pro Max': 'iphone-17-pro-max-model.png',
+        'iPad 11th 128GB': 'ipad-11th-model.png',
+        'iPad Air M3 128GB': 'ipad-air-m3-model.png',
+        'Galaxy A07': 'galaxy-a07-model.png',
+        'Galaxy A16': 'galaxy-a16-model.png',
+        'Galaxy A17': 'galaxy-a17-model.png',
+        'Galaxy A26': 'galaxy-a26-model.png',
+        'Galaxy A36': 'galaxy-a36-model.png',
+        'Galaxy A56': 'galaxy-a56-model.png',
+        'Galaxy S24 FE': 'galaxy-s24-fe-model.png',
+        'Galaxy S24 Ultra': 'galaxy-s24-ultra-model.png',
+        'Galaxy S25 Plus': 'galaxy-s25-plus-model.png',
+        'Galaxy S25 FE': 'galaxy-s25-fe-model.png',
+        'Galaxy S25 Ultra': 'galaxy-s25-ultra-model.png'
+      };
+      if (fallbackByName[product.name]) return `img/products/${fallbackByName[product.name]}`;
+      const fallbackByCategory = {
+        apple: 'iphone-16.webp',
+        samsung: 'samsung-galaxy-s25-ultra.jpg',
+        tvs: 'tv-generic.png',
+        laptops: 'laptop-generic.png',
+        acs: 'ac-generic.png',
+        motor: 'motorcycle-generic.png',
+        appliances: 'appliance-generic.png',
+        other: 'tablet-generic.png'
+      };
+      return `img/products/${fallbackByCategory[product.category] || 'iphone-generic.png'}`;
+    }
+
+    const GENERIC_IMAGE_FILES = new Set([
+      'tv-generic.png',
+      'laptop-generic.png',
+      'ac-generic.png',
+      'appliance-generic.png',
+      'tablet-generic.png'
+    ]);
+
+    function productBrand(product) {
+      const text = `${product.name || ''} ${product.spec || ''}`.toLowerCase();
+      const brands = ['Samsung', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
+      return brands.find(brand => text.includes(brand.toLowerCase())) || CATEGORY_META[product.category]?.name || 'Connections';
+    }
+
+    function productType(product) {
+      const labels = {
+        tvs: 'Television',
+        laptops: 'Laptop',
+        acs: 'Climate',
+        appliances: 'Home appliance',
+        other: 'Essential'
+      };
+      return labels[product.category] || 'Technology';
+    }
+
+    function productVisualHTML(product, fullName) {
+      const filename = (product.image || '').replace(/\.jpe?g$/i, '.png');
+      if (!GENERIC_IMAGE_FILES.has(filename)) {
+        return `<img src="${productImageSrc(product)}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async">`;
+      }
+      const mark = ({ tvs: 'TV', laptops: 'PC', acs: '°', appliances: '+' })[product.category] || '•';
+      return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">
+        <span class="model-art-brand">${escapeHtml(productBrand(product))}</span>
+        <span class="model-art-type">${escapeHtml(productType(product))}</span>
+        <strong class="model-art-name">${escapeHtml(fullName)}</strong>
+      </div>`;
+    }
+
+    /* ---- Category Grid ---- */
+    function renderCategories(products) {
+      const container = document.querySelector('#categories .container');
+      const grouped = {};
+      CATEGORY_ORDER.forEach(c => grouped[c] = 0);
+      products.forEach(p => { if (grouped[p.category] !== undefined) grouped[p.category]++; });
+
+      let html = '<h2 class="section-title fade-in">Browse Categories</h2>';
+      html += '<div class="categories-grid fade-in">';
+
+      CATEGORY_ORDER.forEach(cat => {
+        const meta = CATEGORY_META[cat];
+        html += `
+          <div class="category-card" data-target="cat-${cat}" style="background: ${meta.gradient}">
+            <div class="cat-icon">${meta.icon}</div>
+            <div class="cat-name">${meta.name}</div>
+            <div class="cat-count">${grouped[cat]} product${grouped[cat] !== 1 ? 's' : ''}</div>
+          </div>`;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+
+      // Click a category card → filter to that category + scroll to products
+      container.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const cat = card.dataset.target.replace(/^cat-/, '');
+          const pill = document.querySelector(`.pf-pill[data-cat="${cat}"]`);
+          if (pill) {
+            pill.click();
+            const products = document.getElementById('products');
+            if (products) products.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            const target = document.getElementById(card.dataset.target);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Observe new fade-in elements
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
+    /* ---- Deals Carousel ---- */
+    /* Sale ribbon + strikethrough old price (opt-in via product.oldPrice) */
+    function saleInfo(p) {
+      const onSale = p.price && p.oldPrice && p.oldPrice > p.price;
+      const pct = onSale ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+      return {
+        ribbon: onSale ? `<span class="badge-sale">-${pct}%</span>` : '',
+        oldPriceHtml: onSale ? ` <span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''
+      };
+    }
+
+    function renderDeals(products) {
+      const featured = products.filter(p => p.featured);
+      if (!featured.length) return;
+
+      const container = document.querySelector('#deals .container');
+      let html = '<h2 class="section-title fade-in">Featured Deals</h2>';
+      html += '<div class="deals-wrapper fade-in">';
+
+      // Arrow buttons
+      html += `<button class="deals-arrow deals-arrow--left" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>`;
+      html += `<button class="deals-arrow deals-arrow--right" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>`;
+
+      html += '<div class="deals-track">';
+
+      featured.forEach(p => {
+        const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+        const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+        const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
+        const productVisual = productVisualHTML(p, fullName);
+        const encodedName = encodeURIComponent(fullName);
+        const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
+        const { ribbon, oldPriceHtml } = saleInfo(p);
+        const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
+        const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+        const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
+        html += `
+          <div class="deal-card">
+            ${corner}${bluewaveBadge}
+            <div class="deal-img">
+              ${productVisual}
+            </div>
+            <div class="deal-body">
+              <div class="deal-name">${p.name}${hsoBadge}${activeBadge}</div>
+              ${activeNote}${limitedNote}
+              <div class="deal-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
+              ${p.price ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+                ${WA_ICON} Checkout &amp; Pay
+              </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/59996782619?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+                ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask via WhatsApp'}
+              </a>`}
+            </div>
+          </div>`;
+      });
+
+      html += '</div></div>';
+      container.innerHTML = html;
+
+      // Arrow scroll logic
+      const track = container.querySelector('.deals-track');
+      const leftBtn = container.querySelector('.deals-arrow--left');
+      const rightBtn = container.querySelector('.deals-arrow--right');
+      const scrollAmt = 300;
+
+      leftBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+      });
+      rightBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+      });
+
+      attachOrderButtons(container);
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
+    /* ---- Single product card markup (shared by grouped + filtered views) ---- */
+    function productCardHTML(p) {
+      const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+      const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
+      const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+      const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
+      const productVisual = productVisualHTML(p, fullName);
+      const encodedName = encodeURIComponent(fullName);
+      const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
+      const { ribbon, oldPriceHtml } = saleInfo(p);
+      const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
+      const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+      const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
+      return `
+        <div class="product-card">
+          ${corner}${bluewaveBadge}
+          <div class="product-img">
+            ${productVisual}
+          </div>
+          <div class="product-body">
+            <div class="product-name">${p.name}${hsoBadge}${activeBadge}</div>
+            ${activeNote}${limitedNote}
+            ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
+            <div class="product-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
+            ${p.price ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+              ${WA_ICON} Checkout &amp; Pay
+            </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/59996782619?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+              ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask via WhatsApp'}
+            </a>`}
+          </div>
+        </div>`;
+    }
+
+    /* ---- Product Sections (grouped by category, or flat when filtering) ---- */
+    function renderProducts(products, opts) {
+      opts = opts || {};
+      const container = document.querySelector('#product-results');
+      let html = '';
+
+      if (opts.flat) {
+        if (!products.length) {
+          html = `<div class="pf-empty">
+            <div class="pf-empty-emoji">🔍</div>
+            <div>No products match your search.</div>
+            <button type="button" id="pf-reset">Clear filters</button>
+          </div>`;
+        } else {
+          const label = products.length === 1 ? '1 result' : `${products.length} results`;
+          html = `<div class="product-section">
+            <h2 class="results-title">${label}</h2>
+            <div class="product-grid">${products.map(productCardHTML).join('')}</div>
+          </div>`;
+        }
+      } else {
+        const grouped = {};
+        CATEGORY_ORDER.forEach(c => grouped[c] = []);
+        products.forEach(p => { if (grouped[p.category]) grouped[p.category].push(p); });
+
+        CATEGORY_ORDER.forEach(cat => {
+          const items = grouped[cat];
+          if (!items.length) return;
+          const meta = CATEGORY_META[cat];
+          html += `<div id="cat-${cat}" class="product-section">`;
+          html += `<h2 class="section-title">${meta.name}</h2>`;
+          html += `<div class="product-grid">${items.map(productCardHTML).join('')}</div>`;
+          html += '</div>';
+        });
+      }
+
+      container.innerHTML = html;
+      attachOrderButtons(container);
+      const reset = container.querySelector('#pf-reset');
+      if (reset) reset.addEventListener('click', resetFilters);
+      container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+    }
+
+    /* ---- Search / filter / sort toolbar ---- */
+    let ALL_PRODUCTS = [];
+    const filterState = { search: '', category: 'all', price: 'all', sort: 'featured' };
+
+    const PRICE_BUCKETS = {
+      all:        () => true,
+      'u300':     p => p.price && p.price < 300,
+      '300-700':  p => p.price && p.price >= 300 && p.price < 700,
+      '700-1500': p => p.price && p.price >= 700 && p.price < 1500,
+      '1500-3000':p => p.price && p.price >= 1500 && p.price < 3000,
+      '3000plus': p => p.price && p.price >= 3000
+    };
+
+    function applyFilters() {
+      const q = filterState.search.trim().toLowerCase();
+      let list = ALL_PRODUCTS.filter(p => {
+        const name = (p.name + ' ' + (p.suffix || '')).toLowerCase();
+        if (q && !name.includes(q)) return false;
+        if (filterState.category !== 'all' && p.category !== filterState.category) return false;
+        if (!PRICE_BUCKETS[filterState.price](p)) return false;
+        return true;
+      });
+
+      const s = filterState.sort;
+      if (s === 'price-asc')  list = [...list].sort((a, b) => (a.price || Infinity) - (b.price || Infinity));
+      else if (s === 'price-desc') list = [...list].sort((a, b) => (b.price || -Infinity) - (a.price || -Infinity));
+      else if (s === 'name')  list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+      const flat = !!q || filterState.category !== 'all' || filterState.price !== 'all' || s !== 'featured';
+      renderProducts(list, { flat });
+
+      const count = document.querySelector('#pf-count');
+      if (count) count.textContent = flat ? '' : `${ALL_PRODUCTS.length} products`;
+    }
+
+    function resetFilters() {
+      filterState.search = '';
+      filterState.category = 'all';
+      filterState.price = 'all';
+      filterState.sort = 'featured';
+      const search = document.querySelector('#pf-search');
+      const price = document.querySelector('#pf-price');
+      const sort = document.querySelector('#pf-sort');
+      if (search) { search.value = ''; search.closest('.pf-search').classList.remove('has-value'); }
+      if (price) price.value = 'all';
+      if (sort) sort.value = 'featured';
+      document.querySelectorAll('.pf-pill').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+      applyFilters();
+    }
+
+    function renderToolbar(products) {
+      const toolbar = document.querySelector('#product-toolbar');
+      if (!toolbar) return;
+
+      const counts = {};
+      products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+      const cats = CATEGORY_ORDER.filter(c => counts[c]);
+
+      let pills = `<button type="button" class="pf-pill active" data-cat="all">All</button>`;
+      cats.forEach(c => {
+        pills += `<button type="button" class="pf-pill" data-cat="${c}">${CATEGORY_META[c].name}</button>`;
+      });
+
+      toolbar.innerHTML = `
+        <div class="pf-toolbar">
+          <div class="pf-row">
+            <div class="pf-search">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="search" id="pf-search" placeholder="Search products…" autocomplete="off" aria-label="Search products">
+              <button type="button" class="pf-clear" id="pf-clear" aria-label="Clear search">×</button>
+            </div>
+            <select class="pf-select" id="pf-price" aria-label="Filter by price">
+              <option value="all">All prices</option>
+              <option value="u300">Under XCG 300</option>
+              <option value="300-700">XCG 300 – 700</option>
+              <option value="700-1500">XCG 700 – 1,500</option>
+              <option value="1500-3000">XCG 1,500 – 3,000</option>
+              <option value="3000plus">XCG 3,000+</option>
+            </select>
+            <select class="pf-select" id="pf-sort" aria-label="Sort products">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name">Name: A–Z</option>
+            </select>
+          </div>
+          <div class="pf-row">
+            <div class="pf-pills">${pills}</div>
+            <div class="pf-count" id="pf-count"></div>
+          </div>
+        </div>`;
+
+      const search = toolbar.querySelector('#pf-search');
+      const clearBtn = toolbar.querySelector('#pf-clear');
+      const searchWrap = toolbar.querySelector('.pf-search');
+      let debounce;
+      search.addEventListener('input', () => {
+        filterState.search = search.value;
+        searchWrap.classList.toggle('has-value', search.value.length > 0);
+        clearTimeout(debounce);
+        debounce = setTimeout(applyFilters, 150);
+      });
+      clearBtn.addEventListener('click', () => {
+        search.value = '';
+        filterState.search = '';
+        searchWrap.classList.remove('has-value');
+        applyFilters();
+        search.focus();
+      });
+
+      toolbar.querySelector('#pf-price').addEventListener('change', (e) => {
+        filterState.price = e.target.value;
+        applyFilters();
+      });
+      toolbar.querySelector('#pf-sort').addEventListener('change', (e) => {
+        filterState.sort = e.target.value;
+        applyFilters();
+      });
+      toolbar.querySelectorAll('.pf-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterState.category = btn.dataset.cat;
+          toolbar.querySelectorAll('.pf-pill').forEach(b => b.classList.toggle('active', b === btn));
+          applyFilters();
+        });
+      });
+    }
+
+    /* ---- Active badge: tap/click to reveal warranty note ---- */
+    const NOTE_BADGES = [
+      { sel: '.badge-active', note: '.active-note' },
+      { sel: '.badge-limited', note: '.limited-note' }
+    ];
+    function findNoteBadge(target) {
+      if (!target || !target.closest) return null;
+      for (const nb of NOTE_BADGES) {
+        const badge = target.closest(nb.sel);
+        if (badge) return { badge, noteSel: nb.note };
+      }
+      return null;
+    }
+    function toggleCardNote(badge, noteSel) {
+      const card = badge.closest('.deal-card, .product-card');
+      const note = card && card.querySelector(noteSel);
+      if (note) note.hidden = !note.hidden;
+    }
+    document.addEventListener('click', (e) => {
+      const hit = findNoteBadge(e.target);
+      if (hit) { e.stopPropagation(); toggleCardNote(hit.badge, hit.noteSel); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const hit = findNoteBadge(e.target);
+      if (hit) { e.preventDefault(); toggleCardNote(hit.badge, hit.noteSel); }
+    });
+
+    /* ---- Init ---- */
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch(`data/products.json?v=${PRODUCTS_DATA_VERSION}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
+        const products = await res.json();
+        ALL_PRODUCTS = products;
+        renderCategories(products);
+        renderDeals(products);
+        renderToolbar(products);
+        applyFilters();
+        initCheckoutModal();
+      } catch (e) {
+        console.error('Failed to load products:', e);
+      }
+    });
+  </script>
+
+</body>
+</html>
