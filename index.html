@@ -2786,10 +2786,13 @@
     }
 
     function productImageSrc(product) {
+      const imageBase = ['localhost', '127.0.0.1'].includes(location.hostname)
+        ? 'https://connectionscuracao.net/img/products/'
+        : 'img/products/';
       if (product.image) {
         // Prefer .png (transparent) over .jpg
         const img = product.image.replace(/\.jpe?g$/i, '.png');
-        return `img/products/${img}`;
+        return `${imageBase}${img}`;
       }
       const fallbackByName = {
         'iPhone 12': 'iphone-12-model.png',
@@ -2818,7 +2821,7 @@
         'Galaxy S25 FE': 'galaxy-s25-fe-model.png',
         'Galaxy S25 Ultra': 'galaxy-s25-ultra-model.png'
       };
-      if (fallbackByName[product.name]) return `img/products/${fallbackByName[product.name]}`;
+      if (fallbackByName[product.name]) return `${imageBase}${fallbackByName[product.name]}`;
       const fallbackByCategory = {
         apple: 'iphone-16.webp',
         samsung: 'samsung-galaxy-s25-ultra.jpg',
@@ -2829,7 +2832,7 @@
         appliances: 'appliance-generic.png',
         other: 'tablet-generic.png'
       };
-      return `img/products/${fallbackByCategory[product.category] || 'iphone-generic.png'}`;
+      return `${imageBase}${fallbackByCategory[product.category] || 'iphone-generic.png'}`;
     }
 
     const GENERIC_IMAGE_FILES = new Set([
