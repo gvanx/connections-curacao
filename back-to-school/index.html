@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Back to School Sale | Connections CuraÃ§ao</title>
-  <meta name="description" content="Back to School deals on iPhone, Samsung Galaxy, tablets, MacBook, iPad and Apple Watch at Connections CuraÃ§ao. Prices valid through August 19, 2026.">
-  <meta property="og:title" content="Back to School Sale | Connections CuraÃ§ao">
+  <title>Back to School Sale | Connections Cura&ccedil;ao</title>
+  <meta name="description" content="Back to School deals on iPhone, Samsung Galaxy, tablets, MacBook, iPad and Apple Watch at Connections Cura&ccedil;ao. Prices valid through August 19, 2026.">
+  <meta property="og:title" content="Back to School Sale | Connections Cura&ccedil;ao">
   <meta property="og:description" content="Fresh tech for a fresh term. Shop phones, tablets, laptops and watches at special Back to School prices.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://connectionscuracao.net/back-to-school/">
@@ -272,8 +272,7 @@
       background: #25d366;
       color: #092f19;
       font-weight: 900;
-    }âœ“
-&#10003;
+    }
     .card[data-group="samsung"] .tag { color: #ba3b4f; background: #ffe8ed; }
     .card[data-group="learning"] .tag { color: #755000; background: #fff3c8; }
     .card[data-group="wearables"] .tag { color: #13715a; background: #ddf7ef; }
@@ -338,9 +337,9 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">âœ¦ Prices valid through August 19, 2026</div>
+          <div class="eyebrow">&#10022; Prices valid through August 19, 2026</div>
           <h1>Back to <span>School</span></h1>
-          <p class="hero-copy">Fresh term, fresh tech. Shop phones, tablets, laptops and watches at special campaign pricesâ€”while supplies last.</p>
+          <p class="hero-copy">Fresh term, fresh tech. Shop phones, tablets, laptops and watches at special campaign prices&mdash;while supplies last.</p>
           <div class="hero-cta">
             <a class="cta" href="#deals">Shop the deals</a>
             <a class="cta secondary" href="../">Visit main store</a>
@@ -349,9 +348,9 @@
         <aside class="hero-card" aria-label="Campaign bonuses">
           <div class="scribble">Your school-year extras</div>
           <ul>
-            <li><span class="check">âœ“</span><span><strong>Apple:</strong> free $10 Apple Gift Card on purchases above XCG 550.</span></li>
-            <li><span class="check">âœ“</span><span><strong>Samsung:</strong> free case on purchases above XCG 550.</span></li>
-            <li><span class="check">âœ“</span><span>Order through WhatsApp and choose Punda or Otrobanda pickup.</span></li>
+            <li><span class="check">&#10003;</span><span><strong>Apple:</strong> free $10 Apple Gift Card on purchases above XCG 550.</span></li>
+            <li><span class="check">&#10003;</span><span><strong>Samsung:</strong> free case on purchases above XCG 550.</span></li>
+            <li><span class="check">&#10003;</span><span>Order through WhatsApp and choose Punda or Otrobanda pickup.</span></li>
           </ul>
         </aside>
       </div>
@@ -393,7 +392,7 @@
           </ul>
         </div>
         <div class="store-box">
-          <strong>Connections CuraÃ§ao</strong>
+          <strong>Connections Cura&ccedil;ao</strong>
           <p>Punda: +599 9 678 2619<br>Otrobanda: +599 9 691 2424</p>
           <a class="cta" href="https://wa.me/59996782619?text=Hi%2C%20I%27d%20like%20help%20with%20a%20Back%20to%20School%20deal." target="_blank" rel="noopener">Ask about a deal</a>
         </div>
@@ -403,8 +402,8 @@
 
   <footer>
     <div class="container footer-inner">
-      <span>Â© 2026 Connections CuraÃ§ao</span>
-      <span>Prices shown in XCG Â· While supplies last</span>
+      <span>&copy; 2026 Connections Cura&ccedil;ao</span>
+      <span>Prices shown in XCG &middot; While supplies last</span>
     </div>
   </footer>
 
@@ -462,8 +461,8 @@
 
     const LABELS = {
       "Samsung M04 128GB|": "Galaxy M04",
-      "Galaxy S26 Ultra 256GB|": "Galaxy S26 Ultra Â· 256GB",
-      "Galaxy S26 Ultra 512GB|": "Galaxy S26 Ultra Â· 512GB"
+      "Galaxy S26 Ultra 256GB|": "Galaxy S26 Ultra &middot; 256GB",
+      "Galaxy S26 Ultra 512GB|": "Galaxy S26 Ultra &middot; 512GB"
     };
 
     const FALLBACK_IMAGES = {
@@ -474,7 +473,7 @@
     const money = value => `XCG ${Number(value).toLocaleString("en-US")}`;
     const keyOf = (name, suffix) => `${name}|${suffix || ""}`;
     const productKey = p => keyOf(p.name, p.suffix);
-    const imageSrc = p => `../img/products/${(p.image || FALLBACK_IMAGES[p.category] || "tablet-generic.png").replace(/\.jpe?g$/i, ".png")}`;
+    const imageSrc = p => `https://raw.githubusercontent.com/gvanx/connections-curacao/agent/back-to-school-sale/img/products/${(p.image || FALLBACK_IMAGES[p.category] || "tablet-generic.png").replace(/\.jpe?g$/i, ".png")}`;
     const fullName = p => LABELS[productKey(p)] || `${p.name}${p.suffix ? ` ${p.suffix}` : ""}`;
     const waHref = p => `https://wa.me/59996782619?text=${encodeURIComponent(`Hi, I'm interested in the Back to School deal for ${fullName(p)} (${money(p.price)}). Is it available?`)}`;
 
@@ -532,7 +531,7 @@
       button.addEventListener("click", () => setFilter(button.dataset.filter));
     });
 
-    fetch("../data/products.json?v=2026-07-29-back-to-school", { cache: "no-store" })
+    fetch("https://raw.githubusercontent.com/gvanx/connections-curacao/agent/back-to-school-sale/data/products.json", { cache: "no-store" })
       .then(response => {
         if (!response.ok) throw new Error(`Product data failed: ${response.status}`);
         return response.json();
@@ -546,4 +545,3 @@
   </script>
 </body>
 </html>
-
