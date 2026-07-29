@@ -769,37 +769,7 @@
       border-radius: 100px;
       line-height: 1.4;
     }
-    .badge-kingsday {
-      display: inline-block;
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-orange);
-      background: rgba(255, 102, 0, 0.12);
-      border: 1px solid rgba(255, 102, 0, 0.4);
-      padding: 0.25rem 0.55rem;
-      border-radius: 999px;
-      margin-left: 0.4rem;
-      vertical-align: middle;
-    }
     .deal-card, .product-card { position: relative; }
-    .deal-card .badge-kingsday-corner,
-    .product-card .badge-kingsday-corner {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      font-size: 0.6rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-orange);
-      background: rgba(255, 102, 0, 0.12);
-      border: 1px solid rgba(255, 102, 0, 0.4);
-      padding: 0.22rem 0.5rem;
-      border-radius: 999px;
-      z-index: 2;
-    }
 
     /* ---- Corner ribbons (sale / limited) & old price ---- */
     .card-ribbons {
@@ -2709,14 +2679,13 @@
         const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
         const productVisual = productVisualHTML(p, fullName);
         const encodedName = encodeURIComponent(fullName);
-        const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
         const { ribbon, oldPriceHtml } = saleInfo(p);
         const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
         const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
         const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
         html += `
           <div class="deal-card">
-            ${corner}${bluewaveBadge}
+            ${corner}
             <div class="deal-img">
               ${productVisual}
             </div>
@@ -2761,14 +2730,13 @@
       const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
       const productVisual = productVisualHTML(p, fullName);
       const encodedName = encodeURIComponent(fullName);
-      const bluewaveBadge = p.bluewave === true ? `<span class="badge-kingsday-corner">Bluewave</span>` : '';
       const { ribbon, oldPriceHtml } = saleInfo(p);
       const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
       const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
       const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
       return `
         <div class="product-card">
-          ${corner}${bluewaveBadge}
+          ${corner}
           <div class="product-img">
             ${productVisual}
           </div>
