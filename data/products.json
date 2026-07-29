@@ -99,7 +99,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 1999,
+    "price": 1990,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -115,7 +115,7 @@
   {
     "name": "iPhone 17 Pro",
     "suffix": "",
-    "price": 2649,
+    "price": 2750,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-model.jpg"
@@ -367,7 +367,7 @@
     "image": "galaxy-s25-ultra-model.jpg"
   },
   {
-    "name": "Galaxy S26 Ultra",
+    "name": "Galaxy S26 Ultra 256GB",
     "suffix": "",
     "price": 2549,
     "category": "samsung",
@@ -377,7 +377,7 @@
   {
     "name": "Galaxy S26 Ultra 512GB",
     "suffix": "",
-    "price": 2890,
+    "price": 2749,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-s26-ultra-model.png"
@@ -392,7 +392,7 @@
     "image": "galaxy-tab-a9-plus-model.png"
   },
   {
-    "name": "Galaxy Tab A9 5G+",
+    "name": "Galaxy Tab A9+ 5G",
     "suffix": "",
     "price": 499,
     "category": "samsung",
