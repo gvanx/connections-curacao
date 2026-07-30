@@ -339,7 +339,7 @@
         <div>
           <div class="eyebrow">&#10022; Prices valid through August 19, 2026</div>
           <h1>Back to <span>School</span></h1>
-          <p class="hero-copy">Fresh term, fresh tech. Shop phones, tablets, laptops and watches at special campaign prices&mdash;while supplies last.</p>
+          <p class="hero-copy">Fresh term, fresh tech. Shop phones, tablets, laptops, watches and AirPods at special campaign prices&mdash;while supplies last.</p>
           <div class="hero-cta">
             <a class="cta" href="#deals">Shop the deals</a>
             <a class="cta secondary" href="../">Visit main store</a>
@@ -372,6 +372,7 @@
           <button class="filter" type="button" data-filter="samsung">Samsung</button>
           <button class="filter" type="button" data-filter="learning">Laptops & tablets</button>
           <button class="filter" type="button" data-filter="wearables">Apple Watch</button>
+          <button class="filter" type="button" data-filter="audio">AirPods</button>
         </div>
       </div>
     </section>
@@ -456,6 +457,15 @@
           ["Apple Watch SE 3 40mm", ""], ["Apple Watch SE 3 44mm", ""],
           ["Apple Watch 11 42mm", ""], ["Apple Watch 11 46mm", ""]
         ]
+      },
+      {
+        id: "audio",
+        kicker: "Focus, listen and learn",
+        title: "AirPods",
+        note: "Wireless audio for classes, study sessions, calls and music.",
+        products: [
+          ["AirPods 4", ""], ["AirPods 4 ANC", ""], ["AirPods Pro 3", ""]
+        ]
       }
     ];
 
@@ -473,7 +483,7 @@
     const money = value => `XCG ${Number(value).toLocaleString("en-US")}`;
     const keyOf = (name, suffix) => `${name}|${suffix || ""}`;
     const productKey = p => keyOf(p.name, p.suffix);
-    const imageSrc = p => `https://raw.githubusercontent.com/gvanx/connections-curacao/agent/back-to-school-sale/img/products/${(p.image || FALLBACK_IMAGES[p.category] || "tablet-generic.png").replace(/\.jpe?g$/i, ".png")}`;
+    const imageSrc = p => `https://raw.githubusercontent.com/gvanx/connections-curacao/main/img/products/${(p.image || FALLBACK_IMAGES[p.category] || "tablet-generic.png").replace(/\.jpe?g$/i, ".png")}`;
     const fullName = p => LABELS[productKey(p)] || `${p.name}${p.suffix ? ` ${p.suffix}` : ""}`;
     const waHref = p => `https://wa.me/59996782619?text=${encodeURIComponent(`Hi, I'm interested in the Back to School deal for ${fullName(p)} (${money(p.price)}). Is it available?`)}`;
 
@@ -485,7 +495,7 @@
             <img src="${imageSrc(product)}" alt="${label}" loading="lazy" decoding="async">
           </div>
           <div class="card-body">
-            <span class="tag">${groupId === "apple" ? "Apple Gift Card offer" : groupId === "samsung" ? "Free case over XCG 550" : "Back to School"}</span>
+            <span class="tag">${groupId === "apple" ? "Apple Gift Card offer" : groupId === "samsung" ? "Free case over XCG 550" : groupId === "audio" ? "Back-to-School audio" : "Back to School"}</span>
             <h3>${label}</h3>
             <p class="spec">${product.spec || (product.subcategory === "tablet" ? "Tablet deal" : "")}</p>
             <div class="price">${money(product.price)}</div>
@@ -531,7 +541,7 @@
       button.addEventListener("click", () => setFilter(button.dataset.filter));
     });
 
-    fetch("https://raw.githubusercontent.com/gvanx/connections-curacao/agent/back-to-school-sale/data/products.json", { cache: "no-store" })
+    fetch("https://raw.githubusercontent.com/gvanx/connections-curacao/main/data/products.json", { cache: "no-store" })
       .then(response => {
         if (!response.ok) throw new Error(`Product data failed: ${response.status}`);
         return response.json();
@@ -545,3 +555,4 @@
   </script>
 </body>
 </html>
+
