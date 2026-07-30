@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ray-Ban Meta AI Glasses | Connections Curaçao</title>
+  <meta name="description" content="Pre-order Ray-Ban Meta AI glasses at Connections Curaçao. Compare Gen 1 and Gen 2, starting from XCG 799.">
+  <meta name="theme-color" content="#13203f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #13203f;
+      --blue: #2457d6;
+      --coral: #f05d3f;
+      --yellow: #f4c542;
+      --aqua: #44d1d8;
+      --cream: #fffdf8;
+      --mint: #dff4f3;
+      --paper: #f7f2e8;
+      --green: #19a969;
+      --shadow: 0 24px 70px rgba(19,32,63,.16);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(244,197,66,.35) 0 4px, transparent 5px),
+        radial-gradient(circle at 92% 18%, rgba(68,209,216,.28) 0 5px, transparent 6px),
+        linear-gradient(135deg, var(--mint), var(--paper) 48%, #ffe5dc);
+      background-size: 90px 90px, 120px 120px, auto;
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(19,32,63,.08);
+      background: rgba(255,253,248,.88);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font: 900 1.1rem/1 "Outfit", sans-serif;
+      letter-spacing: .06em;
+    }
+    .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--coral); box-shadow: 18px 0 0 var(--yellow), 36px 0 0 var(--aqua); margin-right: 36px; }
+    .nav-links { display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: .9rem; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      box-shadow: 0 6px 0 #163d9d;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #163d9d; }
+    .hero { padding: 46px 0 72px; }
+    .hero-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      align-items: center;
+      min-height: 650px;
+      overflow: hidden;
+      border: 7px solid #fff;
+      border-radius: 40px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+    .hero-copy { position: relative; z-index: 2; padding: 64px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--coral);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(-1deg);
+    }
+    h1, h2, h3 { font-family: "Outfit", sans-serif; }
+    h1 {
+      max-width: 600px;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(3.5rem, 7.2vw, 6.7rem);
+      font-weight: 900;
+      line-height: .86;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+    }
+    h1 span { color: var(--blue); }
+    .hero-lead { max-width: 520px; margin: 28px 0; color: rgba(19,32,63,.72); font-size: 1.13rem; line-height: 1.65; }
+    .hero-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 26px; }
+    .hero-price small { font-weight: 700; color: rgba(19,32,63,.62); }
+    .hero-price strong { color: var(--blue); font: 900 2rem/1 "Outfit", sans-serif; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .button.whatsapp { background: var(--green); box-shadow: 0 6px 0 #0c7444; }
+    .button.secondary { color: var(--ink); background: var(--yellow); box-shadow: 0 6px 0 #c89c12; }
+    .hero-visual { align-self: stretch; min-height: 650px; background: #f6f3e8; }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .sticker {
+      position: absolute;
+      top: 34px;
+      right: 38px;
+      z-index: 3;
+      width: 130px;
+      height: 130px;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      border: 5px solid #fff;
+      border-radius: 34% 66% 58% 42% / 44% 42% 58% 56%;
+      color: var(--ink);
+      background: var(--yellow);
+      box-shadow: 8px 10px 0 rgba(19,32,63,.17);
+      font: 900 .95rem/1.05 "Outfit", sans-serif;
+      text-align: center;
+      text-transform: uppercase;
+      transform: rotate(7deg);
+    }
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .trust-card {
+      padding: 20px;
+      border: 4px solid #fff;
+      border-radius: 22px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 9px 22px rgba(19,32,63,.08);
+      font-weight: 800;
+      text-align: center;
+    }
+    section { padding: 80px 0; }
+    .section-head { max-width: 760px; margin: 0 auto 42px; text-align: center; }
+    .section-head .kicker { color: var(--coral); font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { margin: 8px 0 14px; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: .95; letter-spacing: -.045em; }
+    .section-head p { color: rgba(19,32,63,.68); font-size: 1.05rem; line-height: 1.65; }
+    .features { background: var(--mint); border-block: 1px solid rgba(19,32,63,.08); }
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .feature {
+      min-height: 250px;
+      padding: 28px;
+      border: 5px solid #fff;
+      border-radius: 28px;
+      box-shadow: 0 14px 30px rgba(19,32,63,.10);
+    }
+    .feature:nth-child(1) { background: #fff8d9; transform: rotate(-.8deg); }
+    .feature:nth-child(2) { background: #fff; transform: rotate(.7deg); }
+    .feature:nth-child(3) { background: #fff0eb; transform: rotate(-.5deg); }
+    .feature:nth-child(4) { background: #e9efff; transform: rotate(.8deg); }
+    .feature-icon { font-size: 2rem; }
+    .feature h3 { margin: 22px 0 10px; font-size: 1.35rem; }
+    .feature p { margin: 0; color: rgba(19,32,63,.68); line-height: 1.55; }
+    .compare-wrap {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      align-items: center;
+      gap: 46px;
+      padding: 42px;
+      border: 7px solid #fff;
+      border-radius: 36px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+    .compare-image { overflow: hidden; border-radius: 24px; background: #f4f4f4; }
+    .compare-copy h2 { margin-top: 0; }
+    .compare-list { display: grid; gap: 16px; margin: 26px 0; }
+    .compare-item { display: flex; gap: 14px; align-items: flex-start; }
+    .check { flex: 0 0 auto; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #fff; background: var(--green); font-weight: 900; }
+    .model-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; margin-top: 34px; }
+    .model-card {
+      padding: 30px;
+      border: 5px solid #fff;
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(19,32,63,.10);
+    }
+    .model-card.gen2 { background: #e9efff; }
+    .model-card h3 { margin: 0 0 8px; font-size: 1.5rem; }
+    .model-price { color: var(--blue); font: 900 1.8rem/1 "Outfit", sans-serif; }
+    .model-card ul { padding-left: 20px; color: rgba(19,32,63,.72); line-height: 1.8; }
+    .preorder { padding-top: 10px; }
+    .preorder-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+      padding: 52px;
+      overflow: hidden;
+      border: 7px solid #fff;
+      border-radius: 36px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), #4c7df0);
+      box-shadow: var(--shadow);
+    }
+    .preorder-card h2 { margin-top: 0; color: #fff; }
+    .preorder-card p { max-width: 680px; color: rgba(255,255,255,.86); line-height: 1.6; }
+    footer { margin-top: 80px; padding: 42px 0; color: rgba(255,255,255,.74); background: var(--ink); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    footer strong { color: #fff; }
+    @media (max-width: 900px) {
+      .hero-shell, .compare-wrap { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 480px; order: -1; }
+      .hero-copy { padding: 46px; }
+      .feature-grid, .trust-row { grid-template-columns: repeat(2, 1fr); }
+      .sticker { top: 28px; right: 28px; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 18px, 1160px); }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-inner { min-height: 62px; }
+      .hero { padding-top: 18px; }
+      .hero-shell { border-width: 4px; border-radius: 28px; }
+      .hero-visual { min-height: 390px; }
+      .hero-copy { padding: 34px 24px 40px; }
+      h1 { font-size: clamp(3.2rem, 17vw, 4.6rem); }
+      .hero-actions .button { width: 100%; }
+      .sticker { width: 104px; height: 104px; right: 14px; top: 14px; font-size: .76rem; }
+      .trust-row, .feature-grid, .model-grid { grid-template-columns: 1fr; }
+      .feature:nth-child(n) { transform: none; }
+      section { padding: 58px 0; }
+      .compare-wrap { padding: 16px; border-width: 4px; border-radius: 28px; }
+      .compare-copy { padding: 12px; }
+      .preorder-card { grid-template-columns: 1fr; padding: 34px 24px; border-width: 4px; }
+      .preorder-card .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="../"><span class="brand-dot"></span>CONNECTIONS</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#compare">Compare</a>
+        <a class="nav-cta" href="https://wa.me/59996912424?text=Hi%2C%20I%27d%20like%20to%20pre-order%20Ray-Ban%20Meta%20AI%20glasses.">Pre-order</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <div class="eyebrow">Now available to pre-order</div>
+            <h1>AI glasses.<br><span>Real answers.</span></h1>
+            <p class="hero-lead">Capture moments hands-free, ask Meta AI questions, listen to music and take calls—all through iconic Ray-Ban frames.</p>
+            <div class="hero-price"><small>Starting from</small><strong>XCG 799</strong></div>
+            <div class="hero-actions">
+              <a class="button whatsapp" href="https://wa.me/59996912424?text=Hi%2C%20I%27d%20like%20to%20pre-order%20Ray-Ban%20Meta%20AI%20glasses.">Pre-order on WhatsApp</a>
+              <a class="button secondary" href="#compare">Compare generations</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="assets/rayban-meta-hero.jpeg" alt="Ray-Ban Meta AI glasses in black">
+          </div>
+          <div class="sticker">Ray-Ban<br>× Meta</div>
+        </div>
+        <div class="trust-row">
+          <div class="trust-card">Meta AI built in</div>
+          <div class="trust-card">Hands-free camera</div>
+          <div class="trust-card">Open-ear audio</div>
+          <div class="trust-card">Local preorder support</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Look, listen, ask</div>
+          <h2>Smart technology in an iconic frame.</h2>
+          <p>Designed for everyday use, Ray-Ban Meta blends familiar eyewear with an AI assistant, camera, speakers and calling.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><div class="feature-icon">✦</div><h3>Meta AI</h3><p>Ask questions, get voice responses and use live translation features.</p></article>
+          <article class="feature"><div class="feature-icon">◉</div><h3>Capture hands-free</h3><p>Take photos and videos from your point of view without reaching for your phone.</p></article>
+          <article class="feature"><div class="feature-icon">♫</div><h3>Open-ear audio</h3><p>Enjoy music and podcasts through discreet speakers while staying aware of your surroundings.</p></article>
+          <article class="feature"><div class="feature-icon">☎</div><h3>Clear calling</h3><p>Make phone and video calls with built-in speakers and microphones.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="container">
+        <div class="compare-wrap">
+          <div class="compare-image">
+            <img src="assets/rayban-meta-comparison.png" alt="Comparison of Ray-Ban Meta Gen 1 and Gen 2 AI glasses">
+          </div>
+          <div class="compare-copy">
+            <div class="eyebrow">Choose your generation</div>
+            <h2>Gen 1 or Gen 2?</h2>
+            <p>Both generations include Meta AI, hands-free capture, immersive audio and calling. Gen 2 steps up battery life and video resolution.</p>
+            <div class="compare-list">
+              <div class="compare-item"><span class="check">✓</span><div><strong>Longer battery</strong><br>Up to 8 hours on Gen 2 versus up to 4 hours on Gen 1.</div></div>
+              <div class="compare-item"><span class="check">✓</span><div><strong>Sharper video</strong><br>Gen 2 records up to 3K, while Gen 1 records 1080p+.</div></div>
+              <div class="compare-item"><span class="check">✓</span><div><strong>More charging time</strong><br>Up to 48 extra hours with the Gen 2 case.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="model-grid">
+          <article class="model-card">
+            <h3>Ray-Ban Meta Gen 1</h3>
+            <div class="model-price">From XCG 799</div>
+            <ul><li>Up to 4-hour battery</li><li>32 additional hours with charging case</li><li>12 MP camera</li><li>1080p+ video</li></ul>
+            <a class="button whatsapp" href="https://wa.me/59996912424?text=Hi%2C%20I%27d%20like%20to%20pre-order%20Ray-Ban%20Meta%20Gen%201%20from%20XCG%20799.">Pre-order Gen 1</a>
+          </article>
+          <article class="model-card gen2">
+            <h3>Ray-Ban Meta Gen 2</h3>
+            <div class="model-price">From XCG 999</div>
+            <ul><li>Up to 8-hour battery</li><li>48 additional hours with charging case</li><li>12 MP camera</li><li>Up to 3K video</li></ul>
+            <a class="button whatsapp" href="https://wa.me/59996912424?text=Hi%2C%20I%27d%20like%20to%20pre-order%20Ray-Ban%20Meta%20Gen%202%20from%20XCG%20999.">Pre-order Gen 2</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="preorder">
+      <div class="container">
+        <div class="preorder-card">
+          <div>
+            <h2>Ready to see more?</h2>
+            <p>Message Connections for available frame styles, lens options, final pricing and preorder information.</p>
+          </div>
+          <a class="button whatsapp" href="https://wa.me/59996912424?text=Hi%2C%20I%27d%20like%20more%20information%20about%20Ray-Ban%20Meta%20AI%20glasses.">WhatsApp +5999 691-2424</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <strong>Connections Curaçao</strong>
+      <span>Ray-Ban Meta AI glasses · Available to pre-order</span>
+    </div>
+  </footer>
+</body>
+</html>
