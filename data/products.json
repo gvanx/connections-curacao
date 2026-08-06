@@ -163,12 +163,29 @@
     "image": "macbook-generic.png"
   },
   {
+    "name": "iPad Air M4 256GB",
+    "suffix": "",
+    "price": 1990,
+    "category": "apple",
+    "featured": true,
+    "subcategory": "tablet",
+    "image": "ipad-air-m3-model.jpg"
+  },
+  {
     "name": "iPad Air M3 128GB",
     "suffix": "",
     "price": 1499,
     "category": "apple",
     "featured": true,
     "subcategory": "tablet",
+    "image": "ipad-air-m3-model.jpg"
+  },
+  {
+    "name": "Apple Pencil",
+    "suffix": "",
+    "price": 250,
+    "category": "apple",
+    "featured": false,
     "image": "ipad-air-m3-model.jpg"
   },
   {
