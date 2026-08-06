@@ -163,12 +163,13 @@
     "image": "macbook-generic.png"
   },
   {
-    "name": "MacBook Air M4 256GB",
+    "name": "iPad Air M4 256GB",
     "suffix": "",
     "price": 1990,
     "category": "apple",
     "featured": true,
-    "image": "macbook-generic.png"
+    "subcategory": "tablet",
+    "image": "ipad-air-m3-model.jpg"
   },
   {
     "name": "iPad Air M3 128GB",
