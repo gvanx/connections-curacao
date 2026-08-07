@@ -501,7 +501,7 @@
     "spec": "Celeron N4500 · 4GB · 128GB eMMC · 14\" 1920×1080 · W11 · Gray"
   },
   {
-    "name": "HP Laptop",
+    "name": "HP Laptop 128GB",
     "suffix": "",
     "price": 549,
     "category": "laptops",
@@ -510,7 +510,7 @@
     "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11"
   },
   {
-    "name": "HP Laptop",
+    "name": "HP Laptop 64GB",
     "suffix": "",
     "price": 525,
     "category": "laptops",
