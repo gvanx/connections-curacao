@@ -519,15 +519,6 @@
     "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11"
   },
   {
-    "name": "HP 14-dq3000dx",
-    "suffix": "",
-    "price": 549,
-    "category": "laptops",
-    "featured": true,
-    "image": "laptop-generic.png",
-    "spec": "Intel · 14\" HD · Windows 11 Home"
-  },
-  {
     "name": "Lenovo IdeaPad Slim 3i",
     "suffix": "",
     "price": 549,
