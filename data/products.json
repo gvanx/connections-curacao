@@ -503,11 +503,20 @@
   {
     "name": "HP Laptop",
     "suffix": "",
-    "price": 499,
+    "price": 549,
     "category": "laptops",
     "featured": true,
     "image": "laptop-generic.png",
-    "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11 · Sky Blue"
+    "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11"
+  },
+  {
+    "name": "HP Laptop",
+    "suffix": "",
+    "price": 525,
+    "category": "laptops",
+    "featured": true,
+    "image": "laptop-generic.png",
+    "spec": "Intel N150 · 4GB · 64GB UFS · 14\" 1366×768 · W11"
   },
   {
     "name": "HP 14-dq3000dx",
