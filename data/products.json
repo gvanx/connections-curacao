@@ -72,6 +72,14 @@
     "image": "iphone-16-model.jpg"
   },
   {
+    "name": "iPhone 16e",
+    "suffix": "",
+    "price": 1390,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-16-model.jpg"
+  },
+  {
     "name": "iPhone 16 Plus",
     "suffix": "",
     "price": 1990,
