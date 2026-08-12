@@ -1,0 +1,6 @@
+/shop-preview-v8k3p/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: public, max-age=0, must-revalidate
+
+/shop-preview-v8k3p/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
