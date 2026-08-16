@@ -34,7 +34,7 @@
   {
     "name": "iPhone 15",
     "suffix": "",
-    "price": 1499,
+    "price": 1599,
     "category": "apple",
     "featured": true,
     "image": "iphone-15-model.jpg"
@@ -58,7 +58,7 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1599,
+    "price": 1699,
     "category": "apple",
     "featured": true,
     "image": "iphone-16-model.jpg"
