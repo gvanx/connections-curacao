@@ -263,10 +263,17 @@
   {
     "name": "Galaxy A07",
     "suffix": "",
-    "price": 225,
+    "price": 249,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a07-model.jpg"
+  },
+  {
+    "name": "Galaxy F07",
+    "suffix": "",
+    "price": 249,
+    "category": "samsung",
+    "featured": false
   },
   {
     "name": "Samsung M04 128GB",
@@ -279,7 +286,7 @@
   {
     "name": "Galaxy A16",
     "suffix": "",
-    "price": 299,
+    "price": 350,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a16-model.jpg"
@@ -295,7 +302,7 @@
   {
     "name": "Galaxy A26",
     "suffix": "",
-    "price": 499,
+    "price": 550,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a26-model.jpg"
