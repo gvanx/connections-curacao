@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay with Suave | Connections Curaçao</title>
+  <meta name="description" content="Learn how to shop in store at Connections Curaçao and pay over time with Suave. Read the purchase, exchange, warranty and refund terms.">
+  <meta property="og:title" content="Pay with Suave at Connections Curaçao">
+  <meta property="og:description" content="Shop your favourite electronics in store and pay over time with Suave, subject to approval.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connectionscuracao.net/suave/">
+  <meta property="og:image" content="https://connectionscuracao.net/suave/connections-suave.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://connectionscuracao.net/suave/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23736ab3'/><path d='M26 32l18 18-18 18M47 32l18 18-18 18M68 32l18 18-18 18' fill='none' stroke='%23ffad20' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #191727;
+      --muted: #696579;
+      --paper: #fffaf0;
+      --white: #ffffff;
+      --purple: #7168af;
+      --purple-dark: #4d467e;
+      --purple-soft: #efecff;
+      --orange: #ffae21;
+      --blue: #347dec;
+      --green: #1b9d68;
+      --line: rgba(25, 23, 39, 0.12);
+      --shadow: 0 24px 70px rgba(63, 54, 115, 0.14);
+      --radius: 24px;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,174,33,.18), transparent 26rem),
+        radial-gradient(circle at 92% 12%, rgba(113,104,175,.2), transparent 30rem),
+        linear-gradient(180deg, #fffaf0 0%, #fff 44%, #f7f4ff 100%);
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+    .shell { width: min(1160px, calc(100% - 2rem)); margin-inline: auto; }
+    .skip-link {
+      position: fixed; left: 1rem; top: -5rem; z-index: 100;
+      background: var(--ink); color: #fff; padding: .7rem 1rem; border-radius: 10px;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,250,240,.9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(25,23,39,.08);
+    }
+    .topbar-inner {
+      min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: .8rem;
+      color: var(--ink); text-decoration: none;
+      font: 800 1.08rem/1 var(--font-display); letter-spacing: .02em;
+    }
+    .brand-arrows { color: var(--orange); letter-spacing: -.25em; font-size: 1.35rem; }
+    .topbar-actions { display: flex; align-items: center; gap: .7rem; }
+    .home-link {
+      color: var(--purple-dark); text-decoration: none; font-weight: 700; font-size: .9rem;
+      padding: .55rem .85rem; border-radius: 999px; border: 1px solid rgba(113,104,175,.25);
+    }
+    .language-switcher {
+      display: inline-flex; gap: .2rem; padding: .25rem;
+      background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(63,54,115,.08);
+    }
+    .language-switcher button {
+      border: 0; background: transparent; color: var(--muted);
+      min-width: 42px; padding: .45rem .65rem; border-radius: 999px;
+      cursor: pointer; font-weight: 800; font-size: .78rem;
+    }
+    .language-switcher button[aria-pressed="true"] { color: #fff; background: var(--purple); }
+
+    .hero { padding: clamp(3.5rem, 8vw, 7rem) 0 4rem; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--purple-dark); background: var(--purple-soft); border: 1px solid rgba(113,104,175,.2);
+      padding: .42rem .8rem; border-radius: 999px; font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; }
+    h1 { margin: 1.1rem 0 1rem; font-size: clamp(3rem, 7vw, 5.7rem); letter-spacing: -.055em; }
+    h1 span { color: var(--purple); }
+    .hero-copy { max-width: 620px; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); }
+    .hero-note {
+      display: inline-flex; align-items: center; gap: .55rem;
+      margin-top: 1.4rem; padding: .7rem .9rem; border-left: 4px solid var(--orange);
+      background: rgba(255,255,255,.74); border-radius: 0 12px 12px 0; font-weight: 700;
+    }
+    .hero-art { position: relative; }
+    .hero-art::before {
+      content: ''; position: absolute; inset: 8% -8% -8% 8%; z-index: -1;
+      border-radius: 42px; background: var(--purple); transform: rotate(4deg); opacity: .16;
+    }
+    .hero-art img {
+      width: 100%; height: auto; border-radius: 30px; border: 7px solid #fff;
+      box-shadow: var(--shadow); aspect-ratio: 4 / 5; object-fit: cover;
+    }
+
+    .section { padding: 4.5rem 0; }
+    .section-heading { max-width: 760px; margin-bottom: 2rem; }
+    .section-kicker { color: var(--purple); font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .11em; }
+    .section h2 { font-size: clamp(2rem, 4vw, 3.2rem); margin: .45rem 0 .75rem; letter-spacing: -.035em; }
+    .section-heading p { margin: 0; color: var(--muted); }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .step {
+      min-height: 220px; padding: 1.35rem; background: rgba(255,255,255,.82);
+      border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 12px 35px rgba(63,54,115,.07);
+    }
+    .step-number {
+      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 14px;
+      background: var(--purple); color: #fff; font: 800 1rem/1 var(--font-display);
+    }
+    .step h3 { margin: 1.1rem 0 .55rem; font-size: 1.25rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+    .policy-wrap {
+      padding: clamp(1.2rem, 4vw, 2.2rem); border-radius: 32px;
+      background: var(--purple-dark); color: #fff; box-shadow: var(--shadow);
+    }
+    .policy-intro { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+    .policy-intro h2 { margin: .4rem 0 0; }
+    .policy-intro .section-kicker { color: #ffc357; }
+    .effective { color: rgba(255,255,255,.72); font-size: .84rem; white-space: nowrap; }
+    .policy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .9rem; }
+    .policy-card {
+      padding: 1.25rem; border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.075);
+    }
+    .policy-card.wide { grid-column: 1 / -1; }
+    .policy-card h3 { margin: 0 0 .7rem; font-size: 1.08rem; color: #fff; }
+    .policy-card p, .policy-card ul { margin: 0; color: rgba(255,255,255,.78); font-size: .91rem; }
+    .policy-card ul { padding-left: 1.15rem; }
+    .policy-card li + li { margin-top: .4rem; }
+    .policy-card strong { color: #fff; }
+    .policy-card a { color: #ffd079; font-weight: 700; }
+
+    .notice {
+      margin-top: 1rem; padding: 1rem 1.1rem; border-radius: 16px;
+      background: rgba(255,174,33,.14); border: 1px solid rgba(255,174,33,.28);
+      color: rgba(255,255,255,.88); font-size: .88rem;
+    }
+
+    .locations { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .location {
+      padding: 1.5rem; border-radius: var(--radius); background: #fff; border: 1px solid var(--line);
+      box-shadow: 0 14px 38px rgba(63,54,115,.08);
+    }
+    .location-label { color: var(--purple); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
+    .location h3 { font-size: 1.45rem; margin: .45rem 0 .65rem; }
+    .location p { color: var(--muted); margin: .25rem 0; }
+    .location a { color: var(--purple-dark); font-weight: 800; }
+
+    .cta {
+      margin: 0 auto 5rem; padding: clamp(2rem, 6vw, 4rem); border-radius: 32px;
+      text-align: center; background: linear-gradient(135deg, #766bb7, #534b8a); color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .cta h2 { margin: 0 0 .65rem; font-size: clamp(2rem, 4vw, 3.2rem); }
+    .cta p { margin: 0 auto 1.5rem; max-width: 620px; color: rgba(255,255,255,.8); }
+    .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: .75rem 1.15rem; border-radius: 999px;
+      text-decoration: none; font-weight: 800;
+    }
+    .button-primary { background: #fff; color: var(--purple-dark); }
+    .button-secondary { border: 1px solid rgba(255,255,255,.3); color: #fff; }
+    .footer { padding: 2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer a { color: var(--purple-dark); font-weight: 700; }
+
+    [data-panel][hidden] { display: none !important; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy-wrap { text-align: center; }
+      .hero-copy { margin-inline: auto; }
+      .hero-art { width: min(620px, 100%); margin-inline: auto; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .topbar-inner { min-height: 64px; }
+      .brand { font-size: .88rem; }
+      .brand-arrows { font-size: 1.05rem; }
+      .home-link { display: none; }
+      .language-switcher button { min-width: 38px; padding-inline: .55rem; }
+      .hero { padding-top: 3rem; }
+      .hero-art img { border-width: 4px; border-radius: 22px; }
+      .steps, .policy-grid, .locations { grid-template-columns: 1fr; }
+      .policy-card.wide { grid-column: auto; }
+      .policy-intro { align-items: flex-start; flex-direction: column; }
+      .effective { white-space: normal; }
+      .section { padding: 3.4rem 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/" aria-label="Connections Curaçao home">
+        <span class="brand-arrows" aria-hidden="true">››››</span>
+        <span>CONNECTIONS</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="home-link" href="/">Main website</a>
+        <div class="language-switcher" role="group" aria-label="Choose language">
+          <button type="button" data-language-button="en" aria-pressed="true">EN</button>
+          <button type="button" data-language-button="pap" aria-pressed="false">PAP</button>
+          <button type="button" data-language-button="es" aria-pressed="false">ES</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy-wrap">
+          <div class="language-panel" data-panel="en" lang="en">
+            <span class="eyebrow">In-store payment option</span>
+            <h1>Shop now.<br><span>Pay with Suave.</span></h1>
+            <p class="hero-copy">Choose your favourite phone or gadget at Connections, apply with Suave and pay over time—subject to Suave approval.</p>
+            <div class="hero-note">Available in store only · Customers 18+</div>
+          </div>
+          <div class="language-panel" data-panel="pap" lang="pap" hidden>
+            <span class="eyebrow">Opcion di pago den tienda</span>
+            <h1>Kumpra awor.<br><span>Paga ku Suave.</span></h1>
+            <p class="hero-copy">Skohe bo telefòn òf gadget favorito na Connections, hasi bo petishon ku Suave i paga poko poko—bou di aprobashon di Suave.</p>
+            <div class="hero-note">Disponibel solamente den tienda · Klientenan di 18 aña i mas</div>
+          </div>
+          <div class="language-panel" data-panel="es" lang="es" hidden>
+            <span class="eyebrow">Opción de pago en tienda</span>
+            <h1>Compra ahora.<br><span>Paga con Suave.</span></h1>
+            <p class="hero-copy">Elige tu teléfono o dispositivo favorito en Connections, solicita con Suave y paga a plazos, sujeto a la aprobación de Suave.</p>
+            <div class="hero-note">Disponible solamente en tienda · Clientes mayores de 18 años</div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="connections-suave.jpg" width="1080" height="1350" alt="Connections now accepts Suave — shop now and pay later">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="shell">
+        <div class="language-panel" data-panel="en" lang="en">
+          <div class="section-heading"><span class="section-kicker">How it works</span><h2>Four clear steps</h2><p>Suave handles approval and your payment plan. Connections handles the product, stock and fulfilment.</p></div>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><h3>Choose in store</h3><p>Visit Punda or Otrobanda and select an available product.</p></div>
+            <div class="step"><div class="step-number">2</div><h3>Apply with Suave</h3><p>Provide valid identification and complete Suave's approval process.</p></div>
+            <div class="step"><div class="step-number">3</div><h3>Confirm payment</h3><p>Review the full price, any disclosed fee, your Suave amount and any cash or card top-up.</p></div>
+            <div class="step"><div class="step-number">4</div><h3>Collect your item</h3><p>After approval and stock confirmation, Connections assigns the specific device and IMEI.</p></div>
+          </div>
+        </div>
+        <div class="language-panel" data-panel="pap" lang="pap" hidden>
+          <div class="section-heading"><span class="section-kicker">Kon e ta funshoná</span><h2>Kuater stap kla</h2><p>Suave ta trata aprobashon i bo plan di pago. Connections ta trata e produkto, stok i entrega.</p></div>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><h3>Skohe den tienda</h3><p>Bishitá Punda òf Otrobanda i skohe un produkto ku ta disponibel.</p></div>
+            <div class="step"><div class="step-number">2</div><h3>Hasi petishon ku Suave</h3><p>Mustra un identifikashon válido i kompletá e proseso di aprobashon di Suave.</p></div>
+            <div class="step"><div class="step-number">3</div><h3>Konfirmá e pago</h3><p>Kontrolá e preis total, kualke kosto indiká, e montante di Suave i kualke pago adishonal na kèsh òf karta.</p></div>
+            <div class="step"><div class="step-number">4</div><h3>Buska bo produkto</h3><p>Despues di aprobashon i konfirmashon di stok, Connections ta asigná e aparato spesífiko i IMEI.</p></div>
+          </div>
+        </div>
+        <div class="language-panel" data-panel="es" lang="es" hidden>
+          <div class="section-heading"><span class="section-kicker">Cómo funciona</span><h2>Cuatro pasos claros</h2><p>Suave gestiona la aprobación y tu plan de pagos. Connections gestiona el producto, inventario y entrega.</p></div>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><h3>Elige en tienda</h3><p>Visita Punda u Otrobanda y selecciona un producto disponible.</p></div>
+            <div class="step"><div class="step-number">2</div><h3>Solicita con Suave</h3><p>Presenta una identificación válida y completa el proceso de aprobación de Suave.</p></div>
+            <div class="step"><div class="step-number">3</div><h3>Confirma el pago</h3><p>Revisa el precio total, cualquier cargo informado, el monto de Suave y cualquier aporte en efectivo o tarjeta.</p></div>
+            <div class="step"><div class="step-number">4</div><h3>Retira tu producto</h3><p>Después de la aprobación y confirmación de inventario, Connections asigna el dispositivo y el IMEI específicos.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="terms">
+      <div class="shell policy-wrap">
+        <article class="language-panel" data-panel="en" lang="en">
+          <div class="policy-intro"><div><span class="section-kicker">Purchase policy</span><h2>Suave terms at Connections</h2></div><div class="effective">Effective 26 August 2026 · Version 1.0</div></div>
+          <div class="policy-grid">
+            <section class="policy-card"><h3>Eligibility and approval</h3><p>Suave is available <strong>in store only</strong> to customers aged 18 or older with valid identification. Every application and payment plan is subject to Suave's approval and <a href="https://paywithsuave.com/terms" target="_blank" rel="noopener">customer terms</a>.</p></section>
+            <section class="policy-card"><h3>Final sale confirmation</h3><p>The transaction becomes final only after Suave approval, stock confirmation and assignment of the specific device or IMEI. Availability is not guaranteed before these steps are complete.</p></section>
+            <section class="policy-card"><h3>Allowed payment combination</h3><p>Cash or card may be used as a top-up. <strong>Trade-ins, layaway, gift cards and store credit cannot be combined</strong> with a Suave transaction.</p></section>
+            <section class="policy-card"><h3>Service fee</h3><p>Connections may apply a Suave service fee of <strong>up to 3%</strong>. Any fee will be disclosed before authorization and shown on the receipt. Connections may waive all or part of the fee.</p></section>
+            <section class="policy-card"><h3>Three-day sealed exchange</h3><p>A change-of-mind exchange is allowed within three calendar days only when the item is sealed, unused, unactivated, complete and accompanied by the receipt. Exchange is for an equal or higher-priced item; the customer pays the difference. No cash refund applies.</p></section>
+            <section class="policy-card"><h3>Warranty and covered defects</h3><p>The applicable warranty period is stated per product and on the receipt. Connections inspects a reported defect and offers replacement first. If a suitable replacement is not reasonably available, the transaction may be cancelled or reduced and refunded through the original payment methods. Statutory rights remain unaffected.</p></section>
+            <section class="policy-card"><h3>No elective repairs</h3><p>Connections does not provide elective repair service under the Suave program. This does not limit any remedy required by applicable Curaçao law.</p></section>
+            <section class="policy-card"><h3>What is not covered</h3><p>Coverage excludes accidental or liquid damage, misuse, unauthorized modification, missing parts, lost or stolen devices, and devices with activation or account locks.</p></section>
+            <section class="policy-card"><h3>Inspection requirements</h3><p>Bring proof of purchase, the matching IMEI and included accessories. Remove activation/account locks and back up personal data before inspection. Connections is not responsible for unbacked-up personal data.</p></section>
+            <section class="policy-card"><h3>Cancellations and refunds</h3><p>An approved full cancellation refunds the disclosed service fee; a partial refund reduces it proportionally. Each amount returns to its original method. The Suave portion is adjusted through Suave, not paid in cash. Continue scheduled payments until Suave confirms the adjustment. Suave indicates that processing commonly takes 5–7 business days. <a href="https://paywithsuave.com/refunds/refund-timing" target="_blank" rel="noopener">Refund guidance</a>.</p></section>
+            <section class="policy-card wide"><h3>Who is responsible for what?</h3><ul><li><strong>Connections</strong> is responsible for the merchandise, price disclosure, stock, assigned IMEI, fulfilment, inspections, exchanges and approved merchandise refunds.</li><li><strong>Suave</strong> is responsible for application approval, financing terms, payment schedules, account adjustments and collections.</li></ul></section>
+          </div>
+          <div class="notice">These terms apply to in-store Suave purchases at Connections. Online and WhatsApp Suave transactions are not offered under this policy.</div>
+        </article>
+
+        <article class="language-panel" data-panel="pap" lang="pap" hidden>
+          <div class="policy-intro"><div><span class="section-kicker">Reglanan di kompra</span><h2>Kondishonnan di Suave na Connections</h2></div><div class="effective">Válido for di 26 ougùstùs 2026 · Vershon 1.0</div></div>
+          <div class="policy-grid">
+            <section class="policy-card"><h3>Eksigensia i aprobashon</h3><p>Suave ta disponibel <strong>solamente den tienda</strong> pa kliente di 18 aña òf mas ku identifikashon válido. Tur petishon i plan di pago ta bou di aprobashon di Suave i su <a href="https://paywithsuave.com/terms" target="_blank" rel="noopener">kondishonnan pa kliente</a>.</p></section>
+            <section class="policy-card"><h3>Konfirmashon final di benta</h3><p>E transakshon ta bira final solamente despues di aprobashon di Suave, konfirmashon di stok i asignashon di e aparato òf IMEI spesífiko. Disponibilidat no ta garantisá promé ku e stapnan aki ta kompletá.</p></section>
+            <section class="policy-card"><h3>Kombinashon di pago permití</h3><p>Por hasi un pago adishonal na kèsh òf karta. <strong>No por kombiná trade-in, layaway, gift card ni crédito di tienda</strong> ku un transakshon di Suave.</p></section>
+            <section class="policy-card"><h3>Kosto di servisio</h3><p>Connections por apliká un kosto di servisio di Suave di <strong>te ku 3%</strong>. Kualke kosto lo wordu indiká promé ku outorisashon i lo aparesé riba e resibo. Connections por eliminá henter òf parti di e kosto.</p></section>
+            <section class="policy-card"><h3>Kambio será den tres dia</h3><p>Pa un kambio pasobra bo a kambia di opinion, bo tin tres dia di kalènder. E artíkulo mester ta será, no usá, no aktivá, kompleto i ku e resibo. Kambio ta pa un artíkulo di mesun balor òf mas karu; e kliente ta paga e diferensia. No tin reembolso na kèsh.</p></section>
+            <section class="policy-card"><h3>Garantia i defecto kubrí</h3><p>E periodo di garantia aplikabel ta indiká pa kada produkto i riba e resibo. Connections ta inspekshoná un defecto reportá i ta ofresé reemplaso promé. Si un reemplaso adekuá no ta razonablemente disponibel, por kanselá òf reducí e transakshon i hasi reembolso via e métodonan di pago original. Derechonan legal di konsumidó ta keda vigente.</p></section>
+            <section class="policy-card"><h3>Sin reparashon elekto</h3><p>Connections no ta ofresé servisio di reparashon elekto bou di e programa Suave. Esaki no ta limitá ningun remedio ku lei aplikabel di Kòrsou ta eksigí.</p></section>
+            <section class="policy-card"><h3>Loke garantia no ta kubri</h3><p>Garantia no ta kubri daño aksidental òf di líkido, mal uso, modifikashon no outorisá, parti ku falta, aparato pèrdí òf hòrta, ni aparato ku blokeo di aktivashon òf kuenta.</p></section>
+            <section class="policy-card"><h3>Eksigensianan pa inspekshon</h3><p>Trese prueba di kompra, e IMEI korespondiente i tur aksesoria inkluí. Kita blokeo di aktivashon/kuenta i hasi un backup di dato personal promé ku inspekshon. Connections no ta responsabel pa dato personal ku no tin backup.</p></section>
+            <section class="policy-card"><h3>Kanselashon i reembolso</h3><p>Ora un kanselashon kompleto ta aprobá, e kosto di servisio indiká ta wordu reembolsá; un reembolso parsial ta reducí e kosto proporcionalmente. Kada montante ta bai bèk na su método original. E parti di Suave ta wordu ahustá via Suave, no pagá na kèsh. Sigui ku e pagonan programá te ora Suave konfirmá e ahuste. Suave ta indiká ku prosesamentu normalmente ta tuma 5–7 dia di trabou. <a href="https://paywithsuave.com/refunds/refund-timing" target="_blank" rel="noopener">Informashon tokante reembolso</a>.</p></section>
+            <section class="policy-card wide"><h3>Kende ta responsabel pa kiko?</h3><ul><li><strong>Connections</strong> ta responsabel pa e produkto, indikashon di preis, stok, IMEI asigná, entrega, inspekshon, kambio i reembolso aprobá di produkto.</li><li><strong>Suave</strong> ta responsabel pa aprobashon di petishon, kondishonnan di finansiamentu, plan di pago, ahuste di kuenta i kobransa.</li></ul></section>
+          </div>
+          <div class="notice">E kondishonnan aki ta konta pa kompranan ku Suave den tienda di Connections. Transakshonnan Suave online òf via WhatsApp no ta wordu ofresé bou di e pólisa aki.</div>
+        </article>
+
+        <article class="language-panel" data-panel="es" lang="es" hidden>
+          <div class="policy-intro"><div><span class="section-kicker">Política de compra</span><h2>Términos de Suave en Connections</h2></div><div class="effective">Vigente desde el 26 de agosto de 2026 · Versión 1.0</div></div>
+          <div class="policy-grid">
+            <section class="policy-card"><h3>Requisitos y aprobación</h3><p>Suave está disponible <strong>solamente en tienda</strong> para clientes mayores de 18 años con identificación válida. Toda solicitud y plan de pagos está sujeto a la aprobación de Suave y sus <a href="https://paywithsuave.com/terms" target="_blank" rel="noopener">términos para clientes</a>.</p></section>
+            <section class="policy-card"><h3>Confirmación final de la venta</h3><p>La transacción se considera final solamente después de la aprobación de Suave, la confirmación de inventario y la asignación del dispositivo o IMEI específico. La disponibilidad no está garantizada antes de completar estos pasos.</p></section>
+            <section class="policy-card"><h3>Combinación de pagos permitida</h3><p>Se puede realizar un aporte en efectivo o tarjeta. <strong>No se pueden combinar canjes, apartados, tarjetas de regalo ni crédito de tienda</strong> con una transacción de Suave.</p></section>
+            <section class="policy-card"><h3>Cargo por servicio</h3><p>Connections puede aplicar un cargo por servicio de Suave de <strong>hasta el 3%</strong>. Cualquier cargo se informará antes de la autorización y aparecerá en el recibo. Connections puede exonerar la totalidad o parte del cargo.</p></section>
+            <section class="policy-card"><h3>Cambio sellado dentro de tres días</h3><p>Se permite un cambio por decisión del cliente dentro de tres días calendario solamente si el artículo permanece sellado, sin usar, sin activar, completo y acompañado del recibo. El cambio debe ser por un artículo de igual o mayor precio; el cliente paga la diferencia. No aplica reembolso en efectivo.</p></section>
+            <section class="policy-card"><h3>Garantía y defectos cubiertos</h3><p>El período de garantía aplicable se indica por producto y en el recibo. Connections inspecciona el defecto reportado y ofrece primero un reemplazo. Si no hay un reemplazo adecuado razonablemente disponible, la transacción puede cancelarse o reducirse y reembolsarse mediante los métodos de pago originales. Los derechos legales del consumidor no se ven afectados.</p></section>
+            <section class="policy-card"><h3>Sin reparaciones opcionales</h3><p>Connections no ofrece servicio de reparación opcional bajo el programa Suave. Esto no limita ningún recurso exigido por la legislación aplicable de Curaçao.</p></section>
+            <section class="policy-card"><h3>Qué no está cubierto</h3><p>La cobertura excluye daños accidentales o por líquidos, uso indebido, modificaciones no autorizadas, piezas faltantes, dispositivos perdidos o robados y dispositivos con bloqueo de activación o cuenta.</p></section>
+            <section class="policy-card"><h3>Requisitos para la inspección</h3><p>Presenta el comprobante de compra, el IMEI correspondiente y los accesorios incluidos. Elimina los bloqueos de activación/cuenta y respalda tus datos personales antes de la inspección. Connections no se responsabiliza por datos personales sin respaldo.</p></section>
+            <section class="policy-card"><h3>Cancelaciones y reembolsos</h3><p>Una cancelación total aprobada reembolsa el cargo por servicio informado; un reembolso parcial lo reduce proporcionalmente. Cada monto regresa a su método original. La porción de Suave se ajusta a través de Suave y no se paga en efectivo. Continúa los pagos programados hasta que Suave confirme el ajuste. Suave indica que el procesamiento normalmente tarda entre 5 y 7 días hábiles. <a href="https://paywithsuave.com/refunds/refund-timing" target="_blank" rel="noopener">Información sobre reembolsos</a>.</p></section>
+            <section class="policy-card wide"><h3>¿Quién es responsable de qué?</h3><ul><li><strong>Connections</strong> es responsable de la mercancía, información del precio, inventario, IMEI asignado, entrega, inspecciones, cambios y reembolsos aprobados de mercancía.</li><li><strong>Suave</strong> es responsable de la aprobación de solicitudes, términos de financiamiento, calendario de pagos, ajustes de cuenta y cobros.</li></ul></section>
+          </div>
+          <div class="notice">Estos términos se aplican a compras con Suave realizadas en las tiendas Connections. Las transacciones Suave por internet o WhatsApp no se ofrecen bajo esta política.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="locations">
+      <div class="shell">
+        <div class="language-panel" data-panel="en" lang="en">
+          <div class="section-heading"><span class="section-kicker">Visit us</span><h2>Apply in store</h2><p>Bring valid identification. Our team will confirm the product, final amount and availability before you authorize the transaction.</p></div>
+        </div>
+        <div class="language-panel" data-panel="pap" lang="pap" hidden>
+          <div class="section-heading"><span class="section-kicker">Bishitá nos</span><h2>Hasi bo petishon den tienda</h2><p>Trese un identifikashon válido. Nos tim lo konfirmá e produkto, montante final i disponibilidat promé ku bo outorisá e transakshon.</p></div>
+        </div>
+        <div class="language-panel" data-panel="es" lang="es" hidden>
+          <div class="section-heading"><span class="section-kicker">Visítanos</span><h2>Solicita en tienda</h2><p>Trae una identificación válida. Nuestro equipo confirmará el producto, monto final y disponibilidad antes de que autorices la transacción.</p></div>
+        </div>
+        <div class="locations">
+          <article class="location"><span class="location-label">Punda</span><h3>De Ruyterkade 28</h3><p>Dilanti Plaza Rondo</p><p><a href="tel:+59996782619">+599 9 678 2619</a></p></article>
+          <article class="location"><span class="location-label">Otrobanda</span><h3>Bredestraat 12</h3><p>Willemstad, Curaçao</p><p><a href="tel:+59996912424">+599 9 691 2424</a></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell cta">
+      <div class="language-panel" data-panel="en" lang="en"><h2>Questions before you apply?</h2><p>Message Connections for product availability and in-store guidance. Suave makes the final approval decision.</p><div class="cta-actions"><a class="button button-primary" href="https://wa.me/59996782619?text=Hi%2C%20I%20have%20a%20question%20about%20paying%20with%20Suave" target="_blank" rel="noopener">Ask on WhatsApp</a><a class="button button-secondary" href="https://paywithsuave.com/terms" target="_blank" rel="noopener">Official Suave terms</a></div></div>
+      <div class="language-panel" data-panel="pap" lang="pap" hidden><h2>Bo tin pregunta promé ku bo hasi petishon?</h2><p>Manda Connections un mensahe pa informashon tokante disponibilidat di produkto i guia den tienda. Suave ta tuma e desishon final di aprobashon.</p><div class="cta-actions"><a class="button button-primary" href="https://wa.me/59996782619?text=Bon%20dia%2C%20mi%20tin%20un%20pregunta%20tokante%20pago%20ku%20Suave" target="_blank" rel="noopener">Puntra via WhatsApp</a><a class="button button-secondary" href="https://paywithsuave.com/terms" target="_blank" rel="noopener">Kondishonnan ofisial di Suave</a></div></div>
+      <div class="language-panel" data-panel="es" lang="es" hidden><h2>¿Tienes preguntas antes de solicitar?</h2><p>Escribe a Connections para consultar disponibilidad y recibir orientación en tienda. Suave toma la decisión final de aprobación.</p><div class="cta-actions"><a class="button button-primary" href="https://wa.me/59996782619?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20pagar%20con%20Suave" target="_blank" rel="noopener">Pregunta por WhatsApp</a><a class="button button-secondary" href="https://paywithsuave.com/terms" target="_blank" rel="noopener">Términos oficiales de Suave</a></div></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <span>© 2026 Connections Curaçao · CRIB 122.281.1.512 · KVK 79271</span>
+      <span><a href="mailto:info@connectionscuracao.net">info@connectionscuracao.net</a> · <a href="/">connectionscuracao.net</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const languageButtons = document.querySelectorAll('[data-language-button]');
+    const languagePanels = document.querySelectorAll('[data-panel]');
+    const supportedLanguages = ['en', 'pap', 'es'];
+
+    function setLanguage(language, updateUrl = true) {
+      const selected = supportedLanguages.includes(language) ? language : 'en';
+      document.documentElement.lang = selected;
+      languageButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.languageButton === selected));
+      });
+      languagePanels.forEach((panel) => {
+        panel.hidden = panel.dataset.panel !== selected;
+      });
+      try { localStorage.setItem('connections-suave-language', selected); } catch (error) {}
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', selected);
+        window.history.replaceState({}, '', url);
+      }
+    }
+
+    languageButtons.forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.languageButton));
+    });
+
+    const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+    let savedLanguage = null;
+    try { savedLanguage = localStorage.getItem('connections-suave-language'); } catch (error) {}
+    setLanguage(urlLanguage || savedLanguage || 'en', false);
+  </script>
+</body>
+</html>

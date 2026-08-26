@@ -334,8 +334,15 @@
       margin: 4px 0;
     }
 
-    /* Mobile responsive */
-    @media (max-width: 768px) {
+    /* Keep the full navigation tidy on laptop-sized screens. */
+    @media (max-width: 1320px) and (min-width: 1101px) {
+      .nav-inner { gap: 10px; }
+      .nav-links { gap: 14px; }
+      .nav-pill { padding-inline: 9px; }
+    }
+
+    /* Switch to the menu before the navigation becomes crowded. */
+    @media (max-width: 1100px) {
       .nav-links,
       .nav-pills {
         display: none;
@@ -2466,6 +2473,7 @@
         <a href="#cat-appliances" data-cat="appliances">Appliances</a>
         <a href="#locations">Locations</a>
         <a href="/repair">Repair</a>
+        <a href="/suave/">Suave</a>
         <a href="#footer">Contact</a>
       </div>
 
@@ -2492,6 +2500,7 @@
       <a href="#cat-appliances" class="nav-mobile-link" data-cat="appliances">Appliances</a>
       <a href="#locations" class="nav-mobile-link">Locations</a>
       <a href="/repair" class="nav-mobile-link">Repair</a>
+      <a href="/suave/" class="nav-mobile-link">Suave</a>
       <a href="#footer" class="nav-mobile-link">Contact</a>
       <div class="nav-mobile-divider"></div>
       <a href="/woah" class="nav-pill woah">woah 🫨</a>
@@ -2701,6 +2710,7 @@
           <div class="footer-links">
             <a href="#deals">Shop Deals</a>
             <a href="#locations">Locations</a>
+            <a href="/suave/">Pay with Suave</a>
             <a href="https://jbl.connectionscuracao.net" target="_blank" rel="noopener">JBL Audio</a>
             <a href="https://giftcard.connectionscuracao.net" target="_blank" rel="noopener">Gift Cards</a>
             <a href="https://hso2.connectionscuracao.net" target="_blank" rel="noopener">HSO2</a>
