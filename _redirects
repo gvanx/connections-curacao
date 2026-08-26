@@ -5,8 +5,8 @@
 https://s26.connectionscuracao.net/*  /s26/index.html  200
 /iptv  /iptv/index.html  200
 /repair  /repair/index.html  200
-/Suave  /suave/  301!
-/suave  /suave/  301!
+/Suave  /suave/index.html  200
+/suave  /suave/index.html  200
 /suave/*  /suave/index.html  200
 /iphonefold  /iphonefold/index.html  200
 /macbookneo  /macbookneo/index.html  200
