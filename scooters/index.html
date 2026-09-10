@@ -12,6 +12,7 @@
   <meta property="og:image" content="https://connectionscuracao.net/scooters/og-scooters.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://connectionscuracao.net/scooters/">
+  <link rel="stylesheet" href="referrals.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ff5a36'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,9 +42,13 @@
 </head>
 <body>
   <div class="notice">New at Connections · 150cc scooters · Limited first shipment</div>
-  <header><nav class="shell nav"><a class="brand" href="/">CONNECTIONS<i></i></a><div class="links"><a href="#models">Models</a><a href="#suave">Pay with Suave</a><a href="#why">Why Connections</a><a class="nav-cta" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20I%20am%20interested%20in%20a%20scooter." target="_blank" rel="noopener">WhatsApp us</a></div></nav></header>
+  <header><nav class="shell nav"><a class="brand" href="/">CONNECTIONS<i></i></a><div class="links"><a href="#models">Models</a><a href="#suave">Pay with Suave</a><a href="#why">Why Connections</a><a class="referral-nav" href="#refer">Earn XCG 150</a><a class="nav-cta" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20I%20am%20interested%20in%20a%20scooter." target="_blank" rel="noopener">WhatsApp us</a></div></nav></header>
   <main>
-    <section class="hero"><div class="shell hero-grid"><div><p class="kicker">Your new way around Curaçao</p><h1>Own the <em>road.</em></h1><p class="hero-copy">Easy to ride, easy to park, and ready for island life. Discover our first collection of 150cc scooters.</p><div class="actions"><a class="btn btn-primary" href="#models">See all models ↓</a><a class="btn btn-secondary" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20please%20help%20me%20choose%20a%20scooter." target="_blank" rel="noopener">Help me choose</a></div></div><div class="hero-card"><span class="eyebrow">Starting at</span><strong>XCG 3,390</strong><small>150cc · while supplies last</small><div class="visual" role="img" aria-label="Black Falcon scooter"></div></div></div></section>
+    <aside class="referral-banner shell" id="referralBanner" aria-label="Your referral" hidden>
+      <p>Referral code <strong id="activeReferralCode"></strong> will be included in your WhatsApp enquiry. Connections will confirm eligibility.</p>
+      <button id="removeReferral" type="button">Remove code</button>
+    </aside>
+    <section class="hero"><div class="shell hero-grid"><div><p class="kicker">Your new way around Curaçao</p><h1>Own the <em>road.</em></h1><p class="hero-copy">Easy to ride, easy to park, and ready for island life. Discover our first collection of 150cc scooters.</p><div class="actions"><a class="btn btn-primary" href="#models">See all models ↓</a><a class="btn btn-secondary" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20please%20help%20me%20choose%20a%20scooter." target="_blank" rel="noopener">Help me choose</a><a class="btn btn-secondary" href="#refer">Refer &amp; earn XCG 150</a></div></div><div class="hero-card"><span class="eyebrow">Starting at</span><strong>XCG 3,390</strong><small>150cc · while supplies last</small><div class="visual" role="img" aria-label="Black Falcon scooter"></div></div></div></section>
     <section class="catalog" id="models"><div class="shell"><div class="section-head"><h2>Pick your ride.</h2><p>Six distinct styles, one simple way to order. Tap your favorite to start a WhatsApp conversation with our team.</p></div><div class="filters" aria-label="Filter scooters"><button class="filter active" data-filter="all">All models</button><button class="filter" data-filter="available">Available now</button><button class="filter" data-filter="sold">Sold out</button></div>
       <div class="grid">
         <article class="card" data-status="available"><div class="picture one"><img src="scooters-1.png" alt="Black Falcon 150cc scooter"><span class="tag">Available</span></div><div class="details"><h3 class="model">Falcon</h3><p class="spec">150cc · 13-inch wheels</p><div class="bottom"><div class="price"><span>Price</span><strong>XCG 3,590</strong></div><a class="order" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20I%20want%20to%20order%20the%20Falcon%20150cc%20scooter%20for%20XCG%203%2C590." target="_blank" rel="noopener">Order →</a></div></div></article>
@@ -53,6 +58,50 @@
         <article class="card" data-status="available"><div class="picture" style="aspect-ratio:1.37"><img style="--shift:-44.87%" src="scooters-2.png" alt="Red Trophy 150cc scooter"><span class="tag">Available</span></div><div class="details"><h3 class="model">Trophy</h3><p class="spec">150cc · Sport touring style</p><div class="bottom"><div class="price"><span>Price</span><strong>XCG 3,390</strong></div><a class="order" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20I%20want%20to%20order%20the%20Trophy%20150cc%20scooter%20for%20XCG%203%2C390." target="_blank" rel="noopener">Order →</a></div></div></article>
         <article class="card" data-status="available"><div class="picture" style="aspect-ratio:1.14"><img style="--shift:-69.87%" src="scooters-2.png" alt="White R8 150cc scooter"><span class="tag">Available</span></div><div class="details"><h3 class="model">R8</h3><p class="spec">150cc · Comfort windshield</p><div class="bottom"><div class="price"><span>Price</span><strong>XCG 3,490</strong></div><a class="order" href="https://wa.me/59996782619?text=Hi%20Connections%2C%20I%20want%20to%20order%20the%20R8%20150cc%20scooter%20for%20XCG%203%2C490." target="_blank" rel="noopener">Order →</a></div></div></article>
       </div></div></section>
+    <section class="referrals" id="refer" aria-labelledby="referralHeading">
+      <div class="shell referral-panel">
+        <div class="referral-intro">
+          <p class="referral-eyebrow">Connections referral program</p>
+          <h2 id="referralHeading">Know a buyer?<br>Earn <span>XCG 150.</span></h2>
+          <p>Recommend a Connections scooter. When your referral completes a qualifying purchase, you earn XCG 150. We handle the sale, payment and delivery.</p>
+          <a class="referral-button" data-referral-ignore href="https://wa.me/59994618989?text=Hi%20Connections%2C%20I%20would%20like%20to%20join%20the%20scooter%20referral%20program%20and%20earn%20XCG%20150%20per%20qualifying%20sale.%20Please%20register%20me%20and%20send%20my%20personal%20referral%20code.%20My%20name%20is%3A%20" target="_blank" rel="noopener">Request my code on WhatsApp</a>
+          <p class="referral-small">Our team registers you and sends your code. Joining is free.</p>
+        </div>
+        <div class="referral-how">
+          <ol class="referral-steps">
+            <li><b>Get your personal code</b><span>Message our team to register. Wait for your active code before sharing.</span></li>
+            <li><b>Share your link</b><span>Buyers browse the scooters and contact Connections with your code in their first message.</span></li>
+            <li><b>Get paid XCG 150</b><span>After delivery, cleared payment and eligibility confirmation, your reward goes into the next Friday payout.</span></li>
+          </ol>
+          <details class="referral-tools">
+            <summary>Already have a code? Get your sharing link</summary>
+            <form id="referralLinkForm" hidden>
+              <label for="partnerCode">Your Connections referral code</label>
+              <div class="referral-input-row"><input id="partnerCode" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="9" pattern="[Cc][Cc]-[A-Za-z0-9]{6}" placeholder="CC-ABC123" required aria-describedby="partnerCodeHelp"><button class="referral-button" type="submit">Get link</button></div>
+              <p id="partnerCodeHelp" class="referral-small">Use the code our team sent you. Creating a link does not register or activate a code.</p>
+            </form>
+            <div id="partnerLinkResult" hidden>
+              <label for="partnerLink">Your sharing link</label>
+              <input id="partnerLink" type="url" readonly>
+              <div class="referral-share-actions"><button class="referral-button" id="copyReferralLink" type="button">Copy link</button><a class="referral-share" id="shareReferralLink" data-referral-ignore target="_blank" rel="noopener">Share on WhatsApp</a></div>
+            </div>
+            <p class="referral-small" id="referralLinkStatus" role="status" aria-live="polite"></p>
+            <noscript><p>Ask our WhatsApp team for your personal sharing link.</p></noscript>
+          </details>
+        </div>
+        <details class="referral-terms" id="referralTerms">
+          <summary>How referrals and payouts work</summary>
+          <ul>
+            <li>The buyer must give an active referral code at first contact, before the sales process starts. The first valid referral recorded by Connections receives credit.</li>
+            <li>The buyer must purchase within 30 calendar days of that referral being recorded. One reward of XCG 150 per qualifying scooter; one referrer per sale. Self-referrals, duplicate claims and referrals added after the sales process starts do not qualify.</li>
+            <li>The customer pays the normal advertised price. Connections handles quotations, financing, deposits, payments and delivery. Referrers must not collect money on our behalf.</li>
+            <li>A reward is eligible after delivery, cleared payment to Connections and staff confirmation under the sale's cancellation and refund terms. Cancelled or refunded sales do not qualify. For financed purchases, Connections must receive settlement; financing approval alone is not enough.</li>
+            <li>Eligible rewards are paid on the next Friday. Our team confirms the payout method with you privately.</li>
+            <li>This browser can remember the first referral code for up to 30 days. You can remove it above. Include the code in your first WhatsApp message, or show it in store, so staff can record it. A saved code or generated link does not confirm eligibility.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
     <section class="finance" id="suave"><div class="shell finance-panel"><div><span class="suave-mark">Buy now · Pay later</span><h2>Mix cash + Suave.</h2><p class="finance-intro">Choose a scooter, enter what you can pay today, and preview how the remaining Suave amount could look per month.</p></div><div class="calculator"><div class="field"><label for="scooter">Choose your scooter</label><select id="scooter"><option value="3590">Falcon — XCG 3,590</option><option value="3590">Fantasy — XCG 3,590</option><option value="3590">Monkey IV — XCG 3,590</option><option value="3390">Trophy — XCG 3,390</option><option value="3490">R8 — XCG 3,490</option></select></div><div class="field"><label for="cash">How much will you pay in cash or by card?</label><div class="cash-row"><input id="cash" type="range" min="0" max="3590" step="50" value="500"><input class="cash-input" id="cashNumber" type="number" min="0" max="3590" step="50" value="500" aria-label="Cash or card amount in XCG"></div></div><fieldset class="field"><legend>Choose an estimated term</legend><div class="term-buttons"><button class="term active" type="button" data-months="4">4 months</button><button class="term" type="button" data-months="6">6 months</button><button class="term" type="button" data-months="12">12 months</button></div></fieldset><div class="estimate"><div><span>Cash / card today</span><strong id="cashResult">XCG 500</strong></div><div><span>Suave amount</span><strong id="suaveResult">XCG 3,090</strong></div><div class="monthly"><span>Estimated monthly</span><strong id="monthlyResult">XCG 795.68</strong></div><div><span>Possible service fee</span><strong id="feeResult">up to XCG 92.70</strong></div></div><div class="calc-cta"><p class="calc-note">Illustration includes Connections' maximum 3% Suave service fee and divides the total evenly. In-store only, subject to approval. Suave confirms the final plan and charge dates.</p><a class="calc-send" id="planLink" href="#" target="_blank" rel="noopener">Send my plan →</a></div></div></div></section>
     <section class="why" id="why"><div class="shell why-panel"><h2>Made for the island. Backed by Connections.</h2><div class="perks"><div class="perk"><b>Local team</b><p>Real help from our Curaçao sales team.</p></div><div class="perk"><b>Simple ordering</b><p>Reserve your model directly through WhatsApp.</p></div><div class="perk"><b>150cc power</b><p>Confident performance for everyday riding.</p></div><div class="perk"><b>Limited launch</b><p>First shipment available while stock lasts.</p></div></div></div></section>
   </main>
@@ -68,5 +117,7 @@
     const actualPhotos={Falcon:['falcon-actual.jpeg','Blue and green Falcon 150cc scooter shown from three angles'],Fantasy:['fantasy-actual.jpeg','Purple Fantasy 150cc scooter shown from three angles'],'Monkey IV':['monkey-actual.jpeg','Gray and yellow Monkey IV 150cc scooter shown from two angles'],NVH:['nvh-actual.jpeg','Gray and yellow NVH 150cc scooter shown from two angles'],Trophy:['trophy-actual.jpeg','Red Trophy 150cc scooter shown from three angles'],R8:['r8-actual.jpeg','White and orange R8 150cc scooter shown from two angles']};document.querySelectorAll('.card').forEach(card=>{const product=card.querySelector('.model').textContent,photo=actualPhotos[product],image=card.querySelector('.picture img');if(photo&&image){image.src=photo[0];image.alt=photo[1]}});const nvhCard=[...document.querySelectorAll('.card')].find(card=>card.querySelector('.model').textContent==='NVH');nvhCard.classList.remove('sold');nvhCard.dataset.status='available';nvhCard.querySelector('.tag').textContent='Available';nvhCard.querySelector('.price span').textContent='Price';nvhCard.querySelector('.bottom>span').outerHTML='<a class="order" href="https://wa.me/59994618989?text=Hi%20Connections%2C%20I%20want%20to%20order%20the%20NVH%20150cc%20scooter%20for%20XCG%204%2C590." target="_blank" rel="noopener">Order →</a>';scooter.insertAdjacentHTML('beforeend','<option value="4590">NVH — XCG 4,590</option>');
     const currentWhatsApp='59994618989',replaceWhatsApp=link=>{if(link.href.includes('wa.me/')&&!link.href.includes(currentWhatsApp))link.href=link.href.replace(/wa\.me\/\d+/,'wa.me/'+currentWhatsApp)};document.querySelectorAll('a[href*="wa.me/"]').forEach(replaceWhatsApp);new MutationObserver(()=>replaceWhatsApp(document.querySelector('#planLink'))).observe(document.querySelector('#planLink'),{attributes:true,attributeFilter:['href']});const nvhPrice=4099,nvhOption=[...scooter.options].find(option=>option.text.startsWith('NVH'));nvhOption.value=nvhPrice;nvhOption.text='NVH — XCG 4,099';nvhCard.querySelector('.price strong').textContent='XCG 4,099';const nvhOrder=nvhCard.querySelector('.order');nvhOrder.href=nvhOrder.href.replace('4%2C590','4%2C099').replace('4,590','4,099');
   </script>
+  <script src="referral-core.js"></script>
+  <script src="referrals.js"></script>
 </body>
 </html>
