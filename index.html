@@ -2318,6 +2318,16 @@
     .scooter-banner-copy{position:relative;z-index:2}.scooter-banner-eyebrow{display:inline-block;color:#d9f538;font:700 .78rem var(--font-display);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}.scooter-banner-title{font:800 clamp(2.6rem,5vw,5rem)/.92 var(--font-display);letter-spacing:-.05em;margin-bottom:16px}.scooter-banner-title span{color:#d9f538}.scooter-banner-sub{color:rgba(255,255,255,.72);max-width:520px;font-size:1rem}.scooter-banner-btn{display:inline-flex;margin-top:24px;background:#ff5a36;color:#fff;padding:13px 20px;border-radius:999px;font-weight:800}.scooter-banner-image{height:270px;background:#fff url('/scooters/falcon-actual.jpeg') center/contain no-repeat;border-radius:22px;transform:rotate(2deg);box-shadow:0 20px 45px rgba(0,0,0,.24)}
     @media(max-width:900px){.scooter-banner{margin:22px 16px 0}.scooter-banner-inner{grid-template-columns:1fr;padding:36px 28px}.scooter-banner-image{height:230px}}
     @media(max-width:520px){.scooter-banner-inner{padding:30px 20px}.scooter-banner-image{height:180px}.scooter-banner-title{font-size:2.65rem}}
+    .iphone-launch-banner { display:flex; align-items:center; justify-content:space-between; gap:32px; max-width:1200px; margin:0 auto 32px; padding:38px 40px; border:1px solid #285687; border-radius:24px; background:#0b192b; color:#fff; }
+    .iphone-launch-eyebrow { display:block; color:#86bdff; font-size:13px; font-weight:700; letter-spacing:.1em; margin-bottom:12px; }
+    .iphone-launch-banner h2 { font-family:var(--font-display); font-size:clamp(27px,3vw,38px); line-height:1.2; font-weight:600; letter-spacing:-.02em; margin-bottom:14px; }
+    .iphone-launch-banner h2 span { color:#86bdff; }
+    .iphone-launch-banner p { color:#c0ccdb; font-size:16px; max-width:530px; }
+    .iphone-launch-cta { display:inline-flex; align-items:center; justify-content:center; gap:20px; flex-shrink:0; min-height:50px; padding:13px 21px; border-radius:12px; background:#fff; color:#0b192b; font-size:15px; font-weight:700; }
+    .iphone-launch-banner:hover .iphone-launch-cta { background:#cfe5ff; }
+    .iphone-launch-banner:focus-visible { outline:3px solid #86bdff; outline-offset:5px; }
+    @media(max-width:1264px) { .iphone-launch-banner { margin-inline:32px; } }
+    @media(max-width:760px) { .iphone-launch-banner { margin-inline:20px; padding:28px 24px; flex-direction:column; align-items:flex-start; gap:24px; } .iphone-launch-cta { width:100%; } }
   </style>
 
   <!-- ===== DIA DI BANDERA / FLAG DAY THEME — START (auto-active Jun 30 – Jul 3, 2026; remove after) ===== -->
@@ -2552,6 +2562,15 @@
       <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
   </section>
+
+  <a class="iphone-launch-banner" href="/iphone18/" aria-label="Compare iPhone 18 Pro, Pro Max and iPhone Duo and ask about Curaçao availability">
+    <div>
+      <span class="iphone-launch-eyebrow">THE NEW IPHONE LINEUP</span>
+      <h2>iPhone 18 Pro. Pro Max.<br><span>And now, iPhone Duo.</span></h2>
+      <p>Explore the new models. Ask us about Curaçao pricing and arrival dates.</p>
+    </div>
+    <span class="iphone-launch-cta">Find your next iPhone <span aria-hidden="true">↗</span></span>
+  </a>
 
   <a class="school-banner" href="#deals" aria-label="Shop the latest Connections Curaçao deals">
     <div class="school-banner-inner">
