@@ -9,9 +9,9 @@ https://s26.connectionscuracao.net/*  /s26/index.html  200
 /suave  /suave/index.html  200
 /suave/*  /suave/index.html  200
 /iphone18  /iphone18/  301
-/iphonefold  /iphone18/#duo  301
-/iphonefold/  /iphone18/#duo  301
-/iphonefold/index.html  /iphone18/#duo  301
+/iphonefold  /iphone18/#duo  301!
+/iphonefold/  /iphone18/#duo  301!
+/iphonefold/index.html  /iphone18/#duo  301!
 /macbookneo  /macbookneo/index.html  200
 /iphone17e  /iphone17e/index.html  200
 /woah  /woah/index.html  200
