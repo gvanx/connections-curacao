@@ -157,10 +157,10 @@
   {
     "name": "MacBook Neo 256GB/8GB",
     "suffix": "",
-    "price": 1599,
+    "price": 1699,
     "category": "apple",
     "featured": true,
-    "imageUnavailable": true
+    "image": "/img/products/macbook-neo-indigo.jpg"
   },
   {
     "name": "MacBook Air M3 256GB/16GB",
