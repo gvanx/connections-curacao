@@ -12,13 +12,13 @@
     "suffix": "HSO",
     "price": 699,
     "category": "apple",
-    "featured": false,
+    "featured": true,
     "image": "iphone-13-model.jpg"
   },
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 775,
+    "price": 799,
     "category": "apple",
     "featured": false,
     "image": "iphone-14-model.jpg"
@@ -36,7 +36,7 @@
     "suffix": "",
     "price": 1599,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-15-model.jpg"
   },
   {
@@ -60,7 +60,7 @@
     "suffix": "",
     "price": 1699,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-16-model.jpg"
   },
   {
@@ -68,7 +68,7 @@
     "suffix": "Active",
     "price": 1499,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-16-model.jpg"
   },
   {
@@ -92,7 +92,7 @@
     "suffix": "HSO",
     "price": 1990,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-16-pro-max-model.jpg"
   },
   {
@@ -100,14 +100,14 @@
     "suffix": "",
     "price": 1650,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "landingPage": "https://connectionscuracao.net/iphone17e/",
     "image": "iphone-17e-model.jpg"
   },
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 1990,
+    "price": 1999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -117,7 +117,7 @@
     "suffix": "",
     "price": 2290,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-17-air-model.jpg"
   },
   {
@@ -125,13 +125,13 @@
     "suffix": "",
     "price": 2750,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "iphone-17-pro-model.jpg"
   },
   {
     "name": "iPhone 17 Pro Max",
     "suffix": "",
-    "price": 2999,
+    "price": 2949,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-max-model.jpg"
@@ -149,7 +149,7 @@
     "suffix": "",
     "price": 1090,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "limited": true,
     "subcategory": "tablet",
     "image": "ipad-11th-model.jpg"
@@ -160,14 +160,14 @@
     "price": 1599,
     "category": "apple",
     "featured": true,
-    "image": "macbook-generic.png"
+    "imageUnavailable": true
   },
   {
     "name": "MacBook Air M3 256GB/16GB",
     "suffix": "",
     "price": 1999,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "macbook-generic.png"
   },
   {
@@ -175,7 +175,7 @@
     "suffix": "",
     "price": 1990,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "subcategory": "tablet",
     "image": "ipad-air-m3-model.jpg"
   },
@@ -184,7 +184,7 @@
     "suffix": "",
     "price": 1499,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "subcategory": "tablet",
     "image": "ipad-air-m3-model.jpg"
   },
@@ -201,7 +201,7 @@
     "suffix": "",
     "price": 699,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "apple-watch-se-3-model.jpg"
   },
   {
@@ -217,7 +217,7 @@
     "suffix": "",
     "price": 990,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "apple-watch-series-11-model.jpg"
   },
   {
@@ -241,7 +241,7 @@
     "suffix": "",
     "price": 449,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "airpods-4-anc-model.jpg"
   },
   {
@@ -249,7 +249,7 @@
     "suffix": "",
     "price": 550,
     "category": "apple",
-    "featured": true,
+    "featured": false,
     "image": "airpods-pro-3-model.jpg"
   },
   {
@@ -265,7 +265,7 @@
     "suffix": "",
     "price": 249,
     "category": "samsung",
-    "featured": false,
+    "featured": true,
     "image": "galaxy-a07-model.jpg"
   },
   {
@@ -287,7 +287,7 @@
   {
     "name": "Galaxy A16",
     "suffix": "",
-    "price": 350,
+    "price": 349,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a16-model.jpg"
@@ -295,7 +295,7 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 339,
+    "price": 399,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a17-model.jpg"
@@ -313,7 +313,7 @@
     "suffix": "",
     "price": 690,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "landingPage": "https://connectionscuracao.net/galaxya27/",
     "image": "galaxy-a27-model.jpg"
   },
@@ -330,7 +330,7 @@
     "suffix": "",
     "price": 699,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "image": "galaxy-a37-model.jpg",
     "landingPage": "https://samsungcuracao.com/a37"
   },
@@ -339,13 +339,13 @@
     "suffix": "",
     "price": 649,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "image": "galaxy-a56-model.jpg"
   },
   {
     "name": "Galaxy A57 5G",
     "suffix": "",
-    "price": 899,
+    "price": 849,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
@@ -364,7 +364,7 @@
     "suffix": "",
     "price": 1850,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "image": "galaxy-s24-ultra-model.jpg"
   },
   {
@@ -372,7 +372,7 @@
     "suffix": "",
     "price": 1549,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "image": "galaxy-s25-plus-model.jpg"
   },
   {
@@ -386,7 +386,7 @@
   {
     "name": "Galaxy S25 FE 256GB",
     "suffix": "",
-    "price": 1249,
+    "price": 1350,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-s25-fe-model.jpg"
@@ -396,13 +396,29 @@
     "suffix": "",
     "price": 1989,
     "category": "samsung",
-    "featured": true,
+    "featured": false,
     "image": "galaxy-s25-ultra-model.jpg"
   },
   {
-    "name": "Galaxy S26 Ultra 256GB",
+    "name": "Galaxy S26 FE 128GB",
     "suffix": "",
-    "price": 2549,
+    "price": 1690,
+    "category": "samsung",
+    "featured": false,
+    "imageUnavailable": true
+  },
+  {
+    "name": "Galaxy S26 FE 256GB",
+    "suffix": "",
+    "price": 1890,
+    "category": "samsung",
+    "featured": false,
+    "imageUnavailable": true
+  },
+  {
+    "name": "Galaxy S26 Ultra",
+    "suffix": "",
+    "price": 2389,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s26-ultra-model.png"
@@ -472,7 +488,7 @@
     "suffix": "",
     "price": 429,
     "category": "tvs",
-    "featured": true,
+    "featured": false,
     "image": "tv-generic.png"
   },
   {
@@ -480,7 +496,7 @@
     "suffix": "",
     "price": 625,
     "category": "tvs",
-    "featured": true,
+    "featured": false,
     "image": "tv-generic.png"
   },
   {
@@ -504,7 +520,7 @@
     "suffix": "",
     "price": 1044,
     "category": "tvs",
-    "featured": true,
+    "featured": false,
     "image": "tv-generic.png"
   },
   {
@@ -512,7 +528,7 @@
     "suffix": "",
     "price": 499,
     "category": "laptops",
-    "featured": true,
+    "featured": false,
     "image": "laptop-generic.png",
     "spec": "Celeron N4500 · 4GB · 128GB eMMC · 14\" 1920×1080 · W11 · Gray"
   },
@@ -521,25 +537,42 @@
     "suffix": "",
     "price": 525,
     "category": "laptops",
-    "featured": true,
+    "featured": false,
     "image": "laptop-generic.png",
     "spec": "Intel N150 · 4GB · 64GB UFS · 14\" 1366×768 · W11"
   },
   {
     "name": "HP Laptop 128GB",
     "suffix": "",
+    "price": 650,
+    "category": "laptops",
+    "featured": false,
+    "spec": "128GB storage · 4GB RAM",
+    "imageUnavailable": true
+  },
+  {
+    "name": "HP OmniBook 256GB/8GB",
+    "suffix": "",
+    "price": 1590,
+    "category": "laptops",
+    "featured": false,
+    "spec": "256GB storage · 8GB RAM",
+    "imageUnavailable": true
+  },
+  {
+    "name": "HP 14 dp6103dx",
+    "suffix": "",
     "price": 549,
     "category": "laptops",
     "featured": true,
-    "image": "laptop-generic.png",
-    "spec": "Intel N150 · 4GB · 128GB UFS · 14\" 1366×768 · W11"
+    "imageUnavailable": true
   },
   {
     "name": "Lenovo IdeaPad Slim 3i",
     "suffix": "",
     "price": 549,
     "category": "laptops",
-    "featured": true,
+    "featured": false,
     "image": "laptop-generic.png",
     "spec": "Intel N100 · 4GB · 128GB SSD · 15.6\" 1920×1080 · Arctic Gray"
   },
@@ -548,7 +581,7 @@
     "suffix": "",
     "price": 1900,
     "category": "laptops",
-    "featured": true,
+    "featured": false,
     "image": "laptop-generic.png",
     "spec": "Core i7-1355U · 16GB DDR4 · 1TB SSD · 15.6\" FHD IPS (300 nits) · Fingerprint · W11 · Silver"
   },
@@ -557,7 +590,7 @@
     "suffix": "",
     "price": 1450,
     "category": "laptops",
-    "featured": true,
+    "featured": false,
     "image": "laptop-generic.png",
     "spec": "Core Ultra 5 225U · 8GB DDR5 · 512GB SSD · 15.6\" FHD IPS Touch (300 nits) · W11 · Silver"
   },
@@ -574,7 +607,7 @@
     "suffix": "",
     "price": 847,
     "category": "acs",
-    "featured": true,
+    "featured": false,
     "image": "ac-generic.png"
   },
   {
@@ -598,7 +631,7 @@
     "suffix": "",
     "price": 675,
     "category": "acs",
-    "featured": true,
+    "featured": false,
     "image": "ac-generic.png"
   },
   {
@@ -618,11 +651,83 @@
     "image": "ac-generic.png"
   },
   {
+    "name": "Falcon 8 150cc",
+    "suffix": "",
+    "price": 3590,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "imageUnavailable": true
+  },
+  {
+    "name": "Trophy 150cc",
+    "suffix": "",
+    "price": 3300,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "image": "/scooters/trophy-actual.jpeg"
+  },
+  {
+    "name": "Fantasy 150cc",
+    "suffix": "",
+    "price": 3590,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "imageUnavailable": true
+  },
+  {
+    "name": "Monkey IV 150cc",
+    "suffix": "",
+    "price": 3590,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "image": "/scooters/monkey-actual.jpeg"
+  },
+  {
+    "name": "NVH 150cc",
+    "suffix": "",
+    "price": 4099,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "image": "/scooters/nvh-actual.jpeg"
+  },
+  {
+    "name": "R8 150cc",
+    "suffix": "",
+    "price": 3490,
+    "category": "motor",
+    "featured": false,
+    "spec": "150cc · Confirm availability with Premier Automotive",
+    "availability": "confirm",
+    "inquiryOnly": true,
+    "contactNumber": "59996905151",
+    "image": "/scooters/r8-actual.jpeg"
+  },
+  {
     "name": "150cc Motorcycle (Blue)",
     "suffix": "MOT9184G",
     "price": 5555,
     "category": "motor",
-    "featured": true,
+    "featured": false,
     "kingsday": false,
     "image": "mot9184g.png"
   },
@@ -631,7 +736,7 @@
     "suffix": "MOT9185G",
     "price": 5555,
     "category": "motor",
-    "featured": true,
+    "featured": false,
     "kingsday": false,
     "image": "mot9185g.png"
   },
@@ -649,7 +754,7 @@
     "suffix": "",
     "price": 1199,
     "category": "other",
-    "featured": true,
+    "featured": false,
     "image": "nintendo-switch-2-model.png"
   },
   {
@@ -697,7 +802,7 @@
     "suffix": "FRD-9441AF",
     "price": 225,
     "category": "appliances",
-    "featured": true,
+    "featured": false,
     "image": "appliance-generic.png"
   },
   {
@@ -745,7 +850,7 @@
     "suffix": "RT16N6CDX",
     "price": 1500,
     "category": "appliances",
-    "featured": true,
+    "featured": false,
     "image": "hisense-rt16n6cdx.png"
   },
   {
@@ -849,7 +954,7 @@
     "suffix": "TV-9370SF55WQL",
     "price": 812,
     "category": "tvs",
-    "featured": true,
+    "featured": false,
     "image": "tv-generic.png"
   },
   {

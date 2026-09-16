@@ -15,6 +15,8 @@ const CHECKOUT_CONFIG = {
 };
 
 let activeCheckout = null;
+let checkoutOpener = null;
+let checkoutBodyOverflow = null;
 
 /* ---- Format helper (used by checkout AND product card rendering) ---- */
 function formatPrice(price) {
@@ -73,12 +75,26 @@ function closeCheckout() {
   overlay.classList.remove('visible');
   overlay.setAttribute('hidden', '');
   activeCheckout = null;
+  if (checkoutBodyOverflow !== null) {
+    document.body.style.overflow = checkoutBodyOverflow;
+    checkoutBodyOverflow = null;
+  }
+  const opener = checkoutOpener;
+  checkoutOpener = null;
+  if (opener && opener.isConnected && typeof opener.focus === 'function') {
+    opener.focus({ preventScroll: true });
+  }
 }
 
-function openCheckout(name, price) {
+function openCheckout(name, price, opener = document.activeElement) {
   const overlay = document.getElementById('checkout-modal');
   if (!overlay) return;
 
+  if (!overlay.classList.contains('visible')) {
+    checkoutOpener = opener;
+    checkoutBodyOverflow = document.body.style.overflow;
+  }
+  document.body.style.overflow = 'hidden';
   activeCheckout = { name, price };
   const form = document.getElementById('checkout-form');
   form.reset();
@@ -125,7 +141,7 @@ function attachOrderButtons(scope) {
       const productName = decodeURIComponent(btn.dataset.productName || '');
       const productPrice = Number(btn.dataset.productPrice || 0);
       if (!productName || Number.isNaN(productPrice)) return;
-      openCheckout(productName, productPrice);
+      openCheckout(productName, productPrice, btn);
     });
   });
 }
@@ -153,8 +169,35 @@ function initCheckoutModal() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+    if (!overlay.classList.contains('visible')) return;
+    if (e.key === 'Escape') {
       closeCheckout();
+      return;
+    }
+    if (e.key !== 'Tab') return;
+
+    const focusable = Array.from(overlay.querySelectorAll(
+      'a[href], button, input, select, textarea, [tabindex], [contenteditable="true"]'
+    )).filter((element) => element.tabIndex >= 0 && !element.matches(':disabled') &&
+      !element.closest('[hidden], [inert]') && element.getClientRects().length > 0 &&
+      window.getComputedStyle(element).visibility !== 'hidden');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (!first) {
+      e.preventDefault();
+      const dialog = overlay.querySelector('[role="dialog"]') || overlay;
+      dialog.tabIndex = -1;
+      dialog.focus();
+    } else if (!focusable.includes(document.activeElement)) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 

@@ -29,6 +29,8 @@ For most catalog updates, this is the only file you need.
 - `laptops`
 - `acs`
 - `motor`
+- `appliances`
+- `other`
 
 ## 4) Field Meanings
 
@@ -37,7 +39,15 @@ For most catalog updates, this is the only file you need.
 - `price`: Number only (no currency symbol)
 - `category`: Controls which section it appears in
 - `featured`: `true` shows in Featured Deals
-- `image`: Filename from `img/products/`
+- `image`: Filename from `img/products/`, or a root-relative path such as `/scooters/trophy-actual.jpeg`
+- `imageUnavailable`: `true` displays the model name as artwork instead of an unrelated photo
+- `inquiryOnly`: `true` keeps the price visible but replaces checkout with an availability inquiry
+- `contactNumber`: WhatsApp destination for inquiries, digits only; defaults to Connections if omitted
+
+For Premier Automotive scooters, use `"inquiryOnly": true` and
+`"contactNumber": "59996905151"`. An optional `availability` field does not
+control the checkout button; `inquiryOnly` does. Do not infer stock from a flyer.
+If `landingPage` is present, the inquiry button opens that page instead.
 
 ## 5) Common Tasks
 
@@ -72,7 +82,7 @@ Add `"limited": true`:
 "limited": true
 ```
 
-This shows a **⚡ Limited supply** ribbon on the card. Tapping/hovering
+This shows a **⚡ Limited supply** ribbon on the card. Tapping/clicking
 it reveals a note: "Limited stock. Price rises once this batch sells out."
 Remove the `limited` line when stock is back to normal.
 
@@ -114,13 +124,22 @@ If image is missing, check:
 - exact filename and extension
 - uppercase/lowercase match
 
-## 7) When You Need `index.html`
+Filename-only `.jpg` and `.jpeg` values are resolved to `.png` by the storefront
+(with a few existing exceptions). Prefer the actual `.png` filename. A path
+starting with `/` is used unchanged, including its extension.
 
-Only edit `index.html` for global settings/content:
+When no exact product photo is available, omit `image` and set
+`"imageUnavailable": true`. Do not substitute a different model's photo.
 
-- checkout config (reserve/delivery/Sentoo/EmailJS)
-- navigation/footer/locations text
-- category definitions (only when adding a brand-new category key)
+## 7) Site Files
+
+- `index.html`: Homepage content, navigation, footer, locations, and campaign flyers
+- `css/main.css`: Homepage layout, colors, typography, and responsive styles
+- `js/storefront.js`: Category definitions, catalog rendering, search, filters, and featured offers
+- `js/checkout.js`: Checkout configuration (reserve amount, delivery fee, Sentoo, and EmailJS)
+
+Update `PRODUCTS_DATA_VERSION` in `js/storefront.js` after a catalog release,
+and the corresponding `?v=` references in `index.html` after CSS or script changes.
 
 ## 8) Deploy Changes
 
