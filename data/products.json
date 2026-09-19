@@ -64,14 +64,6 @@
     "image": "iphone-16-model.jpg"
   },
   {
-    "name": "iPhone 16",
-    "suffix": "Active",
-    "price": 1499,
-    "category": "apple",
-    "featured": false,
-    "image": "iphone-16-model.jpg"
-  },
-  {
     "name": "iPhone 16e",
     "suffix": "",
     "price": 1390,
@@ -96,29 +88,12 @@
     "image": "iphone-16-pro-max-model.jpg"
   },
   {
-    "name": "iPhone 17e",
-    "suffix": "",
-    "price": 1650,
-    "category": "apple",
-    "featured": false,
-    "landingPage": "https://connectionscuracao.net/iphone17e/",
-    "image": "iphone-17e-model.jpg"
-  },
-  {
     "name": "iPhone 17",
     "suffix": "",
     "price": 1999,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
-  },
-  {
-    "name": "iPhone 17 Air",
-    "suffix": "",
-    "price": 2290,
-    "category": "apple",
-    "featured": false,
-    "image": "iphone-17-air-model.jpg"
   },
   {
     "name": "iPhone 17 Pro",
@@ -129,7 +104,7 @@
     "image": "iphone-17-pro-model.jpg"
   },
   {
-    "name": "iPhone 17 Pro Max",
+    "name": "iPhone 17 Pro Max eSIM",
     "suffix": "",
     "price": 2949,
     "category": "apple",
