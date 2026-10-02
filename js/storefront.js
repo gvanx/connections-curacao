@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-09-19-iphone-esim';
+    const PRODUCTS_DATA_VERSION = '2026-10-02-phone-prices';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;

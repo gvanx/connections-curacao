@@ -58,7 +58,7 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1699,
+    "price": 1899,
     "category": "apple",
     "featured": false,
     "image": "iphone-16-model.jpg"
@@ -90,7 +90,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 1999,
+    "price": 2290,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -270,7 +270,7 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 399,
+    "price": 450,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a17-model.jpg"
