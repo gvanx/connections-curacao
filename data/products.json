@@ -58,7 +58,7 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1899,
+    "price": 1749,
     "category": "apple",
     "featured": false,
     "image": "iphone-16-model.jpg"
@@ -90,7 +90,7 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2290,
+    "price": 2149,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-model.jpg"
@@ -106,7 +106,7 @@
   {
     "name": "iPhone 17 Pro Max eSIM",
     "suffix": "",
-    "price": 2949,
+    "price": 2849,
     "category": "apple",
     "featured": true,
     "image": "iphone-17-pro-max-model.jpg"
@@ -270,7 +270,7 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 450,
+    "price": 399,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a17-model.jpg"
@@ -278,7 +278,7 @@
   {
     "name": "Galaxy A26",
     "suffix": "",
-    "price": 550,
+    "price": 549,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a26-model.jpg"
@@ -286,7 +286,7 @@
   {
     "name": "Galaxy A27",
     "suffix": "",
-    "price": 690,
+    "price": 629,
     "category": "samsung",
     "featured": false,
     "landingPage": "https://connectionscuracao.net/galaxya27/",
@@ -303,7 +303,7 @@
   {
     "name": "Galaxy A37 5G",
     "suffix": "",
-    "price": 699,
+    "price": 689,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a37-model.jpg",
@@ -320,7 +320,7 @@
   {
     "name": "Galaxy A57 5G",
     "suffix": "",
-    "price": 849,
+    "price": 789,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
@@ -353,7 +353,7 @@
   {
     "name": "Galaxy S25 FE 128GB",
     "suffix": "",
-    "price": 1099,
+    "price": 1049,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s25-fe-model.jpg"
@@ -377,7 +377,7 @@
   {
     "name": "Galaxy S26 FE 128GB",
     "suffix": "",
-    "price": 1690,
+    "price": 1699,
     "category": "samsung",
     "featured": false,
     "imageUnavailable": true
@@ -393,7 +393,7 @@
   {
     "name": "Galaxy S26 Ultra",
     "suffix": "",
-    "price": 2389,
+    "price": 2289,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-s26-ultra-model.png"
