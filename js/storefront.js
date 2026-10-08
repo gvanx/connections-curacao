@@ -204,7 +204,7 @@
       if (!featured.length) return;
 
       const container = document.querySelector('#deals .container');
-      let html = '<div class="section-heading"><div><p class="eyebrow">Hello, September</p><h2>This month’s good finds.</h2></div><a class="text-link" href="#products">Shop the collection ↗</a></div>';
+      let html = '<div class="section-heading"><div><p class="eyebrow">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class="text-link" href="/1010/">Explore 10/10 specials ↗</a></div>';
       html += '<div class="deals-wrapper fade-in">';
 
       // Arrow buttons
