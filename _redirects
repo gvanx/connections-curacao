@@ -23,3 +23,8 @@ https://s26.connectionscuracao.net/*  /s26/index.html  200
 /shop-preview-v8k3p  /shop-preview-v8k3p/index.html  200
 /scooters  /scooters/index.html  200
 /alpha  /alpha/index.html  200
+
+# Retired 10/10 campaign
+/1010  /  301!
+/1010/  /  301!
+/1010/index.html  /  301!

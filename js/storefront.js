@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-08-1010-prices';
+    const PRODUCTS_DATA_VERSION = '2026-10-13-catalog';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -200,28 +200,11 @@
     }
 
     function renderDeals(products) {
-      const specialNames = [
-        'iPhone 16',
-        'iPhone 17',
-        'iPhone 17 Pro Max eSIM',
-        'Galaxy A07',
-        'Galaxy A16',
-        'Galaxy A17',
-        'Galaxy A26',
-        'Galaxy A27',
-        'Galaxy A37 5G',
-        'Galaxy A57 5G',
-        'Galaxy S25 FE 128GB',
-        'Galaxy S26 FE 128GB',
-        'Galaxy S26 Ultra'
-      ];
-      const featured = specialNames
-        .map(name => products.find(p => p.name === name && p.suffix === ''))
-        .filter(Boolean);
+      const featured = products.filter(p => p.featured);
       if (!featured.length) return;
 
       const container = document.querySelector('#deals .container');
-      let html = '<div class="section-heading"><div><p class="eyebrow">Big day. Bigger upgrades.</p><h2>10/10 specials.</h2></div><a class="text-link" href="/1010/">Explore all 10/10 specials ↗</a></div>';
+      let html = '<div class="section-heading"><div><p class="eyebrow">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class="text-link" href="#products">Shop the collection ↗</a></div>';
       html += '<div class="deals-wrapper fade-in">';
 
       // Arrow buttons
