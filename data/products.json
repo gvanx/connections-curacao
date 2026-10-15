@@ -209,7 +209,7 @@
     "price": 1090,
     "category": "apple",
     "featured": false,
-    "imageUnavailable": true
+    "image": "/img/products/apple-watch-12-42mm.png"
   },
   {
     "name": "AirPods 4",
@@ -233,7 +233,7 @@
     "price": 550,
     "category": "apple",
     "featured": false,
-    "imageUnavailable": true
+    "image": "/img/products/airpods-5-model.jpg"
   },
   {
     "name": "AirPods 5 with Wireless Charging",
@@ -241,7 +241,7 @@
     "price": 650,
     "category": "apple",
     "featured": false,
-    "imageUnavailable": true
+    "image": "/img/products/airpods-5-wireless-charging-model.jpg"
   },
   {
     "name": "AirPods Pro 3",
@@ -273,7 +273,7 @@
     "price": 299,
     "category": "samsung",
     "featured": false,
-    "imageUnavailable": true
+    "image": "/img/products/galaxy-a07s-black.png"
   },
   {
     "name": "Galaxy F07",
@@ -770,7 +770,7 @@
     "price": 990,
     "category": "other",
     "featured": false,
-    "imageUnavailable": true
+    "image": "/img/products/starlink-mini-model.png"
   },
   {
     "name": "Electric Coffee Maker 12 Cups",
