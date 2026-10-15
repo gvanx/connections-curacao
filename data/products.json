@@ -204,6 +204,14 @@
     "image": "apple-watch-series-11-model.jpg"
   },
   {
+    "name": "Apple Watch 12 42mm",
+    "suffix": "",
+    "price": 1090,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true
+  },
+  {
     "name": "AirPods 4",
     "suffix": "",
     "price": 349,
@@ -218,6 +226,22 @@
     "category": "apple",
     "featured": false,
     "image": "airpods-4-anc-model.jpg"
+  },
+  {
+    "name": "AirPods 5",
+    "suffix": "",
+    "price": 550,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true
+  },
+  {
+    "name": "AirPods 5 with Wireless Charging",
+    "suffix": "",
+    "price": 650,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true
   },
   {
     "name": "AirPods Pro 3",
@@ -242,6 +266,14 @@
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a07-model.jpg"
+  },
+  {
+    "name": "Galaxy A07s",
+    "suffix": "",
+    "price": 299,
+    "category": "samsung",
+    "featured": false,
+    "imageUnavailable": true
   },
   {
     "name": "Galaxy F07",
@@ -731,6 +763,14 @@
     "category": "other",
     "featured": false,
     "image": "nintendo-switch-2-model.png"
+  },
+  {
+    "name": "Starlink Mini",
+    "suffix": "",
+    "price": 990,
+    "category": "other",
+    "featured": false,
+    "imageUnavailable": true
   },
   {
     "name": "Electric Coffee Maker 12 Cups",
