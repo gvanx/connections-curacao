@@ -134,7 +134,13 @@
     function productVisualHTML(product, fullName) {
       const filename = (product.image || '').replace(/\.jpe?g$/i, '.png');
       if (product.image && !product.imageUnavailable && !GENERIC_IMAGE_FILES.has(filename)) {
-        return `<img src="${productImageSrc(product)}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async">`;
+        const src = productImageSrc(product);
+        if (/\.(png|jpe?g)$/i.test(src)) {
+          const avif = src.replace(/\.(png|jpe?g)$/i, '.avif');
+          const webp = src.replace(/\.(png|jpe?g)$/i, '.webp');
+          return `<picture><source type="image/avif" srcset="${avif}"><source type="image/webp" srcset="${webp}"><img src="${src}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async"></picture>`;
+        }
+        return `<img src="${src}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async">`;
       }
       const mark = ({ tvs: 'TV', laptops: 'PC', acs: '°', appliances: '+' })[product.category] || '•';
       return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">
