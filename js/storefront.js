@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-15-catalog-images';
+    const PRODUCTS_DATA_VERSION = '2026-10-22-hp-new-arrivals';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -142,6 +142,32 @@
         <span class="model-art-type">${escapeHtml(productType(product))}</span>
         <strong class="model-art-name">${escapeHtml(fullName)}</strong>
       </div>`;
+    }
+
+    function productSpecificationsHTML(product) {
+      const specs = product.specifications;
+      if (!specs || typeof specs !== 'object' || Array.isArray(specs)) return '';
+      const entries = Object.entries(specs).filter(([, value]) => value !== null && value !== undefined && value !== '');
+      if (!entries.length) return '';
+      return `<details class="product-details">
+        <summary>Full specifications</summary>
+        <dl>${entries.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl>
+      </details>`;
+    }
+
+    function isPricePending(product) {
+      return product.pricePending === true && !(Number.isFinite(product.price) && product.price > 0);
+    }
+
+    function productPriceHTML(product, oldPriceHtml) {
+      if (isPricePending(product)) return '<span class="price-pending">Price coming soon</span>';
+      return product.price ? formatPrice(product.price) + oldPriceHtml : 'Ask in store';
+    }
+
+    function productInquiryMessage(product, fullName) {
+      return "Hi, I'm interested in the " + fullName + (isPricePending(product)
+        ? '. Please send me the price and details.'
+        : '. Is it available?');
     }
 
     /* ---- Category Grid ---- */
@@ -227,7 +253,8 @@
         const { ribbon, oldPriceHtml } = saleInfo(p);
         const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
         const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-        const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
+        const arrivalBadge = p.newArrival === true ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+        const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
         html += `
           <div class="deal-card">
             ${corner}
@@ -237,11 +264,13 @@
             <div class="deal-body">
               <div class="deal-name">${escapeHtml(p.name)}${hsoBadge}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
               ${activeNote}${limitedNote}
-              <div class="deal-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
-              ${p.price && !p.inquiryOnly ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+              ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
+              ${productSpecificationsHTML(p)}
+              <div class="deal-price">${productPriceHTML(p, oldPriceHtml)}</div>
+              ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
-              </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
-                ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask availability'}
+              </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+                ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : 'Ask availability'}
               </a>`}
             </div>
           </div>`;
@@ -278,7 +307,8 @@
       const { ribbon, oldPriceHtml } = saleInfo(p);
       const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
       const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-      const corner = (ribbon || limitedBadge) ? `<div class="card-ribbons">${ribbon}${limitedBadge}</div>` : '';
+      const arrivalBadge = p.newArrival === true ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+      const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
       return `
         <div class="product-card">
           ${corner}
@@ -289,11 +319,12 @@
             <div class="product-name">${escapeHtml(p.name)}${hsoBadge}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
             ${activeNote}${limitedNote}
             ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
-            <div class="product-price">${p.price ? formatPrice(p.price) + oldPriceHtml : 'Ask in store'}</div>
-            ${p.price && !p.inquiryOnly ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+            ${productSpecificationsHTML(p)}
+            <div class="product-price">${productPriceHTML(p, oldPriceHtml)}</div>
+            ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
-            </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent("Hi, I'm interested in the " + fullName + ". Is it available?"))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
-              ${WA_ICON} ${p.landingPage ? 'View Details' : 'Ask availability'}
+            </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
+              ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : 'Ask availability'}
             </a>`}
           </div>
         </div>`;
@@ -313,7 +344,8 @@
             <button type="button" id="pf-reset">Clear filters</button>
           </div>`;
         } else {
-          const label = products.length === 1 ? '1 result' : `${products.length} results`;
+          const resultCount = products.length === 1 ? '1 result' : `${products.length} results`;
+          const label = filterState.category === 'new-arrivals' ? `New Arrivals · ${resultCount}` : resultCount;
           html = `<div class="product-section">
             <h2 class="results-title">${label}</h2>
             <div class="product-grid">${products.map(productCardHTML).join('')}</div>
@@ -344,7 +376,10 @@
 
     /* ---- Search / filter / sort toolbar ---- */
     let ALL_PRODUCTS = [];
-    function matchesCategory(p, category) { return p.category === category || (category === 'laptops' && /macbook/i.test(p.name)); }
+    function matchesCategory(p, category) {
+      if (category === 'new-arrivals') return p.newArrival === true;
+      return p.category === category || (category === 'laptops' && /macbook/i.test(p.name));
+    }
     const filterState = { search: '', category: 'all', price: 'all', sort: 'featured' };
 
     const PRICE_BUCKETS = {
@@ -359,7 +394,7 @@
     function applyFilters() {
       const q = filterState.search.trim().toLowerCase();
       let list = ALL_PRODUCTS.filter(p => {
-        const name = (p.name + ' ' + (p.suffix || '') + ' ' + (p.spec || '')).toLowerCase();
+        const name = [p.name, p.suffix, p.spec, p.model, p.sku, ...Object.values(p.specifications || {})].filter(Boolean).join(' ').toLowerCase();
         if (q && !name.includes(q)) return false;
         if (filterState.category !== 'all' && !matchesCategory(p, filterState.category)) return false;
         if (!PRICE_BUCKETS[filterState.price](p)) return false;
@@ -367,7 +402,7 @@
       });
 
       const s = filterState.sort;
-      if (s === 'featured') list = [...list].sort((a, b) => Number(b.featured) - Number(a.featured));
+      if (s === 'featured') list = [...list].sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || Number(b.newArrival === true) - Number(a.newArrival === true));
       else if (s === 'price-asc')  list = [...list].sort((a, b) => (a.price || Infinity) - (b.price || Infinity));
       else if (s === 'price-desc') list = [...list].sort((a, b) => (b.price || -Infinity) - (a.price || -Infinity));
       else if (s === 'name')  list = [...list].sort((a, b) => a.name.localeCompare(b.name));
@@ -390,8 +425,24 @@
       if (search) { search.value = ''; search.closest('.pf-search').classList.remove('has-value'); }
       if (price) price.value = 'all';
       if (sort) sort.value = 'featured';
-      document.querySelectorAll('.pf-pill').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+      syncCategoryPills();
       applyFilters();
+    }
+
+    function syncCategoryPills() {
+      document.querySelectorAll('.pf-pill').forEach(button => {
+        const selected = button.dataset.cat === filterState.category;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+    }
+
+    function openNewArrivals() {
+      resetFilters();
+      filterState.category = 'new-arrivals';
+      syncCategoryPills();
+      applyFilters();
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function renderToolbar(products) {
@@ -402,9 +453,12 @@
       products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
       const cats = CATEGORY_ORDER.filter(c => counts[c]);
 
-      let pills = `<button type="button" class="pf-pill active" data-cat="all">All</button>`;
+      let pills = `<button type="button" class="pf-pill active" data-cat="all" aria-pressed="true">All</button>`;
+      if (products.some(p => p.newArrival === true)) {
+        pills += `<button type="button" class="pf-pill pf-pill-new" data-cat="new-arrivals" aria-pressed="false">New Arrivals</button>`;
+      }
       cats.forEach(c => {
-        pills += `<button type="button" class="pf-pill" data-cat="${c}">${CATEGORY_META[c].name}</button>`;
+        pills += `<button type="button" class="pf-pill" data-cat="${c}" aria-pressed="false">${CATEGORY_META[c].name}</button>`;
       });
 
       toolbar.innerHTML = `
@@ -465,7 +519,9 @@
       toolbar.querySelectorAll('.pf-pill').forEach(btn => {
         btn.addEventListener('click', () => {
           filterState.category = btn.dataset.cat;
-          toolbar.querySelectorAll('.pf-pill').forEach(b => b.classList.toggle('active', b === btn));
+          syncCategoryPills();
+          if (filterState.category === 'new-arrivals') history.replaceState(null, '', '#new-arrivals');
+          else if (location.hash === '#new-arrivals') history.replaceState(null, '', '#products');
           applyFilters();
         });
       });
@@ -511,6 +567,7 @@
         renderToolbar(products);
         applyFilters();
         initCheckoutModal();
+        if (location.hash === '#new-arrivals') openNewArrivals();
       } catch (e) {
         console.error('Failed to load products:', e);
         document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';
@@ -526,4 +583,8 @@
       const pill = document.querySelector('.pf-pill[data-cat="' + link.dataset.cat + '"]');
       if (pill) pill.click();
       document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    window.addEventListener('hashchange', () => {
+      if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
     });

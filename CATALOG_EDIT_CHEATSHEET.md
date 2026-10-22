@@ -36,9 +36,14 @@ For most catalog updates, this is the only file you need.
 
 - `name`: Product title shown on site
 - `suffix`: Usually `""` or `"HSO"`
-- `price`: Number only (no currency symbol)
+- `price`: Retail price as a number (no currency symbol), or `null` when not yet set
 - `category`: Controls which section it appears in
 - `featured`: `true` shows in Featured Deals
+- `newArrival`: `true` shows a **New Arrival** badge and includes the item in the **New Arrivals** tab
+- `pricePending`: When `true` and no positive numeric retail price is set, shows **Price coming soon**, uses a WhatsApp details inquiry, and disables checkout
+- `spec`: Short specification summary shown on the product card
+- `specifications`: Object of label/value pairs shown under **Full specifications**
+- `model` / `sku`: Exact manufacturer identifiers; also included in catalog search
 - `image`: Filename from `img/products/`, or a root-relative path such as `/scooters/trophy-actual.jpeg`
 - `imageUnavailable`: `true` displays the model name as artwork instead of an unrelated photo
 - `inquiryOnly`: `true` keeps the price visible but replaces checkout with an availability inquiry
@@ -57,6 +62,27 @@ Edit:
 
 ```json
 "price": 575
+```
+
+### Publish a New Arrival Before Pricing
+
+Set `"newArrival": true`, `"price": null`, and `"pricePending": true`.
+Use the public link `https://connectionscuracao.net/#new-arrivals` to open the
+New Arrivals tab. Never use an invoice purchase cost as the selling price.
+
+Once the retail price is supplied, set `price` to that positive number.
+Pricing and checkout activate automatically, even if `pricePending` remains
+`true`. Remove `inquiryOnly` too if it was separately set and checkout should
+be available. The New Arrival badge can remain independently.
+
+For fuller specifications, add an object such as:
+
+```json
+"specifications": {
+  "Processor": "Intel Processor N150",
+  "Memory": "4GB RAM",
+  "Storage": "128GB UFS"
+}
 ```
 
 ### Put a Product on Sale (discount ribbon)
