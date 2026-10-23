@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-22-hp-new-arrivals';
+    const PRODUCTS_DATA_VERSION = '2026-10-23-priced-appliances';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -114,7 +114,7 @@
 
     function productBrand(product) {
       const text = `${product.name || ''} ${product.spec || ''}`.toLowerCase();
-      const brands = ['Samsung', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
+      const brands = ['Midea', 'Premier', 'Samsung', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
       return brands.find(brand => text.includes(brand.toLowerCase())) || CATEGORY_META[product.category]?.name || 'Connections';
     }
 

@@ -1124,5 +1124,412 @@
     "category": "tvs",
     "featured": false,
     "image": "tv-generic.png"
+  },
+  {
+    "name": "Midea Side-by-Side Inverter Refrigerator 18 cu ft",
+    "suffix": "MDRS710FGG46INV",
+    "price": 1799,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "MDRS710FGG46INV",
+    "imageUnavailable": true,
+    "spec": "18 cu ft · Side-by-side · Inverter · 115V / 60Hz",
+    "specifications": {
+      "Model": "MDRS710FGG46INV",
+      "Capacity": "18 cu ft",
+      "Design": "Side-by-side",
+      "Compressor": "Inverter",
+      "Power supply": "115V / 60Hz"
+    }
+  },
+  {
+    "name": "Midea Refrigerator 12 cu ft",
+    "suffix": "MDRT489MTG46INVWD",
+    "price": 1099,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "MDRT489MTG46INVWD",
+    "imageUnavailable": true,
+    "spec": "12 cu ft",
+    "specifications": {
+      "Model": "MDRT489MTG46INVWD",
+      "Capacity": "12 cu ft"
+    }
+  },
+  {
+    "name": "Midea Inverter Refrigerator 465L",
+    "suffix": "MDRT645MTM46WD",
+    "price": 1299,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "MDRT645MTM46WD",
+    "imageUnavailable": true,
+    "spec": "465L · Inverter · 115V / 60Hz",
+    "specifications": {
+      "Model": "MDRT645MTM46WD",
+      "Capacity": "465L",
+      "Compressor": "Inverter",
+      "Power supply": "115V / 60Hz"
+    }
+  },
+  {
+    "name": "Midea Refrigerator 14 cu ft",
+    "suffix": "MDRT580MTG46INV",
+    "price": 1199,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "MDRT580MTG46INV",
+    "imageUnavailable": true,
+    "spec": "14 cu ft · 115V / 60Hz",
+    "specifications": {
+      "Model": "MDRT580MTG46INV",
+      "Capacity": "14 cu ft",
+      "Power supply": "115V / 60Hz"
+    }
+  },
+  {
+    "name": "Midea Two-Door Mini Fridge 3.3 cu ft",
+    "suffix": "MDRT87CCDLS",
+    "price": 450,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "MDRT87CCDLS",
+    "imageUnavailable": true,
+    "spec": "3.3 cu ft · 2 doors · Gray · 115V / 60Hz",
+    "specifications": {
+      "Model": "MDRT87CCDLS",
+      "Capacity": "3.3 cu ft",
+      "Doors": "2",
+      "Color": "Gray",
+      "Power supply": "115V / 60Hz"
+    }
+  },
+  {
+    "name": "Twin-Tub Washing Machine 10kg",
+    "suffix": "OSK100-1-110V",
+    "price": 449,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "OSK100-1-110V",
+    "imageUnavailable": true,
+    "spec": "10kg · Twin tub",
+    "specifications": {
+      "Model": "OSK100-1-110V",
+      "Wash capacity": "10kg",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Washing Machine 10kg",
+    "suffix": "OSK130-1-110V",
+    "price": 549,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "OSK130-1-110V",
+    "imageUnavailable": true,
+    "spec": "10kg",
+    "specifications": {
+      "Model": "OSK130-1-110V",
+      "Wash capacity": "10kg"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 11kg",
+    "suffix": "LAV-6544T2D11BWN1",
+    "price": 449,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-6544T2D11BWN1",
+    "imageUnavailable": true,
+    "spec": "11kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-6544T2D11BWN1",
+      "Wash capacity": "11kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 7kg",
+    "suffix": "LAV-9176T2D7A",
+    "price": 349,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9176T2D7A",
+    "imageUnavailable": true,
+    "spec": "7kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9176T2D7A",
+      "Wash capacity": "7kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 10kg",
+    "suffix": "LAV-9177T2C10B",
+    "price": 449,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9177T2C10B",
+    "imageUnavailable": true,
+    "spec": "10kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9177T2C10B",
+      "Wash capacity": "10kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 12kg",
+    "suffix": "LAV-9288T2C12B",
+    "price": 499,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9288T2C12B",
+    "imageUnavailable": true,
+    "spec": "12kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9288T2C12B",
+      "Wash capacity": "12kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 15kg",
+    "suffix": "LAV-9289T2C15A",
+    "price": 549,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9289T2C15A",
+    "imageUnavailable": true,
+    "spec": "15kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9289T2C15A",
+      "Wash capacity": "15kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 10kg",
+    "suffix": "LAV-9291T2C10B",
+    "price": 375,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9291T2C10B",
+    "imageUnavailable": true,
+    "spec": "10kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9291T2C10B",
+      "Wash capacity": "10kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Semi-Automatic Twin-Tub Washer 11kg",
+    "suffix": "LAV-9292T2C11B",
+    "price": 425,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "LAV-9292T2C11B",
+    "imageUnavailable": true,
+    "spec": "11kg · Semi-automatic · Twin tub",
+    "specifications": {
+      "Model": "LAV-9292T2C11B",
+      "Wash capacity": "11kg",
+      "Operation": "Semi-automatic",
+      "Design": "Twin tub"
+    }
+  },
+  {
+    "name": "Premier Refrigerator 200L",
+    "suffix": "NV-6795R2D75SN1 ESTRI",
+    "price": 599,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-6795R2D75SN1 ESTRI",
+    "imageUnavailable": true,
+    "spec": "200L / 7 cu ft · Silver",
+    "specifications": {
+      "Model": "NV-6795R2D75SN1 ESTRI",
+      "Capacity": "200L / 7 cu ft",
+      "Color": "Silver"
+    }
+  },
+  {
+    "name": "Premier No-Frost Refrigerator 248L",
+    "suffix": "NV-6919R2F11TN1 LISHA",
+    "price": 799,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-6919R2F11TN1 LISHA",
+    "imageUnavailable": true,
+    "spec": "248L / 8.76 cu ft · No Frost",
+    "specifications": {
+      "Model": "NV-6919R2F11TN1 LISHA",
+      "Capacity": "248L / 8.76 cu ft",
+      "Cooling": "No Frost"
+    }
+  },
+  {
+    "name": "Premier Stainless Steel Refrigerator 92L",
+    "suffix": "NV-6920R1D35TN1",
+    "price": 375,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-6920R1D35TN1",
+    "imageUnavailable": true,
+    "spec": "92L / 3.25 cu ft · Stainless steel",
+    "specifications": {
+      "Model": "NV-6920R1D35TN1",
+      "Capacity": "92L / 3.25 cu ft",
+      "Finish": "Stainless steel"
+    }
+  },
+  {
+    "name": "Premier No-Frost Refrigerator 345L",
+    "suffix": "NV-7251D2F13TN1",
+    "price": 949,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-7251D2F13TN1",
+    "imageUnavailable": true,
+    "spec": "345L / 12.18 cu ft · No Frost · Stainless steel · Water dispenser",
+    "specifications": {
+      "Model": "NV-7251D2F13TN1",
+      "Capacity": "345L / 12.18 cu ft",
+      "Cooling": "No Frost",
+      "Finish": "Stainless steel",
+      "Water dispenser": "Yes"
+    }
+  },
+  {
+    "name": "Premier No-Frost Refrigerator 513L with Water Dispenser",
+    "suffix": "NV-7253R2V20TN1 MAR",
+    "price": 1375,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-7253R2V20TN1 MAR",
+    "imageUnavailable": true,
+    "spec": "513L / 18.1 cu ft · No Frost · Stainless steel · Water dispenser",
+    "specifications": {
+      "Model": "NV-7253R2V20TN1 MAR",
+      "Capacity": "513L / 18.1 cu ft",
+      "Cooling": "No Frost",
+      "Finish": "Stainless steel",
+      "Water dispenser": "Yes"
+    }
+  },
+  {
+    "name": "Premier Refrigerator 112L",
+    "suffix": "NV-8426R2D39SN1",
+    "price": 499,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-8426R2D39SN1",
+    "imageUnavailable": true,
+    "spec": "112L / 3.95 cu ft · Silver",
+    "specifications": {
+      "Model": "NV-8426R2D39SN1",
+      "Capacity": "112L / 3.95 cu ft",
+      "Color": "Silver"
+    }
+  },
+  {
+    "name": "Premier Side-by-Side No-Frost Refrigerator 525L",
+    "suffix": "NV-8803D6V185TB1",
+    "price": 1449,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-8803D6V185TB1",
+    "imageUnavailable": true,
+    "spec": "525L / 18.5 cu ft · Side-by-side · No Frost · Black stainless steel · Water dispenser",
+    "specifications": {
+      "Model": "NV-8803D6V185TB1",
+      "Capacity": "525L / 18.5 cu ft",
+      "Design": "Side-by-side",
+      "Cooling": "No Frost",
+      "Finish": "Black stainless steel",
+      "Water dispenser": "Yes"
+    }
+  },
+  {
+    "name": "Premier Side-by-Side No-Frost Refrigerator 559L",
+    "suffix": "NV-8805D6V197TB1",
+    "price": 1649,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-8805D6V197TB1",
+    "imageUnavailable": true,
+    "spec": "559L / 19.7 cu ft · Side-by-side · No Frost · Black stainless steel · Water dispenser",
+    "specifications": {
+      "Model": "NV-8805D6V197TB1",
+      "Capacity": "559L / 19.7 cu ft",
+      "Design": "Side-by-side",
+      "Cooling": "No Frost",
+      "Finish": "Black stainless steel",
+      "Water dispenser": "Yes"
+    }
+  },
+  {
+    "name": "Premier No-Frost Refrigerator 513L",
+    "suffix": "NV-8999R2V182",
+    "price": 1249,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-8999R2V182",
+    "imageUnavailable": true,
+    "spec": "513L / 18.1 cu ft · No Frost · Stainless steel · 110V",
+    "specifications": {
+      "Model": "NV-8999R2V182",
+      "Capacity": "513L / 18.1 cu ft",
+      "Cooling": "No Frost",
+      "Finish": "Stainless steel",
+      "Power supply": "110V"
+    }
+  },
+  {
+    "name": "Premier No-Frost Refrigerator 406L",
+    "suffix": "NV-9013R2V143TN1",
+    "price": 1049,
+    "category": "appliances",
+    "featured": false,
+    "newArrival": true,
+    "model": "NV-9013R2V143TN1",
+    "imageUnavailable": true,
+    "spec": "406L / 14.34 cu ft · No Frost · Stainless steel",
+    "specifications": {
+      "Model": "NV-9013R2V143TN1",
+      "Capacity": "406L / 14.34 cu ft",
+      "Cooling": "No Frost",
+      "Finish": "Stainless steel"
+    }
   }
 ]
