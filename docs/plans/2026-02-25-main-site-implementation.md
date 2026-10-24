@@ -465,15 +465,17 @@ gh repo create gvanx/connections-curacao --public --source=. --push
 
 **Step 2: Create Netlify site and link**
 
+Authenticate with `netlify login`, or provide `NETLIFY_AUTH_TOKEN` through your shell or CI secret store. Never put access tokens in source files or deployment commands committed to Git.
+
 ```bash
-NETLIFY_AUTH_TOKEN=nfp_xJ2vcepkgDr6TJup3hkPxHmExZKdd7wmf01a netlify sites:create --name connections-curacao
-NETLIFY_AUTH_TOKEN=nfp_xJ2vcepkgDr6TJup3hkPxHmExZKdd7wmf01a netlify link
+netlify sites:create --name connections-curacao
+netlify link
 ```
 
 **Step 3: Deploy**
 
 ```bash
-NETLIFY_AUTH_TOKEN=nfp_xJ2vcepkgDr6TJup3hkPxHmExZKdd7wmf01a netlify deploy --prod --dir=.
+netlify deploy --prod --dir=.
 ```
 
 **Step 4: Configure build settings** to auto-deploy from GitHub main branch.
