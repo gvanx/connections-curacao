@@ -1,0 +1,247 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://connectionscuracao.net/#organization",
+      "name": "Connections Curaçao",
+      "alternateName": "Connections Curacao",
+      "url": "https://connectionscuracao.net/",
+      "description": "Electronics retailer with stores in Punda and Otrobanda, Willemstad, Curaçao.",
+      "foundingDate": "1998",
+      "telephone": "+59996782619",
+      "email": "info@connectionscuracao.net",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      },
+      "sameAs": [
+        "https://instagram.com/connectionscuracao",
+        "https://facebook.com/connectionscuracao123"
+      ],
+      "subOrganization": [
+        {
+          "@id": "https://connectionscuracao.net/#store-punda"
+        },
+        {
+          "@id": "https://connectionscuracao.net/#store-otrobanda"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Connections products and services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://connectionscuracao.net/#electronics-retail"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://connectionscuracao.net/#device-repairs"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://connectionscuracao.net/#trade-in"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://connectionscuracao.net/#gift-cards"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://connectionscuracao.net/#starlink-hardware"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://connectionscuracao.net/#website",
+      "url": "https://connectionscuracao.net/",
+      "name": "Connections Curaçao",
+      "publisher": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "ElectronicsStore",
+      "@id": "https://connectionscuracao.net/#store-punda",
+      "name": "Connections Punda",
+      "url": "https://connectionscuracao.net/#locations",
+      "parentOrganization": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "description": "Electronics store in Willemstad, Curaçao.",
+      "telephone": "+59996782619",
+      "email": "info@connectionscuracao.net",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ruyterkade 28",
+        "addressLocality": "Willemstad",
+        "addressCountry": "CW"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "09:30",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "00:00",
+          "closes": "00:00"
+        }
+      ],
+      "currenciesAccepted": "XCG",
+      "hasMap": "https://maps.google.com/?q=Ruyterkade+28+Punda+Willemstad+Curacao"
+    },
+    {
+      "@type": "ElectronicsStore",
+      "@id": "https://connectionscuracao.net/#store-otrobanda",
+      "name": "Connections Otrobanda",
+      "url": "https://connectionscuracao.net/#locations",
+      "parentOrganization": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "description": "Electronics store in Willemstad, Curaçao.",
+      "telephone": "+59996912424",
+      "email": "info@connectionscuracao.net",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bredestraat 12",
+        "addressLocality": "Willemstad",
+        "addressCountry": "CW"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "09:30",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "00:00",
+          "closes": "00:00"
+        }
+      ],
+      "currenciesAccepted": "XCG",
+      "hasMap": "https://maps.google.com/?q=Bredestraat+12+Otrobanda+Willemstad+Curacao"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://connectionscuracao.net/#electronics-retail",
+      "name": "Electronics retail",
+      "description": "Phones, laptops, audio products and accessories.",
+      "url": "https://connectionscuracao.net/#products",
+      "provider": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://connectionscuracao.net/#device-repairs",
+      "name": "Phone and tablet repairs",
+      "description": "Enquiries and quotations for supported device repairs.",
+      "url": "https://connectionscuracao.net/repair/",
+      "provider": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://connectionscuracao.net/#trade-in",
+      "name": "Device trade-ins",
+      "description": "Device assessment and trade-in enquiries towards store credit.",
+      "url": "https://trade.connectionscuracao.net/",
+      "provider": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://connectionscuracao.net/#gift-cards",
+      "name": "Digital gift cards",
+      "description": "Gift-card options and ordering enquiries.",
+      "url": "https://giftcard.connectionscuracao.net/",
+      "provider": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://connectionscuracao.net/#starlink-hardware",
+      "name": "Starlink hardware enquiries",
+      "description": "Hardware enquiries and independent plan information. Starlink provides and bills the internet subscription.",
+      "url": "https://connectionscuracao.net/starlink/",
+      "provider": {
+        "@id": "https://connectionscuracao.net/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Curaçao",
+        "identifier": "CW"
+      }
+    }
+  ]
+}
+

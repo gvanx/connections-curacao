@@ -1,0 +1,109 @@
+# Connections Curaçao
+
+> Business reference for customers and assistants researching Connections Curaçao, an electronics retailer in Willemstad, Curaçao.
+
+Information reviewed: 24 October 2026.
+Official website: https://connectionscuracao.net/
+Source of business facts: the public Connections website and its gvanx/connections-curacao repository.
+
+## Business overview
+
+Connections Curaçao sells electronics and accessories, with stores in Punda and Otrobanda. The website states that the business has operated since 1998. Customers can browse the website, contact the team through WhatsApp, or visit a store.
+
+The business serves customers in Curaçao. The two electronics-store locations are in Willemstad. The separate scooter page lists Premier Automotive at Rooseveltweg 68; customers should confirm the appropriate destination for scooter visits.
+
+## Stores and contact details
+
+Connections Punda
+Address: Ruyterkade 28, Punda, Willemstad, Curaçao
+Phone: +599 9 678 2619
+WhatsApp: https://wa.me/59996782619
+Directions: https://maps.google.com/?q=Ruyterkade+28+Punda+Willemstad+Curacao
+
+Connections Otrobanda
+Address: Bredestraat 12, Otrobanda, Willemstad, Curaçao
+Phone: +599 9 691 2424
+Directions: https://maps.google.com/?q=Bredestraat+12+Otrobanda+Willemstad+Curacao
+
+Published hours for both stores:
+Monday–Saturday: 09:30–18:00
+Sunday: closed
+Confirm holiday hours and temporary changes with the store.
+
+General email: info@connectionscuracao.net
+Locations page: https://connectionscuracao.net/#locations
+
+## Products and brands
+
+The website features smartphones, laptops, charging accessories and audio products. Featured brands include Apple, Samsung, HP, Anker and JBL.
+
+The main collection is at https://connectionscuracao.net/#products and uses JavaScript. Model pages are listed in https://connectionscuracao.net/llms.txt and the existing XML sitemap.
+
+Availability is model-specific. Confirm storage, colour, condition, included accessories, price and warranty terms before ordering. A model appearing on a promotional page does not establish that every variant is in stock.
+
+## Repairs
+
+https://connectionscuracao.net/repair/
+
+The repair page covers phones and tablets, including iPhone, Samsung and other supported devices. Listed repair categories include screens, batteries, charging ports, cameras, speakers, microphones and back glass.
+
+The page advertises walk-ins, diagnosis and quotations. Ask the repair team to confirm support for the exact model, parts, cost and expected completion time. This reference does not promise a repair deadline, a particular replacement-part origin or manufacturer authorisation.
+
+## Second-hand phones and trade-ins
+
+Second-hand phones: https://hso2.connectionscuracao.net/
+Trade-in programme: https://trade.connectionscuracao.net/
+
+These are separate customer-facing websites linked from the main Connections website. The main site describes trade-ins as a way to receive store credit towards a new purchase. Confirm device eligibility, condition assessment and the final credit with the team.
+
+## Digital gift cards and audio
+
+Digital gift cards: https://giftcard.connectionscuracao.net/
+JBL audio: https://jbl.connectionscuracao.net/
+
+Use these websites for their current collections and ordering information. For gift cards, confirm the platform, account region, denomination, delivery process and applicable terms before payment.
+
+## Suave payment options
+
+https://connectionscuracao.net/suave/
+
+Connections offers in-store payment options through Suave. The page states that applications are subject to approval and that applicants must be at least 18 with valid ID.
+
+The homepage states a 3% processing fee for Suave purchases. Other purchase-specific pages may describe the fee differently. The store and Suave must confirm the applicable fee, approved payment schedule and final total. Product selection does not establish credit approval.
+
+## Starlink hardware and information
+
+https://connectionscuracao.net/starlink/
+
+Connections publishes an independent guide to Starlink plans for Curaçao and accepts hardware enquiries. Starlink manages and bills the monthly internet service through the customer's own account. Hardware is separate from the subscription.
+
+Plan availability, kit eligibility and final charges depend on Starlink's current terms and the service address. Use the official Starlink links on the page and confirm current kit stock with Connections.
+
+## Scooters
+
+https://connectionscuracao.net/scooters/
+
+The scooter page lists 150cc models, WhatsApp ordering, payment illustrations and referral terms. It identifies Premier Automotive at Rooseveltweg 68, Willemstad, Curaçao. Confirm the current model, stock, price, collection location and sale terms directly.
+
+Referral rewards are governed by that page's eligibility and completed-sale requirements. A shared referral link or saved code does not establish a payable reward.
+
+## Other information
+
+IPTV: https://connectionscuracao.net/iptv/
+Contact Connections for current information and terms.
+
+## Official profiles
+
+Instagram: https://instagram.com/connectionscuracao
+Facebook: https://facebook.com/connectionscuracao123
+
+These profile URLs are linked in the main website's source.
+
+## Scope and updates
+
+This file provides business facts and links, not live stock, a binding quotation or a customer review database. Contact the team and consult the relevant current page for time-sensitive details.
+
+No claim of Apple-authorised reseller status, manufacturer-certified service status, awards, review score or ranking is made here. Such claims need separate evidence.
+
+Update this reference and llms.txt when locations, contact details, hours, services or linked pages change.
+
