@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-restock';
+    const PRODUCTS_DATA_VERSION = '2026-10-28-apple-cleanup';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -626,4 +626,5 @@
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
     });
+
 

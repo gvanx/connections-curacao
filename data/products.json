@@ -162,26 +162,9 @@
     "image": "/img/products/macbook-neo-indigo.jpg"
   },
   {
-    "name": "MacBook Air M3 256GB/16GB",
-    "suffix": "",
-    "price": 1999,
-    "category": "apple",
-    "featured": false,
-    "image": "macbook-generic.png"
-  },
-  {
     "name": "iPad Air M4 256GB",
     "suffix": "",
     "price": 1990,
-    "category": "apple",
-    "featured": false,
-    "subcategory": "tablet",
-    "image": "ipad-air-m3-model.jpg"
-  },
-  {
-    "name": "iPad Air M3 128GB",
-    "suffix": "",
-    "price": 1499,
     "category": "apple",
     "featured": false,
     "subcategory": "tablet",
@@ -194,30 +177,6 @@
     "category": "apple",
     "featured": false,
     "image": "apple-pencil-model.png"
-  },
-  {
-    "name": "Apple Watch SE 3 40mm",
-    "suffix": "",
-    "price": 699,
-    "category": "apple",
-    "featured": false,
-    "image": "apple-watch-se-3-model.jpg"
-  },
-  {
-    "name": "Apple Watch SE 3 44mm",
-    "suffix": "",
-    "price": 750,
-    "category": "apple",
-    "featured": false,
-    "image": "apple-watch-se-3-model.jpg"
-  },
-  {
-    "name": "Apple Watch 11 42mm",
-    "suffix": "",
-    "price": 990,
-    "category": "apple",
-    "featured": false,
-    "image": "apple-watch-series-11-model.jpg"
   },
   {
     "name": "Apple Watch 11 46mm",
@@ -272,14 +231,6 @@
     "image": "/img/products/airpods-5-wireless-charging-model.jpg",
     "addedAt": "2026-10-15T20:40:05Z",
     "newArrival": true
-  },
-  {
-    "name": "AirPods Pro 3",
-    "suffix": "",
-    "price": 550,
-    "category": "apple",
-    "featured": false,
-    "image": "airpods-pro-3-model.jpg"
   },
   {
     "name": "Galaxy A07",
