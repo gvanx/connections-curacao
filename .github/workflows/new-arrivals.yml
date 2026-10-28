@@ -1,4 +1,4 @@
-name: Maintain New Arrival badges
+name: Maintain product badges
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: main
-      - name: Test arrival rules
+      - name: Test arrival and restock rules
         run: node --test tests/new-arrivals.test.cjs
       - name: Tag new listings and expire old badges
         shell: bash
@@ -44,10 +44,11 @@ jobs:
             if git diff --cached --quiet; then
               exit 0
             fi
-            git commit -m 'Maintain automatic New Arrival badges'
+            git commit -m 'Maintain automatic arrival and restock badges'
             if git push origin HEAD:main; then
               exit 0
             fi
           done
           echo 'Could not save arrival dates after three concurrent-update retries.' >&2
           exit 1
+

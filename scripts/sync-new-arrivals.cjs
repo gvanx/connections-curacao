@@ -2,7 +2,7 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
-const { addedAtTime, isNewArrival } = require('../js/new-arrivals.js');
+const { addedAtTime, restockedAtTime, isNewArrival, isBackInStock } = require('../js/new-arrivals.js');
 
 function productKey(product) {
   return JSON.stringify([product.category, product.name, product.suffix || '']);
@@ -33,6 +33,11 @@ function syncNewArrivals(products, history, now = Date.now()) {
     else item.addedAt = addedAt;
     if (isNewArrival(item, now)) item.newArrival = true;
     else delete item.newArrival;
+    if (item.restockedAt !== undefined && !Number.isFinite(restockedAtTime(item))) {
+      throw new Error('Invalid restockedAt timestamp: ' + key);
+    }
+    if (isBackInStock(item, now)) item.backInStock = true;
+    else delete item.backInStock;
     return item;
   });
   return { products: updated, history: { version: 1, firstSeen } };
@@ -54,7 +59,8 @@ if (require.main === module) {
       changed++;
     }
   }
-  console.log(`New Arrivals: ${result.products.filter(p => isNewArrival(p)).length} active; ${changed} files updated.`);
+  console.log(`New Arrivals: ${result.products.filter(p => isNewArrival(p)).length} active; Back in Stock: ${result.products.filter(p => isBackInStock(p)).length} active; ${changed} files updated.`);
 }
 
 module.exports = { productKey, syncNewArrivals };
+

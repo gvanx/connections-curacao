@@ -83,8 +83,8 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-iphone-cutout';
-    const { isNewArrival, nextChangeAt } = NewArrivals;
+    const PRODUCTS_DATA_VERSION = '2026-10-28-restock';
+    const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -226,6 +226,11 @@
       };
     }
 
+    function productStatusBadge(p) {
+      if (isBackInStock(p)) return '<span class="badge-back-in-stock">Back in Stock</span>';
+      return isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+    }
+
     function renderDeals(products) {
       const featured = products.filter(p => p.featured);
       if (!featured.length) return;
@@ -254,7 +259,7 @@
         const { ribbon, oldPriceHtml } = saleInfo(p);
         const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
         const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-        const arrivalBadge = isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+        const arrivalBadge = productStatusBadge(p);
         const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
         html += `
           <div class="deal-card">
@@ -308,7 +313,7 @@
       const { ribbon, oldPriceHtml } = saleInfo(p);
       const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
       const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-      const arrivalBadge = isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+      const arrivalBadge = productStatusBadge(p);
       const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
       return `
         <div class="product-card">
@@ -556,14 +561,14 @@
     });
 
     /* Refresh badges and the New Arrivals filter even when a tab stays open. */
-    let arrivalTimer;
-    let arrivalSignature = null;
-    function refreshNewArrivalState() {
-      clearTimeout(arrivalTimer);
+    let badgeTimer;
+    let badgeSignature = null;
+    function refreshProductBadgeState() {
+      clearTimeout(badgeTimer);
       const now = Date.now();
-      const signature = ALL_PRODUCTS.map(p => isNewArrival(p, now) ? '1' : '0').join('');
-      if (arrivalSignature !== null && signature !== arrivalSignature) {
-        const hasArrivals = signature.includes('1');
+      const signature = ALL_PRODUCTS.map(p => `${Number(isNewArrival(p, now))}${Number(isBackInStock(p, now))}`).join('');
+      if (badgeSignature !== null && signature !== badgeSignature) {
+        const hasArrivals = ALL_PRODUCTS.some(p => isNewArrival(p, now));
         const pill = document.querySelector('.pf-pill[data-cat="new-arrivals"]');
         if (pill) {
           pill.hidden = !hasArrivals;
@@ -577,14 +582,14 @@
         renderDeals(ALL_PRODUCTS);
         applyFilters();
       }
-      arrivalSignature = signature;
+      badgeSignature = signature;
       const next = nextChangeAt(ALL_PRODUCTS, now);
       if (Number.isFinite(next)) {
-        arrivalTimer = setTimeout(refreshNewArrivalState, Math.min(next - now + 10, 2147483647));
+        badgeTimer = setTimeout(refreshProductBadgeState, Math.min(next - now + 10, 2147483647));
       }
     }
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && ALL_PRODUCTS.length) refreshNewArrivalState();
+      if (!document.hidden && ALL_PRODUCTS.length) refreshProductBadgeState();
     });
 
     /* ---- Init ---- */
@@ -600,7 +605,7 @@
         applyFilters();
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
-        refreshNewArrivalState();
+        refreshProductBadgeState();
       } catch (e) {
         console.error('Failed to load products:', e);
         document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';
@@ -621,3 +626,4 @@
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
     });
+

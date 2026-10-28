@@ -41,6 +41,8 @@ For most catalog updates, this is the only file you need.
 - `featured`: `true` shows in Featured Deals
 - `addedAt`: UTC timestamp assigned automatically when a new listing is first seen. It drives the **New Arrival** badge and tab for exactly 14 days.
 - `newArrival`: compatibility flag maintained by the automation; do not set it manually or use it to extend the 14-day window.
+- `restockedAt`: Timestamp with an explicit timezone for a confirmed restock. Shows **Back in Stock** for exactly 14 days, without resetting the original arrival date.
+- `backInStock`: compatibility flag maintained from `restockedAt`; setting this flag alone does not display a badge.
 - `pricePending`: When `true` and no positive numeric retail price is set, shows **Price coming soon**, uses a WhatsApp details inquiry, and disables checkout
 - `spec`: Short specification summary shown on the product card
 - `specifications`: Object of label/value pairs shown under **Full specifications**
@@ -64,6 +66,21 @@ Edit:
 ```json
 "price": 575
 ```
+
+### Mark a Product Back in Stock
+
+After stock is confirmed, set `restockedAt` to the restock time, for example
+`"restockedAt": "2026-10-28T19:30:00-04:00"`, then run
+`node scripts/sync-new-arrivals.cjs`. Use the actual date and time, not the example.
+The green **Back in Stock** badge appears on product cards and featured deals
+for 14 days. It takes visual priority if the product is also a New Arrival;
+the New Arrivals filter still follows the original listing date.
+
+Keep `restockedAt` unchanged for price, photo and specification edits. Update
+it only for another confirmed restock. Remove it to clear the badge early.
+The daily workflow removes expired `backInStock` flags, while the storefront
+uses the date to hide the badge at the exact expiry, even in an open tab.
+This badge does not change checkout or the availability inquiry setting.
 
 ### Publish a New Arrival Before Pricing
 
@@ -178,12 +195,13 @@ git commit -m "update catalog"
 git push origin main
 ```
 
-## 9) Automatic New Arrival expiry
+## 9) Automatic arrival and restock badge expiry
 
 - Every new listing, in every category, gets a 14-day badge. Storage and condition variants are separate listings.
 - `data/catalog-history.json` records the first-seen timestamp by category, name and suffix. A `null` value identifies an older listing whose original date is unknown; these do not become new again.
 - Existing recent listings were backfilled from their original GitHub addition commits, not the date this automation was installed.
 - Price, specification and image edits do not restart the clock. Removing and reintroducing an existing listing also preserves its date. Preserve its history key if correcting its name.
 - The storefront checks the dates on page load and refreshes at expiry or when an open tab resumes. No redeploy is needed for a badge to disappear.
-- `.github/workflows/new-arrivals.yml` runs after catalogue changes and daily at 08:17 UTC (04:17 Curaçao). It tags newly seen products and removes expired compatibility flags, then commits only the catalogue/history files when they changed.
+- `.github/workflows/new-arrivals.yml` runs after catalogue changes and daily at 08:17 UTC (04:17 Curaçao). It tags newly seen products, maintains confirmed restock badges, and removes expired compatibility flags, then commits only the catalogue/history files when they changed.
 - Run `node --test tests/new-arrivals.test.cjs` after changing these rules.
+

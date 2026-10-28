@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { WINDOW_MS, isNewArrival, nextChangeAt } = require('../js/new-arrivals.js');
+const { WINDOW_MS, isNewArrival, isBackInStock, nextChangeAt } = require('../js/new-arrivals.js');
 const { productKey, syncNewArrivals } = require('../scripts/sync-new-arrivals.cjs');
 
 const addedAt = '2026-10-28T19:30:00-04:00';
@@ -58,15 +58,55 @@ test('distinct storage/condition variants stay separate; duplicates and invalid 
   assert.throws(() => syncNewArrivals([{ ...phone, addedAt: 'bad' }], empty(), start), /Invalid/);
 });
 
-test('storefront updates cards, New Arrivals filter and open tabs at expiry', async () => {
+test('Back in Stock requires a dated restock and expires exactly after 14 days', () => {
+  const item = { ...phone, restockedAt: addedAt };
+  assert(!isBackInStock(item, start - 1));
+  assert(isBackInStock(item, start));
+  assert(isBackInStock(item, start + WINDOW_MS - 1));
+  assert(!isBackInStock(item, start + WINDOW_MS));
+  for (const restockedAt of [undefined, 'invalid', '2026-10-28']) {
+    assert(!isBackInStock({ ...phone, backInStock: true, restockedAt }, start));
+  }
+});
+
+test('restocks preserve the original arrival clock and survive edits without extending expiry', () => {
+  const oldAddedAt = new Date(start - 3 * WINDOW_MS).toISOString();
+  const item = { ...phone, addedAt: oldAddedAt, restockedAt: addedAt };
+  const first = syncNewArrivals([item], empty(), start);
+  assert(first.products[0].backInStock);
+  assert(!first.products[0].newArrival);
+  const edited = syncNewArrivals([{ ...first.products[0], price: 450, image: 'updated.png' }], first.history, start + 86400000);
+  assert.equal(edited.products[0].restockedAt, addedAt);
+  assert.equal(edited.products[0].addedAt, oldAddedAt);
+  assert(edited.products[0].backInStock);
+  const expired = syncNewArrivals(edited.products, edited.history, start + WINDOW_MS);
+  assert(!expired.products[0].backInStock);
+  assert.equal(expired.products[0].restockedAt, addedAt);
+  assert.deepEqual(syncNewArrivals(expired.products, expired.history, start + WINDOW_MS + 1), expired);
+  const nextRestock = new Date(start + WINDOW_MS).toISOString();
+  const again = syncNewArrivals([{ ...expired.products[0], restockedAt: nextRestock }], expired.history, start + WINDOW_MS);
+  assert(again.products[0].backInStock);
+  assert(!again.products[0].newArrival);
+  assert.equal(again.products[0].addedAt, oldAddedAt);
+  const cleared = syncNewArrivals([{ ...again.products[0], restockedAt: undefined }], again.history, start + WINDOW_MS);
+  assert(!cleared.products[0].backInStock);
+  assert.throws(() => syncNewArrivals([{ ...item, restockedAt: 'bad' }], empty(), start), /Invalid restockedAt/);
+});
+
+test('the next timer considers independent arrival and restock dates', () => {
+  const later = start + 86400000;
+  const item = { ...phone, restockedAt: new Date(later).toISOString() };
+  assert.equal(nextChangeAt([item], start), later);
+  assert.equal(nextChangeAt([item], later), start + WINDOW_MS);
+  assert.equal(nextChangeAt([item], start + WINDOW_MS), later + WINDOW_MS);
+  assert.equal(nextChangeAt([item], later + WINDOW_MS), Infinity);
+});
+
+async function loadStorefront(fixture, hash = '#new-arrivals') {
   const fs = require('node:fs');
   const path = require('node:path');
   const vm = require('node:vm');
   const root = path.resolve(__dirname, '..');
-  const fixture = [
-    { ...phone, featured: true, newArrival: true },
-    { name: 'Older phone', category: 'apple', suffix: '', price: 100 }
-  ];
   let now = start;
   class Clock extends Date { static now() { return now; } }
   const elements = new Map(), events = {}, errors = [];
@@ -87,7 +127,7 @@ test('storefront updates cards, New Arrivals filter and open tabs at expiry', as
   };
   const context = vm.createContext({
     Date: Clock, document, window: { addEventListener() {} },
-    IntersectionObserver: class { observe() {} }, location: { hash: '#new-arrivals' },
+    IntersectionObserver: class { observe() {} }, location: { hash },
     history: { replaceState() {} }, console: { error: error => errors.push(error) },
     fetch: async () => ({ ok: true, json: async () => fixture }),
     setTimeout: (callback, delay) => { timer = { callback, delay }; return 1; }, clearTimeout() {}
@@ -97,18 +137,66 @@ test('storefront updates cards, New Arrivals filter and open tabs at expiry', as
   }
   await events.DOMContentLoaded();
   assert.deepEqual(errors, []);
+  return { elements, element, events, setNow: value => { now = value; }, getTimer: () => timer };
+}
+
+test('storefront updates cards, New Arrivals filter and open tabs at expiry', async () => {
+  const fixture = [
+    { ...phone, featured: true, newArrival: true },
+    { name: 'Older phone', category: 'apple', suffix: '', price: 100 }
+  ];
+  const { elements, element, events, setNow, getTimer } = await loadStorefront(fixture);
   assert.equal((elements.get('#product-results').innerHTML.match(/class="product-card"/g) || []).length, 1);
   assert(elements.get('#product-results').innerHTML.includes('New Arrival'));
-  assert.equal(timer.delay, WINDOW_MS + 10);
-  now = start + WINDOW_MS;
-  timer.callback();
+  assert.equal(getTimer().delay, WINDOW_MS + 10);
+  setNow(start + WINDOW_MS);
+  getTimer().callback();
   assert(!elements.get('#product-results').innerHTML.includes('badge-new-arrival'));
   assert(!elements.get('#deals .container').innerHTML.includes('badge-new-arrival'));
   assert.equal((elements.get('#product-results').innerHTML.match(/class="product-card"/g) || []).length, 2);
   assert.equal(element('.pf-pill[data-cat="new-arrivals"]').hidden, true);
   // Resuming a suspended tab also refreshes the displayed state.
-  now = start;
+  setNow(start);
   events.visibilitychange();
   assert(elements.get('#product-results').innerHTML.includes('badge-new-arrival'));
   assert.equal(element('.pf-pill[data-cat="new-arrivals"]').hidden, false);
 });
+
+test('restock badges render on cards and deals, expire independently, and refresh resumed tabs', async () => {
+  const restockedAt = new Date(start - 7 * 86400000).toISOString();
+  const fixture = [{ ...phone, featured: true, restockedAt }];
+  const { elements, element, events, setNow, getTimer } = await loadStorefront(fixture);
+  for (const id of ['#product-results', '#deals .container']) {
+    assert(elements.get(id).innerHTML.includes('Back in Stock'));
+    assert(!elements.get(id).innerHTML.includes('badge-new-arrival'));
+  }
+  assert.equal(getTimer().delay, 7 * 86400000 + 10);
+  setNow(start + 7 * 86400000);
+  getTimer().callback();
+  for (const id of ['#product-results', '#deals .container']) {
+    assert(!elements.get(id).innerHTML.includes('Back in Stock'));
+    assert(elements.get(id).innerHTML.includes('badge-new-arrival'));
+  }
+  assert.equal(element('.pf-pill[data-cat="new-arrivals"]').hidden, false);
+  setNow(start + WINDOW_MS);
+  events.visibilitychange();
+  assert(!elements.get('#product-results').innerHTML.includes('badge-new-arrival'));
+  assert.equal(element('.pf-pill[data-cat="new-arrivals"]').hidden, true);
+});
+
+test('a restock stays visible when the final New Arrival expires without keeping its filter open', async () => {
+  const fixture = [
+    { ...phone, addedAt: new Date(start - WINDOW_MS + 1000).toISOString(), featured: true },
+    { name: 'Returning item', category: 'other', price: 100, restockedAt: addedAt, featured: true }
+  ];
+  const { elements, element, setNow, getTimer } = await loadStorefront(fixture);
+  assert.equal(getTimer().delay, 1010);
+  setNow(start + 1000);
+  getTimer().callback();
+  assert.equal(element('.pf-pill[data-cat="new-arrivals"]').hidden, true);
+  assert.equal((elements.get('#product-results').innerHTML.match(/class="product-card"/g) || []).length, 2);
+  assert(elements.get('#product-results').innerHTML.includes('Back in Stock'));
+  assert(elements.get('#deals .container').innerHTML.includes('Back in Stock'));
+  assert(!elements.get('#product-results').innerHTML.includes('badge-new-arrival'));
+});
+
