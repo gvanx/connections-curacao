@@ -68,6 +68,7 @@
       acs: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M4.5 7.5l15 9"></path><path d="M19.5 7.5l-15 9"></path><circle cx="12" cy="12" r="2.4"></circle></svg>`,
       motor: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="16.5" r="2.5"></circle><circle cx="17.5" cy="16.5" r="2.5"></circle><path d="M9 16.5h5l2-4h2.5"></path><path d="M7.5 12.5h4l1.2 2"></path><path d="M13 10h2.5"></path></svg>`,
       appliances: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="11" x2="20" y2="11"></line></svg>`,
+      giftcards: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="15" rx="2"></rect><path d="M3 11h18M12 6v15"></path><path d="M12 6C7 6 7 1 10 3l2 3c5 0 5-5 2-3l-2 3"></path></svg>`,
       other:   `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>`
     };
 
@@ -79,11 +80,12 @@
       acs:     { name: 'Air Conditioning', icon: CATEGORY_ICONS.acs, gradient: 'linear-gradient(135deg, #0a2a3a, #1a4a5e)' },
       motor:   { name: 'Scooters & motorcycles',     icon: CATEGORY_ICONS.motor, gradient: 'linear-gradient(135deg, #2a1a0a, #5a3a1a)' },
       appliances: { name: 'Appliances',     icon: CATEGORY_ICONS.appliances, gradient: 'linear-gradient(135deg, #2a1a3a, #4a2a5e)' },
+      giftcards: { name: 'Apple Gift Cards', icon: CATEGORY_ICONS.giftcards, gradient: 'linear-gradient(135deg, #173b4a, #4a7067)' },
       other:   { name: 'Other',           icon: CATEGORY_ICONS.other, gradient: 'linear-gradient(135deg, #2a2a3a, #4a4a5e)' }
     };
 
-    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-techview';
+    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
+    const PRODUCTS_DATA_VERSION = '2026-10-28-apple-gift-cards';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -161,6 +163,9 @@
     }
 
     function productPriceHTML(product, oldPriceHtml) {
+      if (GiftCards.isGiftCard(product) && !product.price) {
+        return '<span class="price-pending">' + (product.giftCardStatus === 'loading' ? 'Checking price…' : 'Check current price') + '</span>';
+      }
       if (isPricePending(product)) return '<span class="price-pending">Price coming soon</span>';
       return product.price ? formatPrice(product.price) + oldPriceHtml : 'Ask in store';
     }
@@ -169,6 +174,21 @@
       return "Hi, I'm interested in the " + fullName + (isPricePending(product)
         ? '. Please send me the price and details.'
         : '. Is it available?');
+    }
+
+    function giftCardActionHTML(product, small) {
+      const css = small ? 'btn-whatsapp-sm' : 'btn-whatsapp';
+      if (product.giftCardStatus === 'available') {
+        return `<a class="${css}" href="${GiftCards.purchaseUrl(product)}" aria-label="Buy ${escapeHtml(product.name)}">Buy now ↗</a>`;
+      }
+      if (product.giftCardStatus === 'sold-out' || product.giftCardStatus === 'loading') {
+        return `<button type="button" class="${css} gift-card-disabled" disabled>${product.giftCardStatus === 'sold-out' ? 'Sold out' : 'Checking stock…'}</button>`;
+      }
+      return `<a class="${css}" href="${GiftCards.STORE_URL}#Apple">View gift-card store ↗</a>`;
+    }
+
+    function giftCardNoteHTML() {
+      return '<p class="gift-card-note">For US Apple accounts. Card values are in US dollars; prices below are in XCG. Buy online with Sentoo, then receive your code via WhatsApp after payment verification.</p>';
     }
 
     /* ---- Category Grid ---- */
@@ -273,7 +293,7 @@
               ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
               ${productSpecificationsHTML(p)}
               <div class="deal-price">${productPriceHTML(p, oldPriceHtml)}</div>
-              ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+              ${GiftCards.isGiftCard(p) ? giftCardActionHTML(p, false) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
               </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
                 ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}
@@ -327,7 +347,7 @@
             ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
             ${productSpecificationsHTML(p)}
             <div class="product-price">${productPriceHTML(p, oldPriceHtml)}</div>
-            ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+            ${GiftCards.isGiftCard(p) ? giftCardActionHTML(p, true) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
             </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
               ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}
@@ -354,6 +374,7 @@
           const label = filterState.category === 'new-arrivals' ? `New Arrivals · ${resultCount}` : resultCount;
           html = `<div class="product-section">
             <h2 class="results-title">${label}</h2>
+            ${filterState.category === 'giftcards' ? giftCardNoteHTML() : ''}
             <div class="product-grid">${products.map(productCardHTML).join('')}</div>
           </div>`;
         }
@@ -368,6 +389,7 @@
           const meta = CATEGORY_META[cat];
           html += `<div id="cat-${cat}" class="product-section">`;
           html += `<h2 class="section-title">${meta.name}</h2>`;
+          if (cat === 'giftcards') html += giftCardNoteHTML();
           html += `<div class="product-grid">${items.map(productCardHTML).join('')}</div>`;
           html += '</div>';
         });
@@ -444,8 +466,12 @@
     }
 
     function openNewArrivals() {
+      openProductCategory('new-arrivals');
+    }
+
+    function openProductCategory(category) {
       resetFilters();
-      filterState.category = 'new-arrivals';
+      filterState.category = category;
       syncCategoryPills();
       applyFilters();
       document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -526,7 +552,8 @@
           filterState.category = btn.dataset.cat;
           syncCategoryPills();
           if (filterState.category === 'new-arrivals') history.replaceState(null, '', '#new-arrivals');
-          else if (location.hash === '#new-arrivals') history.replaceState(null, '', '#products');
+          else if (filterState.category === 'giftcards') history.replaceState(null, '', '#gift-cards');
+          else if (['#new-arrivals', '#gift-cards'].includes(location.hash)) history.replaceState(null, '', '#products');
           applyFilters();
         });
       });
@@ -589,15 +616,42 @@
       }
     }
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && ALL_PRODUCTS.length) refreshProductBadgeState();
+      if (!document.hidden && ALL_PRODUCTS.length) {
+        refreshProductBadgeState();
+        refreshGiftCardCatalog();
+      }
     });
+
+    /* Refresh only digital-card prices and stock; keep the customer's filters. */
+    let giftCardRequestPending = false;
+    async function refreshGiftCardCatalog() {
+      if (giftCardRequestPending || !ALL_PRODUCTS.some(GiftCards.isGiftCard)) return;
+      giftCardRequestPending = true;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      let catalog = null;
+      try {
+        const response = await fetch('/data/gift-card-store.json', { cache: 'no-store', signal: controller.signal });
+        if (!response.ok) throw new Error('Gift-card catalogue unavailable');
+        catalog = await response.json();
+      } catch (_) { /* Keep ordinary products available; gift cards link to their store. */ }
+      finally {
+        clearTimeout(timeout);
+        giftCardRequestPending = false;
+      }
+      ALL_PRODUCTS = GiftCards.mergeCatalog(ALL_PRODUCTS, catalog);
+      renderDeals(ALL_PRODUCTS);
+      applyFilters();
+    }
+    window.addEventListener('focus', refreshGiftCardCatalog);
+    window.addEventListener('online', refreshGiftCardCatalog);
 
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch(`data/products.json?v=${PRODUCTS_DATA_VERSION}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
-        const products = await res.json();
+        const products = GiftCards.mergeCatalog(await res.json());
         ALL_PRODUCTS = products;
         renderCategories(products);
         renderDeals(products);
@@ -605,7 +659,12 @@
         applyFilters();
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
+        if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
+        if (products.some(GiftCards.isGiftCard)) {
+          refreshGiftCardCatalog();
+          setInterval(() => { if (!document.hidden) refreshGiftCardCatalog(); }, 60000);
+        }
       } catch (e) {
         console.error('Failed to load products:', e);
         document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';
@@ -625,6 +684,7 @@
 
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
+      if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
 
 

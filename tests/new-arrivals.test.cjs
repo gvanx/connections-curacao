@@ -132,7 +132,7 @@ async function loadStorefront(fixture, hash = '#new-arrivals') {
     fetch: async () => ({ ok: true, json: async () => fixture }),
     setTimeout: (callback, delay) => { timer = { callback, delay }; return 1; }, clearTimeout() {}
   });
-  for (const name of ['checkout', 'new-arrivals', 'storefront']) {
+  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', name + '.js'), 'utf8'), context);
   }
   await events.DOMContentLoaded();

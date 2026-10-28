@@ -31,6 +31,7 @@ For most catalog updates, this is the only file you need.
 - `motor`
 - `appliances`
 - `other`
+- `giftcards`
 
 ## 4) Field Meanings
 
@@ -51,6 +52,7 @@ For most catalog updates, this is the only file you need.
 - `imageUnavailable`: `true` displays the model name as artwork instead of an unrelated photo
 - `inquiryOnly`: `true` keeps the price visible but replaces checkout with an availability inquiry
 - `contactNumber`: WhatsApp destination for inquiries, digits only; defaults to Connections if omitted
+- `giftCardName`: Exact Apple gift-card name in the digital store. Use category `giftcards`, `price: null`, `inquiryOnly: true` and `pricePending: true`; the storefront loads its current XCG price and availability from the gift-card store.
 
 For Premier Automotive scooters, use `"inquiryOnly": true` and
 `"contactNumber": "59996905151"`. An optional `availability` field does not
@@ -196,6 +198,30 @@ git push origin main
 ```
 
 ## 9) Automatic arrival and restock badge expiry
+
+### Apple gift cards
+
+The Apple Gift Cards tab is available at `https://connectionscuracao.net/#gift-cards`.
+The main catalogue holds denomination names, artwork and arrival dates only.
+Edit gift-card prices and `soldOut` in `gvanx/gift-card-curacao/data/store.json`.
+The same-origin `/data/gift-card-store.json` Netlify proxy loads that public store
+data without caching. The storefront refreshes it on load, every minute while
+visible, and when the tab regains focus or connectivity. Expired sales and each
+product's `noSale` setting follow the digital store's pricing rules.
+
+Sold-out cards have no purchase button. If current data cannot load, prices are
+hidden and customers can open the gift-card store. The main physical checkout
+never handles digital cards. Buy now opens the selected denomination's existing
+Sentoo checkout on the gift-card site, where the current price, stock, terms and
+WhatsApp delivery workflow remain authoritative. URLs cannot set the price or
+submit an order. Card face values are USD; retail prices are XCG; these are for
+US Apple accounts.
+
+To add a denomination, add matching metadata with the exact `giftCardName`,
+then run `node scripts/sync-new-arrivals.cjs`. Use the source store's own SVG
+artwork. Run `node --test tests/*.test.cjs` after changing the integration.
+
+### Badge timing
 
 - Every new listing, in every category, gets a 14-day badge. Storage and condition variants are separate listings.
 - `data/catalog-history.json` records the first-seen timestamp by category, name and suffix. A `null` value identifies an older listing whose original date is unknown; these do not become new again.

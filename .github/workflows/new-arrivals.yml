@@ -7,8 +7,10 @@ on:
       - data/products.json
       - data/catalog-history.json
       - js/new-arrivals.js
+      - js/gift-cards.js
       - scripts/sync-new-arrivals.cjs
       - tests/new-arrivals.test.cjs
+      - tests/gift-cards.test.cjs
       - .github/workflows/new-arrivals.yml
   schedule:
     - cron: '17 8 * * *'
@@ -29,8 +31,8 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: main
-      - name: Test arrival and restock rules
-        run: node --test tests/new-arrivals.test.cjs
+      - name: Test catalogue, gift-card and badge rules
+        run: node --test tests/*.test.cjs
       - name: Tag new listings and expire old badges
         shell: bash
         run: |
