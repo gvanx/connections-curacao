@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-new-arrivals';
+    const PRODUCTS_DATA_VERSION = '2026-10-28-iphone-cutout';
     const { isNewArrival, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {

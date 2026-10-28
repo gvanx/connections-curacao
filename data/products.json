@@ -119,7 +119,7 @@
     "price": 3250,
     "category": "apple",
     "featured": false,
-    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "image": "/img/products/iphone-18-pro-pair-transparent.png",
     "addedAt": "2026-10-28T23:05:54.626Z",
     "newArrival": true
   },
@@ -129,7 +129,7 @@
     "price": 3750,
     "category": "apple",
     "featured": false,
-    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "image": "/img/products/iphone-18-pro-pair-transparent.png",
     "addedAt": "2026-10-28T23:05:54.626Z",
     "newArrival": true
   },
@@ -139,7 +139,7 @@
     "price": 4099,
     "category": "apple",
     "featured": false,
-    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "image": "/img/products/iphone-18-pro-pair-transparent.png",
     "addedAt": "2026-10-28T23:05:54.626Z",
     "newArrival": true
   },

@@ -169,3 +169,10 @@
 - Original Samsung product image: https://images.samsung.com/is/image/samsung/p6pim/latin_en/sm-a085mdbeeco/gallery/latin-en-galaxy-a08-sm-a085-608520-sm-a085mdbeeco-554952307?$624_468_PNG$
 - Used as model photography only; the store's storage/color availability was not specified.
 
+## iPhone 18 Pro / Pro Max catalogue cutout — October 28, 2026
+
+- File: `iphone-18-pro-pair-transparent.png`
+- Edit target: existing `iphone18/images/iphone-18-pro-pair.jpg`, originally sourced as documented in `iphone18/README.md`.
+- Edited with the built-in image-generation tool, background-extraction mode, transparent alpha output.
+- Prompt: Remove only the solid black background surrounding both phones; preserve silhouettes, proportions, positions, burgundy finish, lighting, logo, lenses, buttons, antenna bands, front wallpaper and Dynamic Island. Keep black details inside the phones opaque. Keep both complete phones visible with a small transparent margin. Add no text, shadows or background.
+- Used by the three iPhone 18 Pro/Pro Max catalogue listings. The original photograph remains available for the existing promotional layout.
