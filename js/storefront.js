@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-apple-cleanup';
+    const PRODUCTS_DATA_VERSION = '2026-10-28-s26-512-correction';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {

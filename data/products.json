@@ -352,16 +352,6 @@
     "image": "galaxy-s25-ultra-model.jpg"
   },
   {
-    "name": "Galaxy S25 Ultra 512GB",
-    "suffix": "",
-    "price": 2590,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-s25-ultra-model.png",
-    "addedAt": "2026-10-28T23:05:54.626Z",
-    "newArrival": true
-  },
-  {
     "name": "Galaxy S26 FE 128GB",
     "suffix": "",
     "price": 1690,
@@ -388,10 +378,12 @@
   {
     "name": "Galaxy S26 Ultra 512GB",
     "suffix": "",
-    "price": 2749,
+    "price": 2690,
     "category": "samsung",
     "featured": false,
-    "image": "galaxy-s26-ultra-model.png"
+    "image": "galaxy-s26-ultra-model.png",
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true
   },
   {
     "name": "Galaxy Tab A9+ WiFi",

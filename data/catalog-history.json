@@ -47,7 +47,7 @@
     "[\"samsung\",\"Galaxy S26 FE 128GB\",\"\"]": null,
     "[\"samsung\",\"Galaxy S26 FE 256GB\",\"\"]": null,
     "[\"samsung\",\"Galaxy S26 Ultra\",\"\"]": null,
-    "[\"samsung\",\"Galaxy S26 Ultra 512GB\",\"\"]": null,
+    "[\"samsung\",\"Galaxy S26 Ultra 512GB\",\"\"]": "2026-10-28T23:05:54.626Z",
     "[\"samsung\",\"Galaxy Tab A9+ WiFi\",\"\"]": null,
     "[\"samsung\",\"Galaxy Tab A9+ 5G\",\"\"]": null,
     "[\"samsung\",\"Galaxy Tab A11 (X133) Wi-Fi\",\"\"]": null,
@@ -145,7 +145,6 @@
     "[\"apple\",\"iPhone 18 Pro\",\"\"]": "2026-10-28T23:05:54.626Z",
     "[\"apple\",\"iPhone 18 Pro Max 256GB\",\"\"]": "2026-10-28T23:05:54.626Z",
     "[\"apple\",\"iPhone 18 Pro Max 512GB\",\"\"]": "2026-10-28T23:05:54.626Z",
-    "[\"samsung\",\"Galaxy A08\",\"\"]": "2026-10-28T23:05:54.626Z",
-    "[\"samsung\",\"Galaxy S25 Ultra 512GB\",\"\"]": "2026-10-28T23:05:54.626Z"
+    "[\"samsung\",\"Galaxy A08\",\"\"]": "2026-10-28T23:05:54.626Z"
   }
 }
