@@ -39,7 +39,8 @@ For most catalog updates, this is the only file you need.
 - `price`: Retail price as a number (no currency symbol), or `null` when not yet set
 - `category`: Controls which section it appears in
 - `featured`: `true` shows in Featured Deals
-- `newArrival`: `true` shows a **New Arrival** badge and includes the item in the **New Arrivals** tab
+- `addedAt`: UTC timestamp assigned automatically when a new listing is first seen. It drives the **New Arrival** badge and tab for exactly 14 days.
+- `newArrival`: compatibility flag maintained by the automation; do not set it manually or use it to extend the 14-day window.
 - `pricePending`: When `true` and no positive numeric retail price is set, shows **Price coming soon**, uses a WhatsApp details inquiry, and disables checkout
 - `spec`: Short specification summary shown on the product card
 - `specifications`: Object of label/value pairs shown under **Full specifications**
@@ -66,14 +67,14 @@ Edit:
 
 ### Publish a New Arrival Before Pricing
 
-Set `"newArrival": true`, `"price": null`, and `"pricePending": true`.
+Set `"price": null` and `"pricePending": true`, then run `node scripts/sync-new-arrivals.cjs`. New listings receive their arrival timestamp and badge automatically.
 Use the public link `https://connectionscuracao.net/#new-arrivals` to open the
 New Arrivals tab. Never use an invoice purchase cost as the selling price.
 
 Once the retail price is supplied, set `price` to that positive number.
 Pricing and checkout activate automatically, even if `pricePending` remains
 `true`. Remove `inquiryOnly` too if it was separately set and checkout should
-be available. The New Arrival badge can remain independently.
+be available. The New Arrival badge expires 14 days after the listing was first added. Setting a price does not restart that clock.
 
 For fuller specifications, add an object such as:
 
@@ -118,6 +119,7 @@ Remove the `limited` line when stock is back to normal.
 2. Paste it where you want in the array
 3. Update fields (`name`, `price`, `category`, `image`, etc.)
 4. Ensure commas are valid
+5. Run `node scripts/sync-new-arrivals.cjs` and commit both `data/products.json` and `data/catalog-history.json`. The GitHub workflow also does this automatically after catalogue changes.
 
 ### Remove Product
 
@@ -176,3 +178,12 @@ git commit -m "update catalog"
 git push origin main
 ```
 
+## 9) Automatic New Arrival expiry
+
+- Every new listing, in every category, gets a 14-day badge. Storage and condition variants are separate listings.
+- `data/catalog-history.json` records the first-seen timestamp by category, name and suffix. A `null` value identifies an older listing whose original date is unknown; these do not become new again.
+- Existing recent listings were backfilled from their original GitHub addition commits, not the date this automation was installed.
+- Price, specification and image edits do not restart the clock. Removing and reintroducing an existing listing also preserves its date. Preserve its history key if correcting its name.
+- The storefront checks the dates on page load and refreshes at expiry or when an open tab resumes. No redeploy is needed for a badge to disappear.
+- `.github/workflows/new-arrivals.yml` runs after catalogue changes and daily at 08:17 UTC (04:17 Curaçao). It tags newly seen products and removes expired compatibility flags, then commits only the catalogue/history files when they changed.
+- Run `node --test tests/new-arrivals.test.cjs` after changing these rules.

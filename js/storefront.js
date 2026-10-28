@@ -83,7 +83,8 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-phone-catalog';
+    const PRODUCTS_DATA_VERSION = '2026-10-28-new-arrivals';
+    const { isNewArrival, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -253,7 +254,7 @@
         const { ribbon, oldPriceHtml } = saleInfo(p);
         const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
         const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-        const arrivalBadge = p.newArrival === true ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+        const arrivalBadge = isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
         const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
         html += `
           <div class="deal-card">
@@ -307,7 +308,7 @@
       const { ribbon, oldPriceHtml } = saleInfo(p);
       const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
       const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
-      const arrivalBadge = p.newArrival === true ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+      const arrivalBadge = isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
       const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
       return `
         <div class="product-card">
@@ -377,7 +378,7 @@
     /* ---- Search / filter / sort toolbar ---- */
     let ALL_PRODUCTS = [];
     function matchesCategory(p, category) {
-      if (category === 'new-arrivals') return p.newArrival === true;
+      if (category === 'new-arrivals') return isNewArrival(p);
       return p.category === category || (category === 'laptops' && /macbook/i.test(p.name));
     }
     const filterState = { search: '', category: 'all', price: 'all', sort: 'featured' };
@@ -402,7 +403,7 @@
       });
 
       const s = filterState.sort;
-      if (s === 'featured') list = [...list].sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || Number(b.newArrival === true) - Number(a.newArrival === true));
+      if (s === 'featured') list = [...list].sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || Number(isNewArrival(b)) - Number(isNewArrival(a)));
       else if (s === 'price-asc')  list = [...list].sort((a, b) => (a.price || Infinity) - (b.price || Infinity));
       else if (s === 'price-desc') list = [...list].sort((a, b) => (b.price || -Infinity) - (a.price || -Infinity));
       else if (s === 'name')  list = [...list].sort((a, b) => a.name.localeCompare(b.name));
@@ -454,9 +455,8 @@
       const cats = CATEGORY_ORDER.filter(c => counts[c]);
 
       let pills = `<button type="button" class="pf-pill active" data-cat="all" aria-pressed="true">All</button>`;
-      if (products.some(p => p.newArrival === true)) {
-        pills += `<button type="button" class="pf-pill pf-pill-new" data-cat="new-arrivals" aria-pressed="false">New Arrivals</button>`;
-      }
+      const hasArrivals = products.some(p => isNewArrival(p));
+      pills += `<button type="button" class="pf-pill pf-pill-new" data-cat="new-arrivals" aria-pressed="false"${hasArrivals ? '' : ' hidden style="display:none"'}>New Arrivals</button>`;
       cats.forEach(c => {
         pills += `<button type="button" class="pf-pill" data-cat="${c}" aria-pressed="false">${CATEGORY_META[c].name}</button>`;
       });
@@ -555,6 +555,38 @@
       if (hit) { e.preventDefault(); toggleCardNote(hit.badge, hit.noteSel); }
     });
 
+    /* Refresh badges and the New Arrivals filter even when a tab stays open. */
+    let arrivalTimer;
+    let arrivalSignature = null;
+    function refreshNewArrivalState() {
+      clearTimeout(arrivalTimer);
+      const now = Date.now();
+      const signature = ALL_PRODUCTS.map(p => isNewArrival(p, now) ? '1' : '0').join('');
+      if (arrivalSignature !== null && signature !== arrivalSignature) {
+        const hasArrivals = signature.includes('1');
+        const pill = document.querySelector('.pf-pill[data-cat="new-arrivals"]');
+        if (pill) {
+          pill.hidden = !hasArrivals;
+          pill.style.display = hasArrivals ? '' : 'none';
+        }
+        if (!hasArrivals && filterState.category === 'new-arrivals') {
+          filterState.category = 'all';
+          if (location.hash === '#new-arrivals') history.replaceState(null, '', '#products');
+          syncCategoryPills();
+        }
+        renderDeals(ALL_PRODUCTS);
+        applyFilters();
+      }
+      arrivalSignature = signature;
+      const next = nextChangeAt(ALL_PRODUCTS, now);
+      if (Number.isFinite(next)) {
+        arrivalTimer = setTimeout(refreshNewArrivalState, Math.min(next - now + 10, 2147483647));
+      }
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && ALL_PRODUCTS.length) refreshNewArrivalState();
+    });
+
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
@@ -568,6 +600,7 @@
         applyFilters();
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
+        refreshNewArrivalState();
       } catch (e) {
         console.error('Failed to load products:', e);
         document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';

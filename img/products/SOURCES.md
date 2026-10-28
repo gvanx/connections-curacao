@@ -161,3 +161,11 @@
 - Listings: HP Laptop 128GB; HP OmniBook 256GB/8GB; HP 14 dp6103dx.
 - Existing asset: `laptop-catalog.webp` (resolved from `laptop-generic.png`).
 - User requested a placeholder laptop picture on 2026-10-15 pending exact model identification. This is an illustrative laptop image, not a verified photo of these models.
+
+## Galaxy A08 — October 28, 2026
+
+- File: `galaxy-a08-model.png`
+- Product page: https://www.samsung.com/latin_en/smartphones/galaxy-a/galaxy-a08-dark-blue-128gb-sm-a085mdbeeco/
+- Original Samsung product image: https://images.samsung.com/is/image/samsung/p6pim/latin_en/sm-a085mdbeeco/gallery/latin-en-galaxy-a08-sm-a085-608520-sm-a085mdbeeco-554952307?$624_468_PNG$
+- Used as model photography only; the store's storage/color availability was not specified.
+

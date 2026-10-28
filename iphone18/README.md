@@ -1,6 +1,6 @@
 # iPhone launch page
 
-`/iphone18/` compares iPhone 18 Pro, iPhone 18 Pro Max and iPhone Duo. Each model links to a prefilled WhatsApp inquiry at the existing Connections Punda number. The page takes no payments and makes no local stock or price claims.
+`/iphone18/` compares iPhone 18 Pro, iPhone 18 Pro Max and iPhone Duo. Each model links to a prefilled WhatsApp inquiry at the existing Connections Punda number. The page takes no payments. Owner-confirmed prices added October 28, 2026: iPhone 18 Pro XCG 3,250; Pro Max 256GB XCG 3,750; Pro Max 512GB XCG 4,099. Stock and regional model must still be confirmed with the store.
 
 ## Content sources
 

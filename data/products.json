@@ -114,6 +114,36 @@
     "image": "iphone-17-pro-max-model.jpg"
   },
   {
+    "name": "iPhone 18 Pro",
+    "suffix": "",
+    "price": 3250,
+    "category": "apple",
+    "featured": false,
+    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true
+  },
+  {
+    "name": "iPhone 18 Pro Max 256GB",
+    "suffix": "",
+    "price": 3750,
+    "category": "apple",
+    "featured": false,
+    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true
+  },
+  {
+    "name": "iPhone 18 Pro Max 512GB",
+    "suffix": "",
+    "price": 4099,
+    "category": "apple",
+    "featured": false,
+    "image": "/iphone18/images/iphone-18-pro-pair.jpg",
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true
+  },
+  {
     "name": "iPad 11th 128GB",
     "suffix": "",
     "price": 1090,
@@ -203,7 +233,9 @@
     "price": 1090,
     "category": "apple",
     "featured": false,
-    "image": "/img/products/apple-watch-12-42mm.png"
+    "image": "/img/products/apple-watch-12-42mm.png",
+    "addedAt": "2026-10-15T20:40:05Z",
+    "newArrival": true
   },
   {
     "name": "AirPods 4",
@@ -227,7 +259,9 @@
     "price": 550,
     "category": "apple",
     "featured": false,
-    "image": "/img/products/airpods-5-model.jpg"
+    "image": "/img/products/airpods-5-model.jpg",
+    "addedAt": "2026-10-15T20:40:05Z",
+    "newArrival": true
   },
   {
     "name": "AirPods 5 with Wireless Charging",
@@ -235,7 +269,9 @@
     "price": 650,
     "category": "apple",
     "featured": false,
-    "image": "/img/products/airpods-5-wireless-charging-model.jpg"
+    "image": "/img/products/airpods-5-wireless-charging-model.jpg",
+    "addedAt": "2026-10-15T20:40:05Z",
+    "newArrival": true
   },
   {
     "name": "AirPods Pro 3",
@@ -259,7 +295,19 @@
     "price": 299,
     "category": "samsung",
     "featured": false,
-    "image": "/img/products/galaxy-a07s-black.png"
+    "image": "/img/products/galaxy-a07s-black.png",
+    "addedAt": "2026-10-15T20:40:05Z",
+    "newArrival": true
+  },
+  {
+    "name": "Galaxy A08",
+    "suffix": "",
+    "price": 399,
+    "category": "samsung",
+    "featured": false,
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true,
+    "image": "galaxy-a08-model.png"
   },
   {
     "name": "Galaxy A16",
@@ -351,6 +399,16 @@
     "category": "samsung",
     "featured": false,
     "image": "galaxy-s25-ultra-model.jpg"
+  },
+  {
+    "name": "Galaxy S25 Ultra 512GB",
+    "suffix": "",
+    "price": 2590,
+    "category": "samsung",
+    "featured": false,
+    "image": "galaxy-s25-ultra-model.png",
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "newArrival": true
   },
   {
     "name": "Galaxy S26 FE 128GB",
@@ -499,7 +557,8 @@
       "Wireless": "Wi-Fi 6 and Bluetooth",
       "Camera": "HP True Vision 720p HD",
       "Color": "Sky Blue"
-    }
+    },
+    "addedAt": "2026-10-22T12:40:30Z"
   },
   {
     "name": "HP 15-fd0092wm",
@@ -525,7 +584,8 @@
       "Keyboard": "Full-size with numeric keypad",
       "Wireless": "Wi-Fi 6 and Bluetooth",
       "Camera": "HP True Vision 720p HD with privacy shutter"
-    }
+    },
+    "addedAt": "2026-10-22T12:40:30Z"
   },
   {
     "name": "HP 15-fd0094wm",
@@ -551,7 +611,8 @@
       "Keyboard": "Full-size with numeric keypad",
       "Wireless": "Wi-Fi 6 and Bluetooth",
       "Camera": "HP True Vision 720p HD with privacy shutter"
-    }
+    },
+    "addedAt": "2026-10-22T12:40:30Z"
   },
   {
     "name": "HP 15-fd1899nr",
@@ -577,7 +638,8 @@
       "Wireless": "Wi-Fi 6 and Bluetooth",
       "Camera": "HP True Vision 720p HD",
       "Color": "Natural Silver"
-    }
+    },
+    "addedAt": "2026-10-22T12:40:30Z"
   },
   {
     "name": "HP OmniBook 3 17-dg0107dx",
@@ -603,7 +665,8 @@
       "Wireless": "Wi-Fi 7 and Bluetooth",
       "Camera": "1080p Full HD with HDR and privacy shutter",
       "Color": "Mica Silver"
-    }
+    },
+    "addedAt": "2026-10-22T12:40:30Z"
   },
   {
     "name": "Lenovo IdeaPad 1i",
@@ -845,7 +908,9 @@
     "price": 990,
     "category": "other",
     "featured": false,
-    "image": "/img/products/starlink-mini-model.png"
+    "image": "/img/products/starlink-mini-model.png",
+    "addedAt": "2026-10-15T20:40:05Z",
+    "newArrival": true
   },
   {
     "name": "Electric Coffee Maker 12 Cups",
@@ -1087,7 +1152,8 @@
       "Compressor": "Inverter",
       "Power supply": "115V / 60Hz"
     },
-    "image": "/img/products/midea-mdrs710fgg46inv.png"
+    "image": "/img/products/midea-mdrs710fgg46inv.png",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Midea Refrigerator 12 cu ft",
@@ -1102,7 +1168,8 @@
       "Model": "MDRT489MTG46INVWD",
       "Capacity": "12 cu ft"
     },
-    "image": "/img/products/midea-mdrt489mtg46invwd.png"
+    "image": "/img/products/midea-mdrt489mtg46invwd.png",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Midea Inverter Refrigerator 465L",
@@ -1119,7 +1186,8 @@
       "Compressor": "Inverter",
       "Power supply": "115V / 60Hz"
     },
-    "image": "/img/products/midea-mdrt645mtm46wd.png"
+    "image": "/img/products/midea-mdrt645mtm46wd.png",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Midea Refrigerator 14 cu ft",
@@ -1135,7 +1203,8 @@
       "Capacity": "14 cu ft",
       "Power supply": "115V / 60Hz"
     },
-    "image": "/img/products/midea-mdrt580mtg46inv.jpg"
+    "image": "/img/products/midea-mdrt580mtg46inv.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Midea Two-Door Mini Fridge 3.3 cu ft",
@@ -1153,7 +1222,8 @@
       "Color": "Gray",
       "Power supply": "115V / 60Hz"
     },
-    "image": "/img/products/midea-mdrt87ccdls.webp"
+    "image": "/img/products/midea-mdrt87ccdls.webp",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Twin-Tub Washing Machine 10kg",
@@ -1169,7 +1239,8 @@
       "Model": "OSK100-1-110V",
       "Wash capacity": "10kg",
       "Design": "Twin tub"
-    }
+    },
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Washing Machine 10kg",
@@ -1184,7 +1255,8 @@
     "specifications": {
       "Model": "OSK130-1-110V",
       "Wash capacity": "10kg"
-    }
+    },
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 11kg",
@@ -1201,7 +1273,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-6544t2d11bwn1.jpg"
+    "image": "/img/products/premier-lav-6544t2d11bwn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 7kg",
@@ -1218,7 +1291,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9176t2d7a.jpg"
+    "image": "/img/products/premier-lav-9176t2d7a.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 10kg",
@@ -1235,7 +1309,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9177t2c10b.jpg"
+    "image": "/img/products/premier-lav-9177t2c10b.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 12kg",
@@ -1252,7 +1327,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9288t2c12b.jpg"
+    "image": "/img/products/premier-lav-9288t2c12b.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 15kg",
@@ -1269,7 +1345,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9289t2c15a.jpg"
+    "image": "/img/products/premier-lav-9289t2c15a.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 10kg",
@@ -1286,7 +1363,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9291t2c10b.jpg"
+    "image": "/img/products/premier-lav-9291t2c10b.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Semi-Automatic Twin-Tub Washer 11kg",
@@ -1303,7 +1381,8 @@
       "Operation": "Semi-automatic",
       "Design": "Twin tub"
     },
-    "image": "/img/products/premier-lav-9292t2c11b.jpg"
+    "image": "/img/products/premier-lav-9292t2c11b.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Refrigerator 200L",
@@ -1319,7 +1398,8 @@
       "Capacity": "200L / 7 cu ft",
       "Color": "Silver"
     },
-    "image": "/img/products/premier-nv-6795r2d75sn1.jpg"
+    "image": "/img/products/premier-nv-6795r2d75sn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier No-Frost Refrigerator 248L",
@@ -1335,7 +1415,8 @@
       "Capacity": "248L / 8.76 cu ft",
       "Cooling": "No Frost"
     },
-    "image": "/img/products/premier-nv-6919r2f11tn1.jpg"
+    "image": "/img/products/premier-nv-6919r2f11tn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Stainless Steel Refrigerator 92L",
@@ -1351,7 +1432,8 @@
       "Capacity": "92L / 3.25 cu ft",
       "Finish": "Stainless steel"
     },
-    "image": "/img/products/premier-nv-6920r1d35tn1.png"
+    "image": "/img/products/premier-nv-6920r1d35tn1.png",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier No-Frost Refrigerator 345L",
@@ -1369,7 +1451,8 @@
       "Finish": "Stainless steel",
       "Water dispenser": "Yes"
     },
-    "image": "/img/products/premier-nv-7251d2f13tn1.jpg"
+    "image": "/img/products/premier-nv-7251d2f13tn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier No-Frost Refrigerator 513L with Water Dispenser",
@@ -1387,7 +1470,8 @@
       "Finish": "Stainless steel",
       "Water dispenser": "Yes"
     },
-    "image": "/img/products/premier-nv-7253r2v20tn1.jpg"
+    "image": "/img/products/premier-nv-7253r2v20tn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Refrigerator 112L",
@@ -1403,7 +1487,8 @@
       "Capacity": "112L / 3.95 cu ft",
       "Color": "Silver"
     },
-    "image": "/img/products/premier-nv-8426r2d39sn1.jpg"
+    "image": "/img/products/premier-nv-8426r2d39sn1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Side-by-Side No-Frost Refrigerator 525L",
@@ -1422,7 +1507,8 @@
       "Finish": "Black stainless steel",
       "Water dispenser": "Yes"
     },
-    "image": "/img/products/premier-nv-8803d6v185tb1.jpg"
+    "image": "/img/products/premier-nv-8803d6v185tb1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier Side-by-Side No-Frost Refrigerator 559L",
@@ -1441,7 +1527,8 @@
       "Finish": "Black stainless steel",
       "Water dispenser": "Yes"
     },
-    "image": "/img/products/premier-nv-8805d6v197tb1.jpg"
+    "image": "/img/products/premier-nv-8805d6v197tb1.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier No-Frost Refrigerator 513L",
@@ -1459,7 +1546,8 @@
       "Finish": "Stainless steel",
       "Power supply": "110V"
     },
-    "image": "/img/products/premier-nv-8999r2v182.jpg"
+    "image": "/img/products/premier-nv-8999r2v182.jpg",
+    "addedAt": "2026-10-23T20:57:29Z"
   },
   {
     "name": "Premier No-Frost Refrigerator 406L",
@@ -1476,6 +1564,7 @@
       "Cooling": "No Frost",
       "Finish": "Stainless steel"
     },
-    "image": "/img/products/premier-nv-9013r2v143tn1.png"
+    "image": "/img/products/premier-nv-9013r2v143tn1.png",
+    "addedAt": "2026-10-23T20:57:29Z"
   }
 ]

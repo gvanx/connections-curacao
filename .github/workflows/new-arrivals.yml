@@ -1,0 +1,53 @@
+name: Maintain New Arrival badges
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/products.json
+      - data/catalog-history.json
+      - js/new-arrivals.js
+      - scripts/sync-new-arrivals.cjs
+      - tests/new-arrivals.test.cjs
+      - .github/workflows/new-arrivals.yml
+  schedule:
+    - cron: '17 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maintain-new-arrivals
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+      - name: Test arrival rules
+        run: node --test tests/new-arrivals.test.cjs
+      - name: Tag new listings and expire old badges
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B main origin/main
+            node scripts/sync-new-arrivals.cjs
+            git add data/products.json data/catalog-history.json
+            if git diff --cached --quiet; then
+              exit 0
+            fi
+            git commit -m 'Maintain automatic New Arrival badges'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          echo 'Could not save arrival dates after three concurrent-update retries.' >&2
+          exit 1
