@@ -36,13 +36,9 @@ Information reviewed: 24 October 2026. Linked pages and the store team provide c
 ## Product pages
 
 - [Apple iPhone collection](https://connectionscuracao.net/iphone18/): Featured iPhone range and enquiries.
-- [iPhone 17e](https://connectionscuracao.net/iphone17e/): Model information and enquiries.
 - [iPhone 14](https://connectionscuracao.net/iphone14/): Model information and enquiries.
 - [Samsung Galaxy A](https://connectionscuracao.net/galaxy-a/): Galaxy A range information.
 - [Samsung Galaxy A27](https://connectionscuracao.net/galaxya27/): Model information and enquiries.
-- [Samsung Galaxy Z Fold](https://connectionscuracao.net/fold8/): Featured foldable phone information.
-- [Samsung Galaxy S26](https://connectionscuracao.net/s26/): Model information and enquiries.
-- [Samsung Galaxy S25+](https://connectionscuracao.net/s25plus/): Model information and enquiries.
 - [MacBook Neo](https://connectionscuracao.net/macbookneo/): Laptop information and enquiries.
 
 ## Related Connections websites
@@ -58,4 +54,3 @@ Information reviewed: 24 October 2026. Linked pages and the store team provide c
 - [Facebook](https://facebook.com/connectionscuracao123): Official profile linked from the Connections website.
 - [WhatsApp](https://wa.me/59996782619): Contact the Connections team.
 - [XML sitemap](https://connectionscuracao.net/sitemap.xml): Search-engine sitemap.
-

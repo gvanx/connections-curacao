@@ -83,7 +83,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other'];
-    const PRODUCTS_DATA_VERSION = '2026-10-23-appliance-photos';
+    const PRODUCTS_DATA_VERSION = '2026-10-28-phone-catalog';
 
     function waLink(name, price) {
       const msg = `Hi, I'm interested in the ${name} (${formatPrice(price)})`;
@@ -270,7 +270,7 @@
               ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
               </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
-                ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : 'Ask availability'}
+                ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}
               </a>`}
             </div>
           </div>`;
@@ -324,7 +324,7 @@
             ${p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
             </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
-              ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : 'Ask availability'}
+              ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}
             </a>`}
           </div>
         </div>`;

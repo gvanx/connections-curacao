@@ -18,7 +18,7 @@
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 799,
+    "price": 775,
     "category": "apple",
     "featured": false,
     "image": "iphone-14-model.jpg"
@@ -50,10 +50,12 @@
   {
     "name": "iPhone 16",
     "suffix": "HSO",
-    "price": 1250,
+    "price": 1350,
     "category": "apple",
     "featured": false,
-    "image": "iphone-16-model.jpg"
+    "image": "iphone-16-model.jpg",
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask if in stock"
   },
   {
     "name": "iPhone 16",
@@ -70,14 +72,6 @@
     "category": "apple",
     "featured": false,
     "image": "iphone-16e-transparent.png"
-  },
-  {
-    "name": "iPhone 16 Plus",
-    "suffix": "",
-    "price": 1990,
-    "category": "apple",
-    "featured": false,
-    "image": "iphone-16-plus-model.jpg"
   },
   {
     "name": "iPhone 16 Pro Max",
@@ -252,14 +246,6 @@
     "image": "airpods-pro-3-model.jpg"
   },
   {
-    "name": "Galaxy A06",
-    "suffix": "",
-    "price": 199,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-a06-model.jpg"
-  },
-  {
     "name": "Galaxy A07",
     "suffix": "",
     "price": 265,
@@ -274,22 +260,6 @@
     "category": "samsung",
     "featured": false,
     "image": "/img/products/galaxy-a07s-black.png"
-  },
-  {
-    "name": "Galaxy F07",
-    "suffix": "",
-    "price": 249,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-a07-model.jpg"
-  },
-  {
-    "name": "Samsung M04 128GB",
-    "suffix": "",
-    "price": 199,
-    "category": "samsung",
-    "featured": false,
-    "image": "samsung-m04-model.png"
   },
   {
     "name": "Galaxy A16",
@@ -357,30 +327,6 @@
     "featured": true,
     "image": "galaxy-a57-model.jpg",
     "landingPage": "https://samsungcuracao.com/a57"
-  },
-  {
-    "name": "Galaxy S24 FE",
-    "suffix": "",
-    "price": 849,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-s24-fe-model.jpg"
-  },
-  {
-    "name": "Galaxy S24 Ultra",
-    "suffix": "",
-    "price": 1850,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-s24-ultra-model.jpg"
-  },
-  {
-    "name": "Galaxy S25 Plus",
-    "suffix": "",
-    "price": 1549,
-    "category": "samsung",
-    "featured": false,
-    "image": "galaxy-s25-plus-model.jpg"
   },
   {
     "name": "Galaxy S25 FE 128GB",
