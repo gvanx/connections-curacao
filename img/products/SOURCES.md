@@ -176,3 +176,11 @@
 - Edited with the built-in image-generation tool, background-extraction mode, transparent alpha output.
 - Prompt: Remove only the solid black background surrounding both phones; preserve silhouettes, proportions, positions, burgundy finish, lighting, logo, lenses, buttons, antenna bands, front wallpaper and Dynamic Island. Keep black details inside the phones opaque. Keep both complete phones visible with a small transparent margin. Add no text, shadows or background.
 - Used by the three iPhone 18 Pro/Pro Max catalogue listings. The original photograph remains available for the existing promotional layout.
+
+## Techview S17 Pro — 28 October 2026
+
+- Asset: `techview-s17-pro.png`
+- Product source: https://techviewmobile.com/
+- Original image: https://techviewmobile.com/wp-content/uploads/2026/02/s-17-pro-family.png
+- Unmodified manufacturer S17 Pro family image, shared by the 64GB and 128GB listings. The illustration does not establish available store colours.
+- Storage and selling prices supplied by the store owner: 64GB at XCG 225; 128GB at XCG 250. No unconfirmed RAM, regional variant or colour availability was added.

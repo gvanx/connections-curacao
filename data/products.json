@@ -1509,5 +1509,25 @@
     },
     "image": "/img/products/premier-nv-9013r2v143tn1.png",
     "addedAt": "2026-10-23T20:57:29Z"
+  },
+  {
+    "name": "Techview S17 Pro 64GB",
+    "suffix": "",
+    "price": 225,
+    "category": "other",
+    "featured": false,
+    "image": "/img/products/techview-s17-pro.png",
+    "addedAt": "2026-10-28T23:47:37.762Z",
+    "newArrival": true
+  },
+  {
+    "name": "Techview S17 Pro 128GB",
+    "suffix": "",
+    "price": 250,
+    "category": "other",
+    "featured": false,
+    "image": "/img/products/techview-s17-pro.png",
+    "addedAt": "2026-10-28T23:47:37.762Z",
+    "newArrival": true
   }
 ]
