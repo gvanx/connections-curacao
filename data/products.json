@@ -233,14 +233,6 @@
     "newArrival": true
   },
   {
-    "name": "Galaxy A07",
-    "suffix": "",
-    "price": 265,
-    "category": "samsung",
-    "featured": true,
-    "image": "galaxy-a07-model.jpg"
-  },
-  {
     "name": "Galaxy A07s",
     "suffix": "",
     "price": 299,
