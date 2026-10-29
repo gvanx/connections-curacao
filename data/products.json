@@ -119,7 +119,7 @@
     "price": 2750,
     "category": "apple",
     "featured": false,
-    "image": "iphone-17-pro-max-model.png",
+    "image": "/img/products/iphone-17-pro-max-silver.jpg",
     "spec": "Silver · SIM + eSIM · Apple warranty until 24 May 2027",
     "specifications": {
       "Storage": "256GB",
@@ -155,7 +155,7 @@
     "price": 2100,
     "category": "apple",
     "featured": false,
-    "image": "iphone-17-pro-model.png",
+    "image": "/img/products/iphone-17-pro-deep-blue.jpg",
     "spec": "Blue · 100% battery health · Apple warranty (expiry TBA)",
     "specifications": {
       "Storage": "256GB",
