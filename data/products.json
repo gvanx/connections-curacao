@@ -132,19 +132,20 @@
     "newArrival": true
   },
   {
-    "name": "iPhone 17 Pro Max 256GB eSIM",
+    "name": "iPhone 17 Pro Max 256GB eSIM Blue",
     "suffix": "HSO",
     "price": 2500,
     "category": "apple",
     "featured": false,
-    "image": "iphone-17-pro-max-model.png",
-    "spec": "eSIM · Trade price: XCG 2,659 · Apple warranty until 12 January 2027",
+    "image": "/img/products/iphone-17-pro-max-deep-blue.jpg",
+    "spec": "Blue · eSIM · Trade price: XCG 2,659 · Apple warranty until 12 January 2027",
     "specifications": {
       "Storage": "256GB",
       "Condition": "HSO",
       "SIM": "eSIM",
       "Trade price": "XCG 2,659",
-      "Apple warranty": "Expires 12 January 2027"
+      "Apple warranty": "Expires 12 January 2027",
+      "Color": "Blue"
     },
     "addedAt": "2026-10-29T22:50:35.761Z",
     "newArrival": true
