@@ -85,7 +85,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-10-28-apple-gift-cards';
+    const PRODUCTS_DATA_VERSION = '2026-10-29-hp-pink';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -686,5 +686,3 @@
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
-
-
