@@ -504,17 +504,15 @@
     "addedAt": "2026-10-22T12:40:30Z"
   },
   {
-    "name": "HP 14-ep211wm",
+    "name": "HP 14-ep2111wm",
     "suffix": "Pink",
-    "model": "14-ep211wm",
-    "price": null,
-    "pricePending": true,
+    "model": "14-ep2111wm",
+    "price": 650,
     "category": "laptops",
     "featured": false,
-    "imageUnavailable": true,
     "spec": "Intel N150 · 4GB RAM · 128GB storage · 14.0″ HD LED · Windows 11",
     "specifications": {
-      "Model": "HP 14-ep211wm",
+      "Model": "HP 14-ep2111wm",
       "Processor": "Intel N150",
       "Memory": "4GB RAM",
       "Storage": "128GB",
@@ -523,7 +521,8 @@
       "Color": "Pink"
     },
     "addedAt": "2026-10-29T17:14:14.323Z",
-    "newArrival": true
+    "newArrival": true,
+    "image": "/img/products/hp-14-ep2111wm-pink.jpg"
   },
   {
     "name": "HP 15-fd0092wm",

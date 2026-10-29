@@ -85,7 +85,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-10-29-hp-pink';
+    const PRODUCTS_DATA_VERSION = '2026-10-29-hp-14-ep2111wm';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
