@@ -114,6 +114,60 @@
     "image": "iphone-17-pro-max-model.jpg"
   },
   {
+    "name": "iPhone 17 Pro Max 256GB SIM + eSIM Silver",
+    "suffix": "HSO",
+    "price": 2750,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-17-pro-max-model.png",
+    "spec": "Silver · SIM + eSIM · Apple warranty until 24 May 2027",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "Color": "Silver",
+      "SIM": "Physical SIM + eSIM",
+      "Apple warranty": "Expires 24 May 2027"
+    },
+    "addedAt": "2026-10-29T22:50:35.761Z",
+    "newArrival": true
+  },
+  {
+    "name": "iPhone 17 Pro Max 256GB eSIM",
+    "suffix": "HSO",
+    "price": 2500,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-17-pro-max-model.png",
+    "spec": "eSIM · Trade price: XCG 2,659 · Apple warranty until 12 January 2027",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "SIM": "eSIM",
+      "Trade price": "XCG 2,659",
+      "Apple warranty": "Expires 12 January 2027"
+    },
+    "addedAt": "2026-10-29T22:50:35.761Z",
+    "newArrival": true
+  },
+  {
+    "name": "iPhone 17 Pro 256GB Blue",
+    "suffix": "HSO",
+    "price": 2100,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-17-pro-model.png",
+    "spec": "Blue · 100% battery health · Apple warranty (expiry TBA)",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "Color": "Blue",
+      "Battery health": "100%",
+      "Apple warranty": "Included — expiry date TBA"
+    },
+    "addedAt": "2026-10-29T22:50:35.761Z",
+    "newArrival": true
+  },
+  {
     "name": "iPhone 18 Pro",
     "suffix": "",
     "price": 3250,
@@ -193,8 +247,7 @@
     "category": "apple",
     "featured": false,
     "image": "/img/products/apple-watch-12-42mm.png",
-    "addedAt": "2026-10-15T20:40:05Z",
-    "newArrival": true
+    "addedAt": "2026-10-15T20:40:05Z"
   },
   {
     "name": "AirPods 4",
@@ -219,8 +272,7 @@
     "category": "apple",
     "featured": false,
     "image": "/img/products/airpods-5-model.jpg",
-    "addedAt": "2026-10-15T20:40:05Z",
-    "newArrival": true
+    "addedAt": "2026-10-15T20:40:05Z"
   },
   {
     "name": "AirPods 5 with Wireless Charging",
@@ -229,8 +281,7 @@
     "category": "apple",
     "featured": false,
     "image": "/img/products/airpods-5-wireless-charging-model.jpg",
-    "addedAt": "2026-10-15T20:40:05Z",
-    "newArrival": true
+    "addedAt": "2026-10-15T20:40:05Z"
   },
   {
     "name": "Galaxy A07s",
@@ -239,8 +290,7 @@
     "category": "samsung",
     "featured": false,
     "image": "/img/products/galaxy-a07s-black.png",
-    "addedAt": "2026-10-15T20:40:05Z",
-    "newArrival": true
+    "addedAt": "2026-10-15T20:40:05Z"
   },
   {
     "name": "Galaxy A08",
@@ -858,8 +908,7 @@
     "category": "other",
     "featured": false,
     "image": "/img/products/starlink-mini-model.png",
-    "addedAt": "2026-10-15T20:40:05Z",
-    "newArrival": true
+    "addedAt": "2026-10-15T20:40:05Z"
   },
   {
     "name": "Electric Coffee Maker 12 Cups",
