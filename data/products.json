@@ -344,20 +344,13 @@
     "image": "galaxy-s25-ultra-model.jpg"
   },
   {
-    "name": "Galaxy S26 FE 128GB",
-    "suffix": "",
-    "price": 1690,
-    "category": "samsung",
-    "featured": false,
-    "image": "/img/products/galaxy-s26-fe-model.png"
-  },
-  {
     "name": "Galaxy S26 FE 256GB",
     "suffix": "",
-    "price": 1890,
+    "price": 1590,
     "category": "samsung",
     "featured": false,
-    "image": "/img/products/galaxy-s26-fe-model.png"
+    "image": "/img/products/galaxy-s26-fe-model.png",
+    "oldPrice": 1890
   },
   {
     "name": "Galaxy S26 Ultra",
