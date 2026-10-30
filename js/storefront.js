@@ -85,7 +85,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-10-29-iphone17-hso-blue';
+    const PRODUCTS_DATA_VERSION = '2026-10-30-sold-iphone17-hso';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
