@@ -184,3 +184,21 @@
 - Original image: https://techviewmobile.com/wp-content/uploads/2026/02/s-17-pro-family.png
 - Unmodified manufacturer S17 Pro family image, shared by the 64GB and 128GB listings. The illustration does not establish available store colours.
 - Storage and selling prices supplied by the store owner: 64GB at XCG 225; 128GB at XCG 250. No unconfirmed RAM, regional variant or colour availability was added.
+
+## iPhone 16 HSO colour variants — 1 November 2026
+
+- Asset: `iphone-16-pro-max-white-titanium.jpg`
+  - Original Apple image: https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pro-max-whitetitanium-202509?wid=400&hei=400&fmt=jpeg&qlt=90&.v=V1BDbkFTZDNiSWFzd0lpYlliN2cvVWVzcDRsdGxpSG1BazNZMjNCSlBlaEJMMWVqcjZaWjF2TURzcEZvNlM3RGZEaVF0ZmZnOHBxYnZ0NVMzY2tTWUxrNkxqcEdrM2x6OUZ3Z2JnTllhUU8yUVprMzF5N3JSUnRZTFdaU2FENkI
+- Asset: `iphone-16-pro-max-natural-titanium.jpg`
+  - Original Apple image: https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pro-max-naturaltitanium-202509?wid=400&hei=400&fmt=jpeg&qlt=90&.v=V1BDbkFTZDNiSWFzd0lpYlliN2cvVUpNZ1R1L2lwTjc3NlN5K2tqbmltSzVvaGVJc24xRUc1UFlNUDVCNTVCaDJDbkwybnVkZnlpL01haWZQeDFJR3RlVUN5anBMYXArdTZxQXVZNFlaRkc5Tms0Wk9TQUlGcEROaFFLN1UvSzZmbW94YnYxc1YvNXZ4emJGL0IxNFp3
+- Asset: `iphone-16-pro-max-desert-titanium.jpg`
+  - Original Apple image: https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-pro-max-deserttitanium-202509?wid=400&hei=400&fmt=jpeg&qlt=90&.v=V1BDbkFTZDNiSWFzd0lpYlliN2cvZEc2bHhxOHZUTlhCMmZ2WkhFUFZud2MwK0J4RVowZlZuM0RJUUpsaG1qN0ZUVzMxa2MxY3h4S1ZpaEFMMFFjMXI2TGhYaGhMVkJpQ2RGWWVURTZNbXd6VnpWbUpJaFRMTlZ1ei8wUXVNZHU
+- Asset: `iphone-16-plus-white.jpg`
+  - Original Apple image: https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-iphone-16-plus-white-202509?wid=1000&hei=1000&fmt=jpeg&qlt=95&.v=1751056853570
+
+Source pages:
+
+- https://www.apple.com/be-nl/shop/refurbished/iphone/iphone-16-pro-max
+- https://www.apple.com/shop/product/fxv03ll/a/Refurbished-iPhone-16-Plus-256GB-White-Unlocked
+
+Unmodified Apple model photography, visually checked against each listed finish: White for iPhone 16 Plus; White Titanium, Natural Titanium and Desert Titanium for iPhone 16 Pro Max. These are illustrative model images, not photographs of the individual HSO units. Storage, battery health, HSO condition and retail prices were supplied by the store owner; no Apple refurbishment certification, warranty or SIM specification is implied.
