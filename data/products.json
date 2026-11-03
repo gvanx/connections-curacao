@@ -174,24 +174,6 @@
     "image": "iphone-17-pro-max-model.jpg"
   },
   {
-    "name": "iPhone 17 Pro Max 256GB SIM + eSIM Silver",
-    "suffix": "HSO",
-    "price": 2750,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-17-pro-max-silver.jpg",
-    "spec": "Silver · SIM + eSIM · Apple warranty until 24 May 2027",
-    "specifications": {
-      "Storage": "256GB",
-      "Condition": "HSO",
-      "Color": "Silver",
-      "SIM": "Physical SIM + eSIM",
-      "Apple warranty": "Expires 24 May 2027"
-    },
-    "addedAt": "2026-10-29T22:50:35.761Z",
-    "newArrival": true
-  },
-  {
     "name": "iPhone 18 Pro",
     "suffix": "",
     "price": 3250,
