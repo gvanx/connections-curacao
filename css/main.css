@@ -53,6 +53,20 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 
 /* Digital gifts keep the purchase handoff separate from physical checkout. */
+.crypto-payment-notice{font-size:12px;line-height:1.6;color:var(--text);padding:14px 18px;border:1px solid #c8d6cd;background:#edf3e9;border-radius:10px;margin-bottom:22px}
+.checkout-quote{font-size:12px;line-height:1.6;color:var(--text-muted);margin-top:10px}
+.checkout-confirmation{margin-top:20px;font-size:13px;line-height:1.65}
+.checkout-confirmation h4{font-size:19px;margin-bottom:8px}
+.checkout-confirmation p{margin:10px 0}
+.checkout-amount{display:block;font-size:20px;margin-top:12px}
+.checkout-network{font-weight:700}
+.checkout-wallet{display:block;padding:12px;background:#e9ecdf;border:1px solid #c4d1c0;border-radius:8px;overflow-wrap:anywhere;user-select:all;font-size:12px}
+.checkout-copy{border:1px solid #aabcae;border-radius:7px;padding:10px 12px;margin:8px 6px 0 0;min-height:44px;font-size:12px}
+.checkout-copy:hover{background:#e9ecdf}
+.checkout-confirmation .btn-whatsapp{margin-top:12px;width:100%;justify-content:center;min-height:44px}
+.checkout-copy-status{font-size:12px;color:var(--text-muted)}
+.checkout-submit:disabled{opacity:.55;cursor:not-allowed}
+.checkout-confirmation[hidden],#checkout-form[hidden],.crypto-payment-notice[hidden]{display:none}
 .gift-card-disabled,.gift-card-disabled:hover{background:#e3e6df;color:#59665f;cursor:not-allowed}
 .gift-card-note{font-size:13px;line-height:1.6;color:var(--text-muted);margin:-8px 0 22px;max-width:760px}
 @media(max-width:900px){.categories-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}

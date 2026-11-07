@@ -56,7 +56,8 @@ async function boot({ fail = false, feed = store(), stall = false, hash = '#gift
   const state = { feed, fail };
   function element(key) {
     if (!elements.has(key)) elements.set(key, {
-      innerHTML: '', style: {}, value: '', dataset: {},
+      innerHTML: '', style: {}, value: '', dataset: {}, children: [],
+      replaceChildren() { this.children = []; }, appendChild(child) { this.children.push(child); },
       classList: { toggle() {}, remove() {}, add() {}, contains() { return false; } },
       querySelector: selector => element(key + ' ' + selector), querySelectorAll: () => [],
       closest: selector => element(selector), addEventListener() {}, setAttribute() {}, scrollIntoView() {}
@@ -64,7 +65,7 @@ async function boot({ fail = false, feed = store(), stall = false, hash = '#gift
     return elements.get(key);
   }
   const document = {
-    hidden: false, body: element('body'),
+    hidden: false, body: element('body'), createElement: tag => ({ tagName: tag }),
     getElementById: id => element('#' + id), querySelector: element, querySelectorAll: () => [],
     addEventListener(name, callback) {
       const callbacks = listeners.get(name) || []; callbacks.push(callback); listeners.set(name, callbacks);
