@@ -3,6 +3,9 @@
 The Connections storefront checkout accepts Sentoo, USDT and USDC. Gift-card
 links continue to use the separate Gift Card Curaçao store and its payment methods.
 
+Suave is also available as a separate QR request option; see `suave-payments.md`.
+Its 3% fee does not apply to crypto or Sentoo.
+
 Both stablecoins use **Ethereum (ERC-20)** and the owner-provided receiving wallet:
 `0x4E7d1D58Ed7dfe63a15EdCa83437BB6AC7A6eF0e`.
 

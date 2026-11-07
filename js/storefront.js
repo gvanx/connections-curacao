@@ -85,7 +85,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-02-remove-17-pro-max-hso';
+    const PRODUCTS_DATA_VERSION = '2026-11-07-sold-white-titanium';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -686,3 +686,4 @@
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
+

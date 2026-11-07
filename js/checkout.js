@@ -7,6 +7,7 @@ const CHECKOUT_CONFIG = {
   sentooBaseUrl: 'https://sentoo.pro/connections-curacao',
   reserveAmount: 100,
   deliveryFee: 35,
+  suave: { enabled: true },
   crypto: {
     enabled: true,
     exchangeRate: 1.74,
@@ -73,6 +74,13 @@ function paymentQuote(total, method) {
     throw new Error('Please check the order amount.');
   }
   if (method === 'sentoo') return { method, label: 'Sentoo', amount: formatPrice(total), total };
+  if (method === 'suave') {
+    if (CHECKOUT_CONFIG.suave?.enabled !== true) throw new Error('Suave is currently unavailable. Please choose another payment method.');
+    const suaveCents = Math.round(cents * 103 / 100);
+    if (!Number.isSafeInteger(suaveCents) || suaveCents < 1) throw new Error('Please check the Suave amount.');
+    return { method, label: 'Suave', total, payableTotal: suaveCents / 100,
+      paymentFee: (suaveCents - cents) / 100, amount: `XCG ${(suaveCents / 100).toFixed(2)}` };
+  }
   const settings = cryptoPaymentSettings(method);
   const tokenCents = Math.round(cents / settings.exchangeRate);
   if (!Number.isSafeInteger(tokenCents) || tokenCents < 1) throw new Error('Please check the crypto amount.');
@@ -86,6 +94,11 @@ function populatePaymentMethods() {
   const sentoo = document.createElement('option');
   sentoo.value = 'sentoo'; sentoo.textContent = 'Sentoo — local bank';
   select.appendChild(sentoo);
+  if (CHECKOUT_CONFIG.suave?.enabled === true) {
+    const suave = document.createElement('option');
+    suave.value = 'suave'; suave.textContent = 'Suave — QR by WhatsApp (+3%)';
+    select.appendChild(suave);
+  }
   for (const method of ['USDT', 'USDC']) {
     try {
       const settings = cryptoPaymentSettings(method);
@@ -97,7 +110,7 @@ function populatePaymentMethods() {
   select.value = 'sentoo';
   const notice = document.getElementById('crypto-payment-notice');
   if (notice) {
-    const available = Array.from(select.children).filter(option => option.value !== 'sentoo').map(option => option.value);
+    const available = Array.from(select.children).filter(option => ['USDT', 'USDC'].includes(option.value)).map(option => option.value);
     notice.hidden = available.length === 0;
     notice.textContent = available.length
       ? `Pay with ${available.join(' or ')} on ${CHECKOUT_CONFIG.crypto.network}. No Connections fee. Select crypto at checkout.` : '';
@@ -125,15 +138,20 @@ function updateCheckoutSummary() {
   document.getElementById('checkout-pay-now').textContent = formatPrice(paymentAmount);
   document.getElementById('checkout-fee').textContent = formatPrice(fee);
   document.getElementById('checkout-total').textContent = formatPrice(total);
+  document.getElementById('checkout-payment-fee').textContent = 'XCG 0.00';
   document.getElementById('checkout-address-wrap').style.display = deliveryType === 'delivery' ? 'block' : 'none';
   if (submitBtn) {
     try {
       const quote = paymentQuote(total, document.getElementById('checkout-method').value);
+      document.getElementById('checkout-total').textContent = quote.method === 'suave' ? quote.amount : formatPrice(total);
+      document.getElementById('checkout-payment-fee').textContent = `XCG ${(quote.paymentFee || 0).toFixed(2)}`;
       document.getElementById('checkout-quote').textContent = quote.method === 'sentoo'
         ? 'Pay with your local bank through Sentoo. Your order remains pending until payment is verified.'
+        : quote.method === 'suave' ? `${formatPrice(total)} × 1.03 = ${quote.amount}, including the 3% Suave fee. Request your QR code on WhatsApp; our team will send it for this amount. Suave confirms any payment plan and approval.`
         : `Send ${quote.amount} on ${quote.network}. ${formatPrice(total)} ÷ ${quote.exchangeRate}. No Connections fee. Your wallet or exchange may charge a network or withdrawal fee.`;
       submitBtn.textContent = quote.method === 'sentoo'
         ? `${paymentType === 'reserve' ? 'Reserve for' : 'Pay'} ${formatPrice(total)} via Sentoo`
+        : quote.method === 'suave' ? `Request Suave QR — ${quote.amount}`
         : `Continue with ${quote.amount}`;
       submitBtn.disabled = false;
     } catch (error) {
@@ -203,7 +221,7 @@ function orderMessage(details) {
     `Payment type: ${details.paymentType === 'reserve' ? 'RESERVE' : 'FULL PAYMENT'}`,
     `Pay now: ${formatPrice(details.paymentAmount)}`,
     `Delivery: ${deliveryLine}`,
-    `Total: ${formatPrice(details.total)}`,
+    `Subtotal before payment fee: ${formatPrice(details.total)}`,
     `Name: ${details.customerName}`,
     `Phone: ${details.customerPhone}`
   ];
@@ -213,12 +231,16 @@ function orderMessage(details) {
   if (details.address) lines.push(`Address: ${details.address}`);
   const quote = details.quote || { method: 'sentoo', label: 'Sentoo', amount: formatPrice(details.total) };
   lines.push('', `Payment: ${quote.label}`, `Amount due: ${quote.amount}`);
-  if (quote.method !== 'sentoo') {
+  if (quote.method === 'suave') {
+    lines.push(`Suave fee (3%): XCG ${quote.paymentFee.toFixed(2)}`,
+      `Suave QR amount: ${quote.amount}`,
+      `Please send me a Suave QR code for ${quote.amount} on WhatsApp. I will scan it to complete payment.`);
+  } else if (quote.method !== 'sentoo') {
     lines.push(`Network: ${quote.network}`, `Receiving wallet: ${quote.address}`,
       `Conversion: XCG total ÷ ${quote.exchangeRate}; no Connections fee.`,
       'I will send my transaction hash and proof of payment for verification.');
   }
-  lines.push('Status: Awaiting payment verification');
+  lines.push(quote.method === 'suave' ? 'Status: Awaiting Suave QR code — payment not verified' : 'Status: Awaiting payment verification');
   return lines.join('\n');
 }
 
@@ -232,7 +254,7 @@ function showPaymentInstructions(details, message) {
     confirmation.appendChild(element);
     return element;
   };
-  const heading = addText('h4', 'Payment pending verification');
+  const heading = addText('h4', quote.method === 'suave' ? 'Request your Suave QR code' : 'Payment pending verification');
   heading.tabIndex = -1;
   addText('p', `Order ${details.orderId} · ${details.productName}`);
   addText('strong', `Amount due: ${quote.amount}`, 'checkout-amount');
@@ -255,6 +277,10 @@ function showPaymentInstructions(details, message) {
   if (quote.method === 'sentoo') {
     addText('p', 'Complete your payment with Sentoo, then send your order on WhatsApp.');
     addLink('Open Sentoo', sentooLink(details.total));
+  } else if (quote.method === 'suave') {
+    addText('p', `Subtotal: ${formatPrice(details.total)} · Suave fee (3%): XCG ${quote.paymentFee.toFixed(2)}`);
+    addText('p', `Send your order on WhatsApp below. Our team will send you a Suave QR code for ${quote.amount}. Scan the QR in Suave to complete payment.`);
+    addText('p', 'Payment is not verified yet. Your order will be confirmed after our team checks your Suave payment. Any payment plan and approval are handled by Suave.');
   } else {
     addText('p', `Network: ${quote.network}`, 'checkout-network');
     addText('p', `Send only ${quote.label} using ${quote.network}. Check the coin and network in your wallet before sending.`);
@@ -264,7 +290,7 @@ function showPaymentInstructions(details, message) {
     addText('p', `${formatPrice(details.total)} ÷ ${quote.exchangeRate}. No Connections fee. Wallet or exchange fees are separate.`);
     addText('p', 'After payment, send your transaction hash and proof of payment on WhatsApp. Our team will verify receipt before confirming your reservation, pickup or delivery.');
   }
-  addLink('Send order on WhatsApp', `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`);
+  addLink(quote.method === 'suave' ? 'Request Suave QR on WhatsApp' : 'Send order on WhatsApp', `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`);
   const status = addText('p', '', 'checkout-copy-status');
   status.id = 'checkout-copy-status'; status.setAttribute('role', 'status');
   document.getElementById('checkout-form').hidden = true;
@@ -408,7 +434,7 @@ function initCheckoutModal() {
           items: `${details.productName} — 1 × ${formatPrice(details.basePrice)}`,
           itemCount: 1,
           amount: quote.amount,
-          totalXCG: formatPrice(total),
+          totalXCG: quote.method === 'suave' ? quote.amount : formatPrice(total),
           productSubtotal: formatPrice(details.basePrice),
           payNowXCG: formatPrice(paymentAmount),
           deliveryFee: formatPrice(fee),
@@ -416,13 +442,16 @@ function initCheckoutModal() {
           paymentType: paymentType === 'reserve' ? 'RESERVE' : 'FULL',
           delivery: deliveryType === 'delivery' ? 'Delivery' : 'Pickup',
           address: details.address || 'Not applicable',
-          payment: quote.method === 'sentoo' ? 'Sentoo — PENDING VERIFICATION' : `${quote.label} on ${quote.network} — PENDING VERIFICATION`,
+          payment: quote.method === 'suave' ? 'Suave — QR REQUESTED, PAYMENT NOT VERIFIED' : quote.method === 'sentoo' ? 'Sentoo — PENDING VERIFICATION' : `${quote.label} on ${quote.network} — PENDING VERIFICATION`,
           type: quote.method === 'sentoo' ? 'SENTOO — PENDING VERIFICATION' : `${quote.label} — PENDING VERIFICATION`,
-          status: 'Awaiting payment verification',
+          status: quote.method === 'suave' ? 'Awaiting Suave QR code — payment not verified' : 'Awaiting payment verification',
           network: quote.network || 'Not applicable',
           wallet: quote.address || 'Not applicable',
           exchangeRate: quote.exchangeRate ? `XCG total ÷ ${quote.exchangeRate}` : 'Not applicable',
           cryptoFee: '0.00',
+          paymentFee: quote.method === 'suave' ? `XCG ${quote.paymentFee.toFixed(2)} (Suave 3%)` : 'XCG 0.00',
+          staffAction: quote.method === 'suave' ? `Send the customer a Suave QR code for ${quote.amount} via WhatsApp, then verify payment before fulfilment.` : 'Verify payment before fulfilment.',
+          qrAmount: quote.method === 'suave' ? quote.amount : 'Not applicable',
           transactionHash: 'Not submitted',
           verificationMethod: 'Manual review required',
           termsAccepted: 'Yes',
