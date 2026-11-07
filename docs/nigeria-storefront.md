@@ -10,7 +10,7 @@ message; opening the link does not automatically send anything.
 ## Country routing
 
 `netlify/edge-functions/nigeria.js` runs before the CDN cache. Only Netlify's
-`context.geo.country.code === 'NG'` grants public access to `/nigeria` and everything
+`context.geo.country.code === 'NG'` grants access to `/nigeria` and everything
 under it. Other or unknown countries receive a temporary redirect to
 `https://connectionscuracao.net/`. The same guard runs on native Netlify and
 deploy-preview URLs. Encoded path aliases are checked too.
@@ -19,33 +19,15 @@ Nigerian GET/HEAD visits to `/` and `/index.html` redirect to `/nigeria/`, keepi
 campaign query parameters. Existing Curaçao product pages and services retain
 their routes. Responses from protected paths and country redirects use
 `no-store` headers; do not opt the edge function into manual caching or set
-`onError: 'bypass'`. Country cookies, query strings and headers cannot override
-the gate. The owner-requested private preview exception is described below.
+`onError: 'bypass'`. There is no cookie, query-string or header override.
+
+The temporary private preview was removed at the owner's request. Its invitation
+exchange and credential validation no longer exist. Old preview cookies are ignored
+and expired by the server; possession of the former invitation cannot bypass GeoIP.
 
 Location is inferred from the public IP, not GPS or identity. A VPN changes
 the apparent country. This is regional site routing, not protection for secret
 material (the repository and its sources are public).
-
-## Private preview
-
-The owner can open a private invitation at `/nigeria/preview/#<invitation>` from
-outside Nigeria. Only the SHA-256 digest of a random 256-bit invitation is stored
-in the edge function. Never commit the invitation, full link or session cookie,
-or include them in PR descriptions, screenshots, analytics or external probes.
-
-The fragment is removed immediately by the preview page, then sent in a same-origin
-POST body. The server verifies its digest and expiry before setting a Secure,
-HttpOnly, host-only cookie scoped to `/nigeria`. The cookie allows the page and its
-assets to load without changing public country routing. Every use is verified
-server-side and stops working at the invitation's expiry (14 November 2026,
-21:06 UTC). Responses remain uncacheable. The invitation page has a restrictive
-CSP, no external scripts and a no-referrer policy.
-
-Anyone holding the invitation can open this preview until it expires. Revoke or
-replace it by changing `PREVIEW_TOKEN_SHA256` and deploying; set a new expiry when
-issuing a replacement. Do not place the real invitation in tests. Tests substitute
-a disposable fixture digest and expiry. The private entry page itself contains
-only an opening/error message and never reveals storefront content without access.
 
 ## Deploy and verify
 
@@ -65,8 +47,8 @@ homepage and checkout still work.
 `node --test tests/*.test.cjs` runs routing, inquiry and existing regression tests.
 For local Netlify integration checks, use `netlify dev --geo=mock --country=NG`,
 then repeat with `--country=CW`. Keep mock country overrides in local tooling
-only. The private invitation flow is the only owner-authorized exception to public
-country routing; arbitrary preview query parameters must still fail.
+only. There is no production preview bypass; review screenshots or local previews
+from outside Nigeria.
 
 `ng.connectionscuracao.net` can be connected separately once Netlify domain and
 DNS configuration are available. It is not provisioned by these source changes;
