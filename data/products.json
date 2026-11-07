@@ -1141,7 +1141,6 @@
     "price": 1799,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "MDRS710FGG46INV",
     "spec": "18 cu ft · Side-by-side · Inverter · 115V / 60Hz",
     "specifications": {
@@ -1160,7 +1159,6 @@
     "price": 1099,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "MDRT489MTG46INVWD",
     "spec": "12 cu ft",
     "specifications": {
@@ -1176,7 +1174,6 @@
     "price": 1299,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "MDRT645MTM46WD",
     "spec": "465L · Inverter · 115V / 60Hz",
     "specifications": {
@@ -1194,7 +1191,6 @@
     "price": 1199,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "MDRT580MTG46INV",
     "spec": "14 cu ft · 115V / 60Hz",
     "specifications": {
@@ -1211,7 +1207,6 @@
     "price": 450,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "MDRT87CCDLS",
     "spec": "3.3 cu ft · 2 doors · Gray · 115V / 60Hz",
     "specifications": {
@@ -1230,7 +1225,6 @@
     "price": 449,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "OSK100-1-110V",
     "imageUnavailable": true,
     "spec": "10kg · Twin tub",
@@ -1247,7 +1241,6 @@
     "price": 549,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "OSK130-1-110V",
     "imageUnavailable": true,
     "spec": "10kg",
@@ -1263,7 +1256,6 @@
     "price": 449,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-6544T2D11BWN1",
     "spec": "11kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1281,7 +1273,6 @@
     "price": 349,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9176T2D7A",
     "spec": "7kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1299,7 +1290,6 @@
     "price": 449,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9177T2C10B",
     "spec": "10kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1317,7 +1307,6 @@
     "price": 499,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9288T2C12B",
     "spec": "12kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1335,7 +1324,6 @@
     "price": 549,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9289T2C15A",
     "spec": "15kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1353,7 +1341,6 @@
     "price": 375,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9291T2C10B",
     "spec": "10kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1371,7 +1358,6 @@
     "price": 425,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "LAV-9292T2C11B",
     "spec": "11kg · Semi-automatic · Twin tub",
     "specifications": {
@@ -1389,7 +1375,6 @@
     "price": 599,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-6795R2D75SN1 ESTRI",
     "spec": "200L / 7 cu ft · Silver",
     "specifications": {
@@ -1406,7 +1391,6 @@
     "price": 799,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-6919R2F11TN1 LISHA",
     "spec": "248L / 8.76 cu ft · No Frost",
     "specifications": {
@@ -1423,7 +1407,6 @@
     "price": 375,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-6920R1D35TN1",
     "spec": "92L / 3.25 cu ft · Stainless steel",
     "specifications": {
@@ -1440,7 +1423,6 @@
     "price": 949,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-7251D2F13TN1",
     "spec": "345L / 12.18 cu ft · No Frost · Stainless steel · Water dispenser",
     "specifications": {
@@ -1459,7 +1441,6 @@
     "price": 1375,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-7253R2V20TN1 MAR",
     "spec": "513L / 18.1 cu ft · No Frost · Stainless steel · Water dispenser",
     "specifications": {
@@ -1478,7 +1459,6 @@
     "price": 499,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-8426R2D39SN1",
     "spec": "112L / 3.95 cu ft · Silver",
     "specifications": {
@@ -1495,7 +1475,6 @@
     "price": 1449,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-8803D6V185TB1",
     "spec": "525L / 18.5 cu ft · Side-by-side · No Frost · Black stainless steel · Water dispenser",
     "specifications": {
@@ -1515,7 +1494,6 @@
     "price": 1649,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-8805D6V197TB1",
     "spec": "559L / 19.7 cu ft · Side-by-side · No Frost · Black stainless steel · Water dispenser",
     "specifications": {
@@ -1535,7 +1513,6 @@
     "price": 1249,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-8999R2V182",
     "spec": "513L / 18.1 cu ft · No Frost · Stainless steel · 110V",
     "specifications": {
@@ -1554,7 +1531,6 @@
     "price": 1049,
     "category": "appliances",
     "featured": false,
-    "newArrival": true,
     "model": "NV-9013R2V143TN1",
     "spec": "406L / 14.34 cu ft · No Frost · Stainless steel",
     "specifications": {
