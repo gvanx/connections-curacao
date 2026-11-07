@@ -158,3 +158,30 @@ test('email failure does not block instructions or the WhatsApp handoff', async 
   assert.equal(h.get('checkout-confirmation').hidden, false);
   assert.ok(h.get('checkout-confirmation').children.some(child => child.href?.startsWith('https://wa.me/')));
 });
+
+test('order emails populate every template field with correct totals and manual status', () => {
+  const template = fs.readFileSync(require('node:path').join(__dirname, '../docs/emailjs-order-template.html'), 'utf8');
+  for (const method of ['sentoo', 'USDT', 'USDC']) {
+    const h = harness(); h.open({ method, price: 348, payment: 'reserve', delivery: 'delivery' }); h.submit();
+    const mail = h.emails[0];
+    assert.equal(mail.storeName, 'Connections Curaçao');
+    assert.equal(mail.productSubtotal, 'XCG 348');
+    assert.equal(mail.payNowXCG, 'XCG 100');
+    assert.equal(mail.deliveryFee, 'XCG 35');
+    assert.equal(mail.totalXCG, 'XCG 135');
+    assert.equal(mail.remainingBalance, 'XCG 248');
+    assert.equal(mail.transactionHash, 'Not submitted');
+    assert.equal(mail.verificationMethod, 'Manual review required');
+    assert.equal(mail.termsAccepted, 'Yes');
+    assert.ok(Number.isFinite(Date.parse(mail.createdAt)));
+    for (const [, key] of template.matchAll(/{{(\w+)}}/g)) {
+      assert.ok(mail[key] !== undefined && mail[key] !== '', `missing template field: ${key}`);
+    }
+  }
+});
+
+test('pickup notifications omit a previously entered delivery address', () => {
+  const h = harness(); h.open({ method: 'USDC', delivery: 'pickup' }); h.submit();
+  assert.equal(h.emails[0].address, 'Not applicable');
+  assert.doesNotMatch(h.emails[0].message, /Test address/);
+});

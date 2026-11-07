@@ -195,6 +195,8 @@ function orderMessage(details) {
 
   const lines = [
     'Hi Connections!',
+    'Store: Connections Curaçao',
+    `Created (UTC): ${details.createdAt}`,
     `Order: ${details.orderId}`,
     `Product: ${details.productName}`,
     `Product price: ${formatPrice(details.basePrice)}`,
@@ -374,6 +376,7 @@ function initCheckoutModal() {
     const orderId = `CON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     const details = {
       orderId,
+      createdAt: new Date().toISOString(),
       productName: activeCheckout.name,
       basePrice: activeCheckout.price,
       paymentType,
@@ -383,7 +386,7 @@ function initCheckoutModal() {
       total,
       customerName,
       customerPhone,
-      address,
+      address: deliveryType === 'delivery' ? address : '',
       quote
     };
     const message = orderMessage(details);
@@ -395,18 +398,34 @@ function initCheckoutModal() {
     try {
       if (window.emailjs && CHECKOUT_CONFIG.email.serviceID && CHECKOUT_CONFIG.email.templateID) {
         Promise.resolve(emailjs.send(CHECKOUT_CONFIG.email.serviceID, CHECKOUT_CONFIG.email.templateID, {
+          storeName: 'Connections Curaçao',
+          storeUrl: 'https://connectionscuracao.net',
+          createdAt: details.createdAt,
           orderId,
           name: customerName,
           whatsapp: customerPhone,
           product: details.productName,
+          items: `${details.productName} — 1 × ${formatPrice(details.basePrice)}`,
+          itemCount: 1,
           amount: quote.amount,
+          totalXCG: formatPrice(total),
+          productSubtotal: formatPrice(details.basePrice),
+          payNowXCG: formatPrice(paymentAmount),
+          deliveryFee: formatPrice(fee),
+          remainingBalance: formatPrice(details.basePrice - paymentAmount),
           paymentType: paymentType === 'reserve' ? 'RESERVE' : 'FULL',
           delivery: deliveryType === 'delivery' ? 'Delivery' : 'Pickup',
-          address: address || '',
+          address: details.address || 'Not applicable',
           payment: quote.method === 'sentoo' ? 'Sentoo — PENDING VERIFICATION' : `${quote.label} on ${quote.network} — PENDING VERIFICATION`,
+          type: quote.method === 'sentoo' ? 'SENTOO — PENDING VERIFICATION' : `${quote.label} — PENDING VERIFICATION`,
           status: 'Awaiting payment verification',
-          network: quote.network || '',
-          wallet: quote.address || '',
+          network: quote.network || 'Not applicable',
+          wallet: quote.address || 'Not applicable',
+          exchangeRate: quote.exchangeRate ? `XCG total ÷ ${quote.exchangeRate}` : 'Not applicable',
+          cryptoFee: '0.00',
+          transactionHash: 'Not submitted',
+          verificationMethod: 'Manual review required',
+          termsAccepted: 'Yes',
           message
         })).catch((err) => console.warn('EmailJS send failed', err));
       }
@@ -416,3 +435,4 @@ function initCheckoutModal() {
 
   });
 }
+
