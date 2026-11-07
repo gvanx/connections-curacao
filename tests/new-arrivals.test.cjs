@@ -113,7 +113,8 @@ async function loadStorefront(fixture, hash = '#new-arrivals') {
   let timer;
   function element(key) {
     if (!elements.has(key)) elements.set(key, {
-      innerHTML: '', style: {}, value: '',
+      innerHTML: '', style: {}, value: '', children: [],
+      replaceChildren() { this.children = []; }, appendChild(child) { this.children.push(child); },
       classList: { toggle() {}, remove() {}, add() {}, contains() { return false; } },
       querySelector: selector => element(key + ' ' + selector), querySelectorAll: () => [],
       closest: selector => element(selector), addEventListener() {}, setAttribute() {}, scrollIntoView() {}
@@ -121,7 +122,7 @@ async function loadStorefront(fixture, hash = '#new-arrivals') {
     return elements.get(key);
   }
   const document = {
-    hidden: false, body: element('body'),
+    hidden: false, body: element('body'), createElement: tag => ({ tagName: tag }),
     getElementById: id => element('#' + id), querySelector: element, querySelectorAll: () => [],
     addEventListener: (name, callback) => { if (['DOMContentLoaded', 'visibilitychange'].includes(name)) events[name] = callback; }
   };
@@ -199,4 +200,3 @@ test('a restock stays visible when the final New Arrival expires without keeping
   assert(elements.get('#deals .container').innerHTML.includes('Back in Stock'));
   assert(!elements.get('#product-results').innerHTML.includes('badge-new-arrival'));
 });
-

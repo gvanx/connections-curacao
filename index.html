@@ -28,7 +28,7 @@
 
   <meta property="og:image" content="https://connectionscuracao.net/img/campaigns/september-2026/apple-new-era.jpg">
   <link rel="canonical" href="https://connectionscuracao.net/">
-  <link rel="stylesheet" href="css/main.css?v=2026-10-28-gift-cards">
+  <link rel="stylesheet" href="css/main.css?v=2026-11-07-crypto">
   <link rel="describedby" href="https://connectionscuracao.net/llms.txt">
   <script type="application/ld+json" id="connections-business-schema">
 {
@@ -311,6 +311,7 @@
       </a>
     </section>
     <div class="benefits container"><span><b>01</b> Visit us in Punda &amp; Otrobanda</span><span><b>02</b> Chat with our team on WhatsApp</span><a href="/suave/"><b>03</b> Flexible payments with Suave <span aria-hidden="true">↗</span></a></div>
+    <p id="crypto-payment-notice" class="crypto-payment-notice container" hidden></p>
     <section id="categories"><div class="container"></div></section>
     <section id="deals"><div class="container"></div></section>
     <section id="discover" class="container">
@@ -530,19 +531,26 @@
           <input id="checkout-address" class="checkout-input" type="text" placeholder="Street, area, house number">
         </div>
 
+        <label class="checkout-label" for="checkout-method">Payment method</label>
+        <select id="checkout-method" class="checkout-input">
+          <option value="sentoo">Sentoo — local bank</option>
+        </select>
+        <p id="checkout-quote" class="checkout-quote" aria-live="polite"></p>
+
         <label class="checkout-terms">
           <input id="checkout-terms" type="checkbox">
           <span>I agree to share this order information for confirmation and delivery.</span>
         </label>
 
-        <div id="checkout-error" class="checkout-error"></div>
-        <button type="submit" class="btn-whatsapp checkout-submit">Open Sentoo + WhatsApp</button>
+        <div id="checkout-error" class="checkout-error" role="alert"></div>
+        <button type="submit" class="btn-whatsapp checkout-submit">Continue to payment</button>
       </form>
+      <div id="checkout-confirmation" class="checkout-confirmation" hidden></div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script src="js/checkout.js?v=2026-09-16"></script>
+  <script src="js/checkout.js?v=2026-11-07-crypto"></script>
   <script src="js/new-arrivals.js?v=2026-10-28-restock"></script>
   <script src="js/gift-cards.js?v=2026-10-28"></script>
   <script src="js/storefront.js?v=2026-11-02-remove-17-pro-max-hso"></script>
