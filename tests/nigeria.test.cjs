@@ -146,3 +146,125 @@ test('invalid and whitespace-only form submissions do not open WhatsApp', () => 
   assert.equal(inquiry('apple', { amount: ' ', region: 'US' }), null);
   assert.equal(inquiry('apple', { amount: '50 USD', region: ' ' }), null);
 });
+
+// Use a disposable fixture credential. The real private link is never committed.
+const previewToken = Buffer.alloc(32, 7).toString('base64url');
+const previewDigest = require('node:crypto').createHash('sha256').update(previewToken).digest('hex');
+const previewCookie = '__Secure-connections_ng_preview';
+
+async function previewFixture(expired = false) {
+  const expires = new Date(Date.now() + (expired ? -60000 : 3600000)).toISOString();
+  const fixture = source
+    .replace(/const PREVIEW_TOKEN_SHA256 = '[a-f0-9]{64}';/, `const PREVIEW_TOKEN_SHA256 = '${previewDigest}';`)
+    .replace(/const PREVIEW_EXPIRES_AT = '[^']+';/, `const PREVIEW_EXPIRES_AT = '${expires}';`);
+  return (await import('data:text/javascript;base64,' + Buffer.from(fixture).toString('base64'))).default;
+}
+
+function exchange(token, extra = {}) {
+  return new Request(home + 'nigeria/preview/', {
+    method: 'POST', headers: { Origin: home.slice(0, -1), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token }), ...extra,
+  });
+}
+
+test('a private invitation opens a secure, scoped, time-limited preview session', async () => {
+  const handler = await previewFixture();
+  const response = await handler(exchange(previewToken), {});
+  assert.equal(response.status, 204);
+  const cookie = response.headers.get('Set-Cookie');
+  assert.ok(cookie.startsWith(previewCookie + '=' + previewToken + ';'));
+  assert.match(cookie, /Path=\/nigeria;/);
+  assert.match(cookie, /Secure; HttpOnly; SameSite=Lax/);
+  const maxAge = Number(cookie.match(/Max-Age=(\d+)/)[1]);
+  assert.ok(maxAge > 0 && maxAge <= 3600);
+  assert.equal(response.headers.get('Cache-Control'), 'private, no-store');
+  assert.equal(response.headers.get('Referrer-Policy'), 'no-referrer');
+});
+
+test('a valid preview cookie grants page, HTML, CSS and JS access outside Nigeria', async () => {
+  const handler = await previewFixture();
+  for (const url of ['/nigeria', '/nigeria/', '/nigeria/index.html', '/nigeria/styles.css', '/nigeria/storefront.js']) {
+    let served = false;
+    const response = await handler(new Request(home.slice(0, -1) + url, {
+      headers: { Cookie: previewCookie + '=' + previewToken },
+    }), { geo: { country: { code: 'CW' } }, next: async () => { served = true; return new Response('Private preview'); } });
+    assert.equal(served, true, url);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('Cache-Control'), 'private, no-store');
+    assert.equal(response.headers.get('Referrer-Policy'), 'no-referrer');
+  }
+});
+
+test('missing, modified, public-digest and duplicate preview credentials do not bypass GeoIP', async () => {
+  const handler = await previewFixture();
+  for (const cookie of ['', previewCookie + '=true', previewCookie + '=' + previewDigest,
+    previewCookie + '=' + previewToken.slice(0, -1) + 'x',
+    previewCookie + '=' + previewToken + '; ' + previewCookie + '=' + previewToken]) {
+    let served = false;
+    const response = await handler(new Request(home + 'nigeria/', { headers: { Cookie: cookie } }), {
+      geo: { country: { code: 'CW' } }, next: async () => { served = true; return new Response('Private preview'); },
+    });
+    assert.equal(served, false);
+    assert.equal(response.headers.get('Location'), home);
+  }
+});
+
+test('expired invitations and cookies stop working on the server', async () => {
+  const handler = await previewFixture(true);
+  assert.equal((await handler(exchange(previewToken), {})).status, 403);
+  const response = await handler(new Request(home + 'nigeria/', {
+    headers: { Cookie: previewCookie + '=' + previewToken },
+  }), { geo: { country: { code: 'CW' } } });
+  assert.equal(response.headers.get('Location'), home);
+});
+
+test('invitation exchange rejects invalid tokens, cross-origin requests, non-JSON and oversized input', async () => {
+  const handler = await previewFixture();
+  for (const token of ['', previewDigest, null, 'invalid', previewToken.slice(1)]) {
+    const response = await handler(exchange(token), {});
+    assert.equal(response.status, 403);
+    assert.equal(response.headers.get('Set-Cookie'), null);
+  }
+  for (const headers of [
+    { Origin: 'https://example.com', 'Content-Type': 'application/json' },
+    { Origin: home.slice(0, -1), 'Content-Type': 'text/plain' },
+    { 'Content-Type': 'application/json' },
+  ]) assert.equal((await handler(exchange(previewToken, { headers }), {})).status, 403);
+  assert.equal((await handler(exchange(previewToken, { body: '{' }), {})).status, 400);
+  assert.equal((await handler(exchange(previewToken, { body: 'x'.repeat(300) }), {})).status, 400);
+});
+
+test('preview landing page contains no credential or storefront and has a restrictive CSP', async () => {
+  const handler = await previewFixture();
+  const response = await handler(new Request(home + 'nigeria/preview/'), {});
+  const body = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(body, /Opening your private preview/);
+  assert.ok(!body.includes(previewToken));
+  assert.ok(!body.includes('Buy USDT'));
+  assert.match(response.headers.get('Content-Security-Policy'), /script-src 'nonce-/);
+  assert.match(response.headers.get('Content-Security-Policy'), /frame-ancestors 'none'/);
+  assert.equal(response.headers.get('Referrer-Policy'), 'no-referrer');
+  assert.equal(response.headers.get('Cache-Control'), 'private, no-store');
+  assert.equal(response.headers.get('X-Robots-Tag'), 'noindex, nofollow, noarchive');
+  assert.equal(await (await handler(new Request(home + 'nigeria/preview/', { method: 'HEAD' }), {})).text(), '');
+  assert.equal((await handler(new Request(home + 'nigeria/preview/', { method: 'PUT' }), {})).status, 405);
+});
+
+test('preview script clears the fragment before exchanging it and never adds it to a destination URL', async () => {
+  const handler = await previewFixture();
+  const html = await (await handler(new Request(home + 'nigeria/preview/'), {})).text();
+  const script = html.match(/<script nonce="[^"]+">([\s\S]+)<\/script>/)[1];
+  const events = [];
+  await vm.runInNewContext(script, {
+    location: { hash: '#' + previewToken, pathname: '/nigeria/preview/', replace(url) { events.push(['navigate', url]); } },
+    history: { replaceState(state, title, url) { events.push(['clear-fragment', url]); } },
+    document: { getElementById() { return {}; } },
+    fetch: async (url, options) => { events.push(['exchange', url, JSON.parse(options.body).token]); return { ok: true }; },
+  });
+  assert.deepEqual(events, [
+    ['clear-fragment', '/nigeria/preview/'],
+    ['exchange', '/nigeria/preview/', previewToken],
+    ['navigate', '/nigeria/'],
+  ]);
+});
