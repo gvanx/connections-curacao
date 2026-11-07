@@ -54,7 +54,7 @@ function harness() {
 
 test('both published tokens use the supplied Ethereum wallet, 1.74 rate and no added fee', () => {
   const h = harness();
-  assert.deepEqual(Array.from(h.get('checkout-method').children, item => item.value), ['sentoo', 'USDT', 'USDC']);
+  assert.deepEqual(Array.from(h.get('checkout-method').children, item => item.value), ['sentoo', 'suave', 'USDT', 'USDC']);
   for (const token of ['USDT', 'USDC']) {
     const quote = h.api.paymentQuote(174, token);
     assert.equal(quote.amount, `100.00 ${token}`);
@@ -132,7 +132,7 @@ test('invalid amounts, tokens, networks, addresses and rates cannot create crypt
 });
 
 test('customer details, delivery address and consent are required before preparing any payment', () => {
-  for (const method of ['sentoo', 'USDT', 'USDC']) for (const field of ['checkout-name', 'checkout-phone', 'checkout-address', 'checkout-terms']) {
+  for (const method of ['sentoo', 'suave', 'USDT', 'USDC']) for (const field of ['checkout-name', 'checkout-phone', 'checkout-address', 'checkout-terms']) {
     const h = harness(); h.open({ method, delivery: 'delivery' });
     if (field === 'checkout-terms') h.get(field).checked = false; else h.get(field).value = '';
     h.submit(); assert.equal(h.emails.length, 0); assert.equal(h.popups.length, 0);
@@ -184,4 +184,47 @@ test('pickup notifications omit a previously entered delivery address', () => {
   const h = harness(); h.open({ method: 'USDC', delivery: 'pickup' }); h.submit();
   assert.equal(h.emails[0].address, 'Not applicable');
   assert.doesNotMatch(h.emails[0].message, /Test address/);
+});
+
+for (const [payment, delivery, price, expected, fee, remaining] of [
+  ['full', 'pickup', 100, '103.00', '3.00', 0],
+  ['full', 'delivery', 100, '139.05', '4.05', 0],
+  ['reserve', 'pickup', 348, '103.00', '3.00', 248],
+  ['reserve', 'delivery', 348, '139.05', '4.05', 248],
+  ['reserve', 'pickup', 35, '36.05', '1.05', 0],
+  ['full', 'pickup', 49.99, '51.49', '1.50', 0]
+]) {
+  test(`Suave ${payment} ${delivery} at ${price} requests a QR for XCG ${expected}`, () => {
+    const h = harness(); h.open({ method:'suave', payment, delivery, price });
+    assert.equal(h.get('checkout-total').textContent, `XCG ${expected}`);
+    assert.equal(h.get('checkout-payment-fee').textContent, `XCG ${fee}`);
+    assert.match(h.get('submit').textContent, /Request Suave QR/);
+    h.submit(); h.submit();
+    assert.equal(h.emails.length,1); assert.equal(h.popups.length,0);
+    const mail=h.emails[0];
+    assert.equal(mail.amount, `XCG ${expected}`);
+    assert.equal(mail.qrAmount,mail.amount); assert.equal(mail.totalXCG,mail.amount);
+    assert.equal(mail.paymentFee, `XCG ${fee} (Suave 3%)`);
+    assert.equal(mail.remainingBalance, `XCG ${remaining}`);
+    assert.equal(mail.network,'Not applicable'); assert.equal(mail.wallet,'Not applicable');
+    assert.match(mail.status,/Awaiting Suave QR code/); assert.ok(mail.staffAction.includes(mail.amount));
+    const confirmation=h.get('checkout-confirmation');
+    assert.match(confirmation.children.map(n=>n.textContent).join('\n'),/Payment is not verified yet/);
+    const link=confirmation.children.find(n=>n.tagName==='a');
+    assert.equal(link.textContent,'Request Suave QR on WhatsApp');
+    const message=new URL(link.href).searchParams.get('text');
+    assert.ok(message.includes(`Suave QR amount: XCG ${expected}`));
+    assert.doesNotMatch(message,/undefined|Receiving wallet|Ethereum|transaction hash/);
+  });
+}
+
+test('Suave can be paused and changing methods clears its surcharge', () => {
+  const h=harness(); h.open({method:'suave',price:100});
+  h.get('checkout-method').value='sentoo'; h.api.updateCheckoutSummary();
+  assert.equal(h.get('checkout-total').textContent,'XCG 100');
+  assert.equal(h.get('checkout-payment-fee').textContent,'XCG 0.00');
+  h.api.config.suave.enabled=false; h.api.populatePaymentMethods();
+  assert(!h.get('checkout-method').children.some(n=>n.value==='suave'));
+  assert.throws(()=>h.api.paymentQuote(100,'suave'));
+  for(const amount of [0,-1,NaN,Infinity,'100']) assert.throws(()=>h.api.paymentQuote(amount,'suave'));
 });

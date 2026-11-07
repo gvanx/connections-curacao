@@ -3,6 +3,7 @@
   <h1 style="font-size:24px;margin:8px 0;">Order request {{orderId}}</h1>
   <p style="background:#fff4d6;padding:16px;border-left:4px solid #b77900;"><strong>Payment not verified</strong><br>Verify the incoming payment before confirming the order or delivering goods or digital codes.</p>
   <p><strong>Status:</strong> {{status}}<br><strong>Created (UTC):</strong> {{createdAt}}<br><strong>Verification:</strong> {{verificationMethod}}</p>
+  <p><strong>Staff action:</strong> {{staffAction}}<br><strong>Suave QR amount:</strong> {{qrAmount}}</p>
   <h2 style="font-size:20px;">Customer</h2>
   <p><strong>Name:</strong> {{name}}<br><strong>WhatsApp:</strong> {{whatsapp}}<br><strong>Terms accepted:</strong> {{termsAccepted}}</p>
   <h2 style="font-size:20px;">Items ({{itemCount}})</h2>
@@ -10,7 +11,7 @@
   <h2 style="font-size:20px;">Order totals</h2>
   <p><strong>Product subtotal:</strong> {{productSubtotal}}<br><strong>Payment type:</strong> {{paymentType}}<br><strong>Product payment now:</strong> {{payNowXCG}}<br><strong>Delivery fee:</strong> {{deliveryFee}}<br><strong>Total due now (XCG):</strong> {{totalXCG}}<br><strong>Remaining product balance:</strong> {{remainingBalance}}</p>
   <h2 style="font-size:20px;">Payment details</h2>
-  <p><strong>Method:</strong> {{payment}}<br><strong>Amount to pay:</strong> {{amount}}<br><strong>Conversion:</strong> {{exchangeRate}}<br><strong>Store crypto fee:</strong> {{cryptoFee}}<br><strong>Network:</strong> {{network}}</p>
+  <p><strong>Method:</strong> {{payment}}<br><strong>Amount to pay:</strong> {{amount}}<br><strong>Conversion:</strong> {{exchangeRate}}<br><strong>Payment fee:</strong> {{paymentFee}}<br><strong>Network:</strong> {{network}}</p>
   <p style="overflow-wrap:anywhere;word-break:break-all;"><strong>Receiving wallet:</strong><br>{{wallet}}<br><strong>Transaction hash:</strong><br>{{transactionHash}}</p>
   <h2 style="font-size:20px;">Delivery</h2>
   <p><strong>Method:</strong> {{delivery}}<br><strong>Address:</strong> {{address}}</p>

@@ -17,6 +17,12 @@ payment type, remaining balance, coin amount, rate, network, wallet, consent and
 verification status. The legacy `name`, `whatsapp`, `product`, `amount`, `type`,
 `payment`, `orderId`, `delivery`, and `message` fields remain available.
 
+Suave requests additionally include `staffAction`, `qrAmount` and `paymentFee`.
+The template shows the 3% fee and the exact XCG amount for the QR staff send on
+WhatsApp. `totalXCG` includes this fee; `payNowXCG` is the product portion before
+payment fees and delivery. Other payment methods set the QR amount to
+`Not applicable` and the payment fee to zero.
+
 Checkout submissions are **unverified order requests**. Staff must verify the
 actual payment before fulfilling an order. The owner chose direct wallet payments
 and manual verification; there is no payment processor, automatic verification,
