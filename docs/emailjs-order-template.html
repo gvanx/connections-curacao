@@ -1,0 +1,18 @@
+<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.6;color:#172033;max-width:640px;margin:auto;padding:24px;">
+  <p style="color:#526078;margin:0;">{{storeName}} · {{storeUrl}}</p>
+  <h1 style="font-size:24px;margin:8px 0;">Order request {{orderId}}</h1>
+  <p style="background:#fff4d6;padding:16px;border-left:4px solid #b77900;"><strong>Payment not verified</strong><br>Verify the incoming payment before confirming the order or delivering goods or digital codes.</p>
+  <p><strong>Status:</strong> {{status}}<br><strong>Created (UTC):</strong> {{createdAt}}<br><strong>Verification:</strong> {{verificationMethod}}</p>
+  <h2 style="font-size:20px;">Customer</h2>
+  <p><strong>Name:</strong> {{name}}<br><strong>WhatsApp:</strong> {{whatsapp}}<br><strong>Terms accepted:</strong> {{termsAccepted}}</p>
+  <h2 style="font-size:20px;">Items ({{itemCount}})</h2>
+  <p style="white-space:pre-wrap;overflow-wrap:anywhere;">{{items}}</p>
+  <h2 style="font-size:20px;">Order totals</h2>
+  <p><strong>Product subtotal:</strong> {{productSubtotal}}<br><strong>Payment type:</strong> {{paymentType}}<br><strong>Product payment now:</strong> {{payNowXCG}}<br><strong>Delivery fee:</strong> {{deliveryFee}}<br><strong>Total due now (XCG):</strong> {{totalXCG}}<br><strong>Remaining product balance:</strong> {{remainingBalance}}</p>
+  <h2 style="font-size:20px;">Payment details</h2>
+  <p><strong>Method:</strong> {{payment}}<br><strong>Amount to pay:</strong> {{amount}}<br><strong>Conversion:</strong> {{exchangeRate}}<br><strong>Store crypto fee:</strong> {{cryptoFee}}<br><strong>Network:</strong> {{network}}</p>
+  <p style="overflow-wrap:anywhere;word-break:break-all;"><strong>Receiving wallet:</strong><br>{{wallet}}<br><strong>Transaction hash:</strong><br>{{transactionHash}}</p>
+  <h2 style="font-size:20px;">Delivery</h2>
+  <p><strong>Method:</strong> {{delivery}}<br><strong>Address:</strong> {{address}}</p>
+  <p style="border-top:1px solid #dde2ea;padding-top:16px;font-size:14px;color:#526078;">This is a checkout request, not a payment receipt. Customer network or exchange fees are separate. Confirm the received amount, token, network and destination before fulfilment.</p>
+</div>
