@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '583592416189452');
+  fbq('track', 'PageView', {content_name: 'Connections main site'});
+  </script>
+  <!-- End Meta Pixel Code -->
   <title>Connections Curaçao — Fresh tech. Local connections.</title>
   <meta name="description" content="Discover iPhone, Samsung Galaxy, laptops, Anker accessories and scooters. Visit Connections in Punda and Otrobanda, Curaçao.">
 
@@ -280,6 +291,7 @@
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=583592416189452&amp;ev=PageView&amp;noscript=1"></noscript>
   <a class="skip-link" href="#products">Skip to products</a>
   <div class="announcement"><span>Bon bini to your next upgrade.</span><a href="/suave/">Buy now. Pay later with Suave <span aria-hidden="true">↗</span></a></div>
   <nav id="nav" aria-label="Main navigation">
@@ -556,5 +568,22 @@
   <script src="js/new-arrivals.js?v=2026-10-28-restock"></script>
   <script src="js/gift-cards.js?v=2026-10-28"></script>
   <script src="js/storefront.js?v=2026-11-07-sold-white-titanium"></script>
+  <script>
+  // Delegation also covers WhatsApp links added by the catalog and checkout.
+  document.addEventListener('click', function(event) {
+    var link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || typeof window.fbq !== 'function') return;
+    var destination;
+    try { destination = new URL(link.href); } catch (_) { return; }
+    var directChat = destination.hostname === 'wa.me' ||
+      (['api.whatsapp.com', 'web.whatsapp.com'].includes(destination.hostname) &&
+       /^\/send\/?$/.test(destination.pathname));
+    if (!directChat) return;
+    window.fbq('track', 'Contact', {
+      content_name: 'Main site WhatsApp enquiry',
+      contact_method: 'WhatsApp'
+    });
+  }, true);
+  </script>
 </body>
 </html>
