@@ -135,6 +135,11 @@ function updateCheckoutSummary() {
   document.getElementById('checkout-product').textContent = activeCheckout.name;
   document.getElementById('checkout-base').textContent = formatPrice(activeCheckout.price);
   document.getElementById('checkout-type').textContent = typeLabel;
+  const reservationNote = document.getElementById('checkout-reservation-note');
+  if (reservationNote) {
+    reservationNote.hidden = paymentType !== 'reserve';
+    reservationNote.textContent = `${formatPrice(paymentAmount)} goes toward your product price. Remaining product balance: ${formatPrice(Math.max(0, activeCheckout.price - paymentAmount))}. Delivery and payment fees are separate. Confirm the hold period and refund conditions with our team before paying.`;
+  }
   document.getElementById('checkout-pay-now').textContent = formatPrice(paymentAmount);
   document.getElementById('checkout-fee').textContent = formatPrice(fee);
   document.getElementById('checkout-total').textContent = formatPrice(total);
@@ -465,3 +470,6 @@ function initCheckoutModal() {
   });
 }
 
+
+// Close the dialog before navigating to the homepage buying information.
+document.getElementById('checkout-help-link')?.addEventListener('click', closeCheckout);

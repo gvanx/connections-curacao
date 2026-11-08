@@ -655,6 +655,14 @@
         ALL_PRODUCTS = products;
         renderCategories(products);
         renderDeals(products);
+        const heroProduct = products.find(p => p.featured && p.price > 0 && !p.inquiryOnly && !isPricePending(p) && !GiftCards.isGiftCard(p));
+        const hero = document.getElementById('hero-product');
+        if (hero && heroProduct) {
+          const name = heroProduct.name + (heroProduct.suffix ? ' ' + heroProduct.suffix : '');
+          hero.classList.add('hero-feature-product');
+          hero.href = 'https://wa.me/' + (heroProduct.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(heroProduct, name));
+          hero.innerHTML = `${productVisualHTML(heroProduct, name).replace('loading="lazy"', 'loading="eager" fetchpriority="high"')}<div class="hero-feature-top"><span>FEATURED AT CONNECTIONS</span><span class="round-arrow" aria-hidden="true">↗</span></div><div class="hero-feature-bottom"><span>Ask our team to confirm availability</span><strong>${escapeHtml(name)}</strong><span class="hero-product-price">${formatPrice(heroProduct.price)}</span><span>Ask on WhatsApp <span aria-hidden="true">→</span></span></div>`;
+        }
         renderToolbar(products);
         applyFilters();
         initCheckoutModal();
@@ -667,6 +675,7 @@
         }
       } catch (e) {
         console.error('Failed to load products:', e);
+        document.querySelector('#deals .container').innerHTML = '<p>Featured products could not load. <a href="https://wa.me/59996782619">Ask our team for prices and availability</a>.</p>';
         document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';
       }
     });
@@ -687,3 +696,14 @@
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
 
+
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[data-search-products]');
+      if (!link) return;
+      const search = document.getElementById('pf-search');
+      if (search) {
+        event.preventDefault();
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        search.focus({ preventScroll: true });
+      }
+    });

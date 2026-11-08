@@ -228,3 +228,19 @@ test('Suave can be paused and changing methods clears its surcharge', () => {
   assert.throws(()=>h.api.paymentQuote(100,'suave'));
   for(const amount of [0,-1,NaN,Infinity,'100']) assert.throws(()=>h.api.paymentQuote(amount,'suave'));
 });
+
+test('reservation guidance separates the product balance from delivery and payment fees', () => {
+  const h = harness();
+  h.open({ price: 348, payment: 'reserve', delivery: 'delivery', method: 'suave' });
+  const note = h.get('checkout-reservation-note');
+  assert.equal(note.hidden, false);
+  assert.match(note.textContent, /XCG 100 goes toward your product price/);
+  assert.match(note.textContent, /Remaining product balance: XCG 248/);
+  assert.match(note.textContent, /Delivery and payment fees are separate/);
+  assert.equal(h.api.getCheckoutTotals().total, 135);
+  h.open({ price: 35, payment: 'reserve' });
+  assert.match(note.textContent, /XCG 35 goes toward your product price/);
+  assert.match(note.textContent, /Remaining product balance: XCG 0\./);
+  h.open({ price: 348, payment: 'full' });
+  assert.equal(note.hidden, true);
+});
