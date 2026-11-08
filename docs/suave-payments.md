@@ -28,6 +28,9 @@ The `/suave/` page selects six new iPhone and Samsung models from the current
 `data/products.json` catalog. `suave/offers.js` shares the same quote function
 between the offer cards and calculator. The calculator takes the product price,
 deducts an optional cash/card contribution, then adds the 3% store fee once.
+This optional extra payment to Connections is separate from the first monthly
+instalment. Suave charges the first of the 12 monthly payments when the customer
+collects the device; it is included in the 12 payments, not an additional payment.
 The twelve-month estimate uses the existing 1.465 plan factor; Suave confirms
 the actual schedule and approval. Card WhatsApp links are enquiries, not orders
 or approval confirmations. Meta `Contact` records a click, not a completed sale.

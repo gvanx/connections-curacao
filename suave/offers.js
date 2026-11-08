@@ -26,7 +26,7 @@
 
   function whatsappUrl(product) {
     const plan = quote(product.price);
-    const message = `Hi Connections! I am interested in the ${product.name} with Suave.\nProduct price: ${money(product.price)}\n3% store fee: ${money(plan.fee)}\nEstimated payment: ${money(plan.payment)} per month for 12 months, with no upfront contribution.\nPlease confirm stock, the final plan and Suave approval.`;
+    const message = `Hi Connections! I am interested in the ${product.name} with Suave.\nProduct price: ${money(product.price)}\n3% store fee: ${money(plan.fee)}\nEstimated payment: ${money(plan.payment)} per month for 12 months.\nSuave charges the first of these 12 monthly payments when I collect the device.\nPlease confirm stock, the final plan and Suave approval.`;
     return 'https://wa.me/59996782619?text=' + encodeURIComponent(message);
   }
 
@@ -36,9 +36,9 @@
   if (typeof document === 'undefined') return;
 
   const copy = {
-    en: { month: '/ month', term: '12 monthly payments', retail: 'Product price', fee: '3% store fee included', ask: 'Get this offer', adjust: 'Adjust this plan', featured: 'Featured in our ad', selected: 'Selected phone', unavailable: 'Phone offers are temporarily unavailable. Ask our team for current prices.', fallback: 'Ask on WhatsApp', calc: 'Calculate a 12-month plan', sticky: 'Choose your phone', heroMonthly: 'Estimated monthly payment', heroNote: '12 months · 3% store fee included · Subject to approval' },
-    pap: { month: '/ luna', term: '12 pago mensual', retail: 'Preis di produkto', fee: '3% di kosto di tienda inkluí', ask: 'Mi ke e oferta aki', adjust: 'Ahustá e plan aki', featured: 'Den nos propaganda', selected: 'Telefòn skohe', unavailable: 'E ofertanan no ta disponibel awor. Puntra nos tim pa e preisnan aktual.', fallback: 'Puntra via WhatsApp', calc: 'Kalkulá un plan di 12 luna', sticky: 'Skohe bo telefòn', heroMonthly: 'Pago mensual kalkulá', heroNote: '12 luna · 3% di kosto inkluí · Bou di aprobashon' },
-    es: { month: '/ mes', term: '12 pagos mensuales', retail: 'Precio del producto', fee: 'Cargo del 3% incluido', ask: 'Quiero esta oferta', adjust: 'Ajustar este plan', featured: 'En nuestro anuncio', selected: 'Teléfono seleccionado', unavailable: 'Las ofertas no están disponibles temporalmente. Consulta los precios con nuestro equipo.', fallback: 'Pregunta por WhatsApp', calc: 'Calcula un plan de 12 meses', sticky: 'Elige tu teléfono', heroMonthly: 'Pago mensual estimado', heroNote: '12 meses · Cargo del 3% incluido · Sujeto a aprobación' }
+    en: { month: '/ month', term: '12 monthly payments', retail: 'Product price', fee: '3% store fee included', firstPayment: 'Suave charges the first monthly payment when you collect the device.', ask: 'Get this offer', adjust: 'Adjust this plan', featured: 'Featured in our ad', selected: 'Selected phone', unavailable: 'Phone offers are temporarily unavailable. Ask our team for current prices.', fallback: 'Ask on WhatsApp', calc: 'Calculate a 12-month plan', sticky: 'Choose your phone', heroMonthly: 'Estimated monthly payment', heroNote: '12 months · 3% store fee included · Subject to approval. Suave charges the first monthly payment when you collect the device.' },
+    pap: { month: '/ luna', term: '12 pago mensual', retail: 'Preis di produkto', fee: '3% di kosto di tienda inkluí', firstPayment: 'Suave ta kobra e promé pago mensual ora bo buska e aparato.', ask: 'Mi ke e oferta aki', adjust: 'Ahustá e plan aki', featured: 'Den nos propaganda', selected: 'Telefòn skohe', unavailable: 'E ofertanan no ta disponibel awor. Puntra nos tim pa e preisnan aktual.', fallback: 'Puntra via WhatsApp', calc: 'Kalkulá un plan di 12 luna', sticky: 'Skohe bo telefòn', heroMonthly: 'Pago mensual kalkulá', heroNote: '12 luna · 3% di kosto inkluí · Bou di aprobashon. Suave ta kobra e promé pago mensual ora bo buska e aparato.' },
+    es: { month: '/ mes', term: '12 pagos mensuales', retail: 'Precio del producto', fee: 'Cargo del 3% incluido', firstPayment: 'Suave cobra el primer pago mensual al recoger el dispositivo.', ask: 'Quiero esta oferta', adjust: 'Ajustar este plan', featured: 'En nuestro anuncio', selected: 'Teléfono seleccionado', unavailable: 'Las ofertas no están disponibles temporalmente. Consulta los precios con nuestro equipo.', fallback: 'Pregunta por WhatsApp', calc: 'Calcula un plan de 12 meses', sticky: 'Elige tu teléfono', heroMonthly: 'Pago mensual estimado', heroNote: '12 meses · Cargo del 3% incluido · Sujeto a aprobación. Suave cobra el primer pago mensual al recoger el dispositivo.' }
   };
   const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
@@ -66,7 +66,7 @@
           <div class="phone-image"><img src="${escape(imageSrc(product))}" alt="${escape(product.name)}" width="300" height="240" loading="lazy" decoding="async"></div>
           <h3>${escape(product.name)}</h3><p class="phone-retail">${escape(c.retail)} · ${money(product.price)}</p>
           <div class="phone-payment"><strong>${money(plan.payment)}</strong><span>${escape(c.month)}</span></div>
-          <p class="phone-fee">${escape(c.fee)}</p>
+          <p class="phone-fee">${escape(c.fee)}<br>${escape(c.firstPayment)}</p>
           <a class="offer-cta" href="${escape(whatsappUrl(product))}" data-contact="whatsapp" data-product="${escape(product.name)}" target="_blank" rel="noopener">${escape(c.ask)} <span aria-hidden="true">↗</span></a>
           <button class="adjust-plan" type="button" data-offer-index="${index}" aria-label="${escape(c.adjust + ': ' + product.name)}">${escape(c.adjust)}</button>
         </article>`;
