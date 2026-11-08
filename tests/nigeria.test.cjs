@@ -141,6 +141,17 @@ test('USDT inquiry carries amount and optional network without quoting a rate', 
   }
 });
 
+test('USDC inquiry carries its own currency and optional network', () => {
+  for (const network of ['', 'Requested network']) {
+    const url = inquiry('usdc', { amount: '250.75', network });
+    assert.equal(url.pathname, '/59996782619');
+    const message = url.searchParams.get('text');
+    assert.match(message, /buy 250.75 USDC/);
+    assert.doesNotMatch(message, /USDT/);
+    assert.ok(message.includes(network || 'Please help me confirm the right network'));
+  }
+});
+
 test('invalid and whitespace-only form submissions do not open WhatsApp', () => {
   assert.equal(inquiry('usdt', { amount: '-1' }, false), null);
   assert.equal(inquiry('apple', { amount: ' ', region: 'US' }), null);
