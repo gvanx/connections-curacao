@@ -70,3 +70,40 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .gift-card-disabled,.gift-card-disabled:hover{background:#e3e6df;color:#59665f;cursor:not-allowed}
 .gift-card-note{font-size:13px;line-height:1.6;color:var(--text-muted);margin:-8px 0 22px;max-width:760px}
 @media(max-width:900px){.categories-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Shopping shortcuts and practical help follow the existing warm palette. */
+.nav-search{white-space:nowrap}
+.catalog-loading{padding-block:28px;color:var(--text-muted);font-size:14px}
+.catalog-loading a,.shopping-help a,.checkout-help a{text-decoration:underline;text-underline-offset:3px}
+.hero-feature-product{background:#e8eadc;color:var(--text)}
+.hero-feature-product>img{height:61%;width:100%;padding:65px 35px 12px;object-fit:contain;object-position:center}
+.hero-feature-product:after{display:none}
+.hero-feature-product .hero-feature-bottom>span:first-child{color:var(--text-muted);font-size:13px}
+.hero-feature-product .hero-feature-bottom strong{font-size:30px;margin:5px 0}
+.hero-feature-product .hero-product-price{font-size:25px;font-weight:600;margin-bottom:10px}
+.hero-feature-product .round-arrow{border-color:var(--text-muted)}
+.shopping-help{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;padding-block:32px 46px;border-top:1px solid var(--line)}
+.shopping-help h2{font-size:34px;letter-spacing:-.035em}
+.shopping-help .eyebrow{color:var(--orange);margin-bottom:8px}
+.shopping-help p{font-size:14px;line-height:1.7;color:var(--text-muted);margin:12px 0}
+.shopping-help summary{padding:17px 0;font-size:16px;font-weight:600;cursor:pointer}
+.shopping-help details{border-bottom:1px solid var(--line)}
+.shopping-help details p{margin:0 0 18px}
+.checkout-reservation-note{font-size:14px;line-height:1.65;background:#edf3e9;padding:14px;border-radius:8px;margin-bottom:16px}
+.checkout-help{font-size:14px;line-height:1.65;color:var(--text-muted);margin-bottom:18px}
+@media(max-width:1100px){.nav-search{display:none}}
+@media(max-width:650px){
+  .shopping-help{grid-template-columns:1fr;gap:18px;padding-block:28px}
+  .hero-feature-product>img{padding-top:45px;height:56%}
+  .hero-feature-product .hero-feature-bottom strong{font-size:25px}
+  .hero-feature-product .hero-product-price{font-size:23px}
+  .hero-feature-product .hero-feature-bottom>span:last-child{font-size:14px}
+  .product-spec,.product-details,.price-pending,.active-note,.limited-note,.gift-card-note{font-size:14px;line-height:1.6}
+  .deal-name,.product-name{font-size:16px}
+  .cat-name,.cat-count{font-size:12px}
+  .discover-card p,.eco-desc,.footer-contact-item,.footer-links,.checkout-quote,.checkout-radio,.checkout-label,.checkout-terms{font-size:14px;line-height:1.6}
+  .btn-whatsapp,.btn-whatsapp-sm,.pf-pill,.pf-select,.text-link{font-size:14px;min-height:44px}
+  .text-link{display:inline-flex;align-items:center}
+  .benefits{flex-wrap:wrap;font-size:13px}
+  .category-card{padding-inline:8px}
+}
