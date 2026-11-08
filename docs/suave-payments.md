@@ -21,3 +21,18 @@ payment before fulfilment; any plan and approval are handled by Suave.
 To pause this option, set `CHECKOUT_CONFIG.suave.enabled` to false on Connections,
 or `config.suave.enabled` to false in Gift Card Curaçao's `data/store.json`.
 Sentoo and direct USDT/USDC payments keep their existing pricing and workflow.
+
+## Twelve-month phone offers
+
+The `/suave/` page selects six new iPhone and Samsung models from the current
+`data/products.json` catalog. `suave/offers.js` shares the same quote function
+between the offer cards and calculator. The calculator takes the product price,
+deducts an optional cash/card contribution, then adds the 3% store fee once.
+The twelve-month estimate uses the existing 1.465 plan factor; Suave confirms
+the actual schedule and approval. Card WhatsApp links are enquiries, not orders
+or approval confirmations. Meta `Contact` records a click, not a completed sale.
+
+The Suave wordmark in `suave/suave-logo-white.svg` preserves the original vector
+paths from page 2 of the supplied Suave Visual Identity Guidelines v3.12
+(October 7, 2026). The page uses the guide's digital blue `#347AF0`, white and
+Montserrat, while retaining Connections identification.
