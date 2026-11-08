@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#173b4a">
+  <title>Page not found — Connections Curaçao</title>
+  <meta name="description" content="This page couldn't be found. Head back to Connections Curaçao to shop or contact our team for help.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23173b4a'/><path d='M55 15L30 55h18L42 85l30-45H52z' fill='white'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #faf8f2;
+      --text: #173b4a;
+      --muted: #566b70;
+      --orange: #d24c2d;
+      --line: #dce1db;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.6 'DM Sans', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: #f4c172; color: var(--text); }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible { outline: 3px solid var(--orange); outline-offset: 5px; }
+    .container { width: min(1280px, calc(100% - 80px)); margin-inline: auto; }
+    .skip-link { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--text); color: white; }
+    .skip-link:focus { top: 8px; }
+    .header { border-bottom: 1px solid var(--line); }
+    .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { font: 600 32px/1 'Outfit', Arial, sans-serif; letter-spacing: -1.7px; text-decoration: none; white-space: nowrap; }
+    .logo-dot { display: inline-block; width: 8px; height: 8px; margin-left: 3px; border-radius: 50%; background: var(--orange); }
+    .home-link { padding-block: 12px; font-size: 12px; font-weight: 600; text-decoration: none; }
+    .home-link span { margin-left: 12px; }
+    main { flex: 1; display: grid; place-items: center; padding: 56px 24px 64px; text-align: center; }
+    .error-content { width: 100%; max-width: 580px; }
+    .error-code { margin: 0; color: var(--orange); font: 500 clamp(112px, 18vw, 180px)/.95 'Outfit', Arial, sans-serif; letter-spacing: -.065em; }
+    .eyebrow { margin: 20px 0 22px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 0; font: 500 clamp(36px, 5.5vw, 56px)/1.1 'Outfit', Arial, sans-serif; letter-spacing: -.045em; }
+    .description { max-width: 400px; margin: 22px auto 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 13px 24px; border: 1px solid var(--text); border-radius: 40px; font-size: 13px; font-weight: 600; text-decoration: none; }
+    .button-primary { background: var(--text); color: white; }
+    .button-primary:hover { background: #245468; border-color: #245468; }
+    .button-secondary:hover { background: #e7ebdf; }
+    .help { margin: 32px 0 0; color: var(--muted); font-size: 13px; }
+    .help a { display: inline-block; padding-block: 10px; color: var(--text); font-weight: 600; }
+    .help a:hover, .home-link:hover, .footer a:hover { color: var(--orange); }
+    .footer { border-top: 1px solid var(--line); }
+    .footer-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 12px; }
+    .footer p { margin: 0; }
+    .footer a { display: inline-block; padding-block: 12px; }
+    @media (max-width: 600px) {
+      .container { width: calc(100% - 40px); }
+      .header-inner { min-height: 76px; gap: 16px; }
+      .logo { font-size: 27px; }
+      .home-link span { margin-left: 5px; }
+      main { padding: 44px 24px; }
+      .description { font-size: 15px; }
+      .footer-inner { flex-direction: column; justify-content: center; gap: 0; padding-block: 16px; }
+    }
+    @media (max-width: 400px) {
+      .actions { flex-direction: column; align-items: stretch; }
+      .button { width: 100%; }
+      .help { max-width: 240px; margin-inline: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="Connections Curaçao home">connections<span class="logo-dot" aria-hidden="true"></span></a>
+      <a class="home-link" href="/">Home <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main id="main">
+    <div class="error-content">
+      <p class="error-code">404</p>
+      <p class="eyebrow">Page not found</p>
+      <h1>Oops, wrong page.</h1>
+      <p class="description">This page may have moved, or the link may be incorrect. Let’s get you back to Connections.</p>
+      <nav class="actions" aria-label="Find your way back">
+        <a class="button button-primary" href="/#products">Shop all products <span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="/">Back to home</a>
+      </nav>
+      <p class="help">Need a hand? <a href="https://wa.me/59996782619" target="_blank" rel="noopener">Chat with us on WhatsApp <span aria-hidden="true">↗</span></a></p>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>Good tech. Great connections.</p>
+      <a href="/#locations">Visit us in Punda &amp; Otrobanda <span aria-hidden="true">↗</span></a>
+    </div>
+  </footer>
+</body>
+</html>
