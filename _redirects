@@ -1,3 +1,7 @@
+# Homepage aliases
+/home  /  301!
+/home/  /  301!
+
 # Live Apple gift-card prices and stock from the digital store
 /data/gift-card-store.json  https://giftcard.connectionscuracao.net/data/store.json  200!
 
@@ -72,4 +76,3 @@ https://s26.connectionscuracao.net/*  https://connectionscuracao.net/  301!
 /1010  /  301!
 /1010/  /  301!
 /1010/index.html  /  301!
-
