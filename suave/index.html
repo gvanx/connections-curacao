@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pay with Suave | Connections Curaçao</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '583592416189452');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 <meta name="description" content="Estimate your monthly payment and learn how to shop with Suave at Connections Curaçao.">
 <meta property="og:title" content="Shop now. Pay your way. | Connections × Suave"><meta property="og:description" content="Estimate your monthly payment and request a Suave QR code at checkout."><meta property="og:type" content="website"><meta property="og:url" content="https://connectionscuracao.net/suave/"><meta property="og:image" content="https://connectionscuracao.net/suave/connections-suave.jpg"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +27,9 @@
 .planrow{grid-template-columns:repeat(5,1fr)}.planrow span{padding:.62rem .15rem;font-size:.69rem}.app-download{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;margin-top:.8rem;padding:.72rem 1rem;border-radius:12px;background:var(--ink);color:#fff;text-decoration:none;font-size:.78rem;font-weight:800}.app-download:after{content:'↗';color:var(--orange)}@media(max-width:430px){.planrow{grid-template-columns:repeat(3,1fr)}.planrow label:first-child{grid-column:span 2}}
 .breakdown{display:none}
 </style></head>
-<body><a class="skip" href="#main">Skip to content</a>
+<body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=583592416189452&amp;ev=PageView&amp;noscript=1"></noscript>
+<a class="skip" href="#main">Skip to content</a>
 <header class="nav"><div class="shell navin"><a class="brand" href="/"><span class="chevs">››››</span> CONNECTIONS</a><div class="navright"><a class="navlink" href="#how">How it works</a><a class="navlink" href="#terms">Terms</a><div class="languages" role="group" aria-label="Choose language"><button type="button" data-language-button="en" aria-pressed="true">EN</button><button type="button" data-language-button="pap" aria-pressed="false">PAP</button><button type="button" data-language-button="es" aria-pressed="false">ES</button></div></div></div></header>
 <main id="main"><section class="hero"><div class="shell hero-grid"><div class="hero-copy">
 <div data-panel="en"><span class="eyebrow">Connections × Suave</span><h1>Get it now.<br><em>Pay your way.</em></h1><p class="lead">Your next phone, laptop or gadget can feel a whole lot lighter. Choose it at Connections, apply with Suave and spread the cost.</p><div class="trust"><span>In store or QR by WhatsApp</span><span>18+ with valid ID</span><span>Subject to approval</span></div></div>
@@ -39,5 +52,18 @@ function calc(){const p=Math.max(0,+price.value||0),t=Math.min(p,Math.max(0,+top
 function $(s){return document.querySelector(s)}function render(){steps.innerHTML=C[lang].steps.map((s,i)=>`<article class="step"><span class="num">0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></article>`).join('');$('#term-list').innerHTML=C[lang].terms.map((t,i)=>`<details class="term${i===8?' wide':''}"><summary>${t[0]}</summary><p>${t[1]}</p></details>`).join('')}
 function setLang(x,update=true){lang=C[x]?x:'en';document.documentElement.lang=lang;buttons.forEach(b=>b.setAttribute('aria-pressed',b.dataset.languageButton===lang));panels.forEach(p=>p.hidden=p.dataset.panel!==lang);document.querySelectorAll('[data-copy]').forEach(e=>e.textContent=C[lang][e.dataset.copy]);render();calc();try{localStorage.setItem('connections-suave-language',lang)}catch(e){}if(update){const u=new URL(location);u.searchParams.set('lang',lang);history.replaceState({},'',u)}}
 buttons.forEach(b=>b.onclick=()=>setLang(b.dataset.languageButton));document.querySelectorAll('#calculator input').forEach(i=>i.oninput=calc);let saved;try{saved=localStorage.getItem('connections-suave-language')}catch(e){}setLang(new URLSearchParams(location.search).get('lang')||saved||'en',false);
+</script>
+<script>
+// Record the WhatsApp click; it does not confirm a message, approval or sale.
+document.querySelectorAll('a[data-copy="whatsapp"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Contact', {
+        content_name: 'Suave WhatsApp enquiry',
+        contact_method: 'WhatsApp'
+      });
+    }
+  });
+});
 </script></body></html>
 
