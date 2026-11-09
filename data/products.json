@@ -148,14 +148,15 @@
     "price": 1500,
     "category": "apple",
     "featured": false,
-    "image": "iphone-17-model.png",
-    "spec": "100% battery health · Apple warranty until August 2027 · Trade: XCG 1,690",
+    "image": "/img/products/iphone-17-black.jpg",
+    "spec": "Black · 100% battery health · Apple warranty until August 2027 · Trade: XCG 1,690",
     "specifications": {
       "Storage": "256GB",
       "Condition": "HSO",
       "Battery health": "100%",
       "Apple warranty": "Until August 2027",
-      "Trade price": "XCG 1,690"
+      "Trade price": "XCG 1,690",
+      "Color": "Black"
     },
     "addedAt": "2026-11-09T19:30:49.320Z",
     "newArrival": true
