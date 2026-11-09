@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Black Friday Is Loading | Connections Curaçao</title>
-  <meta name="description" content="Something worth waiting for. Black Friday is loading at Connections Curaçao. Follow us for the reveal.">
+  <meta name="description" content="Black Friday is loading at Connections Curaçao. Sign up to receive the Black Friday poster on WhatsApp when it is ready.">
   <meta name="theme-color" content="#090909">
   <link rel="canonical" href="https://connectionscuracao.net/blackfriday">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Black Friday Is Loading | Connections Curaçao">
-  <meta property="og:description" content="Your next upgrade. Worth the wait. Follow Connections Curaçao for the Black Friday reveal.">
+  <meta property="og:description" content="Your next upgrade. Worth the wait. Get the Connections Curaçao Black Friday poster on WhatsApp.">
   <meta property="og:url" content="https://connectionscuracao.net/blackfriday">
   <meta property="og:image" content="https://connectionscuracao.net/img/products/iphone-16e-transparent.png">
   <meta property="og:image:alt" content="An iPhone, ready for your next upgrade">
@@ -17,7 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/blackfriday/blackfriday.css">
+  <link rel="stylesheet" href="/blackfriday/blackfriday.css?v=2026-11-09-signup">
+  <script src="/blackfriday/signup.js?v=2026-11-09" defer></script>
   <script src="/blackfriday/blackfriday.js" defer></script>
 </head>
 <body>
@@ -29,7 +30,8 @@
       <a class="back-link" href="/">Visit the store <span aria-hidden="true">↗</span></a>
     </header>
 
-    <main id="main" class="hero">
+    <main id="main" class="page-content">
+    <section class="hero" aria-label="Black Friday preview">
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-light" aria-hidden="true"></span> SOMETHING GOOD IS COMING</p>
         <h1>BLACK<br><span>FRIDAY</span><span class="title-dot">.</span></h1>
@@ -40,7 +42,7 @@
           <div class="loading-track" aria-hidden="true"><span class="loading-fill"></span></div>
           <p class="loading-caption">The reveal is coming. Stay connected.</p>
         </div>
-        <a class="reveal-link" href="https://instagram.com/connectionscuracao" target="_blank" rel="noopener noreferrer">Follow the reveal <span aria-hidden="true">↗</span><span class="sr-only"> on Instagram (opens in a new tab)</span></a>
+        <div class="signup-links"><a class="reveal-link" href="#updates">Update me on WhatsApp <span aria-hidden="true">↘</span></a><a class="instagram-link" href="https://instagram.com/connectionscuracao" target="_blank" rel="noopener noreferrer">Follow on Instagram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div>
       </div>
 
       <div class="showcase" role="group" aria-label="A rotating showcase of phones. Black Friday offers will be revealed soon.">
@@ -57,6 +59,27 @@
         <div class="showcase-floor" aria-hidden="true"></div>
         <p class="showcase-caption"><span aria-hidden="true"></span> A LITTLE PREVIEW. A LOT TO LOOK FORWARD TO.</p>
       </div>
+    </section>
+
+    <section class="signup-section" id="updates" aria-labelledby="signup-title">
+      <div class="signup-copy"><p class="eyebrow">STRAIGHT TO YOUR WHATSAPP</p><h2 id="signup-title">The reveal.<br>In your pocket.</h2><p>Leave your WhatsApp number. We’ll send you the Black Friday poster when it’s ready.</p><span class="signup-note">One poster. All the Black Friday news.</span></div>
+      <div class="signup-card">
+        <form name="blackfriday-whatsapp-2026" id="whatsapp-signup" method="POST" action="/blackfriday/thanks/" data-netlify="true" netlify-honeypot="website">
+          <input type="hidden" name="form-name" value="blackfriday-whatsapp-2026">
+          <input type="hidden" name="campaign" value="Black Friday 2026">
+          <input type="hidden" name="consent-version" value="bf2026-whatsapp-v1">
+          <p class="signup-trap" hidden><label>Leave this field empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
+          <label class="phone-label" for="whatsapp-number">Your WhatsApp number</label>
+          <input id="whatsapp-number" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+599 9 123 4567" minlength="7" maxlength="30" required aria-describedby="phone-hint signup-error">
+          <p class="phone-hint" id="phone-hint">Curaçao: your 7-digit number is enough. Elsewhere: include +country code.</p>
+          <label class="consent-label" for="whatsapp-consent"><input id="whatsapp-consent" name="consent" type="checkbox" value="I agree to receive the Connections Curaçao Black Friday 2026 poster on WhatsApp. I can reply STOP to opt out." required><span>I agree to receive the Connections Curaçao Black Friday poster on WhatsApp. I can reply <strong>STOP</strong> to opt out.</span></label>
+          <button class="signup-submit" type="submit">Update me <span aria-hidden="true">↗</span></button>
+          <p class="signup-error" id="signup-error" role="alert" hidden></p>
+          <p class="signup-privacy">Your number is saved privately for this Black Friday poster.</p>
+        </form>
+        <div class="signup-success" id="signup-success" role="status" tabindex="-1" hidden><span class="success-check" aria-hidden="true">✓</span><h3>You’re on the list.</h3><p>We’ll send the Black Friday poster to your WhatsApp when it’s ready. Stay connected.</p></div>
+      </div>
+    </section>
     </main>
 
     <footer class="site-footer">
