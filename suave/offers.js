@@ -56,7 +56,7 @@
       document.getElementById('sticky-offers-label').textContent = c.sticky;
       selection.textContent = selectedName ? c.selected + ': ' + selectedName : c.calc;
       if (!products.length) {
-        if (loadFailed) grid.innerHTML = `<p class="offers-error">${escape(c.unavailable)} <a href="https://wa.me/59996782619" data-contact="whatsapp" target="_blank" rel="noopener">${escape(c.fallback)} ↗</a></p>`;
+        if (loadFailed) grid.innerHTML = `<p class="offers-error">${escape(c.unavailable)} <a href="https://wa.me/59996782619" data-contact="whatsapp" target="_blank" rel="noopener">${escape(c.fallback)} <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a></p>`;
         return;
       }
       grid.innerHTML = products.map((product, index) => {
@@ -67,7 +67,7 @@
           <h3>${escape(product.name)}</h3><p class="phone-retail">${escape(c.retail)} · ${money(product.price)}</p>
           <div class="phone-payment"><strong>${money(plan.payment)}</strong><span>${escape(c.month)}</span></div>
           <p class="phone-fee">${escape(c.fee)}<br>${escape(c.firstPayment)}</p>
-          <a class="offer-cta" href="${escape(whatsappUrl(product))}" data-contact="whatsapp" data-product="${escape(product.name)}" target="_blank" rel="noopener">${escape(c.ask)} <span aria-hidden="true">↗</span></a>
+          <a class="offer-cta" href="${escape(whatsappUrl(product))}" data-contact="whatsapp" data-product="${escape(product.name)}" target="_blank" rel="noopener">${escape(c.ask)} <span aria-hidden="true"><svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a>
           <button class="adjust-plan" type="button" data-offer-index="${index}" aria-label="${escape(c.adjust + ': ' + product.name)}">${escape(c.adjust)}</button>
         </article>`;
       }).join('');

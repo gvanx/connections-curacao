@@ -84,7 +84,7 @@
       submitting = false;
       fields.forEach(field => { field.disabled = false; });
       form.removeAttribute('aria-busy');
-      button.textContent = 'Update me ↗';
+      button.innerHTML = "Update me <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg>";
     }
   });
 })(typeof window !== 'undefined' ? window : globalThis);

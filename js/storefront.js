@@ -179,12 +179,12 @@
     function giftCardActionHTML(product, small) {
       const css = small ? 'btn-whatsapp-sm' : 'btn-whatsapp';
       if (product.giftCardStatus === 'available') {
-        return `<a class="${css}" href="${GiftCards.purchaseUrl(product)}" aria-label="Buy ${escapeHtml(product.name)}">Buy now ↗</a>`;
+        return `<a class="${css}" href="${GiftCards.purchaseUrl(product)}" aria-label="Buy ${escapeHtml(product.name)}">Buy now <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a>`;
       }
       if (product.giftCardStatus === 'sold-out' || product.giftCardStatus === 'loading') {
         return `<button type="button" class="${css} gift-card-disabled" disabled>${product.giftCardStatus === 'sold-out' ? 'Sold out' : 'Checking stock…'}</button>`;
       }
-      return `<a class="${css}" href="${GiftCards.STORE_URL}#Apple">View gift-card store ↗</a>`;
+      return `<a class="${css}" href="${GiftCards.STORE_URL}#Apple">View gift-card store <svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></a>`;
     }
 
     function giftCardNoteHTML() {
@@ -198,7 +198,7 @@
       CATEGORY_ORDER.forEach(c => grouped[c] = 0);
       CATEGORY_ORDER.forEach(cat => { grouped[cat] = products.filter(p => matchesCategory(p, cat)).length; });
 
-      let html = '<div class="category-heading"><h2>What are you looking for?</h2><a href="#products">Browse the collection →</a></div>';
+      let html = "<div class=\"category-heading\"><h2>What are you looking for?</h2><a href=\"#products\">Browse the collection <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 12h16m-7-7 7 7-7 7\"/></svg></a></div>";
       html += '<div class="categories-grid fade-in">';
 
       CATEGORY_ORDER.forEach(cat => {
@@ -256,7 +256,7 @@
       if (!featured.length) return;
 
       const container = document.querySelector('#deals .container');
-      let html = '<div class="section-heading"><div><p class="eyebrow">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class="text-link" href="#products">Shop the collection ↗</a></div>';
+      let html = "<div class=\"section-heading\"><div><p class=\"eyebrow\">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class=\"text-link\" href=\"#products\">Shop the collection <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a></div>";
       html += '<div class="deals-wrapper fade-in">';
 
       // Arrow buttons
@@ -272,13 +272,13 @@
       featured.forEach(p => {
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-        const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+        const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
         const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
         const productVisual = productVisualHTML(p, fullName);
         const encodedName = encodeURIComponent(fullName);
         const { ribbon, oldPriceHtml } = saleInfo(p);
-        const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
-        const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+        const limitedBadge = p.limited === true ? "<span class=\"badge-limited\" role=\"button\" tabindex=\"0\" title=\"Limited stock. Price rises once this batch sells out.\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"m13 2-9 12h7l-1 8 10-12h-7Z\"/></svg> Limited supply</span>" : '';
+        const limitedNote = p.limited === true ? "<div class=\"limited-note\" hidden><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"m13 2-9 12h7l-1 8 10-12h-7Z\"/></svg> <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>" : '';
         const arrivalBadge = productStatusBadge(p);
         const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
         html += `
@@ -326,13 +326,13 @@
     function productCardHTML(p) {
       const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
       const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-      const activeBadge = p.suffix === 'Active' ? '<span class="badge-active" role="button" tabindex="0" title="New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.">Active ⓘ</span>' : '';
+      const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
       const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
       const productVisual = productVisualHTML(p, fullName);
       const encodedName = encodeURIComponent(fullName);
       const { ribbon, oldPriceHtml } = saleInfo(p);
-      const limitedBadge = p.limited === true ? '<span class="badge-limited" role="button" tabindex="0" title="Limited stock. Price rises once this batch sells out.">⚡ Limited supply</span>' : '';
-      const limitedNote = p.limited === true ? '<div class="limited-note" hidden>⚡ <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>' : '';
+      const limitedBadge = p.limited === true ? "<span class=\"badge-limited\" role=\"button\" tabindex=\"0\" title=\"Limited stock. Price rises once this batch sells out.\"><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"m13 2-9 12h7l-1 8 10-12h-7Z\"/></svg> Limited supply</span>" : '';
+      const limitedNote = p.limited === true ? "<div class=\"limited-note\" hidden><svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"m13 2-9 12h7l-1 8 10-12h-7Z\"/></svg> <strong>Limited stock.</strong> Price rises once this batch sells out — grab it now.</div>" : '';
       const arrivalBadge = productStatusBadge(p);
       const corner = (arrivalBadge || ribbon || limitedBadge) ? `<div class="card-ribbons">${arrivalBadge}${ribbon}${limitedBadge}</div>` : '';
       return `
@@ -365,7 +365,7 @@
       if (opts.flat) {
         if (!products.length) {
           html = `<div class="pf-empty">
-            <div class="pf-empty-emoji">🔍</div>
+            <div class="pf-empty-emoji"><svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0m-2 5 7 7"/></svg></div>
             <div>No products match your search.</div>
             <button type="button" id="pf-reset">Clear filters</button>
           </div>`;
@@ -667,7 +667,7 @@
         }
       } catch (e) {
         console.error('Failed to load products:', e);
-        document.getElementById('product-results').innerHTML = '<div class="pf-empty"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class="btn-primary" href="https://wa.me/59996782619">Chat on WhatsApp ↗</a></div>';
+        document.getElementById('product-results').innerHTML = "<div class=\"pf-empty\"><h3>Let’s find your next upgrade.</h3><p>The catalog could not load. Please reload or ask our team.</p><a class=\"btn-primary\" href=\"https://wa.me/59996782619\">Chat on WhatsApp <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a></div>";
       }
     });
 

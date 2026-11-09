@@ -74,7 +74,7 @@ h2 { font-size: clamp(32px, 4vw, 44px); letter-spacing: -.04em; line-height: 1.1
 .per-month { color: var(--muted); font-size: 13px; }
 .plan-card ul { list-style: none; padding: 0; margin: 25px 0 26px; font-size: 13px; line-height: 1.8; }
 .plan-card li { position: relative; padding-left: 21px; margin-block: 7px; }
-.plan-card li::before { content: '✓'; position: absolute; left: 0; color: #426444; }
+.plan-card li::before { content:'';width:1em;height:1em;background-color:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%221em%22%20height%3D%221em%22%20%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%20%3E%3Cpath%20d%3D%22m4%2012%205%205L20%206%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;mask:url("data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%221em%22%20height%3D%221em%22%20%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%20%3E%3Cpath%20d%3D%22m4%2012%205%205L20%206%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat; position: absolute; left: 0; color: #426444; }
 .plan-link { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-top: auto; padding-top: 18px; border-top: 1px solid #173b4a25; font-size: 13px; font-weight: 700; text-decoration: none; min-height: 44px; }
 .plan-link span { font-size: 19px; }
 .roam-heading { margin-top: 36px; }
