@@ -71,6 +71,7 @@ https://s26.connectionscuracao.net/*  https://connectionscuracao.net/  301!
 /scooters  /scooters/index.html  200
 /alpha  /alpha/index.html  200
 /starlink  /starlink/index.html  200
+/blackfriday  /blackfriday/index.html  200
 
 # Retired 10/10 campaign
 /1010  /  301!
