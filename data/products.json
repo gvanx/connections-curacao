@@ -125,6 +125,24 @@
     "newArrival": true
   },
   {
+    "name": "iPhone 17 256GB",
+    "suffix": "HSO",
+    "price": 1500,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/iphone-17-hso-256gb.jpeg",
+    "spec": "100% battery health · Apple warranty until August 2027 · Trade: XCG 1,690",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "Battery health": "100%",
+      "Apple warranty": "Until August 2027",
+      "Trade price": "XCG 1,690"
+    },
+    "addedAt": "2026-11-09T19:30:49.320Z",
+    "newArrival": true
+  },
+  {
     "name": "iPhone 17",
     "suffix": "",
     "price": 2290,

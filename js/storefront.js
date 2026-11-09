@@ -85,7 +85,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-07-sold-white-titanium';
+    const PRODUCTS_DATA_VERSION = '2026-11-09-iphone-17-hso';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
