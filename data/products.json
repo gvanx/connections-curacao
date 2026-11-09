@@ -241,6 +241,26 @@
     "image": "/img/products/macbook-neo-indigo.jpg"
   },
   {
+    "name": "MacBook Pro 13-inch (2020) 256GB/8GB",
+    "suffix": "HSO",
+    "price": 1290,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/macbook-pro-13-2020.png",
+    "spec": "Intel Core i5 · 8GB RAM · 256GB storage · Touch Bar · Touch ID",
+    "specifications": {
+      "Model": "13-inch, 2020, Two Thunderbolt 3 ports",
+      "Processor": "1.4 GHz quad-core Intel Core i5",
+      "Memory": "8GB 2133 MHz LPDDR3",
+      "Storage": "256GB",
+      "Graphics": "Intel Iris Plus Graphics 645",
+      "Features": "Touch Bar and Touch ID fingerprint scanner",
+      "Condition": "HSO"
+    },
+    "addedAt": "2026-11-09T20:42:25Z",
+    "newArrival": true
+  },
+  {
     "name": "iPad Air M4 256GB",
     "suffix": "",
     "price": 1990,
