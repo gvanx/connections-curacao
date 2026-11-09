@@ -125,12 +125,30 @@
     "newArrival": true
   },
   {
+    "name": "iPhone 16 Pro Max 512GB White Titanium",
+    "suffix": "HSO",
+    "price": 2190,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/iphone-16-pro-max-white-titanium.jpg",
+    "spec": "White Titanium · 89% battery health · Trade: XCG 2,390",
+    "specifications": {
+      "Storage": "512GB",
+      "Condition": "HSO",
+      "Color": "White Titanium",
+      "Battery health": "89%",
+      "Trade price": "XCG 2,390"
+    },
+    "addedAt": "2026-11-09T19:47:53Z",
+    "newArrival": true
+  },
+  {
     "name": "iPhone 17 256GB",
     "suffix": "HSO",
     "price": 1500,
     "category": "apple",
     "featured": false,
-    "image": "/img/products/iphone-17-hso-256gb.jpeg",
+    "image": "iphone-17-model.png",
     "spec": "100% battery health · Apple warranty until August 2027 · Trade: XCG 1,690",
     "specifications": {
       "Storage": "256GB",
