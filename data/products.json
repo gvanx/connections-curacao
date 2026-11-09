@@ -74,23 +74,6 @@
     "image": "iphone-16e-transparent.png"
   },
   {
-    "name": "iPhone 16 Plus 128GB White",
-    "suffix": "HSO",
-    "price": 1499,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-16-plus-white.jpg",
-    "spec": "White · 90% battery health",
-    "specifications": {
-      "Storage": "128GB",
-      "Condition": "HSO",
-      "Color": "White",
-      "Battery health": "90%"
-    },
-    "addedAt": "2026-11-01T16:44:34.194Z",
-    "newArrival": true
-  },
-  {
     "name": "iPhone 16 Pro Max 256GB Natural Titanium",
     "suffix": "HSO",
     "price": 1990,
@@ -122,6 +105,23 @@
       "Battery health": "89%"
     },
     "addedAt": "2026-11-01T16:44:34.194Z",
+    "newArrival": true
+  },
+  {
+    "name": "iPhone 16 Pro Max 256GB Desert Titanium 92%",
+    "suffix": "HSO",
+    "price": 1990,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/iphone-16-pro-max-desert-titanium.jpg",
+    "spec": "Desert Titanium · 92% battery health",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "Color": "Desert Titanium",
+      "Battery health": "92%"
+    },
+    "addedAt": "2026-11-09T19:31:57Z",
     "newArrival": true
   },
   {
