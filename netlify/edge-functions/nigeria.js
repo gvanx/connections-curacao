@@ -55,7 +55,12 @@ export default async function nigeria(request, context) {
     });
   }
 
-  if (inNigeria && (path === '/' || path === '/index.html') &&
+  // Apply regional routing to every storefront page, on every deployment host.
+  // Extensionless routes also include aliases handled later by _redirects.
+  // Assets, data requests and form submissions must continue to work.
+  const isPageVisit = path.endsWith('/') || !path.split('/').pop().includes('.') ||
+    /\.html?$/.test(path);
+  if (inNigeria && isPageVisit &&
       (request.method === 'GET' || request.method === 'HEAD')) {
     // A temporary redirect follows a visitor's current country. Keep campaign
     // query parameters, and keep deploy previews on their own origin.

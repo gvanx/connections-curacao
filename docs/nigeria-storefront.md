@@ -1,7 +1,7 @@
 # Nigeria storefront
 
 The dedicated storefront is `/nigeria/` on the existing Netlify deployment.
-It offers only Apple gift cards and USDT, with quote requests sent to
+It offers Apple gift cards, USDT and USDC, with quote requests sent to
 Connections on WhatsApp at `59996782619`. It does not reuse Curaçao prices,
 checkout, delivery charges or financing. Amounts entered in the forms are
 requested product quantities, not selling prices. The user sends the WhatsApp
@@ -15,9 +15,15 @@ under it. Other or unknown countries receive a temporary redirect to
 `https://connectionscuracao.net/`. The same guard runs on native Netlify and
 deploy-preview URLs. Encoded path aliases are checked too.
 
-Nigerian GET/HEAD visits to `/` and `/index.html` redirect to `/nigeria/`, keeping
-campaign query parameters. Existing Curaçao product pages and services retain
-their routes. Responses from protected paths and country redirects use
+Nigerian GET/HEAD page visits redirect to `/nigeria/`, keeping campaign query
+parameters. This includes the homepage, extensionless routes, directory routes
+and HTML pages, so direct product, service, blog and campaign links also respect
+the Nigeria storefront. Static assets, data files and non-GET/HEAD requests pass
+through. Other countries retain the existing Curaçao routes. Routing is host
+independent: the apex domain, www, domain aliases, native Netlify and deploy
+preview hosts all use the same rule when served by this deployment. Domains
+served by a different repository or hosting provider need their own deployment
+configuration; this function cannot control those sites. Responses from protected paths and country redirects use
 `no-store` headers; do not opt the edge function into manual caching or set
 `onError: 'bypass'`. There is no cookie, query-string or header override.
 

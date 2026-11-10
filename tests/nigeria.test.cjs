@@ -85,11 +85,11 @@ test('Nigeria homepage visits use a temporary regional redirect and retain campa
   assert.equal(response.headers.get('Location'), '/nigeria/');
 });
 
-test('Curaçao homepage, existing product pages, shared assets and POSTs pass through', async () => {
+test('Curaçao pages, shared assets and POSTs pass through', async () => {
   for (const country of ['CW', undefined]) {
     assert.equal((await invoke('/', country)).response, undefined);
   }
-  for (const url of ['/suave/', '/data/products.json', '/img/products/apple-gift-card.svg', '/nigerian-news']) {
+  for (const url of ['/data/products.json', '/img/products/apple-gift-card.svg', '/js/main.js', '/css/main.css']) {
     assert.equal((await invoke(url, 'NG')).response, undefined);
   }
   assert.equal((await invoke('/', 'NG', { request: { method: 'POST', body: 'test' } })).response, undefined);
@@ -180,4 +180,33 @@ test('the retired invitation exchange redirects without issuing preview access',
   assert.equal(response.status, 302);
   assert.equal(response.headers.get('Location'), home);
   assert.match(response.headers.get('Set-Cookie'), /Max-Age=0/);
+});
+
+
+test('all deployment hosts route Nigerian page visits before storefront aliases and redirects', async () => {
+  for (const origin of ['https://connectionscuracao.net', 'https://www.connectionscuracao.net',
+    'https://s26.connectionscuracao.net', 'https://example.netlify.app',
+    'https://deploy-preview-123--example.netlify.app']) {
+    for (const route of ['/', '/index.html', '/home', '/suave/', '/repair/index.html',
+      '/digitalproducts', '/shop-preview-v8k3p/products/phone/', '/blog/choosing-a-laptop/',
+      '/blackfriday', '/starlink', '/nigerian-news']) {
+      for (const method of ['GET', 'HEAD']) {
+        const { response, served } = await invoke(route + '?utm_source=instagram', 'NG', {
+          origin, request: { method },
+        });
+        assert.equal(served, false);
+        assert.equal(response.status, 302, origin + route);
+        assert.equal(response.headers.get('Location'), '/nigeria/?utm_source=instagram');
+        assert.equal(response.headers.get('Netlify-CDN-Cache-Control'), 'no-store');
+      }
+      for (const country of ['CW', 'US', undefined]) {
+        assert.equal((await invoke(route, country, { origin })).response, undefined);
+      }
+      assert.equal((await invoke(route, 'NG', {
+        origin, request: { method: 'POST', body: 'test' },
+      })).response, undefined);
+    }
+    assert.equal((await invoke('/nigeria/', 'NG', { origin })).response.status, 200);
+    assert.equal((await invoke('/nigeria/', 'US', { origin })).response.status, 302);
+  }
 });
