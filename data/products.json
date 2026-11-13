@@ -520,7 +520,6 @@
     "category": "laptops",
     "featured": false,
     "spec": "Intel N4500 · 4GB RAM · 64GB eMMC · 15.6″ Full HD · Chrome OS",
-    "imageUnavailable": true,
     "specifications": {
       "Model": "IdeaPad 3 Chrome 15IJL6",
       "Product number": "82N4004NUS",
@@ -534,7 +533,8 @@
       "Color": "Arctic Grey"
     },
     "addedAt": "2026-11-13T20:18:11.640Z",
-    "newArrival": true
+    "newArrival": true,
+    "image": "/img/products/lenovo-ideapad-3-chromebook-15ijl6.jpg"
   },
   {
     "name": "HP 14-dq6102dx",
