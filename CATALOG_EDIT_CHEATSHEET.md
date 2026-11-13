@@ -56,10 +56,13 @@ For most catalog updates, this is the only file you need.
 - `contactNumber`: WhatsApp destination for inquiries, digits only; defaults to Connections if omitted
 - `giftCardName`: Exact Apple gift-card name in the digital store. Use category `giftcards`, `price: null`, `inquiryOnly: true` and `pricePending: true`; the storefront loads its current XCG price and availability from the gift-card store.
 
-For Premier Automotive scooters, use `"inquiryOnly": true` and
-`"contactNumber": "59996905151"`. An optional `availability` field does not
-control the checkout button; `inquiryOnly` does. Do not infer stock from a flyer.
-If `landingPage` is present, the inquiry button opens that page instead.
+All six Premier Automotive scooter models are available to purchase, as confirmed
+by the owner on 2026-11-13. Use `"inquiryOnly": false` to enable the standard
+Checkout & Pay flow. Keep `"contactNumber": "59996905151"` for inquiries.
+An optional `availability` field does not control checkout; `inquiryOnly` does.
+For a model that becomes inquiry-only, set `inquiryOnly` to `true`; if
+`landingPage` is present, its inquiry button opens that page instead.
+Do not infer future stock changes from a flyer.
 
 ## 5) Common Tasks
 
