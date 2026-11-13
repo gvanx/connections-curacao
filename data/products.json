@@ -534,7 +534,8 @@
     },
     "addedAt": "2026-11-13T20:18:11.640Z",
     "newArrival": true,
-    "image": "/img/products/lenovo-ideapad-3-chromebook-15ijl6.jpg"
+    "image": "/img/products/lenovo-ideapad-3-chromebook-15ijl6.jpg",
+    "blackFriday": true
   },
   {
     "name": "HP 14-dq6102dx",

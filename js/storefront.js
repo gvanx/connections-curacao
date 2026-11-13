@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-13-lenovo-chromebook-photo';
+    const PRODUCTS_DATA_VERSION = '2026-11-13-lenovo-black-friday';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -251,8 +251,9 @@
     }
 
     function productStatusBadge(p) {
-      if (isBackInStock(p)) return '<span class="badge-back-in-stock">Back in Stock</span>';
-      return isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '';
+      const campaign = p.blackFriday === true ? '<span class="badge-black-friday">Black Friday</span>' : '';
+      if (isBackInStock(p)) return campaign + '<span class="badge-back-in-stock">Back in Stock</span>';
+      return campaign + (isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '');
     }
 
     function renderDeals(products) {

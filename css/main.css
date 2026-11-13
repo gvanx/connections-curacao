@@ -78,3 +78,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .gift-card-disabled,.gift-card-disabled:hover{background:#e3e6df;color:#59665f;cursor:not-allowed}
 .gift-card-note{font-size:13px;line-height:1.6;color:var(--text-muted);margin:-8px 0 22px;max-width:760px}
 @media(max-width:900px){.categories-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.badge-black-friday{display:inline-block;padding:4px 8px;font:700 9px var(--font-body);border-radius:4px;letter-spacing:.03em;vertical-align:middle;margin-left:5px;background:#111;color:#fff;border:1px solid #111}
