@@ -512,6 +512,31 @@
     "image": "tv-generic.png"
   },
   {
+    "name": "Lenovo IdeaPad 3 Chromebook",
+    "suffix": "Arctic Grey",
+    "model": "15IJL6",
+    "sku": "82N4004NUS",
+    "price": 399,
+    "category": "laptops",
+    "featured": false,
+    "spec": "Intel N4500 · 4GB RAM · 64GB eMMC · 15.6″ Full HD · Chrome OS",
+    "imageUnavailable": true,
+    "specifications": {
+      "Model": "IdeaPad 3 Chrome 15IJL6",
+      "Product number": "82N4004NUS",
+      "Processor": "Intel N4500",
+      "Memory": "4GB RAM",
+      "Storage": "64GB eMMC",
+      "Display": "15.6-inch Full HD TN",
+      "Graphics": "Integrated",
+      "Battery": "3-cell",
+      "Operating system": "Chrome OS",
+      "Color": "Arctic Grey"
+    },
+    "addedAt": "2026-11-13T20:18:11.640Z",
+    "newArrival": true
+  },
+  {
     "name": "HP 14-dq6102dx",
     "suffix": "Sky Blue",
     "model": "14-dq6102dx",
