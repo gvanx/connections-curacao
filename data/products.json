@@ -1559,9 +1559,9 @@
     "category": "other",
     "type": "Instant camera",
     "featured": false,
-    "imageUnavailable": true,
     "addedAt": "2026-11-13T14:06:20.991Z",
-    "newArrival": true
+    "newArrival": true,
+    "image": "/img/products/instax-mini12-mint-green-bundle.png"
   },
   {
     "name": "Redmi A7 Pro",
