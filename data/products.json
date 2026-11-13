@@ -91,40 +91,6 @@
     "newArrival": true
   },
   {
-    "name": "iPhone 16 Pro Max 256GB Desert Titanium",
-    "suffix": "HSO",
-    "price": 1990,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-16-pro-max-desert-titanium.jpg",
-    "spec": "Desert Titanium · 89% battery health",
-    "specifications": {
-      "Storage": "256GB",
-      "Condition": "HSO",
-      "Color": "Desert Titanium",
-      "Battery health": "89%"
-    },
-    "addedAt": "2026-11-01T16:44:34.194Z",
-    "newArrival": true
-  },
-  {
-    "name": "iPhone 16 Pro Max 256GB Desert Titanium 92%",
-    "suffix": "HSO",
-    "price": 1990,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-16-pro-max-desert-titanium.jpg",
-    "spec": "Desert Titanium · 92% battery health",
-    "specifications": {
-      "Storage": "256GB",
-      "Condition": "HSO",
-      "Color": "Desert Titanium",
-      "Battery health": "92%"
-    },
-    "addedAt": "2026-11-09T19:31:57Z",
-    "newArrival": true
-  },
-  {
     "name": "iPhone 16 Pro Max 512GB White Titanium",
     "suffix": "HSO",
     "price": 2190,
