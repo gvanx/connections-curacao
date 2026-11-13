@@ -887,14 +887,6 @@
     "image": "/img/products/qlink-scepter-tablet.jpg"
   },
   {
-    "name": "Nintendo Switch 2",
-    "suffix": "",
-    "price": 1199,
-    "category": "other",
-    "featured": false,
-    "image": "nintendo-switch-2-model.png"
-  },
-  {
     "name": "Starlink Mini",
     "suffix": "",
     "price": 990,
@@ -1538,7 +1530,7 @@
     "name": "Techview S17 Pro 64GB",
     "suffix": "",
     "price": 225,
-    "category": "other",
+    "category": "phones",
     "featured": false,
     "image": "/img/products/techview-s17-pro.png",
     "addedAt": "2026-10-28T23:47:37.762Z"
@@ -1547,7 +1539,7 @@
     "name": "Techview S17 Pro 128GB",
     "suffix": "",
     "price": 250,
-    "category": "other",
+    "category": "phones",
     "featured": false,
     "image": "/img/products/techview-s17-pro.png",
     "addedAt": "2026-10-28T23:47:37.762Z"
