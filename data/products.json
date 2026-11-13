@@ -1553,14 +1553,25 @@
     "addedAt": "2026-10-28T23:47:37.762Z"
   },
   {
+    "name": "Instax Fujifilm Polaroid Camera Combo",
+    "suffix": "",
+    "price": 250,
+    "category": "other",
+    "type": "Instant camera",
+    "featured": false,
+    "imageUnavailable": true,
+    "addedAt": "2026-11-13T14:06:20.991Z",
+    "newArrival": true
+  },
+  {
     "name": "Redmi A7 Pro",
     "suffix": "",
     "price": 690,
-    "category": "other",
+    "category": "phones",
     "featured": false,
-    "imageUnavailable": true,
     "addedAt": "2026-11-13T14:00:45.960Z",
-    "newArrival": true
+    "newArrival": true,
+    "image": "/img/products/redmi-a7-pro-store.jpg"
   },
   {
     "name": "Apple Gift Card US$3",

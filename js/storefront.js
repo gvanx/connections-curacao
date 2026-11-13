@@ -63,6 +63,7 @@
     const CATEGORY_ICONS = {
       apple: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"></rect><line x1="10" y1="5.5" x2="14" y2="5.5"></line><line x1="11" y1="18.5" x2="13" y2="18.5"></line></svg>`,
       samsung: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect><line x1="9.5" y1="5.5" x2="14.5" y2="5.5"></line><circle cx="12" cy="18.5" r="1"></circle></svg>`,
+      phones: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect><circle cx="12" cy="5.5" r=".5"></circle><path d="M10 18.5h4"></path></svg>`,
       tvs: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
       laptops: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="10" rx="1.8"></rect><path d="M3 18h18"></path><path d="M8 18h8"></path></svg>`,
       acs: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M4.5 7.5l15 9"></path><path d="M19.5 7.5l-15 9"></path><circle cx="12" cy="12" r="2.4"></circle></svg>`,
@@ -75,6 +76,7 @@
     const CATEGORY_META = {
       apple:   { name: 'Apple',           icon: CATEGORY_ICONS.apple, gradient: 'linear-gradient(135deg, #1a1a4e, #4b2ca0)' },
       samsung: { name: 'Samsung',         icon: CATEGORY_ICONS.samsung, gradient: 'linear-gradient(135deg, #0a1628, #1a3a6e)' },
+      phones:  { name: 'Other Phones',    icon: CATEGORY_ICONS.phones, gradient: 'linear-gradient(135deg, #173b35, #356d60)' },
       tvs:     { name: 'Televisions',     icon: CATEGORY_ICONS.tvs, gradient: 'linear-gradient(135deg, #1a1a1a, #3a3a3a)' },
       laptops: { name: 'Laptops',         icon: CATEGORY_ICONS.laptops, gradient: 'linear-gradient(135deg, #1a2a1a, #2a4a3a)' },
       acs:     { name: 'Air Conditioning', icon: CATEGORY_ICONS.acs, gradient: 'linear-gradient(135deg, #0a2a3a, #1a4a5e)' },
@@ -84,8 +86,8 @@
       other:   { name: 'Other',           icon: CATEGORY_ICONS.other, gradient: 'linear-gradient(135deg, #2a2a3a, #4a4a5e)' }
     };
 
-    const CATEGORY_ORDER = ['apple', 'samsung', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-13-remove-desert-hso';
+    const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
+    const PRODUCTS_DATA_VERSION = '2026-11-13-phones-instax';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -117,13 +119,15 @@
 
     function productBrand(product) {
       const text = `${product.name || ''} ${product.spec || ''}`.toLowerCase();
-      const brands = ['Midea', 'Premier', 'Samsung', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
+      const brands = ['Midea', 'Premier', 'Samsung', 'Redmi', 'Fujifilm', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
       return brands.find(brand => text.includes(brand.toLowerCase())) || CATEGORY_META[product.category]?.name || 'Connections';
     }
 
     function productType(product) {
+      if (typeof product.type === 'string' && product.type.trim()) return product.type.trim();
       if (/macbook/i.test(product.name)) return 'Laptop';
       const labels = {
+        phones: 'Phone',
         tvs: 'Television',
         laptops: 'Laptop',
         acs: 'Climate',

@@ -25,6 +25,7 @@ For most catalog updates, this is the only file you need.
 
 - `apple`
 - `samsung`
+- `phones` — Other Phones (brands outside the Apple and Samsung categories)
 - `tvs`
 - `laptops`
 - `acs`
@@ -49,6 +50,7 @@ For most catalog updates, this is the only file you need.
 - `specifications`: Object of label/value pairs shown under **Full specifications**
 - `model` / `sku`: Exact manufacturer identifiers; also included in catalog search
 - `image`: Filename from `img/products/`, or a root-relative path such as `/scooters/trophy-actual.jpeg`
+- `type`: Optional product type label for model-name artwork, such as `Camera`; otherwise follows the category
 - `imageUnavailable`: `true` displays the model name as artwork instead of an unrelated photo
 - `inquiryOnly`: `true` keeps the price visible but replaces checkout with an availability inquiry
 - `contactNumber`: WhatsApp destination for inquiries, digits only; defaults to Connections if omitted
