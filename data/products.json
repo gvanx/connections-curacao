@@ -465,6 +465,26 @@
     "image": "galaxy-tab-a11-model.png"
   },
   {
+    "name": "Galaxy Tab A11 (X135G) SIM 64GB",
+    "suffix": "",
+    "model": "SM-X135G",
+    "price": 339,
+    "category": "samsung",
+    "featured": false,
+    "subcategory": "tablet",
+    "type": "Tablet",
+    "spec": "64GB storage · SIM / 4G LTE",
+    "specifications": {
+      "Model": "SM-X135G",
+      "Storage": "64GB",
+      "Connectivity": "SIM / 4G LTE"
+    },
+    "blackFriday": true,
+    "image": "galaxy-tab-a11-model.png",
+    "addedAt": "2026-11-14T14:08:03.013Z",
+    "newArrival": true
+  },
+  {
     "name": "Galaxy Tab A11+",
     "suffix": "",
     "price": 475,
@@ -1600,14 +1620,17 @@
     "image": "/img/products/instax-mini12-mint-green-bundle.png"
   },
   {
-    "name": "Redmi A7 Pro",
+    "name": "Redmi A7 Pro 64GB",
     "suffix": "",
-    "price": 690,
+    "price": 350,
     "category": "phones",
     "featured": false,
     "addedAt": "2026-11-13T14:00:45.960Z",
     "newArrival": true,
-    "image": "/img/products/redmi-a7-pro-official.png"
+    "image": "/img/products/redmi-a7-pro-official.png",
+    "specifications": {
+      "Storage": "64GB"
+    }
   },
   {
     "name": "Apple Gift Card US$3",
