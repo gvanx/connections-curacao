@@ -76,23 +76,6 @@
     "inquiryLabel": "Ask if in stock"
   },
   {
-    "name": "iPhone 16 128GB Pink",
-    "suffix": "HSO",
-    "price": 1190,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-16-pink.png",
-    "spec": "Pink · 88% battery health",
-    "specifications": {
-      "Storage": "128GB",
-      "Condition": "HSO",
-      "Color": "Pink",
-      "Battery health": "88%"
-    },
-    "addedAt": "2026-11-13T22:10:13.842Z",
-    "newArrival": true
-  },
-  {
     "name": "iPhone 16",
     "suffix": "",
     "price": 1899,
