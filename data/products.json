@@ -53,7 +53,7 @@
     "price": 1599,
     "category": "apple",
     "featured": false,
-    "image": "iphone-15-pro-max-model.png",
+    "image": "/img/products/iphone-15-pro-max-black-titanium.jpg",
     "spec": "Black Titanium · 512GB · 78% battery health",
     "specifications": {
       "Storage": "512GB",
