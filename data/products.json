@@ -91,6 +91,23 @@
     "image": "iphone-16e-transparent.png"
   },
   {
+    "name": "iPhone 16 Pro Max 256GB Black Titanium",
+    "suffix": "HSO",
+    "price": 1990,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/iphone-16-pro-max-black-titanium.webp",
+    "spec": "Black Titanium · 256GB · 88% battery health",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO",
+      "Color": "Black Titanium",
+      "Battery health": "88%"
+    },
+    "addedAt": "2026-11-16T17:19:53.484Z",
+    "newArrival": true
+  },
+  {
     "name": "iPhone 16 Pro Max 512GB White Titanium",
     "suffix": "HSO",
     "price": 2190,

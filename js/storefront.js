@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-16-iphone15promax-black-photo';
+    const PRODUCTS_DATA_VERSION = '2026-11-16-iphone16promax-black';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
