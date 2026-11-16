@@ -16,24 +16,6 @@
     "image": "iphone-13-model.jpg"
   },
   {
-    "name": "iPhone 13 128GB Starlight",
-    "suffix": "HSO",
-    "price": 750,
-    "category": "apple",
-    "featured": false,
-    "image": "/img/products/iphone-13-starlight.png",
-    "spec": "Starlight · 99% battery health · Apple warranty until January 15, 2027",
-    "specifications": {
-      "Storage": "128GB",
-      "Condition": "HSO",
-      "Color": "Starlight",
-      "Battery health": "99%",
-      "Apple warranty": "Until January 15, 2027"
-    },
-    "addedAt": "2026-11-13T22:10:13.842Z",
-    "newArrival": true
-  },
-  {
     "name": "iPhone 14",
     "suffix": "HSO",
     "price": 775,
@@ -64,6 +46,23 @@
     "category": "apple",
     "featured": false,
     "image": "iphone-15-pro-max-model.jpg"
+  },
+  {
+    "name": "iPhone 15 Pro Max 512GB Black Titanium",
+    "suffix": "HSO",
+    "price": 1599,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-15-pro-max-model.png",
+    "spec": "Black Titanium · 512GB · 78% battery health",
+    "specifications": {
+      "Storage": "512GB",
+      "Condition": "HSO",
+      "Color": "Black Titanium",
+      "Battery health": "78%"
+    },
+    "addedAt": "2026-11-16T16:52:50.272Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 16",
