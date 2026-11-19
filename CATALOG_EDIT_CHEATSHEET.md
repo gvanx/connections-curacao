@@ -134,8 +134,15 @@ price is confirmed. Remove the `blackFriday` field to remove the product from
 the campaign. This tag does not change availability or enable checkout.
 
 The four Premier inverter AC offers added on 2026-11-19 use the supplied
-campaign prices. Keep `inquiryOnly: true` until their exact models and stock
-are confirmed; they are separate from the older generic AC listings.
+campaign prices. The owner authorized **Checkout & Pay** for all four offers;
+keep `inquiryOnly: false`. They are separate from the older generic AC listings.
+
+Their `image` points to `/blackfriday/airco-specials-2026.jpeg`. The optional
+`imageCrop` object selects the corresponding product photo from that poster:
+`x`, `y`, `width`, and `height` are source-image pixels, while `sourceWidth`
+and `sourceHeight` are the full image dimensions. Both the main catalog and
+Black Friday page display this crop responsively without changing the poster.
+Use the original image dimensions and keep each crop inside those bounds.
 
 ### Mark a Product as Limited Supply
 

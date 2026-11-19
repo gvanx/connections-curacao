@@ -40,6 +40,21 @@ html { scroll-padding-top: 24px; }
 .bf-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .bf-card { color: #12130f; background: #fafaf7; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
 .bf-card-image { height: 220px; position: relative; padding: 42px 25px 18px; background: #f0f0eb; }
+.bf-card-image { display: flex; align-items: center; justify-content: center; }
+.bf-photo-crop { position: relative; width: 100%; overflow: hidden; border-radius: 4px; background: #111; }
+.bf-photo-crop>img { position: absolute; display: block; max-width: none; max-height: none; height: auto; object-fit: initial; }
+.bf-spotlight { width: min(100%,410px); justify-self: end; }
+.bf-spotlight .bf-card-image { height: 180px; }
+.bf-spotlight .bf-card h3 { min-height: 0; }
+.bf-spotlight .bf-card-spec { margin-bottom: 12px; }
+.bf-card-button.js-order-btn { color: #10110c; background: #ffe34e; border: 1px solid #ead03d; }
+.bf-card-button.js-order-btn:hover { background: #ffed81; }
+.bf-posters { padding: 0 0 64px; scroll-margin-top: 24px; }
+.bf-poster-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; max-width: 850px; }
+.bf-poster-grid>a { border: 1px solid #35352e; border-radius: 4px; overflow: hidden; }
+.bf-poster-grid img { width: 100%; height: auto; }
+.bf-poster-grid>a>span { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 16px; font-size: 16px; }
+.bf-poster-grid small { color: var(--accent); font-size: 14px; }
 .bf-card-image>img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
 .bf-badge { position: absolute; top: 15px; left: 16px; z-index: 1; background: #111; color: #ffe34e; font: 700 11px/1 'DM Sans', Arial, sans-serif; letter-spacing: .04em; padding: 8px 10px; border-radius: 2px; }
 .bf-model-art { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; text-align: center; background: radial-gradient(ellipse, #ffffff 15%, transparent 70%); }
@@ -98,6 +113,9 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible { 
   .bf-hero-actions { align-items: center; }
   .bf-local { margin-top: 20px; }
   .bf-poster { width: min(100%,340px); justify-self: center; }
+  .bf-spotlight { width: min(100%,360px); justify-self: center; text-align: left; }
+  .bf-poster-grid { gap: 16px; }
+  .bf-poster-grid>a>span { padding: 12px; font-size: 14px; }
   .bf-tape { gap: 25px; font-size: 17px; padding-block: 12px; }
   .bf-offers { padding: 44px 0; }
   .bf-section-heading { display: block; }

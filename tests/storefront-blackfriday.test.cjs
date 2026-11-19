@@ -4,11 +4,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-async function boot(hash = '#blackfriday') {
+async function boot(hash = '#blackfriday', suppliedProducts) {
   const elements = new Map(), documentEvents = {}, windowEvents = {}, errors = [];
-  const products = [
+  const products = suppliedProducts || [
     { name: 'Campaign tablet', price: 339, category: 'samsung', blackFriday: true },
-    { name: 'Campaign airco', price: 444, oldPrice: 650, category: 'acs', blackFriday: true, inquiryOnly: true },
+    { name: 'Campaign airco', price: 444, oldPrice: 650, category: 'acs', blackFriday: true, inquiryOnly: false, featured: true,
+      image: '/blackfriday/airco-specials-2026.jpeg', imageCrop: { x: 27, y: 510, width: 441, height: 152, sourceWidth: 1080, sourceHeight: 1350 } },
     { name: 'Ordinary phone', price: 299, category: 'samsung', blackFriday: false },
     { name: 'Mistagged phone', price: 199, category: 'samsung', blackFriday: 'true' }
   ];
@@ -49,7 +50,7 @@ async function boot(hash = '#blackfriday') {
   return { element, pills, location, windowEvents };
 }
 
-test('Black Friday deep link selects only explicitly tagged offers and preserves purchase modes', async () => {
+test('Black Friday deep link selects only explicitly tagged offers with checkout enabled for authorized aircos', async () => {
   const h = await boot();
   const html = h.element('#product-results').innerHTML;
   assert.match(html, /Black Friday · 2 results/);
@@ -57,10 +58,46 @@ test('Black Friday deep link selects only explicitly tagged offers and preserves
   assert.match(html, /Campaign airco/);
   assert.doesNotMatch(html, /Ordinary phone|Mistagged phone/);
   assert.match(html, /data-product-price="339"/);
-  assert.doesNotMatch(html, /data-product-price="444"/);
-  assert.match(html, /Ask availability/);
+  assert.match(html, /data-product-price="444"/);
+  assert.doesNotMatch(html, /Ask availability/);
   assert.equal(h.pills[1].attributes['aria-pressed'], 'true');
   assert.match(h.element('#product-toolbar').innerHTML, /Black Friday <span class="pf-pill-total">2<\/span>/);
+});
+
+test('catalog and featured cards display the exact flyer photo without changing the original image', async () => {
+  const h = await boot();
+  for (const id of ['#product-results', '#deals .container']) {
+    const html = h.element(id).innerHTML;
+    assert.match(html, /class="product-image-crop" style="aspect-ratio:441\/152"/);
+    assert.match(html, /src="\/blackfriday\/airco-specials-2026\.jpeg" alt="Campaign airco" width="1080" height="1350"/);
+    assert.match(html, /data-product-price="444"/);
+  }
+});
+
+test('malformed or out-of-bounds crop metadata falls back to the original image without injected styles', async () => {
+  const valid = { x: 27, y: 510, width: 441, height: 152, sourceWidth: 1080, sourceHeight: 1350 };
+  const invalidCrops = [null, [], {}, { ...valid, x: -1 }, { ...valid, y: -1 }, { ...valid, width: 0 },
+    { ...valid, height: 0 }, { ...valid, sourceWidth: Infinity }, { ...valid, sourceHeight: NaN },
+    { ...valid, x: 640 }, { ...valid, y: 1199 }, { ...valid, width: 1.5 }, { ...valid, x: '0;background:red' }];
+  for (const imageCrop of invalidCrops) {
+    const h = await boot('#blackfriday', [{ name: 'Airco', category: 'acs', blackFriday: true, price: 444,
+      image: '/blackfriday/airco-specials-2026.jpeg', imageCrop }]);
+    const html = h.element('#product-results').innerHTML;
+    assert.match(html, /src="\/blackfriday\/airco-specials-2026\.jpeg"/);
+    assert.doesNotMatch(html, /product-image-crop|background:red/);
+    assert.match(html, /data-product-price="444"/);
+  }
+});
+
+test('all four published Premier Black Friday aircos have a real photo and the advertised checkout price', async () => {
+  const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json'), 'utf8'))
+    .filter(product => product.category === 'acs' && product.blackFriday === true);
+  assert.equal(products.length, 4);
+  const h = await boot('#blackfriday', products);
+  const html = h.element('#product-results').innerHTML;
+  assert.equal((html.match(/class="product-image-crop"/g) || []).length, 4);
+  for (const price of [444, 875, 1099, 1799]) assert.ok(html.includes(`data-product-price="${price}"`));
+  assert.doesNotMatch(html, /Ask availability|Ask about this offer|model-art/);
 });
 
 test('campaign pill navigation and hash changes keep the filter and URL in sync', async () => {

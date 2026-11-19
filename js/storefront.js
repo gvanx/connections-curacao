@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-19-blackfriday';
+    const PRODUCTS_DATA_VERSION = '2026-11-19-blackfriday-checkout';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -138,10 +138,24 @@
       return labels[product.category] || 'Technology';
     }
 
+    function validProductImageCrop(crop) {
+      if (!crop || typeof crop !== 'object' || Array.isArray(crop)) return false;
+      const { x, y, width, height, sourceWidth, sourceHeight } = crop;
+      return [x, y, width, height, sourceWidth, sourceHeight].every(Number.isSafeInteger)
+        && x >= 0 && y >= 0 && width > 0 && height > 0 && sourceWidth > 0 && sourceHeight > 0
+        && x <= sourceWidth - width && y <= sourceHeight - height;
+    }
+
     function productVisualHTML(product, fullName) {
       const filename = (product.image || '').replace(/\.jpe?g$/i, '.png');
       if (product.image && !product.imageUnavailable && !GENERIC_IMAGE_FILES.has(filename)) {
-        return `<img src="${productImageSrc(product)}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async">`;
+        const src = escapeHtml(productImageSrc(product));
+        const alt = escapeHtml(fullName);
+        if (validProductImageCrop(product.imageCrop)) {
+          const { x, y, width, height, sourceWidth, sourceHeight } = product.imageCrop;
+          return `<div class="product-image-crop" style="aspect-ratio:${width}/${height}"><img src="${src}" alt="${alt}" width="${sourceWidth}" height="${sourceHeight}" style="width:${sourceWidth / width * 100}%;left:${-x / width * 100}%;top:${-y / height * 100}%" loading="lazy" decoding="async"></div>`;
+        }
+        return `<img src="${src}" alt="${alt}" loading="lazy" decoding="async">`;
       }
       const mark = ({ tvs: 'TV', laptops: 'PC', acs: '°', appliances: '+' })[product.category] || '•';
       return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">

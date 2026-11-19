@@ -44,6 +44,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 /* Frame the official Neo photograph within the product card. */
 .deal-img,.product-img{overflow:hidden}
 .deal-img img[src$="/macbook-neo-indigo.jpg"],.product-img img[src$="/macbook-neo-indigo.jpg"]{transform:scale(2.4)}
+/* Show the exact product photograph from its original campaign artwork. */
+.product-image-crop{position:relative;overflow:hidden;width:100%;flex-shrink:0}
+.deal-img .product-image-crop>img,.product-img .product-image-crop>img{position:absolute;max-width:none;max-height:none;height:auto;object-fit:unset}
 
 /* New arrivals and expandable model specifications. */
 .badge-new-arrival{background:#dcebf0;color:#173b4a;border:1px solid #bfd5dd;padding:4px 8px}
