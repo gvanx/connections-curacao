@@ -64,6 +64,25 @@ For a model that becomes inquiry-only, set `inquiryOnly` to `true`; if
 `landingPage` is present, its inquiry button opens that page instead.
 Do not infer future stock changes from a flyer.
 
+On 2026-11-19, the owner authorized an **XCG 300 Black Friday discount** on
+all six scooters. Keep `price` at the offer price below, `oldPrice` at the
+regular price, and `blackFriday: true`. Checkout, availability, contact numbers,
+and images remain unchanged.
+
+| Scooter | Regular price (XCG) | Black Friday price (XCG) |
+| --- | ---: | ---: |
+| Falcon 8 150cc | 3,590 | 3,290 |
+| Trophy 150cc | 3,300 | 3,000 |
+| Fantasy 150cc | 3,590 | 3,290 |
+| Monkey IV 150cc | 3,590 | 3,290 |
+| NVH 150cc | 4,099 | 3,799 |
+| R8 150cc | 3,490 | 3,190 |
+
+The owner also removed these three listings: `150cc Motorcycle (Blue)`
+(`MOT9184G`), `150cc Motorcycle (Black)` (`MOT9185G`), and
+`Gasoline Motorcycle 150CC` (`MOT-9184G`). Preserve their existing catalog
+history entries so a future reintroduction does not restart arrival badges.
+
 ## 5) Common Tasks
 
 ### Change Price
@@ -123,6 +142,36 @@ as the new/current price:
 This automatically shows a red **-12%** ribbon on the card and the old
 price struck through next to the new one. The percentage is calculated
 for you. To end the sale, just delete the `oldPrice` line.
+
+### Include a Product in Black Friday
+
+Set `"blackFriday": true` to include the product on `/blackfriday` and show
+its Black Friday badge in the main catalog. The campaign page reads the same
+`data/products.json` file, so prices and specifications stay together.
+Keep `price` as the current offer price; add `oldPrice` only when the original
+price is confirmed. Remove the `blackFriday` field to remove the product from
+the campaign. This tag does not change availability or enable checkout.
+
+The four Premier inverter AC offers added on 2026-11-19 use the supplied
+campaign prices. The owner authorized **Checkout & Pay** for all four offers;
+keep `inquiryOnly: false`. They are separate from the older generic AC listings.
+
+Their `image` is `ac-catalog.webp`, the existing main-site airco illustration
+requested by the owner for these offers. Both the main catalog and Black Friday
+page use this shared image. The original campaign posters remain in the
+Black Friday poster gallery.
+
+The homepage Black Friday theme uses the same tagged products for its deals
+rail and features the lowest-priced purchasable tagged airco (or another tagged
+physical product when no airco is available). Sold-out and inquiry-only items
+cannot become the checkout hero. The theme is scoped to `black-friday-theme`
+on the homepage body and styled in `css/blackfriday-theme.css`.
+
+Black Friday Week starts **23 November 2026 at midnight, Curaçao time**.
+The countdown reads `data-starts-at="2026-11-23T00:00:00-04:00"` in `index.html`
+and changes to a live-week message at that instant. It does not reset or imply
+a sale end date. Update the visible date and announcement together if the
+campaign schedule changes.
 
 ### Mark a Product as Limited Supply
 

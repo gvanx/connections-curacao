@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-16-iphone16promax-black';
+    const PRODUCTS_DATA_VERSION = '2026-11-19-blackfriday-airco';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -256,12 +256,33 @@
       return campaign + (isNewArrival(p) ? '<span class="badge-new-arrival">New Arrival</span>' : '');
     }
 
-    function renderDeals(products) {
-      const featured = products.filter(p => p.featured);
-      if (!featured.length) return;
+    function hasBlackFridayTheme() {
+      return document.body?.classList?.contains?.('black-friday-theme') === true;
+    }
 
+    function renderBlackFridaySpotlight(products) {
+      if (!hasBlackFridayTheme()) return;
+      const container = document.getElementById('bf-home-spotlight');
+      if (!container) return;
+      const offer = products.filter(p => p.blackFriday === true && !p.inquiryOnly && p.soldOut !== true &&
+        !GiftCards.isGiftCard(p) && Number.isFinite(p.price) && p.price > 0)
+        .sort((a, b) => Number(b.category === 'acs') - Number(a.category === 'acs') || a.price - b.price)[0];
+      container.innerHTML = offer
+        ? productCardHTML(offer).replace('loading="lazy"', 'loading="eager" fetchpriority="high"')
+        : '<div class="bf-spotlight-fallback"><p class="eyebrow">BLACK FRIDAY PICKS</p><h2>Your next deal is on the way.</h2><p>Browse the store for more options.</p><a class="btn-primary" href="#products">Shop all products</a></div>';
+      attachOrderButtons(container);
+    }
+
+    function renderDeals(products) {
+      const campaign = hasBlackFridayTheme();
+      renderBlackFridaySpotlight(products);
+      const featured = products.filter(p => campaign ? p.blackFriday === true && p.soldOut !== true : p.featured);
+      if (campaign) featured.sort((a, b) => Number(b.category === 'acs') - Number(a.category === 'acs') || (a.price || Infinity) - (b.price || Infinity));
       const container = document.querySelector('#deals .container');
-      let html = "<div class=\"section-heading\"><div><p class=\"eyebrow\">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class=\"text-link\" href=\"#products\">Shop the collection <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a></div>";
+      if (!featured.length) { container.innerHTML = ''; return; }
+      let html = campaign
+        ? '<div class="section-heading"><div><p class="eyebrow">BLACK FRIDAY PICKS</p><h2>The deals start here.</h2></div><a class="text-link" href="/blackfriday">View all Black Friday deals</a></div>'
+        : "<div class=\"section-heading\"><div><p class=\"eyebrow\">Find your next upgrade</p><h2>Good finds at Connections.</h2></div><a class=\"text-link\" href=\"#products\">Shop the collection <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a></div>";
       html += '<div class="deals-wrapper fade-in">';
 
       // Arrow buttons
@@ -376,7 +397,8 @@
           </div>`;
         } else {
           const resultCount = products.length === 1 ? '1 result' : `${products.length} results`;
-          const label = filterState.category === 'new-arrivals' ? `New Arrivals · ${resultCount}` : resultCount;
+          const campaignLabel = { 'new-arrivals': 'New Arrivals', blackfriday: 'Black Friday' }[filterState.category];
+          const label = campaignLabel ? `${campaignLabel} · ${resultCount}` : resultCount;
           html = `<div class="product-section">
             <h2 class="results-title">${label}</h2>
             ${filterState.category === 'giftcards' ? giftCardNoteHTML() : ''}
@@ -411,6 +433,7 @@
     let ALL_PRODUCTS = [];
     function matchesCategory(p, category) {
       if (category === 'new-arrivals') return isNewArrival(p);
+      if (category === 'blackfriday') return p.blackFriday === true;
       return p.category === category || (category === 'laptops' && /macbook/i.test(p.name));
     }
     const filterState = { search: '', category: 'all', price: 'all', sort: 'featured' };
@@ -491,6 +514,8 @@
       const cats = CATEGORY_ORDER.filter(c => counts[c]);
 
       let pills = `<button type="button" class="pf-pill active" data-cat="all" aria-pressed="true">All</button>`;
+      const blackFridayCount = products.filter(p => p.blackFriday === true).length;
+      if (blackFridayCount) pills += `<button type="button" class="pf-pill pf-pill-blackfriday" data-cat="blackfriday" aria-pressed="false">Black Friday <span class="pf-pill-total">${blackFridayCount}</span></button>`;
       const hasArrivals = products.some(p => isNewArrival(p));
       pills += `<button type="button" class="pf-pill pf-pill-new" data-cat="new-arrivals" aria-pressed="false"${hasArrivals ? '' : ' hidden style="display:none"'}>New Arrivals</button>`;
       cats.forEach(c => {
@@ -557,8 +582,9 @@
           filterState.category = btn.dataset.cat;
           syncCategoryPills();
           if (filterState.category === 'new-arrivals') history.replaceState(null, '', '#new-arrivals');
+          else if (filterState.category === 'blackfriday') history.replaceState(null, '', '#blackfriday');
           else if (filterState.category === 'giftcards') history.replaceState(null, '', '#gift-cards');
-          else if (['#new-arrivals', '#gift-cards'].includes(location.hash)) history.replaceState(null, '', '#products');
+          else if (['#new-arrivals', '#gift-cards', '#blackfriday'].includes(location.hash)) history.replaceState(null, '', '#products');
           applyFilters();
         });
       });
@@ -664,6 +690,7 @@
         applyFilters();
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
+        if (location.hash === '#blackfriday') openProductCategory('blackfriday');
         if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
         if (products.some(GiftCards.isGiftCard)) {
@@ -689,6 +716,7 @@
 
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
+      if (ALL_PRODUCTS.length && location.hash === '#blackfriday') openProductCategory('blackfriday');
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
 

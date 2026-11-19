@@ -1,0 +1,325 @@
+/* Seasonal storefront theme. Other pages using main.css keep their own palette. */
+.black-friday-theme {
+  --bg: #090909;
+  --text: #f7f7f4;
+  --text-muted: #b4b4b0;
+  --text-dim: #a4a4a0;
+  --accent: #ffe34e;
+  --orange: #ffe34e;
+  --line: #30302e;
+  --surface: #171716;
+  --bf-yellow: #ffe34e;
+  color-scheme: dark;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+}
+
+.black-friday-theme ::selection { background: var(--bf-yellow); color: #111; }
+.black-friday-theme [hidden] { display: none !important; }
+.black-friday-theme :is(a, button, input, select, summary):focus-visible { outline: 3px solid var(--bf-yellow); outline-offset: 4px; }
+.black-friday-theme .skip-link { background: var(--bf-yellow); color: #111; }
+.black-friday-theme .announcement { background: var(--bf-yellow); color: #111; font-size: 12px; font-weight: 600; }
+.black-friday-theme .announcement a { color: #111; }
+.black-friday-theme #nav { background: #090909f5; border-bottom-color: #33332f; }
+.black-friday-theme .nav-logo { color: #fff; }
+.black-friday-theme .logo-dot { background: var(--bf-yellow); }
+.black-friday-theme .nav-links { gap: 21px; }
+.black-friday-theme .nav-links a { font-size: 13px; }
+.black-friday-theme :is(.nav-links a:hover, .text-link:hover, .footer-links a:hover) { color: var(--bf-yellow); }
+.black-friday-theme .nav-contact { border-color: #62625c; font-size: 13px; }
+.black-friday-theme .nav-contact:hover { background: #252522; border-color: var(--bf-yellow); }
+.black-friday-theme .nav-hamburger span { background: #fff; }
+.black-friday-theme .nav-mobile-menu { background: #111; border-color: #333; }
+.black-friday-theme .nav-mobile-menu a:hover { background: #242420; color: var(--bf-yellow); }
+
+.black-friday-theme #hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(32px, 5vw, 76px); padding-block: 64px 58px; }
+.black-friday-theme .hero-copy { min-width: 0; }
+.black-friday-theme .hero-copy .eyebrow { color: var(--bf-yellow); font-size: 13px; letter-spacing: .16em; margin-bottom: 25px; }
+.black-friday-theme .hero-copy .bf-home-title { font: 400 clamp(80px, 10vw, 144px)/.88 'Cormorant Garamond', Georgia, 'Times New Roman', serif; letter-spacing: -.065em; color: #fff; text-shadow: 0 0 28px #ffffff20; }
+.black-friday-theme .hero-copy .bf-home-title span { color: inherit; font: inherit; letter-spacing: inherit; }
+.black-friday-theme .bf-home-subtitle { max-width: 450px; margin-top: 26px; color: #c7c7c1; font-size: 18px; line-height: 1.65; }
+.black-friday-theme .hero-subtitle { max-width: 450px; margin-top: 18px; color: #bdbdb6; font-size: 16px; line-height: 1.7; }
+.black-friday-theme .hero-ctas { gap: 22px; margin-top: 28px; }
+.black-friday-theme .btn-primary { background: var(--bf-yellow); color: #111; border-radius: 5px; font-size: 14px; font-weight: 700; min-height: 48px; padding: 13px 22px; }
+.black-friday-theme .btn-primary:hover { background: #fff099; color: #111; transform: none; }
+.black-friday-theme .text-link { font-size: 14px; }
+.black-friday-theme .hero-local { color: #adada7; font-size: 13px; margin-top: 28px; }
+.black-friday-theme .hero-local strong { color: #fff; }
+.black-friday-theme .local-mark { background: #232320; color: var(--bf-yellow); }
+
+.black-friday-theme .bf-countdown { margin-top: 32px; max-width: 420px; }
+.black-friday-theme .bf-countdown-heading { color: #f7f7f4; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.black-friday-theme .bf-countdown-clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.black-friday-theme .bf-countdown-unit { min-width: 0; display: flex; flex-direction: column; align-items: center; padding: 13px 7px 11px; background: #171716; border: 1px solid #383832; border-radius: 5px; }
+.black-friday-theme .bf-countdown-unit strong { font: 500 clamp(25px, 3vw, 38px)/1 var(--font-display); color: #fff; font-variant-numeric: tabular-nums; }
+.black-friday-theme .bf-countdown-unit span { margin-top: 8px; font-size: 12px; color: #b7b7b0; }
+.black-friday-theme .bf-countdown-date { margin-top: 10px; color: #aaa; font-size: 12px; line-height: 1.5; }
+.black-friday-theme .bf-countdown-live { padding: 16px 18px; border: 1px solid #756826; border-radius: 5px; background: #252211; color: var(--bf-yellow); font-size: 17px; font-weight: 600; }
+
+.black-friday-theme #bf-home-spotlight { min-width: 0; width: 100%; max-width: 470px; justify-self: end; }
+.black-friday-theme #bf-home-spotlight .product-card { border-radius: 12px; border-color: #494944; box-shadow: 0 22px 70px #0006; }
+.black-friday-theme #bf-home-spotlight .product-img { height: 290px; padding: 32px; }
+.black-friday-theme #bf-home-spotlight .product-body { padding: 26px; }
+.black-friday-theme #bf-home-spotlight .product-name { font-size: 23px; line-height: 1.25; min-height: 0; }
+.black-friday-theme #bf-home-spotlight .product-spec { font-size: 14px; margin-top: 12px; }
+.black-friday-theme #bf-home-spotlight .product-price { font-size: 38px; margin-block: 16px 21px; }
+.black-friday-theme #bf-home-spotlight .old-price { font-size: 18px; }
+.black-friday-theme #bf-home-spotlight .btn-whatsapp-sm { min-height: 52px; font-size: 16px; }
+.black-friday-theme #bf-home-spotlight .card-ribbons { top: 15px; left: 11px; }
+.black-friday-theme #bf-home-spotlight .card-ribbons > span { font-size: 12px; padding: 5px 9px; }
+.black-friday-theme #bf-home-spotlight .pf-empty { border: 1px solid var(--line); }
+.black-friday-theme .bf-spotlight-fallback { padding: 28px; border: 1px solid #41413a; border-radius: 12px; background: #171716; color: #e5e5de; }
+.black-friday-theme .bf-home-tape { display: flex; justify-content: center; gap: 48px; overflow: hidden; white-space: nowrap; padding: 14px 20px; background: var(--bf-yellow); color: #111; border-block: 1px solid #ffe990; font: 700 17px/1.4 var(--font-display); letter-spacing: .09em; }
+.black-friday-theme .bf-home-tape span { flex: 0 0 auto; }
+.black-friday-theme .benefits { font-size: 13px; color: #bbb; }
+.black-friday-theme .benefits b { color: var(--bf-yellow); }
+
+.black-friday-theme #categories { padding-block: 35px 42px; }
+.black-friday-theme .category-heading h2 { font-size: 25px; }
+.black-friday-theme .category-heading a { color: #bbb; font-size: 14px; }
+.black-friday-theme .category-card { background: #141413; border-color: #353532; }
+.black-friday-theme .category-card:hover { background: #24241e; border-color: #b4a13d; }
+.black-friday-theme .cat-icon svg { stroke: var(--bf-yellow); }
+.black-friday-theme .cat-name { font-size: 12px; }
+.black-friday-theme .cat-count { font-size: 11px; color: #adada7; }
+.black-friday-theme .section-heading .eyebrow { font-size: 12px; color: var(--bf-yellow); }
+.black-friday-theme .section-heading > p { font-size: 14px; }
+.black-friday-theme .section-heading h2 { color: #fff; }
+.black-friday-theme #deals { background: #121211; border-color: #30302c; }
+.black-friday-theme .deals-track { scrollbar-color: #686456 #171716; }
+.black-friday-theme .deals-arrow { background: var(--bf-yellow); color: #111; border: 1px solid #111; box-shadow: 0 4px 16px #0005; }
+
+/* Light merchandise surfaces keep photography and prices easy to scan. */
+.black-friday-theme :is(.deal-card, .product-card) {
+  --bg: #fff;
+  --text: #171716;
+  --text-muted: #62625d;
+  --text-dim: #62625d;
+  --line: #deded8;
+  --surface: #f1f1ec;
+  color-scheme: light;
+  background: #fafaf7;
+  color: #171716;
+  border-color: #44443f;
+}
+.black-friday-theme :is(.deal-img, .product-img) { background: #fff; }
+.black-friday-theme :is(.deal-name, .product-name) { font-size: 15px; line-height: 1.4; }
+.black-friday-theme .product-spec { font-size: 12px; }
+.black-friday-theme .product-suffix { font-size: 12px; }
+.black-friday-theme :is(.product-price, .deal-price) { color: #111; font-weight: 600; }
+.black-friday-theme .old-price { color: #686861; font-weight: 400; }
+.black-friday-theme :is(.btn-whatsapp, .btn-whatsapp-sm) { background: var(--bf-yellow); color: #111; min-height: 46px; font-size: 14px; font-weight: 700; border: 1px solid #dac13a; border-radius: 5px; }
+.black-friday-theme :is(.btn-whatsapp, .btn-whatsapp-sm):hover { background: #fff099; color: #111; }
+.black-friday-theme :is(.product-card, .deal-card) :is(a, button, summary):focus-visible { outline-color: #8a6500; }
+.black-friday-theme .badge-sale { background: var(--bf-yellow); color: #111; font-weight: 700; }
+.black-friday-theme .badge-black-friday { background: #111; color: var(--bf-yellow); }
+.black-friday-theme :is(.badge-sale, .badge-black-friday, .badge-new-arrival, .badge-back-in-stock) { font-size: 10px; }
+.black-friday-theme .badge-hso { background: #e9e9e2; color: #333; }
+.black-friday-theme :is(.active-note, .limited-note) { background: #eeeee7; color: #46463e; font-size: 12px; }
+.black-friday-theme .product-details { font-size: 12px; border-color: #deded8; }
+.black-friday-theme .product-details summary { min-height: 32px; }
+.black-friday-theme .product-details dl > div { border-color: #deded8; }
+.black-friday-theme .product-details dt { color: #242420; }
+.black-friday-theme .product-details dd { color: #62625d; }
+.black-friday-theme .model-art { background: #f0f0eb; color: #222; }
+.black-friday-theme .model-art-type { color: #64645d; }
+.black-friday-theme .model-art-brand { font-size: 11px; }
+.black-friday-theme .gift-card-disabled,
+.black-friday-theme .gift-card-disabled:hover { background: #e6e6df; border-color: #d1d1c8; color: #606058; cursor: not-allowed; }
+.black-friday-theme .gift-card-note { font-size: 14px; color: #b9b9b2; }
+
+.black-friday-theme :is(.discover-card, .laptop-card, .anker-card) { background: #1a1a18; border: 1px solid #3b3b35; }
+.black-friday-theme .discover-card:hover { transform: none; border-color: #77715a; }
+.black-friday-theme .discover-card .eyebrow { color: var(--bf-yellow); font-size: 12px; }
+.black-friday-theme .discover-card p:not(.eyebrow) { color: #b9b9b1; font-size: 14px; }
+.black-friday-theme .discover-link { border-color: #41413b; color: var(--bf-yellow); font-size: 14px; }
+.black-friday-theme .ride-banner { background: #1a1a17; color: #fff; border: 1px solid #484435; }
+.black-friday-theme .ride-banner .eyebrow { color: var(--bf-yellow); font-size: 12px; }
+.black-friday-theme .ride-banner h2 em { color: var(--bf-yellow); }
+.black-friday-theme .ride-banner p:not(.eyebrow) { color: #c1c1b8; font-size: 14px; }
+.black-friday-theme .ride-banner .btn-primary { background: var(--bf-yellow); color: #111; }
+.black-friday-theme .ride-banner .ride-contact { font-size: 13px; }
+.black-friday-theme .ride-price { color: #171716; font-size: 13px; }
+
+.black-friday-theme .pf-search input { background: #171716; border-color: #5a5a52; color: #fff; font-size: 16px; min-height: 48px; }
+.black-friday-theme .pf-search input::placeholder { color: #adada5; }
+.black-friday-theme .pf-search svg { top: 15px; stroke: #c2c2ba; }
+.black-friday-theme .pf-clear { color: #eee; }
+.black-friday-theme .pf-select { color-scheme: dark; background: #171716; color: #eee; border-color: #5a5a52; font-size: 14px; min-height: 48px; }
+.black-friday-theme .pf-pill { color: #ddd; border-color: #55554d; font-size: 13px; min-height: 40px; }
+.black-friday-theme .pf-pill:hover { background: #26261f; border-color: #c1aa3d; }
+.black-friday-theme .pf-pill.active { background: var(--bf-yellow); color: #111; border-color: var(--bf-yellow); }
+.black-friday-theme .pf-pill-new:not(.active) { background: #22221b; border-color: #65614b; }
+.black-friday-theme .pf-pill-blackfriday:not(.active) { background: #292511; color: var(--bf-yellow); border-color: #a18e2b; }
+.black-friday-theme .pf-count { font-size: 12px; color: #bbb; }
+.black-friday-theme .pf-empty { background: #191917; color: #e8e8e1; }
+.black-friday-theme .pf-empty button { color: var(--bf-yellow); min-height: 44px; }
+.black-friday-theme :is(.results-title, .product-section > .section-title) { color: #f5f5ef; }
+
+.black-friday-theme .flyers-details > summary .eyebrow { color: var(--bf-yellow); font-size: 12px; }
+.black-friday-theme :is(.flyers-toggle, .flyers-intro, .flyer-card p) { font-size: 14px; }
+.black-friday-theme .flyer-card img { border: 1px solid #363630; }
+.black-friday-theme .suave-strip { background: #211f14; border: 1px solid #5a5131; color: #fff; }
+.black-friday-theme .suave-strip > strong { color: var(--bf-yellow); }
+.black-friday-theme .suave-strip p { color: #c8c6b8; font-size: 14px; }
+.black-friday-theme .suave-strip small { font-size: 12px; }
+.black-friday-theme .suave-strip .text-link { color: var(--bf-yellow); }
+.black-friday-theme .eco-icon { color: var(--bf-yellow); }
+.black-friday-theme .eco-desc { color: #b9b9b1; font-size: 13px; }
+.black-friday-theme .eco-link { font-size: 14px; }
+.black-friday-theme #locations { background: #181816; border-top: 1px solid #34342e; }
+.black-friday-theme .location-card { border-color: #4d4d44; }
+.black-friday-theme .location-badge { color: var(--bf-yellow); font-size: 12px; }
+.black-friday-theme .location-detail { color: #c9c9c1; font-size: 14px; }
+.black-friday-theme .btn-loc { border-color: #747465; font-size: 14px; }
+.black-friday-theme .btn-loc-primary { background: var(--bf-yellow); border-color: var(--bf-yellow); color: #111; }
+.black-friday-theme #footer { background: #070707; border-top: 1px solid #30302a; color: #f5f5ee; }
+.black-friday-theme .footer-tagline { color: #aaa; font-size: 13px; }
+.black-friday-theme .footer-col-heading { color: #f6f6ef; font-size: 12px; }
+.black-friday-theme :is(.footer-links a, .footer-contact-item) { color: #bbb; font-size: 13px; }
+.black-friday-theme .footer-bottom { color: #aaa; border-color: #30302a; font-size: 12px; }
+.black-friday-theme #whatsapp-fab { background: #246f43; border-color: #090909; box-shadow: 0 4px 18px #0008; }
+
+/* Checkout stays light and self-contained, including payment instructions. */
+.black-friday-theme .checkout-overlay { background: #000c; }
+.black-friday-theme .checkout-modal {
+  --bg: #fff;
+  --text: #171716;
+  --text-muted: #5e5e57;
+  --line: #d7d7cf;
+  color-scheme: light;
+  background: #fff;
+  color: #171716;
+  border: 1px solid #d6d6ce;
+}
+.black-friday-theme .checkout-modal :is(a, button, input, select):focus-visible { outline-color: #8a6500; }
+.black-friday-theme .checkout-close { color: #222; }
+.black-friday-theme .checkout-lines { background: #f0f0e9; }
+.black-friday-theme .checkout-line { font-size: 14px; color: #62625a; }
+.black-friday-theme .checkout-line strong { color: #171716; }
+.black-friday-theme .checkout-line.total { border-color: #cdcdc1; }
+.black-friday-theme .checkout-label { font-size: 14px; }
+.black-friday-theme .checkout-input { border-color: #aaa99e; background: #fff; color: #171716; font-size: 16px; min-height: 46px; }
+.black-friday-theme .checkout-input::placeholder { color: #6c6c63; }
+.black-friday-theme .checkout-options { font-size: 14px; }
+.black-friday-theme :is(.checkout-radio input, .checkout-terms input) { accent-color: #24241d; }
+.black-friday-theme .checkout-terms { font-size: 13px; }
+.black-friday-theme .checkout-error { color: #aa2516; font-size: 14px; }
+.black-friday-theme .checkout-submit { width: 100%; }
+.black-friday-theme .checkout-quote { color: #5e5e57; font-size: 13px; }
+.black-friday-theme .crypto-payment-notice { background: #f2f0df; border-color: #d6c98c; color: #333329; font-size: 13px; }
+.black-friday-theme .checkout-confirmation { color: #26261f; font-size: 14px; }
+.black-friday-theme .checkout-wallet { background: #f0f0e9; border-color: #cbcbc0; color: #222; font-size: 13px; }
+.black-friday-theme .checkout-copy { border-color: #aaa99b; color: #25251f; font-size: 13px; }
+.black-friday-theme .checkout-copy:hover { background: #eeeeE5; }
+.black-friday-theme .checkout-copy-status { color: #5e5e57; }
+
+@media (max-width: 1150px) {
+  .black-friday-theme .nav-links { gap: 12px; }
+  .black-friday-theme .nav-links a { font-size: 12px; }
+  .black-friday-theme #hero { gap: 34px; padding-block: 48px; }
+  .black-friday-theme #bf-home-spotlight .product-img { height: 240px; padding: 26px; }
+  .black-friday-theme #bf-home-spotlight .product-body { padding: 23px; }
+}
+
+@media (max-width: 900px) {
+  .black-friday-theme #hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; }
+  .black-friday-theme .hero-copy .bf-home-title { font-size: clamp(67px, 9.7vw, 88px); }
+  .black-friday-theme .hero-copy .eyebrow { font-size: 11px; }
+  .black-friday-theme .bf-home-subtitle { font-size: 16px; }
+  .black-friday-theme .hero-ctas { gap: 15px; }
+  .black-friday-theme .hero-ctas .text-link { font-size: 14px; }
+  .black-friday-theme #bf-home-spotlight .product-img { height: 225px; padding: 24px; }
+  .black-friday-theme #bf-home-spotlight .product-body { padding: 21px; }
+  .black-friday-theme #bf-home-spotlight .product-name { font-size: 21px; }
+  .black-friday-theme #bf-home-spotlight .product-price { font-size: 32px; }
+  .black-friday-theme .bf-countdown-clock { gap: 6px; }
+  .black-friday-theme .bf-countdown-unit { padding-inline: 4px; }
+  .black-friday-theme .bf-countdown-unit strong { font-size: 28px; }
+  .black-friday-theme .bf-countdown-unit span { font-size: 11px; }
+  .black-friday-theme .benefits { font-size: 12px; }
+  .black-friday-theme .cat-name { font-size: 13px; }
+  .black-friday-theme .discover-card p:not(.eyebrow) { font-size: 13px; }
+}
+
+@media (max-width: 700px) {
+  .black-friday-theme #hero { grid-template-columns: minmax(0, 1fr); gap: 26px; padding-block: 36px; }
+  .black-friday-theme .hero-copy { display: contents; }
+  .black-friday-theme .bf-home-intro { order: 0; }
+  .black-friday-theme #bf-home-spotlight { order: 1; }
+  .black-friday-theme .bf-countdown { order: 2; }
+  .black-friday-theme .hero-ctas { order: 3; }
+  .black-friday-theme .hero-local { order: 4; }
+  .black-friday-theme .hero-copy .bf-home-title { font-size: clamp(70px, 21vw, 126px); }
+  .black-friday-theme .hero-copy .eyebrow { margin-bottom: 16px; font-size: 12px; }
+  .black-friday-theme .bf-home-subtitle { max-width: 430px; margin-top: 18px; }
+  .black-friday-theme .hero-subtitle { display: none; }
+  .black-friday-theme .bf-countdown { max-width: 420px; margin-top: 0; }
+  .black-friday-theme :is(.hero-ctas, .hero-local) { margin-top: 0; }
+  .black-friday-theme .announcement > span { display: block; }
+  .black-friday-theme .announcement > a { display: none; }
+  .black-friday-theme .bf-countdown-clock { gap: 9px; }
+  .black-friday-theme .bf-countdown-unit { padding-block: 13px 10px; }
+  .black-friday-theme .bf-countdown-unit strong { font-size: 32px; }
+  .black-friday-theme .bf-countdown-unit span { font-size: 12px; }
+  .black-friday-theme #bf-home-spotlight { max-width: 470px; justify-self: center; }
+  .black-friday-theme #bf-home-spotlight .product-img { height: 220px; padding: 26px; }
+  .black-friday-theme #bf-home-spotlight .product-body { padding: 22px; }
+  .black-friday-theme #bf-home-spotlight .product-name { font-size: 23px; }
+  .black-friday-theme .bf-home-tape { font-size: 14px; padding-block: 12px; gap: 28px; }
+}
+
+@media (max-width: 650px) {
+  .black-friday-theme .announcement { font-size: 11px; padding-block: 9px; }
+  .black-friday-theme .nav-logo { font-size: 29px; }
+  .black-friday-theme .hero-ctas { align-items: flex-start; }
+  .black-friday-theme .hero-ctas .text-link { align-self: center; }
+  .black-friday-theme .benefits { padding-block: 8px 26px; gap: 10px; }
+  .black-friday-theme .category-heading { align-items: center; }
+  .black-friday-theme .category-heading h2 { font-size: 22px; }
+  .black-friday-theme .category-heading a { font-size: 12px; max-width: 95px; }
+  .black-friday-theme .categories-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .black-friday-theme .category-card { padding: 15px 6px; }
+  .black-friday-theme .cat-name { font-size: 12px; }
+  .black-friday-theme .cat-count { font-size: 11px; }
+  .black-friday-theme .section-heading > .text-link { font-size: 12px; max-width: 105px; }
+  .black-friday-theme .product-body { padding: 13px 11px; }
+  .black-friday-theme .product-name { font-size: 14px; }
+  .black-friday-theme .product-spec { font-size: 12px; }
+  .black-friday-theme .product-price { font-size: 22px; }
+  .black-friday-theme .btn-whatsapp-sm { font-size: 13px; min-height: 46px; padding: 10px 5px; gap: 5px; }
+  .black-friday-theme .product-details { font-size: 12px; }
+  .black-friday-theme .product-details summary { line-height: 1.4; }
+  .black-friday-theme .pf-select { font-size: 13px; padding-inline: 8px; }
+  .black-friday-theme .pf-pill { font-size: 12px; padding: 8px 12px; }
+  .black-friday-theme .pf-count { padding-top: 0; }
+  .black-friday-theme .discover-card .eyebrow { font-size: 11px; }
+  .black-friday-theme .discover-card h3 { font-size: 28px; }
+  .black-friday-theme .discover-card p:not(.eyebrow) { font-size: 13px; }
+  .black-friday-theme .flyers-toggle { font-size: 12px; }
+  .black-friday-theme .flyer-card p { font-size: 13px; }
+  .black-friday-theme .suave-strip .text-link { font-size: 13px; }
+  .black-friday-theme .eco-desc { font-size: 13px; }
+  .black-friday-theme .location-buttons { flex-wrap: wrap; }
+  .black-friday-theme .footer-bottom { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .black-friday-theme .container { width: calc(100% - 28px); }
+  .black-friday-theme .hero-copy .bf-home-title { font-size: 69px; }
+  .black-friday-theme .bf-countdown-clock { gap: 6px; }
+  .black-friday-theme .bf-countdown-unit strong { font-size: 29px; }
+  .black-friday-theme .bf-countdown-unit span { font-size: 11px; }
+  .black-friday-theme .product-grid { grid-template-columns: minmax(0, 1fr); }
+  .black-friday-theme .product-img { height: 210px; }
+  .black-friday-theme .product-body { padding: 19px; }
+  .black-friday-theme .product-name { font-size: 17px; }
+  .black-friday-theme .btn-whatsapp-sm { font-size: 14px; }
+  .black-friday-theme .flyer-grid { grid-template-columns: minmax(0, 1fr); }
+  .black-friday-theme .footer-grid { gap: 28px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .black-friday-theme *, .black-friday-theme *::before, .black-friday-theme *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
