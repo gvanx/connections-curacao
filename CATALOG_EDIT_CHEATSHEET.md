@@ -142,6 +142,18 @@ requested by the owner for these offers. Both the main catalog and Black Friday
 page use this shared image. The original campaign posters remain in the
 Black Friday poster gallery.
 
+The homepage Black Friday theme uses the same tagged products for its deals
+rail and features the lowest-priced purchasable tagged airco (or another tagged
+physical product when no airco is available). Sold-out and inquiry-only items
+cannot become the checkout hero. The theme is scoped to `black-friday-theme`
+on the homepage body and styled in `css/blackfriday-theme.css`.
+
+Black Friday Week starts **23 November 2026 at midnight, Curaçao time**.
+The countdown reads `data-starts-at="2026-11-23T00:00:00-04:00"` in `index.html`
+and changes to a live-week message at that instant. It does not reset or imply
+a sale end date. Update the visible date and announcement together if the
+campaign schedule changes.
+
 ### Mark a Product as Limited Supply
 
 Add `"limited": true`:
