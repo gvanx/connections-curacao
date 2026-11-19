@@ -323,6 +323,17 @@ test('live refresh removes sold models, restores restocks and skips hidden pages
   assert.equal(app.element('hso-models').innerHTML, '');
 });
 
+test('unchanged live polls preserve the connected checkout button', async () => {
+  const app = browser({ search: '?model=iphone-15' }); await flush();
+  const originalButton = app.element('hso-detail').buttons[0];
+  await app.intervals[0].fn();
+  assert.equal(app.element('hso-detail').buttons[0], originalButton);
+  app.setSnapshot({ inventory: inventory(), products: [product({ price: 800 })] });
+  await app.intervals[0].fn();
+  assert.notEqual(app.element('hso-detail').buttons[0], originalButton);
+  assert.match(app.element('hso-detail').innerHTML, /XCG 800/);
+});
+
 test('payment validator rejects sold phones, changed details and failures after checkout opened', async () => {
   for (const change of ['sold', 'price', 'color', 'battery', 'offline']) {
     const app = browser({ search: '?model=iphone-15' }); await flush();
