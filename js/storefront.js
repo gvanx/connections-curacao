@@ -104,6 +104,23 @@
         .replace(/'/g, '&#39;');
     }
 
+    function hsoDetailsUrl(product) {
+      if (typeof HSOCatalog !== 'undefined') return HSOCatalog.detailsUrl(product);
+      // Keep managed phones out of generic checkout if the selector helper cannot load.
+      return product.suffix === 'HSO' && product.hsoModel ? '/hso/' : '';
+    }
+
+    function hsoLinkHTML(url, content, label) {
+      return url ? `<a class="hso-product-link" href="${escapeHtml(url)}"${label ? ` aria-label="${escapeHtml(label)}"` : ''}>${content}</a>` : content;
+    }
+
+    function hsoActionHTML(product, url, small) {
+      const css = small ? 'btn-whatsapp-sm' : 'btn-whatsapp';
+      return product.soldOut === true
+        ? `<button type="button" class="${css}" disabled>Sold out</button>`
+        : `<a class="${css}" href="${escapeHtml(url)}">Choose your phone</a>`;
+    }
+
     function productImageSrc(product) {
       if (!product.image) return '';
       if (product.image.startsWith('/')) return product.image;
@@ -305,6 +322,7 @@
 
       featured.forEach(p => {
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+        const hsoUrl = hsoDetailsUrl(p);
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
         const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
         const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
@@ -319,15 +337,15 @@
           <div class="deal-card">
             ${corner}
             <div class="deal-img">
-              ${productVisual}
+              ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' phones')}
             </div>
             <div class="deal-body">
-              <div class="deal-name">${escapeHtml(p.name)}${hsoBadge}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
+              <div class="deal-name">${hsoLinkHTML(hsoUrl, escapeHtml(p.name) + hsoBadge)}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
               ${activeNote}${limitedNote}
               ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
               ${productSpecificationsHTML(p)}
               <div class="deal-price">${productPriceHTML(p, oldPriceHtml)}</div>
-              ${GiftCards.isGiftCard(p) ? giftCardActionHTML(p, false) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+              ${hsoUrl ? hsoActionHTML(p, hsoUrl, false) : GiftCards.isGiftCard(p) ? giftCardActionHTML(p, false) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
                 ${WA_ICON} Checkout &amp; Pay
               </button>` : `<a class="btn-whatsapp" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
                 ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}
@@ -359,6 +377,7 @@
     /* ---- Single product card markup (shared by grouped + filtered views) ---- */
     function productCardHTML(p) {
       const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
+      const hsoUrl = hsoDetailsUrl(p);
       const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
       const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
       const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
@@ -373,15 +392,15 @@
         <div class="product-card">
           ${corner}
           <div class="product-img">
-            ${productVisual}
+            ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' phones')}
           </div>
           <div class="product-body">
-            <div class="product-name">${escapeHtml(p.name)}${hsoBadge}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
+            <div class="product-name">${hsoLinkHTML(hsoUrl, escapeHtml(p.name) + hsoBadge)}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
             ${activeNote}${limitedNote}
             ${p.spec ? `<div class="product-spec">${escapeHtml(p.spec)}</div>` : ''}
             ${productSpecificationsHTML(p)}
             <div class="product-price">${productPriceHTML(p, oldPriceHtml)}</div>
-            ${GiftCards.isGiftCard(p) ? giftCardActionHTML(p, true) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
+            ${hsoUrl ? hsoActionHTML(p, hsoUrl, true) : GiftCards.isGiftCard(p) ? giftCardActionHTML(p, true) : p.price && !p.inquiryOnly && !isPricePending(p) ? `<button type="button" class="btn-whatsapp-sm js-order-btn" data-product-name="${encodedName}" data-product-price="${p.price}">
               ${WA_ICON} Checkout &amp; Pay
             </button>` : `<a class="btn-whatsapp-sm" href="${p.landingPage || ('https://wa.me/' + (p.contactNumber || WA_NUMBER) + '?text=' + encodeURIComponent(productInquiryMessage(p, fullName)))}" ${p.landingPage ? '' : 'target="_blank" rel="noopener"'}>
               ${WA_ICON} ${p.landingPage ? 'View Details' : isPricePending(p) ? 'Ask for details' : escapeHtml(p.inquiryLabel || 'Ask availability')}

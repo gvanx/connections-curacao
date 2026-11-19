@@ -51,7 +51,7 @@ The page advertises walk-ins, diagnosis and quotations. Ask the repair team to c
 
 ## Second-hand phones and trade-ins
 
-Second-hand phones: https://hso2.connectionscuracao.net/
+Second-hand phones: https://connectionscuracao.net/hso/
 Trade-in programme: https://trade.connectionscuracao.net/
 
 These are separate customer-facing websites linked from the main Connections website. The main site describes trade-ins as a way to receive store credit towards a new purchase. Confirm device eligibility, condition assessment and the final credit with the team.

@@ -20,7 +20,26 @@
     "specifications": {
       "Storage": "128GB",
       "Condition": "HSO"
-    }
+    },
+    "hsoModel": "iphone-13",
+    "hsoStorage": "128GB"
+  },
+  {
+    "name": "iPhone 13 Pro",
+    "suffix": "HSO",
+    "price": 1190,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true,
+    "inquiryOnly": false,
+    "spec": "256GB storage · HSO",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO"
+    },
+    "hsoModel": "iphone-13-pro",
+    "hsoStorage": "256GB",
+    "blackFriday": true
   },
   {
     "name": "iPhone 14",
@@ -35,7 +54,26 @@
     "specifications": {
       "Storage": "128GB",
       "Condition": "HSO"
-    }
+    },
+    "hsoModel": "iphone-14",
+    "hsoStorage": "128GB"
+  },
+  {
+    "name": "iPhone 14 Pro Max",
+    "suffix": "HSO",
+    "price": 1290,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true,
+    "inquiryOnly": false,
+    "spec": "128GB storage · HSO",
+    "specifications": {
+      "Storage": "128GB",
+      "Condition": "HSO"
+    },
+    "hsoModel": "iphone-14-pro-max",
+    "hsoStorage": "128GB",
+    "blackFriday": true
   },
   {
     "name": "iPhone 15",
@@ -50,7 +88,25 @@
     "specifications": {
       "Storage": "128GB",
       "Condition": "HSO"
-    }
+    },
+    "hsoModel": "iphone-15",
+    "hsoStorage": "128GB"
+  },
+  {
+    "name": "iPhone 15 Pro",
+    "suffix": "HSO",
+    "price": 1590,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true,
+    "inquiryOnly": false,
+    "spec": "256GB storage · HSO",
+    "specifications": {
+      "Storage": "256GB",
+      "Condition": "HSO"
+    },
+    "hsoModel": "iphone-15-pro",
+    "hsoStorage": "256GB"
   },
   {
     "name": "iPhone 15",
@@ -66,7 +122,9 @@
     "price": 1499,
     "category": "apple",
     "featured": false,
-    "image": "iphone-15-pro-max-model.jpg"
+    "image": "iphone-15-pro-max-model.jpg",
+    "hsoModel": "iphone-15-pro-max",
+    "hsoStorage": "256GB"
   },
   {
     "name": "iPhone 15 Pro Max 512GB Black Titanium",
@@ -120,15 +178,17 @@
     "category": "apple",
     "featured": false,
     "image": "/img/products/iphone-16-pro-max-black-titanium.webp",
-    "spec": "Black Titanium · 256GB · 88% battery health",
+    "spec": "Black Titanium · 256GB · Choose a phone for individual details",
     "specifications": {
       "Storage": "256GB",
       "Condition": "HSO",
-      "Color": "Black Titanium",
-      "Battery health": "88%"
+      "Color": "Black Titanium"
     },
     "addedAt": "2026-11-16T17:19:53.484Z",
-    "newArrival": true
+    "newArrival": true,
+    "hsoModel": "iphone-16-pro-max",
+    "hsoStorage": "256GB",
+    "hsoColor": "Black"
   },
   {
     "name": "iPhone 16 Pro Max 512GB White Titanium",

@@ -286,3 +286,28 @@ artwork. Run `node --test tests/*.test.cjs` after changing the integration.
 - `.github/workflows/new-arrivals.yml` runs after catalogue changes and daily at 08:17 UTC (04:17 Curaçao). It tags newly seen products, maintains confirmed restock badges, and removes expired compatibility flags, then commits only the catalogue/history files when they changed.
 - Run `node --test tests/new-arrivals.test.cjs` after changing these rules.
 
+
+## Individual HSO phones
+
+The main storefront, homepage offers, and Black Friday cards use `hsoModel`
+to open `/hso/?model=...`. Each catalog price remains in `data/products.json`.
+Set `hsoStorage` to the exact variant (for example `128GB`); optional
+`hsoColor` narrows it further. Avoid overlapping price rows for the same unit.
+
+`data/hso-stock.json` contains models and individual phones. The initial import
+is the 22 phones from the owner's November 19 stock file. Each unit has a unique
+text `serial`, `modelId`, `storage`, `color`, `batteryHealth`, and `status`.
+Battery health is an integer from 0 to 100, or `null` when unknown. The initial
+file has no battery values; do not reuse percentages from HSO2 or a different phone.
+
+Set status to `sold` or `reserved` when a phone is no longer available; only
+`available` phones appear for selection. Update `updatedAt` (YYYY-MM-DD) when
+stock changes. Keep removed/sold serials unique and do not recycle them for another
+phone. The page reloads stock and current prices before opening checkout and
+includes the selected serial, color, storage and battery health in the order name.
+Payments do not automatically reserve stock or mark phones sold: staff must update
+the stock file after confirming a sale. The old HSO2 service has not been shut down.
+
+The owner confirmed iPhone 13 Pro 256GB at XCG 1,190 and iPhone 14 Pro Max 128GB
+at XCG 1,290 as Black Friday offers, and iPhone 15 Pro 256GB HSO at XCG 1,590.
+No former prices were supplied for these three models.
