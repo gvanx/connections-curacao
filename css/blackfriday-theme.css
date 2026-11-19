@@ -70,8 +70,20 @@
 .black-friday-theme #bf-home-spotlight .card-ribbons > span { font-size: 12px; padding: 5px 9px; }
 .black-friday-theme #bf-home-spotlight .pf-empty { border: 1px solid var(--line); }
 .black-friday-theme .bf-spotlight-fallback { padding: 28px; border: 1px solid #41413a; border-radius: 12px; background: #171716; color: #e5e5de; }
-.black-friday-theme .bf-home-tape { display: flex; justify-content: center; gap: 48px; overflow: hidden; white-space: nowrap; padding: 14px 20px; background: var(--bf-yellow); color: #111; border-block: 1px solid #ffe990; font: 700 17px/1.4 var(--font-display); letter-spacing: .09em; }
-.black-friday-theme .bf-home-tape span { flex: 0 0 auto; }
+.black-friday-theme .bf-home-tape { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 100%; min-height: 54px; overflow: hidden; white-space: nowrap; background: var(--bf-yellow); color: #111; border-block: 1px solid #ffe990; font: 700 17px/1.4 var(--font-display); letter-spacing: .09em; }
+.black-friday-theme .bf-tape-viewport { flex: 1; min-width: 0; overflow: hidden; }
+.black-friday-theme .bf-tape-track { display: flex; width: max-content; }
+.black-friday-theme .bf-tape-group { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-around; gap: 48px; min-width: 100vw; padding: 14px 24px; }
+.black-friday-theme .bf-tape-group span { flex: 0 0 auto; }
+.black-friday-theme .bf-home-tape[data-marquee-ready="true"] .bf-tape-track { animation: bf-tape-marquee 26s linear infinite; }
+.black-friday-theme .bf-home-tape.is-paused .bf-tape-track { animation-play-state: paused; }
+.black-friday-theme .bf-tape-toggle { flex: 0 0 44px; display: grid; place-items: center; width: 44px; height: 44px; margin: 4px 8px 4px 0; background: #111; color: var(--bf-yellow); border: 1px solid #111; border-radius: 4px; }
+.black-friday-theme .bf-tape-toggle:hover { background: #35352a; }
+.black-friday-theme .bf-tape-toggle:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+.black-friday-theme .bf-tape-play-icon,
+.black-friday-theme .bf-home-tape.is-paused .bf-tape-pause-icon { display: none; }
+.black-friday-theme .bf-home-tape.is-paused .bf-tape-play-icon { display: block; }
+@keyframes bf-tape-marquee { to { transform: translateX(-50%); } }
 .black-friday-theme .benefits { font-size: 13px; color: #bbb; }
 .black-friday-theme .benefits b { color: var(--bf-yellow); }
 
@@ -267,7 +279,8 @@
   .black-friday-theme #bf-home-spotlight .product-img { height: 220px; padding: 26px; }
   .black-friday-theme #bf-home-spotlight .product-body { padding: 22px; }
   .black-friday-theme #bf-home-spotlight .product-name { font-size: 23px; }
-  .black-friday-theme .bf-home-tape { font-size: 14px; padding-block: 12px; gap: 28px; }
+  .black-friday-theme .bf-home-tape { font-size: 14px; }
+  .black-friday-theme .bf-tape-group { gap: 28px; padding: 12px 14px; }
 }
 
 @media (max-width: 650px) {

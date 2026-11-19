@@ -40,7 +40,7 @@
   <meta property="og:image" content="https://connectionscuracao.net/blackfriday/sale-2026.jpeg">
   <link rel="canonical" href="https://connectionscuracao.net/">
   <link rel="stylesheet" href="css/main.css?v=2026-11-19-blackfriday-airco">
-  <link rel="stylesheet" href="css/blackfriday-theme.css?v=2026-11-19-week">
+  <link rel="stylesheet" href="css/blackfriday-theme.css?v=2026-11-19-marquee">
   <link rel="describedby" href="https://connectionscuracao.net/llms.txt">
   <script type="application/ld+json" id="connections-business-schema">
 {
@@ -335,7 +335,13 @@
         <div class="bf-spotlight-fallback"><p class="eyebrow">BLACK FRIDAY PICKS</p><h2>Find your next upgrade.</h2><p>Explore our Black Friday offers.</p><a class="btn-primary" href="/blackfriday">View the deals</a></div>
       </div>
     </section>
-    <div class="bf-home-tape" aria-hidden="true"><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span></div>
+    <div class="bf-home-tape" data-bf-marquee>
+      <div class="bf-tape-viewport" aria-hidden="true"><div class="bf-tape-track"><div class="bf-tape-group"><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span></div><div class="bf-tape-group"><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span><span>BLACK FRIDAY</span></div></div></div>
+      <button class="bf-tape-toggle" type="button" aria-label="Pause Black Friday animation" title="Pause animation" hidden>
+        <svg class="bf-tape-pause-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>
+        <svg class="bf-tape-play-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path d="m7 3 14 9-14 9z"/></svg>
+      </button>
+    </div>
     <div class="benefits container"><span><b>01</b> Visit us in Punda &amp; Otrobanda</span><span><b>02</b> Chat with our team on WhatsApp</span><a href="/suave/"><b>03</b> Flexible payments with Suave <span aria-hidden="true"><svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div>
     <p id="crypto-payment-notice" class="crypto-payment-notice container" hidden></p>
     <section id="categories"><div class="container"></div></section>
@@ -586,6 +592,7 @@
   <script src="js/gift-cards.js?v=2026-10-28"></script>
   <script src="js/storefront.js?v=2026-11-19-blackfriday-week"></script>
   <script src="js/blackfriday-countdown.js?v=2026-11-19-week"></script>
+  <script src="js/blackfriday-marquee.js?v=2026-11-19-marquee"></script>
   <script>
   // Delegation also covers WhatsApp links added by the catalog and checkout.
   document.addEventListener('click', function(event) {
