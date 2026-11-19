@@ -35,7 +35,7 @@ async function boot(products, { theme = true } = {}) {
     fetch: async url => ({ ok: true, json: async () => url.startsWith('/data/gift-card-store') ? { products: [] } : products }),
     setTimeout() { return 1; }, clearTimeout() {}, setInterval() { return 1; }
   });
-  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'storefront']) {
+  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', name + '.js'), 'utf8'), context);
   }
   await events.DOMContentLoaded();
@@ -54,6 +54,45 @@ async function offerSurfaces(product) {
     ['Black Friday', cardHTML(product)]
   ];
 }
+
+test('managed HSO image, title and action lead to the exact model and variant before checkout', async () => {
+  const product = { name: 'iPhone 15', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB',
+    hsoColor: 'Black Titanium', category: 'apple', image: 'iphone-15-model.jpg', price: 1099,
+    oldPrice: 1350, blackFriday: true, inquiryOnly: true };
+  const snapshot = structuredClone(product);
+  for (const [surface, html] of await offerSurfaces(product)) {
+    const expected = '/hso/?model=iphone-15&amp;storage=128GB&amp;color=Black%20Titanium';
+    assert.equal(html.split(`href="${expected}"`).length - 1, 3, surface);
+    assert.match(html, /class="hso-product-link"[^>]*aria-label="View available iPhone 15 HSO phones"/, surface);
+    assert.match(html, /Choose your phone/, surface);
+    assert.match(html, /XCG 1,099/, surface);
+    assert.match(html, /XCG 1,350/, surface);
+    assert.doesNotMatch(html, /js-order-btn|data-product-price|wa\.me|<a[^>]*>\s*<button/, surface);
+  }
+  assert.deepEqual(product, snapshot);
+});
+
+test('unmanaged HSO and new phones retain their existing checkout route', async () => {
+  for (const extra of [{ suffix: 'HSO' }, { suffix: '', hsoModel: 'iphone-15' }]) {
+    for (const [surface, html] of await offerSurfaces({ name: 'iPhone 15', category: 'apple',
+      price: 1099, blackFriday: true, ...extra })) {
+      assert.match(html, /js-order-btn/, surface);
+      assert.match(html, /data-product-price="1099"/, surface);
+      assert.doesNotMatch(html, /Choose your phone|\/hso\//, surface);
+    }
+  }
+});
+
+test('managed sold-out HSO cannot bypass stock state through generic checkout', async () => {
+  const product = { name: 'iPhone 15', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple',
+    price: 1099, blackFriday: true, soldOut: true };
+  const app = await boot([product]);
+  for (const html of [app.element('#product-results').innerHTML, cardHTML(product)]) {
+    assert.match(html, /disabled>Sold out/);
+    assert.doesNotMatch(html, /Choose your phone|js-order-btn|data-product-price/);
+  }
+  assert.equal(app.element('#deals .container').innerHTML, '');
+});
 
 test('unpriced in-store specials show their label and an identified inquiry without a payment amount or invented savings', async () => {
   for (const price of [null, undefined]) {

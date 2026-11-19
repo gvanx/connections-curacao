@@ -43,7 +43,7 @@ Information reviewed: 24 October 2026. Linked pages and the store team provide c
 
 ## Related Connections websites
 
-- [Second-hand phones](https://hso2.connectionscuracao.net/): Dedicated second-hand phone storefront.
+- [Second-hand phones](https://connectionscuracao.net/hso/): Individual second-hand phones with serial numbers, color and battery health.
 - [Trade-in programme](https://trade.connectionscuracao.net/): Device trade-ins towards store credit.
 - [Digital gift cards](https://giftcard.connectionscuracao.net/): Gift-card options and ordering.
 - [JBL audio](https://jbl.connectionscuracao.net/): Dedicated audio collection.

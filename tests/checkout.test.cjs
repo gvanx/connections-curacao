@@ -41,8 +41,8 @@ function harness() {
   const api = context.api;
   api.initCheckoutModal();
   const selectRadio = (name, value) => radios[name].forEach(radio => { radio.checked = radio.value === value; });
-  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup' } = {}) {
-    api.openCheckout('Test phone <&>', price);
+  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup', name = 'Test phone <&>' } = {}) {
+    api.openCheckout(name, price);
     selectRadio('checkout-payment', payment); selectRadio('checkout-delivery', delivery);
     get('checkout-method').value = method;
     get('checkout-name').value = 'Test customer'; get('checkout-phone').value = '+5999 1234567';
@@ -184,6 +184,25 @@ test('pickup notifications omit a previously entered delivery address', () => {
   const h = harness(); h.open({ method: 'USDC', delivery: 'pickup' }); h.submit();
   assert.equal(h.emails[0].address, 'Not applicable');
   assert.doesNotMatch(h.emails[0].message, /Test address/);
+});
+
+test('HSO selection retains the exact unit identity in checkout, confirmation, email and WhatsApp for every payment method', () => {
+  const { orderName } = require('../js/hso-stock.js');
+  const name = orderName({ name: 'iPhone 15' }, { storage: '128GB', color: 'Black', serial: 'HF04HX445H', batteryHealth: 88 });
+  for (const method of ['sentoo', 'suave', 'USDT', 'USDC']) {
+    const h = harness(); h.open({ method, name, price: 1099 });
+    assert.equal(h.get('checkout-product').textContent, name);
+    h.submit();
+    assert.equal(h.emails.length, 1);
+    assert.equal(h.emails[0].product, name);
+    assert.equal(h.emails[0].items, `${name} — 1 × XCG 1,099`);
+    assert.ok(h.emails[0].message.includes(`Product: ${name}`));
+    const confirmation = h.get('checkout-confirmation');
+    assert.ok(confirmation.children.some(child => child.textContent.includes(name)));
+    const link = confirmation.children.find(child => child.href?.startsWith('https://wa.me/'));
+    assert.ok(link);
+    assert.ok(new URL(link.href).searchParams.get('text').includes(`Product: ${name}`));
+  }
 });
 
 for (const [payment, delivery, price, expected, fee, remaining] of [

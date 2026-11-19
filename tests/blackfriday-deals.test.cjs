@@ -177,12 +177,26 @@ test('browser loading binds checkout, filters tagged categories, sorts, and reco
     const frame = { innerHTML: '<img src="/missing.webp">' };
     e(scope).listeners.error({ target: {
       tagName: 'IMG', alt: 'Missing <model>', parentElement: frame,
-      closest(selector) { assert.equal(selector, '.bf-card-image'); return frame; }
+      closest(selector) { if (selector === '.hso-product-link') return null; assert.equal(selector, '.bf-card-image'); return frame; }
     } });
     assert.match(frame.innerHTML, /Missing &lt;model&gt;/);
     assert.doesNotMatch(frame.innerHTML, /<img/);
   }
   assert.equal(app.timers.size, 0);
+});
+
+test('missing HSO artwork keeps the clickable model link intact', async () => {
+  const app = browser(async () => ({ ok: true, json: async () => [] }));
+  await flush();
+  const link = { innerHTML: '<img src="/missing.webp">', href: '/hso/?model=iphone-15' };
+  const frame = { innerHTML: 'Original card frame' };
+  app.elements.get('bf-products').listeners.error({ target: {
+    tagName: 'IMG', alt: 'iPhone 15 HSO', parentElement: frame,
+    closest(selector) { return selector === '.hso-product-link' ? link : frame; }
+  } });
+  assert.match(link.innerHTML, /iPhone 15 HSO/);
+  assert.equal(link.href, '/hso/?model=iphone-15');
+  assert.equal(frame.innerHTML, 'Original card frame');
 });
 
 test('catalog errors show retry instead of fake empty results, and duplicate retries do not duplicate requests', async () => {

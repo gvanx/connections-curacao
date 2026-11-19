@@ -1,6 +1,8 @@
 (function (root, factory) {
   'use strict';
-  const api = factory();
+  const hsoCatalog = root.HSOCatalog || (typeof HSOCatalog !== 'undefined' ? HSOCatalog :
+    typeof module === 'object' && module.exports ? require('../js/hso-catalog.js') : null);
+  const api = factory(hsoCatalog);
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (!root.document) return;
   const doc = root.document;
@@ -64,7 +66,7 @@
   doc.getElementById('bf-retry').addEventListener('click', load);
   function recoverImage(event) {
     if (event.target.tagName === 'IMG') {
-      const frame = event.target.closest('.bf-card-image');
+      const frame = event.target.closest('.hso-product-link') || event.target.closest('.bf-card-image');
       (frame || event.target.parentElement).innerHTML = api.modelArt(event.target.alt, 'Connections');
     }
   }
@@ -72,7 +74,7 @@
   if (spotlight) spotlight.addEventListener('error', recoverImage, true);
   root.initCheckoutModal();
   load();
-})(typeof window === 'undefined' ? globalThis : window, function () {
+})(typeof window === 'undefined' ? globalThis : window, function (hsoCatalog) {
   'use strict';
   const labels = { acs: 'Airco specials', samsung: 'Samsung', apple: 'Apple', laptops: 'Laptops', phones: 'Phones', tvs: 'Televisions', appliances: 'Appliances', motor: 'Scooters', other: 'More deals', giftcards: 'Gift cards' };
   function categoryName(key) { return labels[key] || 'More deals'; }
@@ -103,10 +105,18 @@
     if (!src) return modelArt(name, /^Premier/.test(name) ? 'PREMIER' : categoryName(p.category));
     return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">`;
   }
+  function detailsUrl(p) {
+    return hsoCatalog ? hsoCatalog.detailsUrl(p) : p.suffix === 'HSO' && p.hsoModel ? '/hso/' : '';
+  }
+  function detailLink(url, content, label) {
+    return url ? `<a class="hso-product-link" href="${escapeHtml(url)}"${label ? ` aria-label="${escapeHtml(label)}"` : ''}>${content}</a>` : content;
+  }
   function actionHTML(p, name) {
     // Digital-card prices and checkout remain authoritative in their own store.
     if (p.category === 'giftcards') return '<a class="bf-card-button" href="https://giftcard.connectionscuracao.net/">View gift-card store</a>';
     if (p.soldOut === true) return '<button class="bf-card-button" type="button" disabled>Sold out</button>';
+    const hsoUrl = detailsUrl(p);
+    if (hsoUrl) return `<a class="bf-card-button" href="${escapeHtml(hsoUrl)}">Choose your phone</a>`;
     if (p.inquiryOnly || !hasPrice(p)) {
       const number = /^\d+$/.test(p.contactNumber || '') ? p.contactNumber : '59996782619';
       const message = `Hi, I'm interested in the Black Friday ${isInStoreSpecial(p) ? 'in-store special' : 'offer'}: ${name}${hasPrice(p) ? ' (' + money(p.price) + ')' : ''}. Please send me the details and availability.`;
@@ -117,7 +127,8 @@
   }
   function cardHTML(p) {
     const name = [p.name, p.suffix].filter(Boolean).join(' '), saving = savings(p), digital = p.category === 'giftcards';
-    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${visualHTML(p, name)}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${escapeHtml(name)}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
+    const hsoUrl = detailsUrl(p);
+    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${detailLink(hsoUrl, visualHTML(p, name), 'View available ' + name + ' phones')}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${detailLink(hsoUrl, escapeHtml(name))}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
   return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc };
 });

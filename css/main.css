@@ -81,3 +81,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 .badge-black-friday{display:inline-block;padding:4px 8px;font:700 9px var(--font-body);border-radius:4px;letter-spacing:.03em;vertical-align:middle;margin-left:5px;background:#111;color:#ffe356;border:1px solid #111}
 .pf-pill-blackfriday{background:#fff3b1;border-color:#c8aa31;color:#111}.pf-pill-blackfriday.active{background:#111;border-color:#111;color:#ffe356}.pf-pill-total{display:inline-block;margin-left:4px;font-variant-numeric:tabular-nums}
+
+/* Model links preserve product-card image sizing and keyboard access. */
+.hso-product-link{color:inherit;text-decoration:none}.product-img>.hso-product-link,.deal-img>.hso-product-link,.bf-card-image>.hso-product-link{display:flex;width:100%;height:100%;align-items:center;justify-content:center}.hso-product-link:hover{text-decoration:underline;text-underline-offset:4px}.hso-product-link:focus-visible{outline:3px solid #a68a00;outline-offset:-4px}
