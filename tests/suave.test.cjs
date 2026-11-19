@@ -44,7 +44,7 @@ test('WhatsApp draft identifies the phone, exact estimate, fee and term without 
   assert.equal(url.pathname, '/59996782619');
   const message = url.searchParams.get('text');
   assert.match(message, /iPhone 18 Pro Max 256GB/);
-  assert.match(message, /XCG 471.55 per month for 12 months/);
-  assert.match(message, /3% store fee: XCG 112.50/);
+  assert.match(message, /XCG 451.43 per month for 12 months/);
+  assert.match(message, /3% store fee: XCG 107.70/);
   assert.match(message, /Please confirm stock, the final plan and Suave approval/);
 });

@@ -10,26 +10,47 @@
   {
     "name": "iPhone 13",
     "suffix": "HSO",
-    "price": 699,
+    "price": 675,
     "category": "apple",
     "featured": true,
-    "image": "iphone-13-model.jpg"
+    "image": "iphone-13-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 890,
+    "spec": "128GB storage · HSO",
+    "specifications": {
+      "Storage": "128GB",
+      "Condition": "HSO"
+    }
   },
   {
     "name": "iPhone 14",
     "suffix": "HSO",
-    "price": 775,
+    "price": 777,
     "category": "apple",
     "featured": false,
-    "image": "iphone-14-model.jpg"
+    "image": "iphone-14-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 990,
+    "spec": "128GB storage · HSO",
+    "specifications": {
+      "Storage": "128GB",
+      "Condition": "HSO"
+    }
   },
   {
     "name": "iPhone 15",
     "suffix": "HSO",
-    "price": 1190,
+    "price": 1099,
     "category": "apple",
     "featured": true,
-    "image": "iphone-15-model.jpg"
+    "image": "iphone-15-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 1350,
+    "spec": "128GB storage · HSO",
+    "specifications": {
+      "Storage": "128GB",
+      "Condition": "HSO"
+    }
   },
   {
     "name": "iPhone 15",
@@ -77,10 +98,12 @@
   {
     "name": "iPhone 16",
     "suffix": "",
-    "price": 1899,
+    "price": 1799,
     "category": "apple",
     "featured": false,
-    "image": "iphone-16-model.jpg"
+    "image": "iphone-16-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 1950
   },
   {
     "name": "iPhone 16e",
@@ -146,36 +169,36 @@
   {
     "name": "iPhone 17 Pro Max eSIM",
     "suffix": "",
-    "price": 2949,
+    "price": 2889,
     "category": "apple",
     "featured": true,
-    "image": "iphone-17-pro-max-model.jpg"
-  },
-  {
-    "name": "iPhone 17 Pro Max SIM",
-    "suffix": "",
-    "price": 3390,
-    "category": "apple",
-    "featured": false,
-    "image": "iphone-17-pro-max-model.jpg"
+    "image": "iphone-17-pro-max-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 3200
   },
   {
     "name": "iPhone 18 Pro",
     "suffix": "",
-    "price": 3250,
+    "price": null,
     "category": "apple",
     "featured": false,
     "image": "/img/products/iphone-18-pro-pair-transparent.png",
-    "addedAt": "2026-10-28T23:05:54.626Z"
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "inStoreSpecial": true,
+    "blackFriday": true,
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask about in-store special"
   },
   {
     "name": "iPhone 18 Pro Max 256GB",
     "suffix": "",
-    "price": 3750,
+    "price": 3590,
     "category": "apple",
     "featured": false,
     "image": "/img/products/iphone-18-pro-pair-transparent.png",
-    "addedAt": "2026-10-28T23:05:54.626Z"
+    "addedAt": "2026-10-28T23:05:54.626Z",
+    "blackFriday": true,
+    "oldPrice": 3990
   },
   {
     "name": "iPhone 18 Pro Max 512GB",
@@ -189,12 +212,14 @@
   {
     "name": "iPad 11th 128GB",
     "suffix": "",
-    "price": 1090,
+    "price": 990,
     "category": "apple",
     "featured": false,
     "limited": true,
     "subcategory": "tablet",
-    "image": "ipad-11th-model.jpg"
+    "image": "ipad-11th-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 1190
   },
   {
     "name": "MacBook Neo 256GB/8GB",
@@ -295,11 +320,12 @@
   {
     "name": "Galaxy A07s",
     "suffix": "",
-    "price": 299,
+    "price": 259,
     "category": "samsung",
     "featured": false,
     "image": "/img/products/galaxy-a07s-black.png",
-    "addedAt": "2026-10-15T20:40:05Z"
+    "addedAt": "2026-10-15T20:40:05Z",
+    "blackFriday": true
   },
   {
     "name": "Galaxy A08",
@@ -415,10 +441,16 @@
   {
     "name": "Galaxy S26 Ultra",
     "suffix": "",
-    "price": 2389,
+    "price": 2315,
     "category": "samsung",
     "featured": true,
-    "image": "galaxy-s26-ultra-model.png"
+    "image": "galaxy-s26-ultra-model.png",
+    "blackFriday": true,
+    "oldPrice": 2650,
+    "spec": "256GB storage",
+    "specifications": {
+      "Storage": "256GB"
+    }
   },
   {
     "name": "Galaxy S26 Ultra 512GB",
@@ -460,7 +492,7 @@
     "name": "Galaxy Tab A11 (X135G) SIM 64GB",
     "suffix": "",
     "model": "SM-X135G",
-    "price": 339,
+    "price": 325,
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
@@ -474,7 +506,8 @@
     "blackFriday": true,
     "image": "galaxy-tab-a11-model.png",
     "addedAt": "2026-11-14T14:08:03.013Z",
-    "newArrival": true
+    "newArrival": true,
+    "oldPrice": 550
   },
   {
     "name": "Galaxy Tab A11+",
@@ -567,7 +600,8 @@
     "addedAt": "2026-11-13T20:18:11.640Z",
     "newArrival": true,
     "image": "/img/products/lenovo-ideapad-3-chromebook-15ijl6.jpg",
-    "blackFriday": true
+    "blackFriday": true,
+    "oldPrice": 599
   },
   {
     "name": "HP 14-dq6102dx",
@@ -1649,20 +1683,26 @@
   {
     "name": "Techview S17 Pro 64GB",
     "suffix": "",
-    "price": 225,
+    "price": 209,
     "category": "phones",
     "featured": false,
     "image": "/img/products/techview-s17-pro.png",
-    "addedAt": "2026-10-28T23:47:37.762Z"
+    "addedAt": "2026-10-28T23:47:37.762Z",
+    "blackFriday": true,
+    "oldPrice": 390,
+    "spec": "64GB storage · Subject to stock availability"
   },
   {
     "name": "Techview S17 Pro 128GB",
     "suffix": "",
-    "price": 250,
+    "price": 209,
     "category": "phones",
     "featured": false,
     "image": "/img/products/techview-s17-pro.png",
-    "addedAt": "2026-10-28T23:47:37.762Z"
+    "addedAt": "2026-10-28T23:47:37.762Z",
+    "blackFriday": true,
+    "oldPrice": 390,
+    "spec": "128GB storage · Subject to stock availability"
   },
   {
     "name": "Instax Fujifilm Polaroid Camera Combo",

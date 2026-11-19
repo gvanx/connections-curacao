@@ -78,6 +78,7 @@
   function categoryName(key) { return labels[key] || 'More deals'; }
   function escapeHtml(value) { return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char])); }
   function hasPrice(p) { return Number.isFinite(p.price) && p.price > 0; }
+  function isInStoreSpecial(p) { return p.inStoreSpecial === true && p.price == null; }
   function savings(p) { return hasPrice(p) && Number.isFinite(p.oldPrice) && p.oldPrice > p.price ? Math.round((p.oldPrice - p.price) * 100) / 100 : 0; }
   function money(value) { return 'XCG ' + value.toLocaleString('en-US', { maximumFractionDigits: 2 }); }
   function selectDeals(products, category = 'all', sort = 'featured') {
@@ -108,7 +109,7 @@
     if (p.soldOut === true) return '<button class="bf-card-button" type="button" disabled>Sold out</button>';
     if (p.inquiryOnly || !hasPrice(p)) {
       const number = /^\d+$/.test(p.contactNumber || '') ? p.contactNumber : '59996782619';
-      const message = `Hi, I'm interested in the Black Friday offer: ${name}${hasPrice(p) ? ' (' + money(p.price) + ')' : ''}. Please send me the details and availability.`;
+      const message = `Hi, I'm interested in the Black Friday ${isInStoreSpecial(p) ? 'in-store special' : 'offer'}: ${name}${hasPrice(p) ? ' (' + money(p.price) + ')' : ''}. Please send me the details and availability.`;
       const landing = typeof p.landingPage === 'string' && /^\/(?!\/)/.test(p.landingPage) ? p.landingPage : '';
       return `<a class="bf-card-button" href="${escapeHtml(landing || 'https://wa.me/' + number + '?text=' + encodeURIComponent(message))}"${landing ? '' : ' target="_blank" rel="noopener"'}>${escapeHtml(landing ? 'View details' : p.inquiryLabel || 'Ask about this offer')}</a>`;
     }
@@ -116,7 +117,7 @@
   }
   function cardHTML(p) {
     const name = [p.name, p.suffix].filter(Boolean).join(' '), saving = savings(p), digital = p.category === 'giftcards';
-    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${visualHTML(p, name)}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${escapeHtml(name)}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
+    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${visualHTML(p, name)}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${escapeHtml(name)}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
   return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc };
 });

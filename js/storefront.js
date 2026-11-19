@@ -166,15 +166,23 @@
       return product.pricePending === true && !(Number.isFinite(product.price) && product.price > 0);
     }
 
+    function isInStoreSpecial(product) {
+      return product.inStoreSpecial === true && product.price == null;
+    }
+
     function productPriceHTML(product, oldPriceHtml) {
       if (GiftCards.isGiftCard(product) && !product.price) {
         return '<span class="price-pending">' + (product.giftCardStatus === 'loading' ? 'Checking price…' : 'Check current price') + '</span>';
       }
+      if (isInStoreSpecial(product)) return 'In-store special';
       if (isPricePending(product)) return '<span class="price-pending">Price coming soon</span>';
       return product.price ? formatPrice(product.price) + oldPriceHtml : 'Ask in store';
     }
 
     function productInquiryMessage(product, fullName) {
+      if (isInStoreSpecial(product)) {
+        return "Hi, I'm interested in the in-store special for " + fullName + '. Please send me the details and availability.';
+      }
       return "Hi, I'm interested in the " + fullName + (isPricePending(product)
         ? '. Please send me the price and details.'
         : '. Is it available?');

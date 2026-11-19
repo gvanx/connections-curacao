@@ -46,6 +46,7 @@ For most catalog updates, this is the only file you need.
 - `restockedAt`: Timestamp with an explicit timezone for a confirmed restock. Shows **Back in Stock** for exactly 14 days, without resetting the original arrival date.
 - `backInStock`: compatibility flag maintained from `restockedAt`; setting this flag alone does not display a badge.
 - `pricePending`: When `true` and no positive numeric retail price is set, shows **Price coming soon**, uses a WhatsApp details inquiry, and disables checkout
+- `inStoreSpecial`: With `price: null`, shows **In-store special** in the main catalog and Black Friday collection. Use `inquiryOnly: true` and an appropriate `inquiryLabel`; do not invent a numeric price. A later confirmed numeric price takes precedence over this label.
 - `spec`: Short specification summary shown on the product card
 - `specifications`: Object of label/value pairs shown under **Full specifications**
 - `model` / `sku`: Exact manufacturer identifiers; also included in catalog search
