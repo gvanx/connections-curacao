@@ -776,6 +776,86 @@
     "spec": "Core Ultra 5 225U · 8GB DDR5 · 512GB SSD · 15.6\" FHD IPS Touch (300 nits) · W11 · Silver"
   },
   {
+    "name": "Premier 9,000 BTU Inverter AC",
+    "suffix": "",
+    "price": 444,
+    "oldPrice": 650,
+    "category": "acs",
+    "featured": false,
+    "blackFriday": true,
+    "spec": "Inverter air conditioner",
+    "specifications": {
+      "Brand": "Premier",
+      "Capacity": "9,000 BTU",
+      "Technology": "Inverter"
+    },
+    "imageUnavailable": true,
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask about this offer",
+    "addedAt": "2026-11-19T13:46:36.434Z",
+    "newArrival": true
+  },
+  {
+    "name": "Premier 18,000 BTU Inverter AC",
+    "suffix": "",
+    "price": 875,
+    "oldPrice": 1150,
+    "category": "acs",
+    "featured": false,
+    "blackFriday": true,
+    "spec": "Inverter air conditioner",
+    "specifications": {
+      "Brand": "Premier",
+      "Capacity": "18,000 BTU",
+      "Technology": "Inverter"
+    },
+    "imageUnavailable": true,
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask about this offer",
+    "addedAt": "2026-11-19T13:46:36.434Z",
+    "newArrival": true
+  },
+  {
+    "name": "Premier 24,000 BTU Inverter AC",
+    "suffix": "",
+    "price": 1099,
+    "oldPrice": 1390,
+    "category": "acs",
+    "featured": false,
+    "blackFriday": true,
+    "spec": "Inverter air conditioner",
+    "specifications": {
+      "Brand": "Premier",
+      "Capacity": "24,000 BTU",
+      "Technology": "Inverter"
+    },
+    "imageUnavailable": true,
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask about this offer",
+    "addedAt": "2026-11-19T13:46:36.434Z",
+    "newArrival": true
+  },
+  {
+    "name": "Premier 36,000 BTU Inverter AC",
+    "suffix": "",
+    "price": 1799,
+    "oldPrice": 2100,
+    "category": "acs",
+    "featured": false,
+    "blackFriday": true,
+    "spec": "Inverter air conditioner",
+    "specifications": {
+      "Brand": "Premier",
+      "Capacity": "36,000 BTU",
+      "Technology": "Inverter"
+    },
+    "imageUnavailable": true,
+    "inquiryOnly": true,
+    "inquiryLabel": "Ask about this offer",
+    "addedAt": "2026-11-19T13:46:36.434Z",
+    "newArrival": true
+  },
+  {
     "name": "Digital Air Cooler 5.5L",
     "suffix": "",
     "price": 149,

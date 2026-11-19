@@ -1,0 +1,131 @@
+/* Live Black Friday collection. Checkout keeps the shared store behavior. */
+:root { --background: #090909; --bg: #090909; --text: #f7f7f2; --muted: #aaa9a2; --accent: #ffe34e; }
+body { font-size: 16px; }
+html { scroll-padding-top: 24px; }
+.page-shell { max-width: 1440px; padding-inline: 48px; }
+.site-header { min-height: 92px; }
+.header-note { font-size: 12px; }
+.back-link { font-size: 14px; }
+.bf-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 9%; align-items: center; padding: 54px 0 64px; }
+.bf-eyebrow { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .16em; margin: 0 0 24px; }
+.bf-hero h1 { font: 300 clamp(88px, 9.2vw, 138px)/.8 'Cormorant Garamond', Georgia, serif; letter-spacing: -.06em; text-shadow: 0 0 26px #ffffff33; }
+.bf-hero h1 br { display: initial; }
+.bf-live { margin-top: 30px; font-size: 18px; letter-spacing: .24em; }
+.bf-intro { margin: 27px 0; color: #b7b7af; font-size: 18px; line-height: 1.7; }
+.bf-hero-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+.bf-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 13px 22px; background: var(--accent); color: #111; border: 1px solid var(--accent); border-radius: 4px; font-size: 14px; font-weight: 700; }
+.bf-button:hover { background: #fff083; }
+.bf-text-link { display: inline-block; font-size: 14px; text-decoration: underline; text-underline-offset: 5px; }
+.bf-text-link:hover { color: var(--accent); }
+.bf-local { font-size: 12px; color: var(--muted); margin-top: 28px; }
+.bf-poster { margin: 0; width: min(100%, 410px); justify-self: end; }
+.bf-poster>a { display: block; border: 1px solid #3a3a33; border-radius: 4px; overflow: hidden; box-shadow: 0 18px 60px #0009; }
+.bf-poster img { display: block; width: 100%; height: auto; }
+.bf-poster figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12px; margin-top: 15px; letter-spacing: .07em; color: var(--accent); }
+.bf-poster figcaption span { color: var(--muted); letter-spacing: 0; }
+.bf-tape { display: flex; align-items: center; justify-content: space-around; gap: 40px; background: var(--accent); color: #090909; font: 800 20px/1 'Outfit', Arial, sans-serif; padding: 14px 18px; white-space: nowrap; overflow: hidden; transform: rotate(-1deg); margin: 6px -12px 10px; }
+.bf-offers { padding: 76px 0 64px; scroll-margin-top: 24px; }
+.bf-section-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 28px; }
+.bf-section-heading .bf-eyebrow { margin-bottom: 12px; }
+.bf-section-heading h2 { font: 500 clamp(32px, 4vw, 48px)/1.1 'Outfit', Arial, sans-serif; letter-spacing: -.04em; }
+.bf-section-heading>p { color: var(--muted); font-size: 16px; line-height: 1.7; }
+.bf-toolbar { display: flex; justify-content: space-between; gap: 20px; padding: 20px 0; border-top: 1px solid #34342e; border-bottom: 1px solid #34342e; }
+.bf-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.bf-filters button { min-height: 44px; padding: 9px 16px; border: 1px solid #45453e; border-radius: 4px; font-size: 14px; }
+.bf-filters button[aria-pressed="true"] { color: #111; background: var(--accent); border-color: var(--accent); }
+.bf-filters button:hover { border-color: var(--accent); }
+.bf-sort { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 14px; white-space: nowrap; }
+.bf-sort select { max-width: 200px; min-height: 44px; border: 1px solid #45453e; border-radius: 4px; color: var(--text); background: #161613; padding: 9px 32px 9px 12px; font-size: 14px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23ffe34e' stroke-width='1.5' d='m1 1 5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+.bf-count { margin: 18px 0; font-size: 14px; color: var(--muted); }
+.bf-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.bf-card { color: #12130f; background: #fafaf7; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+.bf-card-image { height: 220px; position: relative; padding: 42px 25px 18px; background: #f0f0eb; }
+.bf-card-image>img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.bf-badge { position: absolute; top: 15px; left: 16px; z-index: 1; background: #111; color: #ffe34e; font: 700 11px/1 'DM Sans', Arial, sans-serif; letter-spacing: .04em; padding: 8px 10px; border-radius: 2px; }
+.bf-model-art { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; text-align: center; background: radial-gradient(ellipse, #ffffff 15%, transparent 70%); }
+.bf-model-art>span { font-size: 11px; letter-spacing: .13em; color: #65675a; }
+.bf-model-art>span:first-child { font-weight: 700; color: #22271d; }
+.bf-model-art>strong { font: 500 clamp(26px, 2.5vw, 38px)/1.1 'Outfit', Arial, sans-serif; letter-spacing: -.035em; }
+.bf-card-body { padding: 23px; display: flex; flex: 1; flex-direction: column; }
+.bf-card-category { color: #64665b; font-size: 12px; margin-bottom: 8px; }
+.bf-card h3 { font: 600 20px/1.3 'Outfit', Arial, sans-serif; min-height: 52px; letter-spacing: -.015em; margin: 0; }
+.bf-card-spec { color: #64665b; font-size: 14px; line-height: 1.5; margin: 9px 0 18px; }
+.bf-price-row { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; }
+.bf-price-row del { color: #717366; font-size: 14px; }
+.bf-price-row strong { font: 600 32px/1.3 'Outfit', Arial, sans-serif; letter-spacing: -.04em; }
+.bf-saving { align-self: flex-start; background: #fff0a0; color: #3f3c18; border-radius: 3px; font-size: 13px; padding: 4px 8px; margin: 8px 0 20px; font-weight: 600; }
+.bf-card-button { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 46px; background: #151611; color: white; padding: 12px; border-radius: 3px; font-size: 14px; font-weight: 600; text-align: center; }
+.bf-card-button:hover { background: #34372b; }
+.bf-card-button:disabled { opacity: .55; cursor: not-allowed; }
+.bf-empty { text-align: center; padding: 50px 20px; border: 1px solid #34342e; border-radius: 4px; }
+.bf-empty h3 { font-size: 26px; }
+.bf-empty p { color: var(--muted); margin: 16px 0 24px; }
+.bf-empty .bf-text-link { margin-left: 20px; }
+.bf-suave { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 32px; border: 1px solid #424230; background: #171710; border-radius: 4px; margin-bottom: 64px; }
+.bf-suave>strong { font: 500 30px/1.2 'Outfit', Arial, sans-serif; letter-spacing: -.03em; }
+.bf-suave>strong span { color: var(--accent); }
+.bf-suave p { color: #b7b7af; font-size: 14px; line-height: 1.8; }
+.bf-button-outline { background: transparent; color: var(--accent); }
+.bf-button-outline:hover { color: #111; }
+.signup-section { gap: 50px; }
+.signup-copy .eyebrow { font-size: 12px; }
+.signup-copy>p:not(.eyebrow) { font-size: 16px; max-width: 420px; }
+.signup-note,.phone-hint,.consent-label,.signup-privacy,.signup-error { font-size: 14px; }
+.phone-label,.signup-submit { font-size: 16px; }
+.signup-submit:hover { background: #fff083; }
+.signup-success p { font-size: 16px; }
+.site-footer { padding: 30px 0; gap: 30px; font-size: 14px; }
+.site-footer .brand { font-size: 26px; }
+.site-footer>div { display: flex; gap: 24px; flex-wrap: wrap; }
+.site-footer a:hover { color: var(--accent); }
+.checkout-modal { --bg: #faf8f2; --text: #173b4a; --text-muted: #566b70; color: var(--text); color-scheme: light; }
+.checkout-modal .checkout-label,.checkout-modal .checkout-line,.checkout-modal .checkout-options,.checkout-modal .checkout-terms,.checkout-modal .checkout-quote { font-size: 14px; }
+.checkout-modal .checkout-input { font-size: 16px; }
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible { outline: 2px solid #e6b800; outline-offset: 4px; }
+@media (min-width: 1300px) { .bf-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } .bf-card h3 { font-size: 18px; } }
+@media (max-width: 1050px) { .page-shell { padding-inline: 32px; } .bf-hero { gap: 5%; } .bf-hero h1 { font-size: 100px; } .bf-hero-actions { align-items: flex-start; flex-direction: column; gap: 17px; } .bf-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .bf-toolbar { flex-wrap: wrap; } .bf-suave { flex-wrap: wrap; } .site-footer { flex-wrap: wrap; } }
+@media (max-width: 650px) {
+  .page-shell { padding-inline: 20px; overflow: hidden; }
+  .site-header { min-height: 76px; gap: 12px; }
+  .brand { font-size: 27px; }
+  .back-link { font-size: 13px; }
+  .bf-hero { grid-template-columns: 1fr; gap: 35px; padding: 38px 0; }
+  .bf-hero-copy { text-align: center; }
+  .bf-eyebrow { font-size: 11px; letter-spacing: .1em; }
+  .bf-hero h1 { font-size: clamp(80px,22vw,115px); line-height: .83; }
+  .bf-live { font-size: 16px; margin-top: 23px; }
+  .bf-intro { font-size: 16px; margin: 21px 0; }
+  .bf-hero-actions { align-items: center; }
+  .bf-local { margin-top: 20px; }
+  .bf-poster { width: min(100%,340px); justify-self: center; }
+  .bf-tape { gap: 25px; font-size: 17px; padding-block: 12px; }
+  .bf-offers { padding: 44px 0; }
+  .bf-section-heading { display: block; }
+  .bf-section-heading>p { margin-top: 16px; font-size: 14px; }
+  .bf-section-heading>p br { display: none; }
+  .bf-filters { gap: 7px; }
+  .bf-filters button { font-size: 13px; padding-inline: 12px; }
+  .bf-toolbar { gap: 16px; }
+  .bf-grid { gap: 12px; }
+  .bf-card-image { height: 168px; padding: 45px 10px 14px; }
+  .bf-badge { top: 12px; left: 10px; padding: 7px; font-size: 10px; }
+  .bf-model-art { gap: 8px; }
+  .bf-model-art>strong { font-size: 26px; }
+  .bf-model-art>span { font-size: 9px; letter-spacing: .06em; }
+  .bf-card-body { padding: 14px; }
+  .bf-card h3 { font-size: 16px; min-height: 63px; }
+  .bf-card-spec { font-size: 13px; }
+  .bf-price-row strong { font-size: 26px; }
+  .bf-saving { font-size: 12px; padding-inline: 6px; }
+  .bf-card-button { font-size: 13px; padding: 10px 8px; }
+  .bf-suave { margin-bottom: 42px; padding: 24px; gap: 20px; }
+  .signup-section { gap: 28px; }
+  .signup-copy { text-align: left; }
+  .signup-copy .eyebrow { justify-content: flex-start; font-size: 11px; }
+  .signup-copy>p:not(.eyebrow) { margin-left: 0; }
+  .signup-card { padding: 24px 18px; }
+  .site-footer { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .site-footer>div { flex-direction: column; gap: 10px; }
+}
+@media (max-width: 370px) { .bf-grid { grid-template-columns: 1fr; } .bf-card-image { height: 200px; } .bf-card h3 { min-height: auto; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

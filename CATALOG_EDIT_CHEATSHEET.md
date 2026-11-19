@@ -124,6 +124,19 @@ This automatically shows a red **-12%** ribbon on the card and the old
 price struck through next to the new one. The percentage is calculated
 for you. To end the sale, just delete the `oldPrice` line.
 
+### Include a Product in Black Friday
+
+Set `"blackFriday": true` to include the product on `/blackfriday` and show
+its Black Friday badge in the main catalog. The campaign page reads the same
+`data/products.json` file, so prices and specifications stay together.
+Keep `price` as the current offer price; add `oldPrice` only when the original
+price is confirmed. Remove the `blackFriday` field to remove the product from
+the campaign. This tag does not change availability or enable checkout.
+
+The four Premier inverter AC offers added on 2026-11-19 use the supplied
+campaign prices. Keep `inquiryOnly: true` until their exact models and stock
+are confirmed; they are separate from the older generic AC listings.
+
 ### Mark a Product as Limited Supply
 
 Add `"limited": true`:
