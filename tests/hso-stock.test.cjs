@@ -159,9 +159,12 @@ function browser({ search = '', initialInventory = inventory(), initialProducts 
     }
     return elements.get(id);
   }
-  const document = { title: '', getElementById: element, createElement: () => ({}) };
+  const events = {}, intervals = [];
+  const document = { title: '', hidden: false, getElementById: element, createElement: () => ({}), addEventListener(name, fn) { events[name] = fn; } };
   const window = {
     document, location: { search },
+    setInterval(fn, ms) { intervals.push({ fn, ms }); },
+    addEventListener(name, fn) { events[name] = fn; },
     fetch: async (url, options) => {
       requests.push({ url, options });
       if (customFetch) return customFetch(url, options);
@@ -175,7 +178,7 @@ function browser({ search = '', initialInventory = inventory(), initialProducts 
     setTimeout(callback) { timers.set(++timerId, callback); return timerId; },
     clearTimeout(id) { timers.delete(id); }
   });
-  return { element, document, requests, checkouts, timers, get initialized() { return initialized; },
+  return { element, document, requests, checkouts, timers, events, intervals, get initialized() { return initialized; },
     setSnapshot(next) { snapshot = next; customFetch = null; }, setFetch(callback) { customFetch = callback; },
     click(serial = 'TEST12345') {
       const button = element('hso-detail').buttons.find(button => button.dataset.hsoSerial === serial);
@@ -276,10 +279,10 @@ test('failed availability refresh never opens checkout and allows a successful r
     await app.click();
     assert.equal(app.checkouts.length, 0);
     assert.equal(app.element('hso-error').hidden, false);
-    assert.equal(originalButton.disabled, false);
-    assert.equal(originalButton.textContent, 'Checkout & Pay');
+    assert.equal(app.element('hso-detail').buttons.length, 0);
     assert.equal(app.timers.size, 0);
     app.setSnapshot({ inventory: inventory(), products: [product()] });
+    await app.retry();
     await app.click();
     assert.equal(app.checkouts.length, 1);
     assert.equal(app.element('hso-error').hidden, true);
@@ -298,4 +301,39 @@ test('repeat taps during an availability request open only one checkout', async 
   assert.equal(app.checkouts.length, 0);
   pending.forEach(resolve => resolve()); await first;
   assert.equal(app.checkouts.length, 1);
+});
+
+test('live refresh removes sold models, restores restocks and skips hidden pages', async () => {
+  const app = browser(); await flush();
+  assert.equal(app.requests[0].url, '/.netlify/functions/hso-stock');
+  assert.equal(app.intervals[0].ms, 30000);
+  app.setSnapshot({ inventory: inventory([]), products: [product()] });
+  app.document.hidden = true;
+  await app.intervals[0].fn();
+  assert.match(app.element('hso-models').innerHTML, /iPhone 15/);
+  app.document.hidden = false;
+  await app.events.visibilitychange();
+  assert.equal(app.element('hso-summary').textContent, '0 phones listed · 0 models');
+  assert.doesNotMatch(app.element('hso-models').innerHTML, /href="\/hso\/\?model/);
+  app.setSnapshot({ inventory: inventory(), products: [product()] });
+  await app.events.focus();
+  assert.match(app.element('hso-models').innerHTML, /iPhone 15/);
+  app.setFetch(async () => { throw new Error('Offline'); });
+  await app.events.online();
+  assert.equal(app.element('hso-models').innerHTML, '');
+});
+
+test('payment validator rejects sold phones, changed details and failures after checkout opened', async () => {
+  for (const change of ['sold', 'price', 'color', 'battery', 'offline']) {
+    const app = browser({ search: '?model=iphone-15' }); await flush();
+    await app.click();
+    const validate = app.checkouts[0][3];
+    assert.equal(await validate(), true);
+    if (change === 'offline') app.setFetch(async () => { throw new Error('Offline'); });
+    else app.setSnapshot({ inventory: inventory(change === 'sold' ? [] : [unit({
+      ...(change === 'color' ? { color: 'Blue' } : {}),
+      ...(change === 'battery' ? { batteryHealth: 90 } : {})
+    })]), products: [product(change === 'price' ? { price: 800 } : {})] });
+    await assert.rejects(validate, /no longer available|details or price changed|could not verify/);
+  }
 });

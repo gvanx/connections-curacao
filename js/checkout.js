@@ -128,6 +128,7 @@ function getCheckoutTotals() {
 
 function updateCheckoutSummary() {
   if (!activeCheckout) return;
+  if (activeCheckout.checkingAvailability) return;
   const { paymentType, paymentAmount, fee, total, deliveryType } = getCheckoutTotals();
   const submitBtn = document.querySelector('.checkout-submit');
   const typeLabel = paymentType === 'reserve' ? 'Reserve' : 'Full';
@@ -166,6 +167,7 @@ function closeCheckout() {
   if (!overlay) return;
   overlay.classList.remove('visible');
   overlay.setAttribute('hidden', '');
+  activeCheckout?.restoreAvailabilityControls?.();
   activeCheckout = null;
   if (checkoutBodyOverflow !== null) {
     document.body.style.overflow = checkoutBodyOverflow;
@@ -178,7 +180,7 @@ function closeCheckout() {
   }
 }
 
-function openCheckout(name, price, opener = document.activeElement) {
+function openCheckout(name, price, opener = document.activeElement, validateAvailability) {
   if (typeof name !== 'string' || !name.trim() || !Number.isFinite(price) || price <= 0) return;
   const overlay = document.getElementById('checkout-modal');
   if (!overlay) return;
@@ -188,7 +190,8 @@ function openCheckout(name, price, opener = document.activeElement) {
     checkoutBodyOverflow = document.body.style.overflow;
   }
   document.body.style.overflow = 'hidden';
-  activeCheckout = { name, price };
+  activeCheckout?.restoreAvailabilityControls?.();
+  activeCheckout = { name, price, validateAvailability };
   const form = document.getElementById('checkout-form');
   form.reset();
   form.hidden = false;
@@ -204,6 +207,27 @@ function openCheckout(name, price, opener = document.activeElement) {
   overlay.classList.add('visible');
   overlay.removeAttribute('hidden');
   document.getElementById('checkout-name').focus();
+}
+
+function lockCheckoutForAvailability(checkout, form) {
+  const controls = Array.from(form.elements).map(control => [control, control.disabled]);
+  const submit = document.querySelector('.checkout-submit');
+  const label = submit?.textContent;
+  let restored = false;
+  checkout.checkingAvailability = true;
+  for (const [control] of controls) control.disabled = true;
+  if (submit) submit.textContent = 'Checking availability…';
+  form.setAttribute('aria-busy', 'true');
+  checkout.restoreAvailabilityControls = () => {
+    if (restored) return;
+    restored = true;
+    for (const [control, disabled] of controls) control.disabled = disabled;
+    if (submit) submit.textContent = label;
+    form.removeAttribute('aria-busy');
+    checkout.checkingAvailability = false;
+    delete checkout.restoreAvailabilityControls;
+  };
+  return checkout.restoreAvailabilityControls;
 }
 
 function orderMessage(details) {
@@ -368,9 +392,10 @@ function initCheckoutModal() {
     }
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!activeCheckout || form.hidden) return;
+    if (!activeCheckout || form.hidden || activeCheckout.checkingAvailability) return;
+    const checkout = activeCheckout;
 
     const customerName = document.getElementById('checkout-name').value.trim();
     const customerPhone = document.getElementById('checkout-phone').value.trim();
@@ -399,12 +424,33 @@ function initCheckoutModal() {
     let quote;
     try { quote = paymentQuote(total, document.getElementById('checkout-method').value); }
     catch (error) { errorEl.textContent = error.message; return; }
+    if (checkout.validateAvailability !== undefined) {
+      const restoreControls = lockCheckoutForAvailability(checkout, form);
+      try {
+        if (typeof checkout.validateAvailability !== 'function') {
+          throw new Error('We could not verify this phone’s availability. Please try again.');
+        }
+        const available = await checkout.validateAvailability();
+        if (activeCheckout !== checkout || form.hidden) return;
+        if (available !== true) {
+          throw new Error(typeof available === 'string' && available.trim()
+            ? available : 'This phone is not available. Please choose another phone.');
+        }
+      } catch (error) {
+        if (activeCheckout === checkout && !form.hidden) {
+          errorEl.textContent = error?.message || 'We could not verify this phone’s availability. Please try again.';
+        }
+        return;
+      } finally {
+        restoreControls();
+      }
+    }
     const orderId = `CON-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     const details = {
       orderId,
       createdAt: new Date().toISOString(),
-      productName: activeCheckout.name,
-      basePrice: activeCheckout.price,
+      productName: checkout.name,
+      basePrice: checkout.price,
       paymentType,
       paymentAmount,
       deliveryType,

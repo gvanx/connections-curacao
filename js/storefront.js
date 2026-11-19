@@ -457,7 +457,42 @@
     }
 
     /* ---- Search / filter / sort toolbar ---- */
-    let ALL_PRODUCTS = [];
+    // A failed optional helper must not expose unverified phones or break ordinary shopping.
+    const HSOAvailability = typeof HSOCatalog !== 'undefined' ? HSOCatalog : {
+      isManaged: product => !!product && product.suffix === 'HSO' && !!product.hsoModel,
+      filterAvailable: products => products.filter(product => !(product.suffix === 'HSO' && product.hsoModel)),
+      fetchInventory: async () => null
+    };
+    let ALL_PRODUCTS = [], BASE_PRODUCTS = [], hsoInventory = null;
+    let hsoRequestPending = false;
+    function syncLiveFilterCounts() {
+      const total = document.querySelector('.pf-pill-blackfriday .pf-pill-total');
+      if (total) total.textContent = ALL_PRODUCTS.filter(product => product.blackFriday === true).length;
+      const arrivals = document.querySelector('.pf-pill[data-cat="new-arrivals"]');
+      if (arrivals) {
+        const hasArrivals = ALL_PRODUCTS.some(product => isNewArrival(product));
+        arrivals.hidden = !hasArrivals;
+        arrivals.style.display = hasArrivals ? '' : 'none';
+      }
+    }
+    function applyCatalogAvailability() {
+      const available = HSOAvailability.filterAvailable(BASE_PRODUCTS, hsoInventory);
+      if (available.length === ALL_PRODUCTS.length && available.every((product, index) => product === ALL_PRODUCTS[index])) return;
+      ALL_PRODUCTS = available;
+      renderCategories(ALL_PRODUCTS);
+      renderDeals(ALL_PRODUCTS);
+      applyFilters();
+      syncLiveFilterCounts();
+      refreshProductBadgeState();
+    }
+    async function refreshHSOInventory() {
+      if (hsoRequestPending || !BASE_PRODUCTS.some(HSOAvailability.isManaged)) return;
+      hsoRequestPending = true;
+      try {
+        hsoInventory = await HSOAvailability.fetchInventory(fetch);
+        applyCatalogAvailability();
+      } finally { hsoRequestPending = false; }
+    }
     function matchesCategory(p, category) {
       if (category === 'new-arrivals') return isNewArrival(p);
       if (category === 'blackfriday') return p.blackFriday === true;
@@ -674,16 +709,17 @@
       }
     }
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && ALL_PRODUCTS.length) {
+      if (!document.hidden && BASE_PRODUCTS.length) {
         refreshProductBadgeState();
         refreshGiftCardCatalog();
+        refreshHSOInventory();
       }
     });
 
     /* Refresh only digital-card prices and stock; keep the customer's filters. */
     let giftCardRequestPending = false;
     async function refreshGiftCardCatalog() {
-      if (giftCardRequestPending || !ALL_PRODUCTS.some(GiftCards.isGiftCard)) return;
+      if (giftCardRequestPending || !BASE_PRODUCTS.some(GiftCards.isGiftCard)) return;
       giftCardRequestPending = true;
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
@@ -697,30 +733,35 @@
         clearTimeout(timeout);
         giftCardRequestPending = false;
       }
-      ALL_PRODUCTS = GiftCards.mergeCatalog(ALL_PRODUCTS, catalog);
-      renderDeals(ALL_PRODUCTS);
-      applyFilters();
+      BASE_PRODUCTS = GiftCards.mergeCatalog(BASE_PRODUCTS, catalog);
+      applyCatalogAvailability();
     }
-    window.addEventListener('focus', refreshGiftCardCatalog);
-    window.addEventListener('online', refreshGiftCardCatalog);
+    function refreshLiveCatalogs() { return Promise.all([refreshGiftCardCatalog(), refreshHSOInventory()]); }
+    window.addEventListener('focus', refreshLiveCatalogs);
+    window.addEventListener('online', refreshLiveCatalogs);
 
     /* ---- Init ---- */
     document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch(`data/products.json?v=${PRODUCTS_DATA_VERSION}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
-        const products = GiftCards.mergeCatalog(await res.json());
-        ALL_PRODUCTS = products;
-        renderCategories(products);
-        renderDeals(products);
-        renderToolbar(products);
+        BASE_PRODUCTS = GiftCards.mergeCatalog(await res.json());
+        if (BASE_PRODUCTS.some(HSOAvailability.isManaged)) hsoInventory = await HSOAvailability.fetchInventory(fetch);
+        ALL_PRODUCTS = HSOAvailability.filterAvailable(BASE_PRODUCTS, hsoInventory);
+        renderCategories(ALL_PRODUCTS);
+        renderDeals(ALL_PRODUCTS);
+        renderToolbar(BASE_PRODUCTS);
+        syncLiveFilterCounts();
         applyFilters();
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
         if (location.hash === '#blackfriday') openProductCategory('blackfriday');
         if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
-        if (products.some(GiftCards.isGiftCard)) {
+        if (BASE_PRODUCTS.some(HSOAvailability.isManaged)) {
+          setInterval(() => { if (!document.hidden) refreshHSOInventory(); }, 30000);
+        }
+        if (BASE_PRODUCTS.some(GiftCards.isGiftCard)) {
           refreshGiftCardCatalog();
           setInterval(() => { if (!document.hidden) refreshGiftCardCatalog(); }, 60000);
         }

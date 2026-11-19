@@ -8,8 +8,15 @@ const { cardHTML } = require('../blackfriday/deals.js');
 const root = path.resolve(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
 
-async function boot(products, { theme = true } = {}) {
-  const elements = new Map(), events = {}, errors = [];
+async function boot(products, { theme = true, inventory, giftCatalog, hsoHelper = true } = {}) {
+  const elements = new Map(), events = {}, errors = [], windowEvents = {}, intervals = [];
+  const defaultInventory = {
+    models: [...new Set(products.filter(p => p.suffix === 'HSO' && p.hsoModel).map(p => p.hsoModel))].map(id => ({ id })),
+    units: products.filter(p => p.suffix === 'HSO' && p.hsoModel).map((p, index) => ({
+      modelId: p.hsoModel, storage: p.hsoStorage || '128GB', color: p.hsoColor || 'Black',
+      serial: 'TEST000' + index, status: 'available'
+    }))
+  };
   function element(key) {
     if (!elements.has(key)) elements.set(key, {
       innerHTML: '', style: {}, value: '', children: [],
@@ -29,19 +36,23 @@ async function boot(products, { theme = true } = {}) {
     addEventListener: (name, callback) => { events[name] = callback; }
   };
   const context = vm.createContext({
-    document, window: { addEventListener() {} }, location: { hash: '' }, history: { replaceState() {} },
+    document, window: { addEventListener(type, callback) { (windowEvents[type] ||= []).push(callback); } }, location: { hash: '' }, history: { replaceState() {} },
     IntersectionObserver: class { observe() {} }, AbortController,
     console: { error: (...args) => errors.push(args), warn: (...args) => errors.push(args) },
-    fetch: async url => ({ ok: true, json: async () => url.startsWith('/data/gift-card-store') ? { products: [] } : products }),
-    setTimeout() { return 1; }, clearTimeout() {}, setInterval() { return 1; }
+    fetch: async url => ({ ok: true, json: async () => url.startsWith('/data/gift-card-store') ? (giftCatalog ? giftCatalog() : { products: [] }) :
+      url === '/.netlify/functions/hso-stock' ? (inventory ? inventory() : defaultInventory) : products }),
+    setTimeout() { return 1; }, clearTimeout() {}, setInterval(callback, delay) { intervals.push({ callback, delay }); return 1; }
   });
   for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
+    if (name === 'hso-catalog' && !hsoHelper) continue;
     vm.runInContext(fs.readFileSync(path.join(root, 'js', name + '.js'), 'utf8'), context);
   }
   await events.DOMContentLoaded();
   await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(errors, []);
-  return { element, render: fixture => context.renderDeals(fixture) };
+  return { element, render: fixture => context.renderDeals(fixture), intervals, document,
+    dispatch: async type => { await Promise.all((windowEvents[type] || []).map(callback => callback())); },
+    visibility: () => events.visibilitychange() };
 }
 
 const airco = (name, price, extra = {}) => ({ name, price, category: 'acs', blackFriday: true, image: 'ac-catalog.webp', ...extra });
@@ -92,6 +103,58 @@ test('managed sold-out HSO cannot bypass stock state through generic checkout', 
     assert.doesNotMatch(html, /Choose your phone|js-order-btn|data-product-price/);
   }
   assert.equal(app.element('#deals .container').innerHTML, '');
+});
+
+test('selling the last HSO unit removes catalog and homepage offers, gift refresh cannot restore it, and restocking restores both', async () => {
+  const phone = { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB', category: 'apple', price: 1099, blackFriday: true };
+  const gift = catalog.find(product => product.category === 'giftcards');
+  const available = { models: [{ id: 'iphone-15' }], units: [{ modelId: 'iphone-15', serial: 'ABC12345', storage: '128GB', color: 'Black', status: 'available' }] };
+  let inventory = structuredClone(available);
+  const app = await boot([phone, gift, airco('Ordinary airco', 444)], { inventory: () => inventory });
+  const surfaces = () => [app.element('#product-results').innerHTML, app.element('#deals .container').innerHTML];
+  for (const html of surfaces()) assert.match(html, /Managed iPhone/);
+  inventory = { ...available, units: [] };
+  await app.dispatch('focus');
+  for (const html of surfaces()) { assert.doesNotMatch(html, /Managed iPhone/); assert.match(html, /Ordinary airco/); }
+  inventory = available;
+  app.intervals.find(timer => timer.delay === 60000).callback();
+  await new Promise(resolve => setImmediate(resolve));
+  for (const html of surfaces()) assert.doesNotMatch(html, /Managed iPhone/);
+  await app.dispatch('online');
+  for (const html of surfaces()) assert.match(html, /Managed iPhone/);
+  inventory = null;
+  app.intervals.find(timer => timer.delay === 30000).callback();
+  await new Promise(resolve => setImmediate(resolve));
+  for (const html of surfaces()) { assert.doesNotMatch(html, /Managed iPhone/); assert.match(html, /Ordinary airco/); }
+  inventory = available;
+  app.document.hidden = true;
+  app.intervals.find(timer => timer.delay === 30000).callback();
+  await new Promise(resolve => setImmediate(resolve));
+  for (const html of surfaces()) assert.doesNotMatch(html, /Managed iPhone/);
+  app.document.hidden = false;
+  app.visibility();
+  await new Promise(resolve => setImmediate(resolve));
+  for (const html of surfaces()) assert.match(html, /Managed iPhone/);
+});
+
+test('an HSO feed outage at first load leaves ordinary products usable', async () => {
+  const app = await boot([
+    { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple', price: 1099, blackFriday: true },
+    airco('Available airco', 444)
+  ], { inventory: () => { throw new Error('Feed offline'); } });
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /Managed iPhone/);
+  assert.match(app.element('#product-results').innerHTML, /Available airco/);
+  assert.match(app.element('#product-results').innerHTML, /data-product-price="444"/);
+});
+
+test('a missing HSO helper hides managed phones and leaves ordinary checkout working', async () => {
+  const app = await boot([
+    { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple', price: 1099, blackFriday: true },
+    airco('Available airco', 444)
+  ], { hsoHelper: false });
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /Managed iPhone/);
+  assert.match(app.element('#product-results').innerHTML, /Available airco/);
+  assert.match(app.element('#product-results').innerHTML, /data-product-price="444"/);
 });
 
 test('unpriced in-store specials show their label and an identified inquiry without a payment amount or invented savings', async () => {

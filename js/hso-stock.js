@@ -19,7 +19,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const responses = await Promise.all(['/data/hso-stock.json', '/data/products.json'].map(url =>
+      const responses = await Promise.all(['/.netlify/functions/hso-stock', '/data/products.json'].map(url =>
         root.fetch(url, { cache: 'no-store', signal: controller.signal })));
       if (responses.some(response => !response.ok)) throw new Error('Stock unavailable');
       const [inventory, products] = await Promise.all(responses.map(response => response.json()));
@@ -41,8 +41,9 @@
       doc.getElementById('hso-title').textContent = 'Find your next iPhone.';
       doc.getElementById('hso-intro').textContent = 'Explore our second-hand collection. Pick a model, compare individual phones, then choose yours.';
       const count = inventory.units.filter(api.isAvailable).length;
-      doc.getElementById('hso-summary').textContent = `${count} ${count === 1 ? 'phone' : 'phones'} listed · ${inventory.models.length} ${inventory.models.length === 1 ? 'model' : 'models'}`;
-      models.innerHTML = inventory.models.map(model => api.modelCardHTML(model, inventory, products)).join('');
+      const availableModels = inventory.models.filter(model => api.selectUnits(inventory, { model: model.id }).length);
+      doc.getElementById('hso-summary').textContent = `${count} ${count === 1 ? 'phone' : 'phones'} listed · ${availableModels.length} ${availableModels.length === 1 ? 'model' : 'models'}`;
+      models.innerHTML = availableModels.length ? availableModels.map(model => api.modelCardHTML(model, inventory, products)).join('') : '<p class="hso-empty">No phones available right now. Please check back soon.</p>';
       return;
     }
     if (!model) {
@@ -60,19 +61,22 @@
     detail.innerHTML = api.detailHTML(model, units, products);
   }
 
-  async function load() {
+  function showStockError() {
+    state = null;
+    error.hidden = false;
+    models.replaceChildren(); detail.replaceChildren();
+    doc.getElementById('hso-summary').textContent = 'Stock is temporarily unavailable.';
+  }
+
+  async function load(silent = false) {
     if (busy) return;
     busy = true;
     error.hidden = true;
-    loading.hidden = false;
+    loading.hidden = silent;
     models.setAttribute('aria-busy', 'true');
     detail.setAttribute('aria-busy', 'true');
     try { state = await fetchStock(); render(); }
-    catch (_) {
-      error.hidden = false;
-      models.replaceChildren(); detail.replaceChildren();
-      doc.getElementById('hso-summary').textContent = 'Stock is temporarily unavailable.';
-    } finally {
+    catch (_) { showStockError(); } finally {
       busy = false;
       loading.hidden = true;
       models.setAttribute('aria-busy', 'false'); detail.setAttribute('aria-busy', 'false');
@@ -98,14 +102,37 @@
       }
       // Use the new, connected button as focus-return target after refreshing the list.
       const opener = Array.from(detail.querySelectorAll('button[data-hso-serial]')).find(node => node.dataset.hsoSerial === unit.serial);
-      root.openCheckout(api.orderName(model, unit), product.price, opener);
+      const chosenName = api.orderName(model, unit);
+      root.openCheckout(chosenName, product.price, opener, async () => {
+        let latest;
+        try { latest = await fetchStock(); }
+        catch (_) {
+          showStockError();
+          throw new Error('We could not verify this phone’s availability. Please try again before paying.');
+        }
+        state = latest;
+        render();
+        const currentUnit = latest.inventory.units.find(item => item.serial === unit.serial);
+        const currentModel = currentUnit && latest.inventory.models.find(item => item.id === currentUnit.modelId);
+        const currentProduct = currentUnit && api.productForUnit(currentUnit, latest.products);
+        if (!currentUnit || !currentModel || !api.canCheckout(currentUnit, currentProduct)) {
+          throw new Error('This phone is no longer available. Close checkout and choose another phone.');
+        }
+        if (currentProduct.price !== product.price || api.orderName(currentModel, currentUnit) !== chosenName) {
+          throw new Error('This phone’s details or price changed. Close checkout and review the updated listing.');
+        }
+        return true;
+      });
     } catch (_) {
-      error.hidden = false;
-      button.disabled = false;
-      button.textContent = 'Checkout & Pay';
+      showStockError();
     } finally { busy = false; }
   });
-  doc.getElementById('hso-retry').addEventListener('click', load);
+  doc.getElementById('hso-retry').addEventListener('click', () => load());
+  const refresh = () => { if (!doc.hidden) return load(true); };
+  root.setInterval(refresh, 30000);
+  root.addEventListener('focus', refresh);
+  root.addEventListener('online', refresh);
+  doc.addEventListener('visibilitychange', refresh);
   function imageFallback(event) {
     if (event.target.tagName !== 'IMG') return;
     const image = event.target;

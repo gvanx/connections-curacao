@@ -11,7 +11,7 @@ function harness() {
   function element(tag = 'div') {
     const classes = new Set(), listeners = new Map();
     return {
-      tagName: tag, children: [], style: {}, value: '', checked: false, hidden: false, textContent: '',
+      tagName: tag, children: [], style: {}, value: '', checked: false, hidden: false, disabled: false, textContent: '',
       classList: { add: name => classes.add(name), remove: name => classes.delete(name), contains: name => classes.has(name) },
       replaceChildren() { this.children = []; }, appendChild(child) { this.children.push(child); },
       setAttribute() {}, removeAttribute() {}, focus() {}, reset() {},
@@ -24,6 +24,11 @@ function harness() {
     'checkout-payment': ['full', 'reserve'].map(value => Object.assign(element('input'), { value, checked: value === 'full' })),
     'checkout-delivery': ['pickup', 'delivery'].map(value => Object.assign(element('input'), { value, checked: value === 'pickup' }))
   };
+  const formControls = () => [
+    ...['checkout-name', 'checkout-phone', 'checkout-address', 'checkout-terms', 'checkout-method', 'submit'].map(get),
+    ...Object.values(radios).flat()
+  ];
+  Object.defineProperty(get('checkout-form'), 'elements', { get: formControls });
   const document = {
     body: element(), activeElement: null, getElementById: get, createElement: element, addEventListener() {},
     querySelector(selector) {
@@ -41,15 +46,21 @@ function harness() {
   const api = context.api;
   api.initCheckoutModal();
   const selectRadio = (name, value) => radios[name].forEach(radio => { radio.checked = radio.value === value; });
-  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup', name = 'Test phone <&>' } = {}) {
-    api.openCheckout(name, price);
+  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup', name = 'Test phone <&>', validateAvailability } = {}) {
+    api.openCheckout(name, price, undefined, validateAvailability);
     selectRadio('checkout-payment', payment); selectRadio('checkout-delivery', delivery);
     get('checkout-method').value = method;
     get('checkout-name').value = 'Test customer'; get('checkout-phone').value = '+5999 1234567';
     get('checkout-address').value = 'Test address'; get('checkout-terms').checked = true;
     api.updateCheckoutSummary();
   }
-  return { api, context, get, open, emails, popups, copied, submit: () => get('checkout-form').fire('submit') };
+  return { api, context, get, open, emails, popups, copied, formControls, submit: () => get('checkout-form').fire('submit') };
+}
+
+function deferred() {
+  let resolve, reject;
+  const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
+  return { promise, resolve, reject };
 }
 
 test('both published tokens use the supplied Ethereum wallet, 1.74 rate and no added fee', () => {
@@ -246,4 +257,121 @@ test('Suave can be paused and changing methods clears its surcharge', () => {
   assert(!h.get('checkout-method').children.some(n=>n.value==='suave'));
   assert.throws(()=>h.api.paymentQuote(100,'suave'));
   for(const amount of [0,-1,NaN,Infinity,'100']) assert.throws(()=>h.api.paymentQuote(amount,'suave'));
+});
+
+test('a phone sold while checkout is open cannot prepare payment or notify the store', async () => {
+  for (const method of ['sentoo', 'suave', 'USDT', 'USDC']) {
+    const h = harness();
+    let available = true, checks = 0;
+    h.open({ method, validateAvailability: async () => {
+      checks++;
+      if (!available) throw new Error('This phone has been sold. Please choose another phone.');
+      return true;
+    } });
+    assert.equal(checks, 0, 'availability is checked at submit, not only when opening');
+    available = false;
+    await h.submit();
+    assert.equal(checks, 1);
+    assert.equal(h.emails.length, 0);
+    assert.equal(h.popups.length, 0);
+    assert.equal(h.get('checkout-confirmation').hidden, true);
+    assert.equal(h.get('checkout-form').hidden, false);
+    assert.match(h.get('checkout-error').textContent, /has been sold/);
+    assert(h.formControls().every(control => !control.disabled));
+  }
+});
+
+test('upstream availability failures fail closed and a fresh retry can succeed', async () => {
+  const h = harness();
+  let offline = true;
+  h.open({ validateAvailability: async () => {
+    if (offline) throw new Error('Stock is temporarily unavailable. Please try again.');
+    return true;
+  } });
+  const submitLabel = h.get('submit').textContent;
+  await h.submit();
+  assert.match(h.get('checkout-error').textContent, /temporarily unavailable/);
+  assert.equal(h.get('submit').textContent, submitLabel);
+  assert.equal(h.emails.length, 0);
+  assert.equal(h.popups.length, 0);
+  assert(h.formControls().every(control => !control.disabled));
+  offline = false;
+  await h.submit();
+  assert.equal(h.emails.length, 1);
+  assert.equal(h.popups.length, 1);
+  assert.equal(h.get('checkout-error').textContent, '');
+});
+
+test('pending stock checks freeze checkout details and ignore duplicate submissions', async () => {
+  const h = harness(), check = deferred();
+  let checks = 0;
+  h.open({ method: 'suave', price: 1099, payment: 'reserve', delivery: 'delivery', validateAvailability: () => {
+    checks++;
+    return check.promise;
+  } });
+  const pending = h.submit();
+  assert(h.formControls().every(control => control.disabled));
+  assert.match(h.get('submit').textContent, /Checking availability/);
+  h.api.updateCheckoutSummary();
+  assert(h.formControls().every(control => control.disabled), 'summary events cannot unlock a pending checkout');
+  await h.submit();
+  assert.equal(checks, 1);
+  assert.equal(h.emails.length, 0);
+  assert.equal(h.popups.length, 0);
+  check.resolve(true);
+  await pending;
+  assert.equal(h.emails.length, 1);
+  assert.equal(h.emails[0].amount, 'XCG 139.05');
+  assert.equal(h.emails[0].name, 'Test customer');
+  assert.equal(h.emails[0].address, 'Test address');
+  await h.submit();
+  assert.equal(h.emails.length, 1);
+});
+
+test('closing a checkout while checking availability discards a successful result', async () => {
+  const h = harness(), check = deferred();
+  h.open({ validateAvailability: () => check.promise });
+  const pending = h.submit();
+  h.api.closeCheckout();
+  assert(h.formControls().every(control => !control.disabled));
+  check.resolve(true);
+  await pending;
+  assert.equal(h.emails.length, 0);
+  assert.equal(h.popups.length, 0);
+  assert.equal(h.get('checkout-confirmation').hidden, true);
+});
+
+test('reopening checkout cannot receive an old check result or unlock the new check', async () => {
+  for (const rejected of [false, true]) {
+    const h = harness(), oldCheck = deferred(), newCheck = deferred();
+    h.open({ name: 'Old phone', validateAvailability: () => oldCheck.promise });
+    const oldPending = h.submit();
+    if (rejected) h.api.closeCheckout();
+    h.open({ name: 'New phone', validateAvailability: () => newCheck.promise });
+    const newPending = h.submit();
+    if (rejected) oldCheck.reject(new Error('Old phone has been sold.'));
+    else oldCheck.resolve(true);
+    await oldPending;
+    assert.equal(h.get('checkout-product').textContent, 'New phone');
+    assert.equal(h.get('checkout-error').textContent, '');
+    assert(h.formControls().every(control => control.disabled));
+    assert.equal(h.emails.length, 0);
+    assert.equal(h.popups.length, 0);
+    newCheck.resolve(true);
+    await newPending;
+    assert.equal(h.emails.length, 1);
+    assert.equal(h.emails[0].product, 'New phone');
+    assert.equal(h.popups.length, 1);
+  }
+});
+
+test('availability requires explicit success and preserves returned failure messages', async () => {
+  for (const result of [false, undefined, null, 'This phone is reserved.']) {
+    const h = harness();
+    h.open({ validateAvailability: async () => result });
+    await h.submit();
+    assert.equal(h.emails.length, 0);
+    assert.equal(h.popups.length, 0);
+    assert.match(h.get('checkout-error').textContent, typeof result === 'string' ? /reserved/ : /not available/);
+  }
 });
