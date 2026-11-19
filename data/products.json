@@ -319,7 +319,7 @@
   {
     "name": "MacBook Pro 13-inch (2020) 256GB/8GB",
     "suffix": "HSO",
-    "price": 1290,
+    "price": 999,
     "category": "apple",
     "featured": false,
     "image": "/img/products/macbook-pro-13-2020.png",
@@ -334,7 +334,9 @@
       "Condition": "HSO"
     },
     "addedAt": "2026-11-09T20:42:25Z",
-    "newArrival": true
+    "newArrival": true,
+    "oldPrice": 1290,
+    "blackFriday": true
   },
   {
     "name": "iPad Air M4 256GB",
