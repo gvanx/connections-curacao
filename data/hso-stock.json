@@ -4,37 +4,37 @@
     {
       "id": "iphone-13",
       "name": "iPhone 13",
-      "image": "/img/products/iphone-13-model.png"
+      "image": "/img/products/hso-iphone-13-midnight.jpg"
     },
     {
       "id": "iphone-13-pro",
       "name": "iPhone 13 Pro",
-      "image": null
+      "image": "/img/products/hso-iphone-13-pro-gold.jpg"
     },
     {
       "id": "iphone-14",
       "name": "iPhone 14",
-      "image": "/img/products/iphone-14-model.png"
+      "image": "/img/products/hso-iphone-14-midnight.jpg"
     },
     {
       "id": "iphone-14-pro-max",
       "name": "iPhone 14 Pro Max",
-      "image": null
+      "image": "/img/products/hso-iphone-14-pro-max-silver.jpg"
     },
     {
       "id": "iphone-15",
       "name": "iPhone 15",
-      "image": "/img/products/iphone-15-model.png"
+      "image": "/img/products/hso-iphone-15-black.jpg"
     },
     {
       "id": "iphone-15-pro",
       "name": "iPhone 15 Pro",
-      "image": null
+      "image": "/img/products/hso-iphone-15-pro-black-titanium.jpg"
     },
     {
       "id": "iphone-15-pro-max",
       "name": "iPhone 15 Pro Max",
-      "image": "/img/products/iphone-15-pro-max-model.png"
+      "image": "/img/products/hso-iphone-15-pro-max-white-titanium.jpg"
     },
     {
       "id": "iphone-16-pro-max",

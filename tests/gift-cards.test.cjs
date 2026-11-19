@@ -85,7 +85,7 @@ async function boot({ fail = false, feed = store(), stall = false, hash = '#gift
     setTimeout(callback, delay) { const id = ++nextTimer; timers.set(id, { callback, delay }); return id; },
     clearTimeout(id) { timers.delete(id); }, setInterval(callback, delay) { intervals.push({ callback, delay }); }
   });
-  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'storefront']) {
+  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../js', name + '.js'), 'utf8'), context);
   }
   for (const callback of listeners.get('DOMContentLoaded')) await callback();

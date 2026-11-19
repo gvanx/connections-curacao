@@ -15,7 +15,25 @@
   const error = doc.getElementById('bf-error');
   const toolbar = doc.getElementById('bf-toolbar');
   const spotlight = doc.getElementById('bf-spotlight');
-  let products = [], category = 'all', loading = false;
+  let products = [], baseProducts = [], inventory = null, category = 'all', loading = false, refreshing = false;
+  function applyAvailability() {
+    const available = hsoCatalog ? hsoCatalog.filterAvailable(baseProducts, inventory) : baseProducts.filter(p => !(p.suffix === 'HSO' && p.hsoModel));
+    if (available.length === products.length && available.every((product, index) => product === products[index])) return false;
+    products = available;
+    const categories = [...new Set(api.selectDeals(products).map(p => p.category))];
+    if (!categories.includes(category)) category = 'all';
+    filters.innerHTML = [['all', 'All deals'], ...categories.map(key => [key, api.categoryName(key)])].map(([key, label]) => `<button type="button" data-category="${api.escapeHtml(key)}" aria-pressed="${key === category}">${api.escapeHtml(label)}</button>`).join('');
+    toolbar.hidden = !categories.length;
+    return true;
+  }
+  async function refreshInventory() {
+    if (loading || refreshing || !hsoCatalog || !baseProducts.some(hsoCatalog.isManaged)) return;
+    refreshing = true;
+    try {
+      inventory = await hsoCatalog.fetchInventory(root.fetch.bind(root));
+      if (applyAvailability()) render();
+    } finally { refreshing = false; }
+  }
   function render() {
     const visible = api.selectDeals(products, category, sort.value);
     grid.innerHTML = visible.map(api.cardHTML).join('');
@@ -38,11 +56,9 @@
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
-      products = data.filter(p => p && typeof p.name === 'string');
-      const categories = [...new Set(api.selectDeals(products).map(p => p.category))];
-      if (!categories.includes(category)) category = 'all';
-      filters.innerHTML = [['all', 'All deals'], ...categories.map(key => [key, api.categoryName(key)])].map(([key, label]) => `<button type="button" data-category="${api.escapeHtml(key)}" aria-pressed="${key === category}">${api.escapeHtml(label)}</button>`).join('');
-      toolbar.hidden = !categories.length;
+      baseProducts = data.filter(p => p && typeof p.name === 'string');
+      inventory = hsoCatalog && baseProducts.some(hsoCatalog.isManaged) ? await hsoCatalog.fetchInventory(root.fetch.bind(root)) : null;
+      applyAvailability();
       if (spotlight) {
         const lead = api.selectDeals(products, 'acs', 'price-asc').find(p => Number.isFinite(p.price) && p.price > 0 && !p.inquiryOnly && !p.soldOut);
         spotlight.hidden = !lead;
@@ -51,6 +67,7 @@
       }
       render();
     } catch (_) {
+      baseProducts = []; products = []; inventory = null;
       grid.replaceChildren(); toolbar.hidden = true; error.hidden = false;
       if (spotlight) { spotlight.hidden = true; spotlight.replaceChildren(); }
       count.textContent = 'Black Friday deals are temporarily unavailable.';
@@ -73,6 +90,10 @@
   grid.addEventListener('error', recoverImage, true);
   if (spotlight) spotlight.addEventListener('error', recoverImage, true);
   root.initCheckoutModal();
+  root.addEventListener('focus', refreshInventory);
+  root.addEventListener('online', refreshInventory);
+  doc.addEventListener('visibilitychange', () => { if (!doc.hidden) refreshInventory(); });
+  setInterval(() => { if (!doc.hidden) refreshInventory(); }, 30000);
   load();
 })(typeof window === 'undefined' ? globalThis : window, function (hsoCatalog) {
   'use strict';

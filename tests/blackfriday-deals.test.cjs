@@ -8,6 +8,8 @@ const { selectDeals, savings, cardHTML, imageSrc } = require('../blackfriday/dea
 const root = path.join(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
 const script = fs.readFileSync(path.join(root, 'blackfriday/deals.js'), 'utf8');
+const hsoCatalog = require('../js/hso-catalog.js');
+const stock = JSON.parse(fs.readFileSync(path.join(root, 'data/hso-stock.json'), 'utf8'));
 
 test('only explicitly tagged products join the campaign, and filtering/sorting preserves the source catalog', () => {
   const products = [
@@ -100,7 +102,7 @@ test('catalog strings are escaped and image paths preserve supported existing ar
   assert.equal(imageSrc({ image: 'ac-generic.png', imageUnavailable: true }), '');
 });
 
-function browser(fetch, { spotlight = true } = {}) {
+function browser(fetch, { spotlight = true, inventory = () => stock } = {}) {
   const elements = new Map();
   function element(id) {
     let html = '';
@@ -127,8 +129,12 @@ function browser(fetch, { spotlight = true } = {}) {
   const timers = new Map();
   const boundScopes = [];
   let nextTimer = 0, initialized = 0;
+  const events = {}, intervals = [];
   const window = {
-    document: { getElementById: id => elements.get(id) }, fetch,
+    HSOCatalog: hsoCatalog,
+    document: { hidden: false, getElementById: id => elements.get(id), addEventListener(type, callback) { events[type] = callback; } },
+    fetch: (url, options) => url === '/.netlify/functions/hso-stock' ? Promise.resolve({ ok: true, json: async () => inventory() }) : fetch(url, options),
+    addEventListener(type, callback) { events[type] = callback; },
     initCheckoutModal() { initialized++; },
     attachOrderButtons(scope) {
       assert.ok(['bf-products', 'bf-spotlight'].includes(scope.id));
@@ -138,12 +144,47 @@ function browser(fetch, { spotlight = true } = {}) {
   vm.runInNewContext(script, {
     window, AbortController,
     setTimeout(callback) { timers.set(++nextTimer, callback); return nextTimer; },
-    clearTimeout(id) { timers.delete(id); }
+    clearTimeout(id) { timers.delete(id); },
+    setInterval(callback, delay) { intervals.push({ callback, delay }); }
   });
-  return { elements, timers, boundScopes, get initialized() { return initialized; } };
+  return { elements, timers, boundScopes, events, intervals, document: window.document, get initialized() { return initialized; } };
 }
 
 const flush = () => new Promise(resolve => setImmediate(resolve));
+
+test('live HSO stock updates Black Friday cards without losing ordinary deals or restocked phones', async () => {
+  const phone = { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB', category: 'apple', price: 1099, blackFriday: true };
+  const ordinary = { name: 'Ordinary airco', category: 'acs', price: 444, blackFriday: true };
+  const available = { models: [{ id: 'iphone-15' }], units: [{ modelId: 'iphone-15', serial: 'ABC12345', storage: '128GB', color: 'Black', status: 'available' }] };
+  let inventory = available;
+  const app = browser(async () => ({ ok: true, json: async () => [phone, ordinary] }), { inventory: () => inventory });
+  await flush();
+  const grid = app.elements.get('bf-products');
+  assert.match(grid.innerHTML, /Managed iPhone/);
+  inventory = { ...available, units: [] };
+  await app.events.focus();
+  assert.doesNotMatch(grid.innerHTML, /Managed iPhone/);
+  assert.match(grid.innerHTML, /Ordinary airco/);
+  assert.equal(app.elements.get('bf-count').textContent, '1 Black Friday deal');
+  inventory = available;
+  await app.events.online();
+  assert.match(grid.innerHTML, /Managed iPhone/);
+  inventory = null;
+  app.intervals.find(timer => timer.delay === 30000).callback();
+  await flush();
+  assert.doesNotMatch(grid.innerHTML, /Managed iPhone/);
+  assert.equal(app.elements.get('bf-error').hidden, true);
+  assert.match(app.elements.get('bf-spotlight').innerHTML, /data-product-price="444"/);
+  inventory = available;
+  app.document.hidden = true;
+  app.intervals[0].callback();
+  await flush();
+  assert.doesNotMatch(grid.innerHTML, /Managed iPhone/);
+  app.document.hidden = false;
+  app.events.visibilitychange();
+  await flush();
+  assert.match(grid.innerHTML, /Managed iPhone/);
+});
 
 test('browser loading binds checkout, filters tagged categories, sorts, and recovers missing images', async () => {
   const requests = [];

@@ -36,13 +36,14 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
   };
   const location = { hash };
   const context = vm.createContext({
-    Date, document, location, window: { addEventListener(name, callback) { windowEvents[name] = callback; } },
+    Date, AbortController, document, location, window: { addEventListener(name, callback) { windowEvents[name] = callback; } },
     history: { replaceState(_state, _title, hash) { location.hash = hash; } },
     IntersectionObserver: class { observe() {} }, console: { error: (...args) => errors.push(args.map(String).join(' ')) },
-    fetch: async () => ({ ok: true, json: async () => products }),
+    fetch: async url => ({ ok: true, json: async () => url === '/.netlify/functions/hso-stock' ?
+      JSON.parse(fs.readFileSync(path.join(__dirname, '../data/hso-stock.json'), 'utf8')) : products }),
     setTimeout() {}, clearTimeout() {}, setInterval() {}
   });
-  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'storefront']) {
+  for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../js', name + '.js'), 'utf8'), context);
   }
   for (const callback of documentEvents.DOMContentLoaded) await callback();
