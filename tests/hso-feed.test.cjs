@@ -2,7 +2,9 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { parseCSV, parseInventory, parsePriceRegistry, parsePrice, safeImage, sourceURL, loadStock, createHandler } = require('../netlify/functions/hso-stock.js');
 const header = 'Model,Storage,Color,Serial / IMEI,Battery health (%),Status';
+const unitHeader = header + ',Price (XCG),Old price (XCG),Black Friday';
 const priceHeader = 'Model,Storage,Color (optional),Price (XCG),Old price (XCG),Black Friday,Category,Image URL (optional)';
+const modelHeader = 'Model,Storage,Color (optional),Category,Image URL (optional)';
 const models = [{ id: 'iphone-15', name: 'iPhone 15', image: '/img/products/iphone-15-model.png' }];
 const now = new Date('2026-11-20T02:30:00Z');
 const config = { csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-test/pub?gid=42&single=true&output=csv',
@@ -11,9 +13,17 @@ const row = (overrides = {}) => ({ model: 'iPhone 15', storage: '128GB', color: 
   serial: '001234567890123', battery: '88', status: 'Available', ...overrides });
 const encode = value => '"' + String(value).replace(/"/g, '""') + '"';
 const csv = (...records) => [header, ...records.map(record => Object.values(row(record)).map(encode).join(','))].join('\r\n');
+const unitCSV = (...records) => [unitHeader, ...records.map(record => {
+  const { price = '1099', oldPrice = '1350', blackFriday = 'Yes', ...stock } = record;
+  return [...Object.values(row(stock)), price, oldPrice, blackFriday].map(encode).join(',');
+})].join('\r\n');
 const priceRow = (overrides = {}) => ({ model: 'iPhone 15', storage: '128GB', color: '', price: '1099',
   oldPrice: '1350', blackFriday: 'Yes', category: 'Apple', image: '', ...overrides });
 const prices = (...records) => [priceHeader, ...records.map(record => Object.values(priceRow(record)).map(encode).join(','))].join('\r\n');
+const modelRegistry = (...records) => [modelHeader, ...records.map(record => {
+  const value = priceRow(record);
+  return [value.model, value.storage, value.color, value.category, value.image].map(encode).join(',');
+})].join('\r\n');
 const parse = (input, pricing = prices({})) => parseInventory(input, pricing, models, now);
 const response = (body, options = {}) => new Response(body, { headers: { 'Content-Type': 'text/csv' }, ...options });
 const fetchSources = (stock = csv({}), pricing = prices({})) => async url => response(url === config.csvUrl ? stock : pricing);
@@ -246,4 +256,85 @@ test('both feeds are mandatory and an unavailable price feed cannot restore cata
   assert.deepEqual(empty.models, []);
   assert.deepEqual(empty.variants, []);
   assert.deepEqual(empty.units, []);
+});
+
+test('individual phones of one model retain separate prices, comparison prices and Black Friday flags', () => {
+  const data = parse(unitCSV({ serial: 'PHONE00001', price: '1099', oldPrice: '1350', blackFriday: 'Yes' },
+    { serial: 'PHONE00002', price: '999', oldPrice: '1190', blackFriday: 'No' },
+    { serial: 'PHONE00003', price: '1075.50', oldPrice: '1075.50', blackFriday: 'yes' }));
+  assert.deepEqual(data.units.map(unit => [unit.serial, unit.price, unit.oldPrice, unit.blackFriday]),
+    [['PHONE00001', 1099, 1350, true], ['PHONE00002', 999, 1190, false], ['PHONE00003', 1075.5, null, true]]);
+  assert.equal(data.variants[0].price, 1099, 'legacy registry data cannot override unit prices');
+});
+
+test('blank or malformed individual prices never fall back to a model price, including truncated empty trailing cells', () => {
+  for (const price of ['', 'bad', '#REF!', '0', '-1', '1e3', '1,25', '100.005']) {
+    const data = parse(unitCSV({ price, oldPrice: '1500', blackFriday: '' }));
+    assert.equal(data.units.length, 1);
+    assert.equal(data.units[0].price, null);
+    assert.equal(data.units[0].oldPrice, null);
+    assert.equal(data.units[0].blackFriday, false);
+  }
+  const noPriceCells = unitHeader + '\r\n' + csv({}).split('\r\n')[1];
+  const unit = parse(noPriceCells).units[0];
+  assert.equal(unit.price, null);
+  assert.equal(unit.oldPrice, null);
+  assert.equal(unit.blackFriday, false);
+});
+
+test('individual old prices must exceed that phone price, and only an explicit Yes enables its promotion', () => {
+  for (const oldPrice of ['', 'bad', '999', '1099', '-1']) {
+    assert.equal(parse(unitCSV({ price: '1099', oldPrice })).units[0].oldPrice, null);
+  }
+  assert.equal(parse(unitCSV({ price: '1000', oldPrice: '1100' })).units[0].oldPrice, 1100);
+  for (const blackFriday of ['', 'No', 'true', '1', 'unknown']) {
+    assert.equal(parse(unitCSV({ blackFriday })).units[0].blackFriday, false);
+  }
+  assert.equal(parse(unitCSV({ blackFriday: ' YES ' })).units[0].blackFriday, true);
+});
+
+test('individual prices remain authoritative over exact-color registry defaults and sold units stay excluded', () => {
+  const registry = prices({ price: '1000' }, { color: 'Black', price: '800', oldPrice: '900', blackFriday: 'No' });
+  const data = parse(unitCSV({ price: '777', oldPrice: '1000', blackFriday: 'Yes' },
+    { serial: 'SOLD12345', status: 'Sold', price: '500' }, { serial: 'HOLD12345', status: 'Reserved', price: '600' }), registry);
+  assert.equal(data.units.length, 1);
+  assert.equal(data.units[0].price, 777);
+  assert.equal(data.units[0].oldPrice, 1000);
+  assert.equal(data.units[0].blackFriday, true);
+});
+
+test('the five-column model registry supplies only identity and artwork while nine-column stock supplies money', () => {
+  const registry = modelRegistry({ category: 'Other Phones', image: 'https://example.com/phone.jpg' });
+  const data = parse(unitCSV({ price: '1125', oldPrice: '1300', blackFriday: 'Yes' }), registry);
+  assert.deepEqual(data.variants[0], { modelId: 'iphone-15', storage: '128GB', color: '', price: null,
+    oldPrice: null, blackFriday: false, category: 'phones', image: 'https://example.com/phone.jpg' });
+  assert.equal(data.units[0].price, 1125);
+  assert.equal(data.units[0].oldPrice, 1300);
+  assert.equal(data.units[0].blackFriday, true);
+  assert.equal(data.units[0].category, 'phones');
+  assert.equal(data.units[0].image, 'https://example.com/phone.jpg');
+  assert.deepEqual(parse(unitHeader, registry).variants, data.variants, 'zero-stock registry identity stays managed');
+});
+
+test('six-column stock remains compatible during rollout and five-column registry never invents prices', () => {
+  assert.equal(parse(csv({}), prices({ price: '975' })).units[0].price, 975);
+  const waitingForNewStock = parse(csv({}), modelRegistry({}));
+  assert.equal(waitingForNewStock.units.length, 1);
+  assert.equal(waitingForNewStock.units[0].price, null);
+  assert.equal(waitingForNewStock.units[0].oldPrice, null);
+  assert.equal(waitingForNewStock.units[0].blackFriday, false);
+  for (const malformed of [unitHeader.replace('Price (XCG)', 'Unit price'), header + ',Price (XCG)', modelHeader]) {
+    assert.throws(() => parse(malformed));
+  }
+});
+
+test('new device models work with per-unit prices once registered, but unregistered variants remain omitted', () => {
+  const registry = modelRegistry({ model: 'Lenovo Yoga 7', storage: '512GB', category: 'Laptops' });
+  const data = parse(unitCSV({ model: 'Lenovo Yoga 7', storage: '512GB', price: '850', oldPrice: '1000', blackFriday: 'No' },
+    { model: 'Lenovo Yoga 7', storage: '1TB', serial: 'OTHER12345', price: '1100' }), registry);
+  assert.equal(data.models.length, 1);
+  assert.equal(data.units.length, 1);
+  assert.equal(data.units[0].modelId, data.models[0].id);
+  assert.equal(data.units[0].price, 850);
+  assert.equal(data.units[0].category, 'laptops');
 });

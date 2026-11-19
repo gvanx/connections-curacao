@@ -5,7 +5,9 @@
 const MODEL_CATALOG = require('../../data/hso-stock.json').models;
 const { createHash } = require('node:crypto');
 const HEADERS = ['Model', 'Storage', 'Color', 'Serial / IMEI', 'Battery health (%)', 'Status'];
+const UNIT_HEADERS = [...HEADERS, 'Price (XCG)', 'Old price (XCG)', 'Black Friday'];
 const PRICE_HEADERS = ['Model', 'Storage', 'Color (optional)', 'Price (XCG)', 'Old price (XCG)', 'Black Friday', 'Category', 'Image URL (optional)'];
+const MODEL_HEADERS = ['Model', 'Storage', 'Color (optional)', 'Category', 'Image URL (optional)'];
 const MAX_CSV_LENGTH = 256 * 1024;
 const RESPONSE_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -95,32 +97,34 @@ function modelMetadata(models) {
   });
 }
 
-function tableRows(csv, headers) {
+function readTable(csv, schemas) {
   const rows = parseCSV(csv);
   const header = rows.shift();
-  if (!header || header.length !== headers.length || header.some((value, index) => value.trim() !== headers[index])) {
-    throw new Error('Missing sheet columns');
-  }
-  return rows;
+  const headers = schemas.find(columns => header && header.length === columns.length &&
+    header.every((value, index) => value.trim() === columns[index]));
+  if (!headers) throw new Error('Missing sheet columns');
+  return { rows, headers };
 }
 
 function parsePriceRegistry(csv, models = MODEL_CATALOG) {
   const knownModels = new Map(modelMetadata(models).map(model => [normalized(model.name), model]));
   const registry = new Map(), variants = new Map();
-  for (const source of tableRows(csv, PRICE_HEADERS)) {
-    if (source.every(value => !value.trim()) || source.length > PRICE_HEADERS.length) continue;
-    const row = Array.from({ length: PRICE_HEADERS.length }, (_, index) => source[index] || '');
+  const { rows, headers } = readTable(csv, [PRICE_HEADERS, MODEL_HEADERS]);
+  const legacyPrices = headers === PRICE_HEADERS;
+  for (const source of rows) {
+    if (source.every(value => !value.trim()) || source.length > headers.length) continue;
+    const row = Array.from({ length: headers.length }, (_, index) => source[index] || '');
     const name = cleanText(row[0]), storage = row[1].replace(/\s+/g, '').toUpperCase(), color = cleanText(row[2]);
     if (!name || name.length > 120 || /[\u0000-\u001f\u007f]/.test(name) || !validStorage(storage) ||
         color.length > 80 || /[\u0000-\u001f\u007f]/.test(color)) continue;
     const known = knownModels.get(normalized(name));
     const model = registry.get(normalized(name)) || { id: known ? known.id : newModelId(name), name: known ? known.name : name, image: known ? known.image : null };
     registry.set(normalized(name), model);
-    const price = parsePrice(row[3]), previous = parsePrice(row[4]);
+    const price = legacyPrices ? parsePrice(row[3]) : null, previous = legacyPrices ? parsePrice(row[4]) : null;
     const variant = { modelId: model.id, storage, color, price,
       oldPrice: price !== null && previous !== null && previous > price ? previous : null,
-      blackFriday: normalized(row[5]) === 'yes', category: categoryFor(row[6], !!known),
-      image: safeImage(row[7]) || (known ? known.image : null) };
+      blackFriday: legacyPrices && normalized(row[5]) === 'yes', category: categoryFor(row[legacyPrices ? 6 : 3], !!known),
+      image: safeImage(row[legacyPrices ? 7 : 4]) || (known ? known.image : null) };
     const key = variantKey(model.id, storage, color);
     if (variants.has(key)) {
       // Never choose an arbitrary amount or promotion from duplicate rows.
@@ -139,7 +143,8 @@ function parsePriceRegistry(csv, models = MODEL_CATALOG) {
 }
 
 function parseInventory(csv, pricesCSV, models = MODEL_CATALOG, now = new Date()) {
-  const rows = tableRows(csv, HEADERS);
+  const { rows, headers } = readTable(csv, [HEADERS, UNIT_HEADERS]);
+  const perUnitPricing = headers === UNIT_HEADERS;
   const registry = parsePriceRegistry(pricesCSV, models);
   const modelNames = new Map(registry.models.map(model => [normalized(model.name), model.id]));
   const variants = new Map(registry.variants.map(variant => [variantKey(variant.modelId, variant.storage, variant.color), variant]));
@@ -154,7 +159,9 @@ function parseInventory(csv, pricesCSV, models = MODEL_CATALOG, now = new Date()
       serials.add(key);
     }
     if ((row[5] || '').trim().toLowerCase() !== 'available') continue;
-    if (row.length !== HEADERS.length) continue;
+    // Empty trailing price cells are still authoritative; they must not cause
+    // a legacy model price to be restored while someone edits a device row.
+    if (row.length < HEADERS.length || row.length > headers.length) continue;
     const modelId = modelNames.get(normalized(row[0]));
     const storage = row[1].replace(/\s+/g, '').toUpperCase();
     const color = cleanText(row[2]);
@@ -169,8 +176,11 @@ function parseInventory(csv, pricesCSV, models = MODEL_CATALOG, now = new Date()
         /[\u0000-\u001f\u007f]/.test(color) || !/^[A-Za-z0-9]{5,20}$/.test(serial)) continue;
     const variant = variants.get(variantKey(modelId, storage, color)) || variants.get(variantKey(modelId, storage, ''));
     if (!variant) continue;
+    const price = perUnitPricing ? parsePrice(row[6] || '') : variant.price;
+    const previous = perUnitPricing ? parsePrice(row[7] || '') : variant.oldPrice;
     units.push({ modelId, serial, storage, color, batteryHealth, status: 'available',
-      price: variant.price, oldPrice: variant.oldPrice, blackFriday: variant.blackFriday,
+      price, oldPrice: price !== null && previous !== null && previous > price ? previous : null,
+      blackFriday: perUnitPricing ? normalized(row[8] || '') === 'yes' : variant.blackFriday,
       category: variant.category, image: variant.image });
   }
   if (!(now instanceof Date) || !Number.isFinite(now.getTime())) throw new Error('Invalid sync time');

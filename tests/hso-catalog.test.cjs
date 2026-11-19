@@ -160,6 +160,45 @@ test('color price overrides form one card and Black Friday advertises only eligi
   assert.equal(withoutCampaignStock[0].hsoBlackFridayOffer, undefined);
 });
 
+test('individual prices on identical-color phones determine the minimum and never combine different old prices', () => {
+  const variant = priceVariant('iphone-15', '128GB', 9999, { oldPrice: 11999, blackFriday: false });
+  const inventory = { schemaVersion: 2, models: [{ id: 'iphone-15', name: 'iPhone 15' }], variants: [variant], units: [
+    phoneUnit(variant, 'SERIAL001', { price: 990, oldPrice: 1250, blackFriday: false }),
+    phoneUnit(variant, 'SERIAL002', { price: 1099, oldPrice: 1350, blackFriday: true }),
+    phoneUnit(variant, 'SERIAL003', { price: 1190, oldPrice: 1490, blackFriday: true })
+  ] };
+  const [card] = projectCatalog([], inventory);
+  assert.equal(card.hsoUnitCount, 3);
+  assert.equal(card.price, 990);
+  assert.equal(card.hsoPriceFrom, true);
+  assert.equal(card.oldPrice, null);
+  const campaign = campaignProduct(card);
+  assert.equal(campaign.price, 1099);
+  assert.equal(campaign.hsoPriceFrom, true);
+  assert.equal(campaign.oldPrice, null);
+  assert.equal(campaign.hsoUnitCount, 2);
+
+  // Equal current prices still cannot use a strikethrough from only one serial.
+  inventory.units[2].price = 1099;
+  let offer = campaignProduct(projectCatalog([], inventory)[0]);
+  assert.equal(offer.hsoPriceFrom, false);
+  assert.equal(offer.oldPrice, null);
+  inventory.units[2].oldPrice = 1350;
+  offer = campaignProduct(projectCatalog([], inventory)[0]);
+  assert.equal(offer.oldPrice, 1350);
+
+  // Unknown individual prices do not inherit the registry's obsolete amount.
+  inventory.units[1].price = null;
+  offer = campaignProduct(projectCatalog([], inventory)[0]);
+  assert.equal(offer.price, 1099);
+  assert.equal(offer.hsoPriceFrom, true);
+  assert.equal(offer.oldPrice, null);
+  inventory.units[2].price = null;
+  offer = campaignProduct(projectCatalog([], inventory)[0]);
+  assert.equal(offer.price, null);
+  assert.equal(offer.oldPrice, null);
+});
+
 test('sheet images support local product assets and HTTPS without executable or credential-bearing URLs', () => {
   assert.equal(safeImage('/img/products/model.jpg'), '/img/products/model.jpg');
   assert.equal(safeImage('https://example.com/model.png'), 'https://example.com/model.png');
