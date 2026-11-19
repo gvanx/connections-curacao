@@ -288,6 +288,27 @@
     "oldPrice": 1190
   },
   {
+    "name": "iPad 11-inch A16 128GB Gray",
+    "suffix": "HSO",
+    "price": 790,
+    "category": "apple",
+    "subcategory": "tablet",
+    "featured": false,
+    "image": "ipad-11th-model.png",
+    "blackFriday": true,
+    "spec": "Gray · 128GB · 98% battery health",
+    "specifications": {
+      "Processor": "Apple A16",
+      "Display": "11-inch",
+      "Storage": "128GB",
+      "Condition": "HSO",
+      "Color": "Gray",
+      "Battery health": "98%"
+    },
+    "addedAt": "2026-11-19T22:20:30.793Z",
+    "newArrival": true
+  },
+  {
     "name": "MacBook Neo 256GB/8GB",
     "suffix": "",
     "price": 1799,
