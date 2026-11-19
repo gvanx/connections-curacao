@@ -39,7 +39,9 @@
     },
     "hsoModel": "iphone-13-pro",
     "hsoStorage": "256GB",
-    "blackFriday": true
+    "blackFriday": true,
+    "addedAt": "2026-11-19T19:16:10.707Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 14",
@@ -73,7 +75,9 @@
     },
     "hsoModel": "iphone-14-pro-max",
     "hsoStorage": "128GB",
-    "blackFriday": true
+    "blackFriday": true,
+    "addedAt": "2026-11-19T19:16:10.707Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 15",
@@ -106,7 +110,9 @@
       "Condition": "HSO"
     },
     "hsoModel": "iphone-15-pro",
-    "hsoStorage": "256GB"
+    "hsoStorage": "256GB",
+    "addedAt": "2026-11-19T19:16:10.707Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 15",
