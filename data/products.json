@@ -294,7 +294,7 @@
     "category": "apple",
     "subcategory": "tablet",
     "featured": false,
-    "image": "ipad-11th-model.png",
+    "image": "/img/products/ipad-a16-gray.jpg",
     "blackFriday": true,
     "spec": "Gray · 128GB · 98% battery health",
     "specifications": {
