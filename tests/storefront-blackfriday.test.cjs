@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { stockFixture } = require('./helpers/hso-fixture.cjs');
 
 async function boot(hash = '#blackfriday', suppliedProducts) {
   const elements = new Map(), documentEvents = {}, windowEvents = {}, errors = [];
@@ -40,7 +41,7 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
     history: { replaceState(_state, _title, hash) { location.hash = hash; } },
     IntersectionObserver: class { observe() {} }, console: { error: (...args) => errors.push(args.map(String).join(' ')) },
     fetch: async url => ({ ok: true, json: async () => url === '/.netlify/functions/hso-stock' ?
-      JSON.parse(fs.readFileSync(path.join(__dirname, '../data/hso-stock.json'), 'utf8')) : products }),
+      stockFixture(JSON.parse(fs.readFileSync(path.join(__dirname, '../data/hso-stock.json'), 'utf8')), products) : products }),
     setTimeout() {}, clearTimeout() {}, setInterval() {}
   });
   for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {

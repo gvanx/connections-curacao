@@ -127,11 +127,11 @@ async function loadStorefront(fixture, hash = '#new-arrivals') {
     addEventListener: (name, callback) => { if (['DOMContentLoaded', 'visibilitychange'].includes(name)) events[name] = callback; }
   };
   const context = vm.createContext({
-    Date: Clock, document, window: { addEventListener() {} },
+    Date: Clock, AbortController, document, window: { addEventListener() {} },
     IntersectionObserver: class { observe() {} }, location: { hash },
     history: { replaceState() {} }, console: { error: error => errors.push(error) },
-    fetch: async () => ({ ok: true, json: async () => fixture }),
-    setTimeout: (callback, delay) => { timer = { callback, delay }; return 1; }, clearTimeout() {}
+    fetch: async url => ({ ok: true, json: async () => url === '/.netlify/functions/hso-stock' ? { schemaVersion: 2, models: [], variants: [], units: [] } : fixture }),
+    setTimeout: (callback, delay) => { timer = { callback, delay }; return 1; }, clearTimeout() {}, setInterval() {}
   });
   for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', name + '.js'), 'utf8'), context);

@@ -118,12 +118,12 @@
       const css = small ? 'btn-whatsapp-sm' : 'btn-whatsapp';
       return product.soldOut === true
         ? `<button type="button" class="${css}" disabled>Sold out</button>`
-        : `<a class="${css}" href="${escapeHtml(url)}">Choose your phone</a>`;
+        : `<a class="${css}" href="${escapeHtml(url)}">Choose your device</a>`;
     }
 
     function productImageSrc(product) {
       if (!product.image) return '';
-      if (product.image.startsWith('/')) return product.image;
+      if (product.image.startsWith('/') || product.image.startsWith('https://')) return product.image;
       const requested = product.image.replace(/\.jpe?g$/i, '.png');
       const overrides = { 'tv-generic.png': 'tv-catalog.webp', 'laptop-generic.png': 'laptop-catalog.webp', 'ac-generic.png': 'ac-catalog.webp', 'iphone-16-plus-model.png': 'iphone-16-plus-model.jpg' };
       return 'img/products/' + (overrides[requested] || requested);
@@ -158,7 +158,7 @@
     function productVisualHTML(product, fullName) {
       const filename = (product.image || '').replace(/\.jpe?g$/i, '.png');
       if (product.image && !product.imageUnavailable && !GENERIC_IMAGE_FILES.has(filename)) {
-        return `<img src="${productImageSrc(product)}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async">`;
+        return `<img src="${escapeHtml(productImageSrc(product))}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
       }
       const mark = ({ tvs: 'TV', laptops: 'PC', acs: '°', appliances: '+' })[product.category] || '•';
       return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">
@@ -193,7 +193,7 @@
       }
       if (isInStoreSpecial(product)) return 'In-store special';
       if (isPricePending(product)) return '<span class="price-pending">Price coming soon</span>';
-      return product.price ? formatPrice(product.price) + oldPriceHtml : 'Ask in store';
+      return product.price ? (product.hsoPriceFrom ? 'From ' : '') + formatPrice(product.price) + oldPriceHtml : product.hsoCatalogKey ? 'Ask for price' : 'Ask in store';
     }
 
     function productInquiryMessage(product, fullName) {
@@ -289,7 +289,7 @@
       if (!hasBlackFridayTheme()) return;
       const container = document.getElementById('bf-home-spotlight');
       if (!container) return;
-      const offer = products.filter(p => p.blackFriday === true && !p.inquiryOnly && p.soldOut !== true &&
+      const offer = products.map(HSOAvailability.campaignProduct).filter(p => p.blackFriday === true && !p.inquiryOnly && p.soldOut !== true &&
         !GiftCards.isGiftCard(p) && Number.isFinite(p.price) && p.price > 0)
         .sort((a, b) => Number(b.category === 'acs') - Number(a.category === 'acs') || a.price - b.price)[0];
       container.innerHTML = offer
@@ -301,7 +301,7 @@
     function renderDeals(products) {
       const campaign = hasBlackFridayTheme();
       renderBlackFridaySpotlight(products);
-      const featured = products.filter(p => campaign ? p.blackFriday === true && p.soldOut !== true : p.featured);
+      const featured = (campaign ? products.map(HSOAvailability.campaignProduct) : products).filter(p => campaign ? p.blackFriday === true && p.soldOut !== true : p.featured);
       if (campaign) featured.sort((a, b) => Number(b.category === 'acs') - Number(a.category === 'acs') || (a.price || Infinity) - (b.price || Infinity));
       const container = document.querySelector('#deals .container');
       if (!featured.length) { container.innerHTML = ''; return; }
@@ -337,7 +337,7 @@
           <div class="deal-card">
             ${corner}
             <div class="deal-img">
-              ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' phones')}
+              ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' devices')}
             </div>
             <div class="deal-body">
               <div class="deal-name">${hsoLinkHTML(hsoUrl, escapeHtml(p.name) + hsoBadge)}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
@@ -392,7 +392,7 @@
         <div class="product-card">
           ${corner}
           <div class="product-img">
-            ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' phones')}
+            ${hsoLinkHTML(hsoUrl, productVisual, 'View available ' + fullName + ' devices')}
           </div>
           <div class="product-body">
             <div class="product-name">${hsoLinkHTML(hsoUrl, escapeHtml(p.name) + hsoBadge)}${activeBadge}${p.suffix && !['HSO', 'Active'].includes(p.suffix) ? ' <span class="product-suffix">' + escapeHtml(p.suffix) + '</span>' : ''}</div>
@@ -460,7 +460,8 @@
     // A failed optional helper must not expose unverified phones or break ordinary shopping.
     const HSOAvailability = typeof HSOCatalog !== 'undefined' ? HSOCatalog : {
       isManaged: product => !!product && product.suffix === 'HSO' && !!product.hsoModel,
-      filterAvailable: products => products.filter(product => !(product.suffix === 'HSO' && product.hsoModel)),
+      projectCatalog: products => products.filter(product => product.suffix !== 'HSO'),
+      campaignProduct: product => product,
       fetchInventory: async () => null
     };
     let ALL_PRODUCTS = [], BASE_PRODUCTS = [], hsoInventory = null;
@@ -476,7 +477,7 @@
       }
     }
     function applyCatalogAvailability() {
-      const available = HSOAvailability.filterAvailable(BASE_PRODUCTS, hsoInventory);
+      const available = HSOAvailability.projectCatalog(BASE_PRODUCTS, hsoInventory, { previous: ALL_PRODUCTS });
       if (available.length === ALL_PRODUCTS.length && available.every((product, index) => product === ALL_PRODUCTS[index])) return;
       ALL_PRODUCTS = available;
       renderCategories(ALL_PRODUCTS);
@@ -486,7 +487,7 @@
       refreshProductBadgeState();
     }
     async function refreshHSOInventory() {
-      if (hsoRequestPending || !BASE_PRODUCTS.some(HSOAvailability.isManaged)) return;
+      if (hsoRequestPending) return;
       hsoRequestPending = true;
       try {
         hsoInventory = await HSOAvailability.fetchInventory(fetch);
@@ -511,7 +512,8 @@
 
     function applyFilters() {
       const q = filterState.search.trim().toLowerCase();
-      let list = ALL_PRODUCTS.filter(p => {
+      const source = filterState.category === 'blackfriday' ? ALL_PRODUCTS.map(HSOAvailability.campaignProduct) : ALL_PRODUCTS;
+      let list = source.filter(p => {
         const name = [p.name, p.suffix, p.spec, p.model, p.sku, ...Object.values(p.specifications || {})].filter(Boolean).join(' ').toLowerCase();
         if (q && !name.includes(q)) return false;
         if (filterState.category !== 'all' && !matchesCategory(p, filterState.category)) return false;
@@ -709,7 +711,7 @@
       }
     }
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && BASE_PRODUCTS.length) {
+      if (!document.hidden) {
         refreshProductBadgeState();
         refreshGiftCardCatalog();
         refreshHSOInventory();
@@ -746,11 +748,11 @@
         const res = await fetch(`data/products.json?v=${PRODUCTS_DATA_VERSION}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
         BASE_PRODUCTS = GiftCards.mergeCatalog(await res.json());
-        if (BASE_PRODUCTS.some(HSOAvailability.isManaged)) hsoInventory = await HSOAvailability.fetchInventory(fetch);
-        ALL_PRODUCTS = HSOAvailability.filterAvailable(BASE_PRODUCTS, hsoInventory);
+        hsoInventory = await HSOAvailability.fetchInventory(fetch);
+        ALL_PRODUCTS = HSOAvailability.projectCatalog(BASE_PRODUCTS, hsoInventory);
         renderCategories(ALL_PRODUCTS);
         renderDeals(ALL_PRODUCTS);
-        renderToolbar(BASE_PRODUCTS);
+        renderToolbar([...BASE_PRODUCTS, ...ALL_PRODUCTS.filter(product => product.hsoCatalogKey)]);
         syncLiveFilterCounts();
         applyFilters();
         initCheckoutModal();
@@ -758,9 +760,7 @@
         if (location.hash === '#blackfriday') openProductCategory('blackfriday');
         if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
-        if (BASE_PRODUCTS.some(HSOAvailability.isManaged)) {
-          setInterval(() => { if (!document.hidden) refreshHSOInventory(); }, 30000);
-        }
+        setInterval(() => { if (!document.hidden) refreshHSOInventory(); }, 30000);
         if (BASE_PRODUCTS.some(GiftCards.isGiftCard)) {
           refreshGiftCardCatalog();
           setInterval(() => { if (!document.hidden) refreshGiftCardCatalog(); }, 60000);

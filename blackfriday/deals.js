@@ -17,7 +17,7 @@
   const spotlight = doc.getElementById('bf-spotlight');
   let products = [], baseProducts = [], inventory = null, category = 'all', loading = false, refreshing = false;
   function applyAvailability() {
-    const available = hsoCatalog ? hsoCatalog.filterAvailable(baseProducts, inventory) : baseProducts.filter(p => !(p.suffix === 'HSO' && p.hsoModel));
+    const available = hsoCatalog ? hsoCatalog.projectCatalog(baseProducts, inventory, { previous: products }) : baseProducts.filter(p => p.suffix !== 'HSO');
     if (available.length === products.length && available.every((product, index) => product === products[index])) return false;
     products = available;
     const categories = [...new Set(api.selectDeals(products).map(p => p.category))];
@@ -27,7 +27,7 @@
     return true;
   }
   async function refreshInventory() {
-    if (loading || refreshing || !hsoCatalog || !baseProducts.some(hsoCatalog.isManaged)) return;
+    if (loading || refreshing || !hsoCatalog) return;
     refreshing = true;
     try {
       inventory = await hsoCatalog.fetchInventory(root.fetch.bind(root));
@@ -57,7 +57,7 @@
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
       baseProducts = data.filter(p => p && typeof p.name === 'string');
-      inventory = hsoCatalog && baseProducts.some(hsoCatalog.isManaged) ? await hsoCatalog.fetchInventory(root.fetch.bind(root)) : null;
+      inventory = hsoCatalog ? await hsoCatalog.fetchInventory(root.fetch.bind(root)) : null;
       applyAvailability();
       if (spotlight) {
         const lead = api.selectDeals(products, 'acs', 'price-asc').find(p => Number.isFinite(p.price) && p.price > 0 && !p.inquiryOnly && !p.soldOut);
@@ -105,7 +105,7 @@
   function savings(p) { return hasPrice(p) && Number.isFinite(p.oldPrice) && p.oldPrice > p.price ? Math.round((p.oldPrice - p.price) * 100) / 100 : 0; }
   function money(value) { return 'XCG ' + value.toLocaleString('en-US', { maximumFractionDigits: 2 }); }
   function selectDeals(products, category = 'all', sort = 'featured') {
-    const list = products.filter(p => p.blackFriday === true && (category === 'all' || p.category === category));
+    const list = products.filter(p => p.blackFriday === true && (category === 'all' || p.category === category)).map(p => hsoCatalog ? hsoCatalog.campaignProduct(p) : p);
     if (sort === 'price-asc') return list.sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
     if (sort === 'price-desc') return list.sort((a, b) => (hasPrice(b) ? b.price : -Infinity) - (hasPrice(a) ? a.price : -Infinity));
     if (sort === 'savings') return list.sort((a, b) => savings(b) - savings(a));
@@ -116,7 +116,7 @@
   }
   function imageSrc(p) {
     if (!p.image || p.imageUnavailable) return '';
-    if (p.image.startsWith('/')) return p.image;
+    if (p.image.startsWith('/') || p.image.startsWith('https://')) return p.image;
     const requested = p.image.replace(/\.jpe?g$/i, '.png');
     const overrides = { 'tv-generic.png': 'tv-catalog.webp', 'laptop-generic.png': 'laptop-catalog.webp', 'ac-generic.png': 'ac-catalog.webp', 'iphone-16-plus-model.png': 'iphone-16-plus-model.jpg' };
     return '/img/products/' + (overrides[requested] || requested);
@@ -124,7 +124,7 @@
   function visualHTML(p, name) {
     const src = imageSrc(p);
     if (!src) return modelArt(name, /^Premier/.test(name) ? 'PREMIER' : categoryName(p.category));
-    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">`;
+    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
   }
   function detailsUrl(p) {
     return hsoCatalog ? hsoCatalog.detailsUrl(p) : p.suffix === 'HSO' && p.hsoModel ? '/hso/' : '';
@@ -137,7 +137,7 @@
     if (p.category === 'giftcards') return '<a class="bf-card-button" href="https://giftcard.connectionscuracao.net/">View gift-card store</a>';
     if (p.soldOut === true) return '<button class="bf-card-button" type="button" disabled>Sold out</button>';
     const hsoUrl = detailsUrl(p);
-    if (hsoUrl) return `<a class="bf-card-button" href="${escapeHtml(hsoUrl)}">Choose your phone</a>`;
+    if (hsoUrl) return `<a class="bf-card-button" href="${escapeHtml(hsoUrl)}">Choose your device</a>`;
     if (p.inquiryOnly || !hasPrice(p)) {
       const number = /^\d+$/.test(p.contactNumber || '') ? p.contactNumber : '59996782619';
       const message = `Hi, I'm interested in the Black Friday ${isInStoreSpecial(p) ? 'in-store special' : 'offer'}: ${name}${hasPrice(p) ? ' (' + money(p.price) + ')' : ''}. Please send me the details and availability.`;
@@ -149,7 +149,7 @@
   function cardHTML(p) {
     const name = [p.name, p.suffix].filter(Boolean).join(' '), saving = savings(p), digital = p.category === 'giftcards';
     const hsoUrl = detailsUrl(p);
-    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${detailLink(hsoUrl, visualHTML(p, name), 'View available ' + name + ' phones')}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${detailLink(hsoUrl, escapeHtml(name))}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
+    return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${detailLink(hsoUrl, visualHTML(p, name), 'View available ' + name + ' devices')}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${detailLink(hsoUrl, escapeHtml(name))}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? (p.hsoPriceFrom ? 'From ' : '') + money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
   return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc };
 });

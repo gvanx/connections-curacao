@@ -78,6 +78,7 @@ async function boot({ fail = false, feed = store(), stall = false, hash = '#gift
     fetch: async (url, options) => {
       requests.push({ url, options });
       if (url.startsWith('data/products.json')) return { ok: true, json: async () => [physical, card] };
+      if (url === '/.netlify/functions/hso-stock') return { ok: true, json: async () => ({ schemaVersion: 2, models: [], variants: [], units: [] }) };
       if (stall) return new Promise((resolve, reject) => options.signal.addEventListener('abort', () => reject(new Error('Timed out'))));
       if (state.fail) throw new Error('Catalogue offline');
       return { ok: true, json: async () => state.feed };
@@ -104,12 +105,13 @@ test('real product and featured cards link to digital checkout without a physica
     assert(!html.includes('js-order-btn'));
   }
   assert(h.elements.get('#product-results').innerHTML.includes('US Apple accounts'));
-  assert.equal(h.intervals[0].delay, 60000);
+  const giftTimer = h.intervals.find(timer => timer.delay === 60000);
+  assert.ok(giftTimer);
   const request = h.requests.find(r => r.url === '/data/gift-card-store.json');
   assert.equal(request.options.cache, 'no-store');
   assert(request.options.signal);
   h.state.feed = store({ price: 40, soldOut: true });
-  h.intervals[0].callback(); await h.settle();
+  giftTimer.callback(); await h.settle();
   for (const id of ['#product-results', '#deals .container']) {
     const html = h.elements.get(id).innerHTML;
     assert(html.includes('XCG 40'));
