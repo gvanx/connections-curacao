@@ -1,9 +1,11 @@
 'use strict';
 
-// Static imports are bundled by Netlify. Only model metadata is used from the
-// snapshot: stock always comes from the live, separately published sheet tab.
+// Static imports are bundled by Netlify. The snapshot provides known model IDs
+// and artwork only. Both stock and prices always come from published sheet tabs.
 const MODEL_CATALOG = require('../../data/hso-stock.json').models;
+const { createHash } = require('node:crypto');
 const HEADERS = ['Model', 'Storage', 'Color', 'Serial / IMEI', 'Battery health (%)', 'Status'];
+const PRICE_HEADERS = ['Model', 'Storage', 'Color (optional)', 'Price (XCG)', 'Old price (XCG)', 'Black Friday', 'Category', 'Image URL (optional)'];
 const MAX_CSV_LENGTH = 256 * 1024;
 const RESPONSE_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -45,6 +47,40 @@ function parseCSV(source) {
 }
 
 function cleanText(value) { return String(value).trim().replace(/\s+/g, ' '); }
+const normalized = value => cleanText(value).toLowerCase();
+const validStorage = value => value === '' || /^\d+(?:GB|TB)$/.test(value);
+const variantKey = (modelId, storage, color) => `${modelId}\u0000${storage}\u0000${normalized(color)}`;
+
+function safeImage(value) {
+  if (typeof value !== 'string') return null;
+  const image = value.trim();
+  if (/^\/img\/products\/[A-Za-z0-9._-]+$/.test(image)) return image;
+  try {
+    const url = new URL(image);
+    return url.protocol === 'https:' && !url.username && !url.password && !/[\u0000-\u0020\u007f]/.test(image) ? url.href : null;
+  } catch (_) { return null; }
+}
+
+function parsePrice(value) {
+  const price = String(value).trim();
+  // Accept plain decimals and correctly grouped CSV currency numbers, never
+  // scientific notation, ambiguous decimal commas, signs or currency prefixes.
+  if (!/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/.test(price)) return null;
+  const amount = Number(price.replace(/,/g, ''));
+  return Number.isFinite(amount) && amount > 0 && Number.isSafeInteger(Math.round(amount * 100)) ? amount : null;
+}
+
+function categoryFor(value, knownModel) {
+  const categories = { apple: 'apple', samsung: 'samsung', phones: 'phones', 'other phones': 'phones', laptops: 'laptops', other: 'other' };
+  const key = normalized(value);
+  return Object.hasOwn(categories, key) ? categories[key] : knownModel ? 'apple' : 'other';
+}
+
+function newModelId(name) {
+  const key = normalized(name);
+  const slug = key.normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 55).replace(/-+$/, '') || 'device';
+  return `hso-${slug}-${createHash('sha256').update(key).digest('hex').slice(0, 10)}`;
+}
 
 function modelMetadata(models) {
   if (!Array.isArray(models) || !models.length) throw new Error('Missing model catalog');
@@ -55,19 +91,58 @@ function modelMetadata(models) {
     const name = cleanText(model.name), key = name.toLowerCase();
     if (ids.has(model.id) || names.has(key)) throw new Error('Ambiguous model catalog');
     ids.add(model.id); names.add(key);
-    return { id: model.id, name, image: typeof model.image === 'string' &&
-      /^\/img\/products\/[A-Za-z0-9._-]+$/.test(model.image) ? model.image : null };
+    return { id: model.id, name, image: safeImage(model.image) };
   });
 }
 
-function parseInventory(csv, models = MODEL_CATALOG, now = new Date()) {
+function tableRows(csv, headers) {
   const rows = parseCSV(csv);
   const header = rows.shift();
-  if (!header || header.length !== HEADERS.length || header.some((value, index) => value.trim() !== HEADERS[index])) {
-    throw new Error('Missing stock columns');
+  if (!header || header.length !== headers.length || header.some((value, index) => value.trim() !== headers[index])) {
+    throw new Error('Missing sheet columns');
   }
-  const metadata = modelMetadata(models);
-  const modelNames = new Map(metadata.map(model => [model.name.toLowerCase(), model.id]));
+  return rows;
+}
+
+function parsePriceRegistry(csv, models = MODEL_CATALOG) {
+  const knownModels = new Map(modelMetadata(models).map(model => [normalized(model.name), model]));
+  const registry = new Map(), variants = new Map();
+  for (const source of tableRows(csv, PRICE_HEADERS)) {
+    if (source.every(value => !value.trim()) || source.length > PRICE_HEADERS.length) continue;
+    const row = Array.from({ length: PRICE_HEADERS.length }, (_, index) => source[index] || '');
+    const name = cleanText(row[0]), storage = row[1].replace(/\s+/g, '').toUpperCase(), color = cleanText(row[2]);
+    if (!name || name.length > 120 || /[\u0000-\u001f\u007f]/.test(name) || !validStorage(storage) ||
+        color.length > 80 || /[\u0000-\u001f\u007f]/.test(color)) continue;
+    const known = knownModels.get(normalized(name));
+    const model = registry.get(normalized(name)) || { id: known ? known.id : newModelId(name), name: known ? known.name : name, image: known ? known.image : null };
+    registry.set(normalized(name), model);
+    const price = parsePrice(row[3]), previous = parsePrice(row[4]);
+    const variant = { modelId: model.id, storage, color, price,
+      oldPrice: price !== null && previous !== null && previous > price ? previous : null,
+      blackFriday: normalized(row[5]) === 'yes', category: categoryFor(row[6], !!known),
+      image: safeImage(row[7]) || (known ? known.image : null) };
+    const key = variantKey(model.id, storage, color);
+    if (variants.has(key)) {
+      // Never choose an arbitrary amount or promotion from duplicate rows.
+      const duplicate = variants.get(key);
+      variants.set(key, { ...duplicate, price: null, oldPrice: null, blackFriday: false,
+        category: duplicate.category === variant.category ? duplicate.category : categoryFor('', !!known),
+        image: duplicate.image === variant.image ? duplicate.image : known ? known.image : null });
+    } else variants.set(key, variant);
+  }
+  const list = [...variants.values()];
+  for (const model of registry.values()) {
+    const choices = list.filter(variant => variant.modelId === model.id && variant.image);
+    model.image = (choices.find(variant => !variant.color) || choices[0])?.image || model.image;
+  }
+  return { models: [...registry.values()], variants: list };
+}
+
+function parseInventory(csv, pricesCSV, models = MODEL_CATALOG, now = new Date()) {
+  const rows = tableRows(csv, HEADERS);
+  const registry = parsePriceRegistry(pricesCSV, models);
+  const modelNames = new Map(registry.models.map(model => [normalized(model.name), model.id]));
+  const variants = new Map(registry.variants.map(variant => [variantKey(variant.modelId, variant.storage, variant.color), variant]));
   const units = [], serials = new Set();
   for (const row of rows) {
     if (row.every(value => !value.trim())) continue;
@@ -79,31 +154,36 @@ function parseInventory(csv, models = MODEL_CATALOG, now = new Date()) {
       serials.add(key);
     }
     if ((row[5] || '').trim().toLowerCase() !== 'available') continue;
-    if (row.length !== HEADERS.length) throw new Error('Malformed available phone');
-    const modelId = modelNames.get(cleanText(row[0]).toLowerCase());
+    if (row.length !== HEADERS.length) continue;
+    const modelId = modelNames.get(normalized(row[0]));
     const storage = row[1].replace(/\s+/g, '').toUpperCase();
     const color = cleanText(row[2]);
     const battery = row[4].trim();
     let batteryHealth = null;
     if (battery) {
-      if (!/^\d{1,3}\s*%?$/.test(battery)) throw new Error('Invalid battery health');
+      if (!/^\d{1,3}\s*%?$/.test(battery)) continue;
       batteryHealth = Number(battery.replace(/\s*%$/, ''));
-      if (!Number.isInteger(batteryHealth) || batteryHealth < 0 || batteryHealth > 100) throw new Error('Invalid battery health');
+      if (!Number.isInteger(batteryHealth) || batteryHealth < 0 || batteryHealth > 100) continue;
     }
-    if (!modelId || !/^\d+(?:GB|TB)$/.test(storage) || !color || color.length > 80 ||
-        /[\u0000-\u001f\u007f]/.test(color) || !/^[A-Za-z0-9]{5,20}$/.test(serial)) throw new Error('Invalid available phone');
-    units.push({ modelId, serial, storage, color, batteryHealth, status: 'available' });
+    if (!modelId || !validStorage(storage) || !color || color.length > 80 ||
+        /[\u0000-\u001f\u007f]/.test(color) || !/^[A-Za-z0-9]{5,20}$/.test(serial)) continue;
+    const variant = variants.get(variantKey(modelId, storage, color)) || variants.get(variantKey(modelId, storage, ''));
+    if (!variant) continue;
+    units.push({ modelId, serial, storage, color, batteryHealth, status: 'available',
+      price: variant.price, oldPrice: variant.oldPrice, blackFriday: variant.blackFriday,
+      category: variant.category, image: variant.image });
   }
   if (!(now instanceof Date) || !Number.isFinite(now.getTime())) throw new Error('Invalid sync time');
   const date = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
     timeZone: 'America/Curacao', year: 'numeric', month: '2-digit', day: '2-digit'
   }).formatToParts(now).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
-  return { updatedAt: `${date.year}-${date.month}-${date.day}`, syncedAt: now.toISOString(), models: metadata, units };
+  return { schemaVersion: 2, updatedAt: `${date.year}-${date.month}-${date.day}`, syncedAt: now.toISOString(),
+    models: registry.models, variants: registry.variants, units };
 }
 
-function sourceURL(config) {
-  if (!config || typeof config.csvUrl !== 'string') throw new Error('Missing stock source');
-  const url = new URL(config.csvUrl);
+function sourceURL(config, field = 'csvUrl') {
+  if (!config || typeof config[field] !== 'string') throw new Error('Missing sheet source');
+  const url = new URL(config[field]);
   if (url.protocol !== 'https:' || url.hostname !== 'docs.google.com' || url.port || url.username || url.password ||
       !/^\/spreadsheets\/d\/e\/[A-Za-z0-9_-]+\/pub$/.test(url.pathname) || url.hash ||
       url.searchParams.get('output') !== 'csv' || url.searchParams.get('single') !== 'true' ||
@@ -113,20 +193,24 @@ function sourceURL(config) {
 
 async function loadStock(options = {}) {
   const config = options.config || require('../../data/hso-feed.json');
-  const url = sourceURL(config);
+  // Validate both URLs before making either request. Pricing is mandatory.
+  const urls = [sourceURL(config), sourceURL(config, 'priceCsvUrl')];
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs || 8000);
   try {
-    const response = await (options.fetchImpl || globalThis.fetch)(url, {
-      cache: 'no-store', signal: controller.signal, headers: { Accept: 'text/csv' }
-    });
-    if (!response.ok) throw new Error('Stock source unavailable');
-    const type = response.headers.get('content-type') || '';
-    const length = Number(response.headers.get('content-length'));
-    if ((type && !/^(?:text\/(?:csv|plain)|application\/octet-stream)(?:;|$)/i.test(type)) ||
-        length > MAX_CSV_LENGTH) throw new Error('Invalid stock response');
-    return parseInventory(await response.text(), options.models || MODEL_CATALOG, options.now || new Date());
-  } finally { clearTimeout(timeout); }
+    const sources = await Promise.all(urls.map(async url => {
+      const response = await (options.fetchImpl || globalThis.fetch)(url, {
+        cache: 'no-store', signal: controller.signal, headers: { Accept: 'text/csv' }
+      });
+      if (!response.ok) throw new Error('Sheet source unavailable');
+      const type = response.headers.get('content-type') || '';
+      const length = Number(response.headers.get('content-length'));
+      if ((type && !/^(?:text\/(?:csv|plain)|application\/octet-stream)(?:;|$)/i.test(type)) ||
+          length > MAX_CSV_LENGTH) throw new Error('Invalid sheet response');
+      return response.text();
+    }));
+    return parseInventory(sources[0], sources[1], options.models || MODEL_CATALOG, options.now || new Date());
+  } finally { clearTimeout(timeout); controller.abort(); }
 }
 
 function createHandler(options = {}) {
@@ -137,9 +221,10 @@ function createHandler(options = {}) {
     try {
       return { statusCode: 200, headers: RESPONSE_HEADERS, body: JSON.stringify(await loadStock(options)) };
     } catch (_) {
-      return { statusCode: 503, headers: RESPONSE_HEADERS, body: JSON.stringify({ error: 'Phone stock is temporarily unavailable. Please try again.' }) };
+      return { statusCode: 503, headers: RESPONSE_HEADERS, body: JSON.stringify({ error: 'Device stock and pricing are temporarily unavailable. Please try again.' }) };
     }
   };
 }
 
-module.exports = { handler: createHandler(), createHandler, loadStock, parseInventory, parseCSV, sourceURL };
+module.exports = { handler: createHandler(), createHandler, loadStock, parseInventory, parsePriceRegistry, parsePrice,
+  parseCSV, sourceURL, safeImage };

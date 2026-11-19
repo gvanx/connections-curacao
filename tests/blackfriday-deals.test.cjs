@@ -9,7 +9,8 @@ const root = path.join(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
 const script = fs.readFileSync(path.join(root, 'blackfriday/deals.js'), 'utf8');
 const hsoCatalog = require('../js/hso-catalog.js');
-const stock = JSON.parse(fs.readFileSync(path.join(root, 'data/hso-stock.json'), 'utf8'));
+const { stockFixture } = require('./helpers/hso-fixture.cjs');
+const stock = stockFixture(JSON.parse(fs.readFileSync(path.join(root, 'data/hso-stock.json'), 'utf8')), catalog);
 
 test('only explicitly tagged products join the campaign, and filtering/sorting preserves the source catalog', () => {
   const products = [
@@ -102,7 +103,7 @@ test('catalog strings are escaped and image paths preserve supported existing ar
   assert.equal(imageSrc({ image: 'ac-generic.png', imageUnavailable: true }), '');
 });
 
-function browser(fetch, { spotlight = true, inventory = () => stock } = {}) {
+function browser(fetch, { spotlight = true, inventory } = {}) {
   const elements = new Map();
   function element(id) {
     let html = '';
@@ -130,10 +131,19 @@ function browser(fetch, { spotlight = true, inventory = () => stock } = {}) {
   const boundScopes = [];
   let nextTimer = 0, initialized = 0;
   const events = {}, intervals = [];
+  let sourceProducts = [];
   const window = {
     HSOCatalog: hsoCatalog,
     document: { hidden: false, getElementById: id => elements.get(id), addEventListener(type, callback) { events[type] = callback; } },
-    fetch: (url, options) => url === '/.netlify/functions/hso-stock' ? Promise.resolve({ ok: true, json: async () => inventory() }) : fetch(url, options),
+    fetch: async (url, options) => {
+      if (url === '/.netlify/functions/hso-stock') return { ok: true, json: async () => {
+        if (inventory) return inventory();
+        const ids = new Set(sourceProducts.filter(product => product.suffix === 'HSO').map(product => product.hsoModel));
+        return { ...stock, models: stock.models.filter(model => ids.has(model.id)), variants: stock.variants.filter(variant => ids.has(variant.modelId)), units: stock.units.filter(unit => ids.has(unit.modelId)) };
+      } };
+      const response = await fetch(url, options);
+      return { ...response, json: async () => { sourceProducts = await response.json(); return sourceProducts; } };
+    },
     addEventListener(type, callback) { events[type] = callback; },
     initCheckoutModal() { initialized++; },
     attachOrderButtons(scope) {
@@ -155,7 +165,7 @@ const flush = () => new Promise(resolve => setImmediate(resolve));
 test('live HSO stock updates Black Friday cards without losing ordinary deals or restocked phones', async () => {
   const phone = { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB', category: 'apple', price: 1099, blackFriday: true };
   const ordinary = { name: 'Ordinary airco', category: 'acs', price: 444, blackFriday: true };
-  const available = { models: [{ id: 'iphone-15' }], units: [{ modelId: 'iphone-15', serial: 'ABC12345', storage: '128GB', color: 'Black', status: 'available' }] };
+  const available = stockFixture({ models: [{ id: 'iphone-15' }], units: [{ modelId: 'iphone-15', serial: 'ABC12345', storage: '128GB', color: 'Black', status: 'available' }] }, [phone]);
   let inventory = available;
   const app = browser(async () => ({ ok: true, json: async () => [phone, ordinary] }), { inventory: () => inventory });
   await flush();
@@ -184,6 +194,50 @@ test('live HSO stock updates Black Friday cards without losing ordinary deals or
   app.events.visibilitychange();
   await flush();
   assert.match(grid.innerHTML, /Managed iPhone/);
+});
+
+test('Black Friday discovers new models and uses campaign-only live prices instead of a cheaper regular phone', async () => {
+  const model = { id: 'hso-tablet-1234567890', name: 'New Tablet' };
+  const variant = { modelId: model.id, storage: '128GB', color: '', price: 500, oldPrice: null, blackFriday: false, category: 'samsung', image: null };
+  let inventory = { schemaVersion: 2, models: [], variants: [], units: [] };
+  const app = browser(async () => ({ ok: true, json: async () => [] }), { inventory: () => inventory });
+  await flush();
+  inventory = { schemaVersion: 2, models: [model], variants: [variant], units: [
+    { ...variant, color: 'Black', serial: 'SERIAL001', status: 'available' },
+    { ...variant, color: 'Silver', serial: 'SERIAL002', status: 'available', price: 600, oldPrice: 750, blackFriday: true }
+  ] };
+  await app.events.focus();
+  const grid = app.elements.get('bf-products');
+  assert.match(grid.innerHTML, /New Tablet 128GB/);
+  assert.match(grid.innerHTML, /XCG 600/);
+  assert.match(grid.innerHTML, /Save XCG 150/);
+  assert.doesNotMatch(grid.innerHTML, /XCG 500|From XCG/);
+  inventory.units[1].price = 550;
+  await app.events.online();
+  assert.match(grid.innerHTML, /XCG 550/);
+  assert.match(grid.innerHTML, /Save XCG 200/);
+  inventory.units.pop();
+  await app.events.focus();
+  assert.doesNotMatch(grid.innerHTML, /New Tablet/);
+  assert.equal(app.elements.get('bf-empty').hidden, false);
+});
+
+test('Black Friday feed failures hide legacy HSO on cold load and after a previously healthy registry', async () => {
+  const legacy = { name: 'iPhone 12', suffix: 'HSO', category: 'apple', price: 549, blackFriday: true };
+  const ordinary = { name: 'Available airco', category: 'acs', price: 444, blackFriday: true };
+  let inventory = null;
+  const app = browser(async () => ({ ok: true, json: async () => [legacy, ordinary] }), { inventory: () => inventory });
+  await flush();
+  const grid = app.elements.get('bf-products');
+  assert.doesNotMatch(grid.innerHTML, /iPhone 12|XCG 549/);
+  assert.match(grid.innerHTML, /Available airco/);
+  inventory = { schemaVersion: 2, models: [], variants: [], units: [] };
+  await app.events.focus();
+  assert.match(grid.innerHTML, /iPhone 12/);
+  inventory = null;
+  await app.events.online();
+  assert.doesNotMatch(grid.innerHTML, /iPhone 12|XCG 549/);
+  assert.match(grid.innerHTML, /data-product-price="444"/);
 });
 
 test('browser loading binds checkout, filters tagged categories, sorts, and recovers missing images', async () => {

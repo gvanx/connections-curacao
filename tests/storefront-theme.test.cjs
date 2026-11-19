@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { cardHTML } = require('../blackfriday/deals.js');
+const { stockFixture } = require('./helpers/hso-fixture.cjs');
 
 const root = path.resolve(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
@@ -37,10 +38,10 @@ async function boot(products, { theme = true, inventory, giftCatalog, hsoHelper 
   };
   const context = vm.createContext({
     document, window: { addEventListener(type, callback) { (windowEvents[type] ||= []).push(callback); } }, location: { hash: '' }, history: { replaceState() {} },
-    IntersectionObserver: class { observe() {} }, AbortController,
+    IntersectionObserver: class { observe() {} }, AbortController, URL,
     console: { error: (...args) => errors.push(args), warn: (...args) => errors.push(args) },
     fetch: async url => ({ ok: true, json: async () => url.startsWith('/data/gift-card-store') ? (giftCatalog ? giftCatalog() : { products: [] }) :
-      url === '/.netlify/functions/hso-stock' ? (inventory ? inventory() : defaultInventory) : products }),
+      url === '/.netlify/functions/hso-stock' ? stockFixture(inventory ? inventory() : defaultInventory, products) : products }),
     setTimeout() { return 1; }, clearTimeout() {}, setInterval(callback, delay) { intervals.push({ callback, delay }); return 1; }
   });
   for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
@@ -51,6 +52,7 @@ async function boot(products, { theme = true, inventory, giftCatalog, hsoHelper 
   await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(errors, []);
   return { element, render: fixture => context.renderDeals(fixture), intervals, document,
+    chooseCategory: category => context.openProductCategory(category),
     dispatch: async type => { await Promise.all((windowEvents[type] || []).map(callback => callback())); },
     visibility: () => events.visibilitychange() };
 }
@@ -72,10 +74,10 @@ test('managed HSO image, title and action lead to the exact model and variant be
     oldPrice: 1350, blackFriday: true, inquiryOnly: true };
   const snapshot = structuredClone(product);
   for (const [surface, html] of await offerSurfaces(product)) {
-    const expected = '/hso/?model=iphone-15&amp;storage=128GB&amp;color=Black%20Titanium';
+    const expected = '/hso/?model=iphone-15&amp;storage=128GB' + (surface === 'Black Friday' ? '&amp;color=Black%20Titanium' : '');
     assert.equal(html.split(`href="${expected}"`).length - 1, 3, surface);
-    assert.match(html, /class="hso-product-link"[^>]*aria-label="View available iPhone 15 HSO phones"/, surface);
-    assert.match(html, /Choose your phone/, surface);
+    assert.match(html, /class="hso-product-link"[^>]*aria-label="View available iPhone 15(?: 128GB)? HSO devices"/, surface);
+    assert.match(html, /Choose your device/, surface);
     assert.match(html, /XCG 1,099/, surface);
     assert.match(html, /XCG 1,350/, surface);
     assert.doesNotMatch(html, /js-order-btn|data-product-price|wa\.me|<a[^>]*>\s*<button/, surface);
@@ -89,7 +91,7 @@ test('unmanaged HSO and new phones retain their existing checkout route', async 
       price: 1099, blackFriday: true, ...extra })) {
       assert.match(html, /js-order-btn/, surface);
       assert.match(html, /data-product-price="1099"/, surface);
-      assert.doesNotMatch(html, /Choose your phone|\/hso\//, surface);
+      assert.doesNotMatch(html, /Choose your device|\/hso\//, surface);
     }
   }
 });
@@ -97,10 +99,11 @@ test('unmanaged HSO and new phones retain their existing checkout route', async 
 test('managed sold-out HSO cannot bypass stock state through generic checkout', async () => {
   const product = { name: 'iPhone 15', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple',
     price: 1099, blackFriday: true, soldOut: true };
-  const app = await boot([product]);
-  for (const html of [app.element('#product-results').innerHTML, cardHTML(product)]) {
+  const app = await boot([product], { inventory: () => ({ models: [{ id: 'iphone-15' }], units: [] }) });
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /iPhone 15|Choose your device|js-order-btn/);
+  for (const html of [cardHTML(product)]) {
     assert.match(html, /disabled>Sold out/);
-    assert.doesNotMatch(html, /Choose your phone|js-order-btn|data-product-price/);
+    assert.doesNotMatch(html, /Choose your device|js-order-btn|data-product-price/);
   }
   assert.equal(app.element('#deals .container').innerHTML, '');
 });
@@ -140,9 +143,11 @@ test('selling the last HSO unit removes catalog and homepage offers, gift refres
 test('an HSO feed outage at first load leaves ordinary products usable', async () => {
   const app = await boot([
     { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple', price: 1099, blackFriday: true },
+    { name: 'Legacy iPhone 12', suffix: 'HSO', category: 'apple', price: 549, blackFriday: true },
     airco('Available airco', 444)
   ], { inventory: () => { throw new Error('Feed offline'); } });
   assert.doesNotMatch(app.element('#product-results').innerHTML, /Managed iPhone/);
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /Legacy iPhone|XCG 549/);
   assert.match(app.element('#product-results').innerHTML, /Available airco/);
   assert.match(app.element('#product-results').innerHTML, /data-product-price="444"/);
 });
@@ -150,11 +155,70 @@ test('an HSO feed outage at first load leaves ordinary products usable', async (
 test('a missing HSO helper hides managed phones and leaves ordinary checkout working', async () => {
   const app = await boot([
     { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', category: 'apple', price: 1099, blackFriday: true },
+    { name: 'Legacy iPhone 12', suffix: 'HSO', category: 'apple', price: 549, blackFriday: true },
     airco('Available airco', 444)
   ], { hsoHelper: false });
   assert.doesNotMatch(app.element('#product-results').innerHTML, /Managed iPhone/);
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /Legacy iPhone|XCG 549/);
   assert.match(app.element('#product-results').innerHTML, /Available airco/);
   assert.match(app.element('#product-results').innerHTML, /data-product-price="444"/);
+});
+
+test('a failed refresh cannot reuse an old registry to show a legacy phone newly claimed in the sheet', async () => {
+  const legacy = { name: 'iPhone 12', suffix: 'HSO', category: 'apple', price: 549, blackFriday: true };
+  let inventory = { schemaVersion: 2, models: [], variants: [], units: [] };
+  const app = await boot([legacy, airco('Available airco', 444)], { inventory: () => inventory });
+  assert.match(app.element('#product-results').innerHTML, /XCG 549/);
+  inventory = null; // A new pricing row may exist, but the current registry is unavailable.
+  await app.dispatch('focus');
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /iPhone 12|XCG 549/);
+  assert.match(app.element('#product-results').innerHTML, /Available airco/);
+  const variant = { modelId: 'iphone-12', storage: '128GB', color: '', price: 399, oldPrice: null, blackFriday: true, category: 'apple', image: null };
+  inventory = { schemaVersion: 2, models: [{ id: 'iphone-12', name: 'iPhone 12' }], variants: [variant], units: [{ ...variant, color: 'Black', serial: 'SERIAL001', status: 'available' }] };
+  await app.dispatch('online');
+  assert.match(app.element('#product-results').innerHTML, /XCG 399/);
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /XCG 549|data-product-price="399"/);
+  inventory = null;
+  await app.dispatch('focus');
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /iPhone 12|XCG 399|XCG 549/);
+});
+
+test('a newly configured model appears without a static catalog entry and live prices drive all campaign surfaces', async () => {
+  const model = { id: 'hso-galaxy-fold-1234567890', name: 'Galaxy Fold', image: 'https://example.com/fold.jpg' };
+  const generic = { modelId: model.id, storage: '256GB', color: '', price: 500, oldPrice: null, blackFriday: false, category: 'samsung', image: model.image };
+  const special = { ...generic, color: 'Silver', price: 650, oldPrice: 850, blackFriday: true };
+  let inventory = { schemaVersion: 2, models: [], variants: [], units: [] };
+  const app = await boot([airco('Ordinary airco', 444)], { inventory: () => inventory });
+  inventory = { schemaVersion: 2, models: [model], variants: [generic, special], units: [
+    { ...generic, color: 'Black', serial: 'SERIAL001', status: 'available' },
+    { ...special, serial: 'SERIAL002', status: 'available' }
+  ] };
+  await app.dispatch('focus');
+  let html = app.element('#product-results').innerHTML;
+  assert.match(html, /Galaxy Fold 256GB/);
+  assert.match(html, /From XCG 500/);
+  assert.match(html, /https:\/\/example.com\/fold.jpg/);
+  assert.match(app.element('#deals .container').innerHTML, /XCG 650/);
+  assert.doesNotMatch(app.element('#deals .container').innerHTML, /XCG 500/);
+  app.chooseCategory('blackfriday');
+  html = app.element('#product-results').innerHTML;
+  assert.match(html, /XCG 650/);
+  assert.match(html, /XCG 850/);
+  assert.doesNotMatch(html, /XCG 500/);
+  inventory.units[1].price = 625;
+  await app.dispatch('online');
+  assert.match(app.element('#product-results').innerHTML, /XCG 625/);
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /XCG 650/);
+  const unchanged = app.element('#product-results').innerHTML;
+  inventory = { ...structuredClone(inventory), syncedAt: 'later' };
+  await app.dispatch('focus');
+  assert.equal(app.element('#product-results').innerHTML, unchanged);
+  inventory.units = [inventory.units[0]];
+  await app.dispatch('focus');
+  assert.doesNotMatch(app.element('#product-results').innerHTML, /Galaxy Fold/);
+  app.chooseCategory('all');
+  assert.match(app.element('#product-results').innerHTML, /Galaxy Fold/);
+  assert.match(app.element('#product-results').innerHTML, /XCG 500/);
 });
 
 test('unpriced in-store specials show their label and an identified inquiry without a payment amount or invented savings', async () => {
