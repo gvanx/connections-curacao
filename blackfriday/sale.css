@@ -13,6 +13,7 @@ html { scroll-padding-top: 24px; }
 .bf-live { margin-top: 30px; font-size: 18px; letter-spacing: .24em; }
 .bf-intro { margin: 27px 0; color: #b7b7af; font-size: 18px; line-height: 1.7; }
 .bf-hero-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+.bf-group-hero { margin-top: 18px; color: #d5d5cb; }
 .bf-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 13px 22px; background: var(--accent); color: #111; border: 1px solid var(--accent); border-radius: 4px; font-size: 14px; font-weight: 700; }
 .bf-button:hover { background: #fff083; }
 .bf-text-link { display: inline-block; font-size: 14px; text-decoration: underline; text-underline-offset: 5px; }
@@ -85,6 +86,10 @@ html { scroll-padding-top: 24px; }
 .signup-copy .eyebrow { font-size: 12px; }
 .signup-copy>p:not(.eyebrow) { font-size: 16px; max-width: 420px; }
 .signup-note,.phone-hint,.consent-label,.signup-privacy,.signup-error { font-size: 14px; }
+.bf-group-invite { margin-top: 28px; padding: 24px; border: 1px solid #595435; border-radius: 6px; background: #19180f; }
+.bf-group-invite h3 { font: 500 27px/1.2 'Outfit', Arial, sans-serif; letter-spacing: -.035em; margin: 0; }
+.bf-group-invite p { margin: 12px 0 20px; color: #c1c1b5; font-size: 16px; line-height: 1.6; }
+.bf-group-invite .bf-button { width: 100%; }
 .phone-label,.signup-submit { font-size: 16px; }
 .signup-submit:hover { background: #fff083; }
 .signup-success p { font-size: 16px; }
@@ -141,6 +146,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible { 
   .signup-copy .eyebrow { justify-content: flex-start; font-size: 11px; }
   .signup-copy>p:not(.eyebrow) { margin-left: 0; }
   .signup-card { padding: 24px 18px; }
+  .bf-group-invite { padding: 20px; }
   .site-footer { align-items: flex-start; flex-direction: column; gap: 20px; }
   .site-footer>div { flex-direction: column; gap: 10px; }
 }
