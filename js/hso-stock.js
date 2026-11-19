@@ -75,7 +75,14 @@
     loading.hidden = silent;
     models.setAttribute('aria-busy', 'true');
     detail.setAttribute('aria-busy', 'true');
-    try { state = await fetchStock(); render(); }
+    try {
+      const next = await fetchStock();
+      const content = value => JSON.stringify([value.inventory.models, value.inventory.units, value.inventory.updatedAt, value.products]);
+      const changed = !state || content(next) !== content(state);
+      state = next;
+      // An unchanged poll must not replace the phone card a customer is using.
+      if (changed) render();
+    }
     catch (_) { showStockError(); } finally {
       busy = false;
       loading.hidden = true;
