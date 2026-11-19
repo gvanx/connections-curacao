@@ -48,7 +48,7 @@
       "serial": "HF04HX445H",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -56,7 +56,7 @@
       "serial": "LXDF7F4Y12",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -64,7 +64,7 @@
       "serial": "J04X7FHWWW",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -72,7 +72,7 @@
       "serial": "355300189680403",
       "storage": "256GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 89,
       "status": "available"
     },
     {
@@ -80,7 +80,7 @@
       "serial": "352033765462044",
       "storage": "256GB",
       "color": "Silver",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -88,7 +88,7 @@
       "serial": "356165446795420",
       "storage": "128GB",
       "color": "Purple",
-      "batteryHealth": null,
+      "batteryHealth": 92,
       "status": "available"
     },
     {
@@ -96,7 +96,7 @@
       "serial": "357414190494742",
       "storage": "128GB",
       "color": "Silver",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -104,7 +104,7 @@
       "serial": "358091657984107",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 80,
       "status": "available"
     },
     {
@@ -112,7 +112,7 @@
       "serial": "353791985071650",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -120,7 +120,7 @@
       "serial": "357774338107146",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 84,
       "status": "available"
     },
     {
@@ -128,7 +128,7 @@
       "serial": "359695608671610",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 82,
       "status": "available"
     },
     {
@@ -136,7 +136,7 @@
       "serial": "358091659740747",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 89,
       "status": "available"
     },
     {
@@ -144,7 +144,7 @@
       "serial": "355701908052016",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 83,
       "status": "available"
     },
     {
@@ -152,7 +152,7 @@
       "serial": "359052378182644",
       "storage": "256GB",
       "color": "Gold",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -160,7 +160,7 @@
       "serial": "354739185259517",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 84,
       "status": "available"
     },
     {
@@ -168,7 +168,7 @@
       "serial": "356691193846843",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 82,
       "status": "available"
     },
     {
@@ -176,7 +176,7 @@
       "serial": "351288742153220",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 84,
       "status": "available"
     },
     {
@@ -184,7 +184,7 @@
       "serial": "355135692608859",
       "storage": "256GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 93,
       "status": "available"
     },
     {
@@ -192,7 +192,7 @@
       "serial": "352917260329262",
       "storage": "256GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 100,
       "status": "available"
     },
     {
@@ -200,7 +200,7 @@
       "serial": "357508454066466",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 89,
       "status": "available"
     },
     {
@@ -208,7 +208,7 @@
       "serial": "354155253058758",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 80,
       "status": "available"
     },
     {
@@ -216,7 +216,15 @@
       "serial": "350928994852000",
       "storage": "128GB",
       "color": "Black",
-      "batteryHealth": null,
+      "batteryHealth": 83,
+      "status": "available"
+    },
+    {
+      "modelId": "iphone-13",
+      "serial": "358424178065009",
+      "storage": "128GB",
+      "color": "Black",
+      "batteryHealth": 88,
       "status": "available"
     }
   ]
