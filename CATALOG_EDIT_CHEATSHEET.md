@@ -64,6 +64,25 @@ For a model that becomes inquiry-only, set `inquiryOnly` to `true`; if
 `landingPage` is present, its inquiry button opens that page instead.
 Do not infer future stock changes from a flyer.
 
+On 2026-11-19, the owner authorized an **XCG 300 Black Friday discount** on
+all six scooters. Keep `price` at the offer price below, `oldPrice` at the
+regular price, and `blackFriday: true`. Checkout, availability, contact numbers,
+and images remain unchanged.
+
+| Scooter | Regular price (XCG) | Black Friday price (XCG) |
+| --- | ---: | ---: |
+| Falcon 8 150cc | 3,590 | 3,290 |
+| Trophy 150cc | 3,300 | 3,000 |
+| Fantasy 150cc | 3,590 | 3,290 |
+| Monkey IV 150cc | 3,590 | 3,290 |
+| NVH 150cc | 4,099 | 3,799 |
+| R8 150cc | 3,490 | 3,190 |
+
+The owner also removed these three listings: `150cc Motorcycle (Blue)`
+(`MOT9184G`), `150cc Motorcycle (Black)` (`MOT9185G`), and
+`Gasoline Motorcycle 150CC` (`MOT-9184G`). Preserve their existing catalog
+history entries so a future reintroduction does not restart arrival badges.
+
 ## 5) Common Tasks
 
 ### Change Price
