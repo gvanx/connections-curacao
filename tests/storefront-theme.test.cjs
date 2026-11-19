@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { cardHTML } = require('../blackfriday/deals.js');
 
 const root = path.resolve(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
@@ -44,6 +45,67 @@ async function boot(products, { theme = true } = {}) {
 }
 
 const airco = (name, price, extra = {}) => ({ name, price, category: 'acs', blackFriday: true, image: 'ac-catalog.webp', ...extra });
+
+async function offerSurfaces(product) {
+  const app = await boot([product]);
+  return [
+    ['catalog', app.element('#product-results').innerHTML],
+    ['homepage deals', app.element('#deals .container').innerHTML],
+    ['Black Friday', cardHTML(product)]
+  ];
+}
+
+test('unpriced in-store specials show their label and an identified inquiry without a payment amount or invented savings', async () => {
+  for (const price of [null, undefined]) {
+    const product = { name: 'iPhone 18 Pro', suffix: '256GB', category: 'apple', price, oldPrice: 3999,
+      inStoreSpecial: true, inquiryOnly: true, inquiryLabel: 'Ask about in-store special', blackFriday: true };
+    for (const [surface, html] of await offerSurfaces(product)) {
+      assert.match(html, /(?:class="(?:product-price|deal-price)"|<strong)>In-store special</, surface);
+      assert.match(html, /Ask about in-store special/, surface);
+      assert.doesNotMatch(html, /data-product-price|js-order-btn|Checkout &amp; Pay|Save XCG|old-price|<del>|XCG 3,999/, surface);
+      const link = html.match(/href="(https:\/\/wa\.me\/[^\"]+)"/);
+      assert.ok(link, surface);
+      const message = new URL(link[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&')).searchParams.get('text');
+      assert.match(message, /in-store special/, surface);
+      assert.match(message, /iPhone 18 Pro 256GB/, surface);
+      assert.doesNotMatch(message, /XCG|null|undefined/, surface);
+    }
+  }
+});
+
+test('ordinary missing prices and price-pending products keep their existing labels', async () => {
+  for (const extra of [{}, { inStoreSpecial: 'true' }, { pricePending: true }]) {
+    const product = { name: 'Ordinary phone', category: 'apple', price: null, blackFriday: true, ...extra };
+    for (const [surface, html] of await offerSurfaces(product)) {
+      assert.doesNotMatch(html, /In-store special|in-store special|data-product-price|js-order-btn/, surface);
+      if (surface === 'Black Friday') assert.match(html, /<strong>Ask for price<\/strong>/);
+      else assert.ok(html.includes(extra.pricePending ? 'Price coming soon' : 'Ask in store'), surface);
+    }
+  }
+});
+
+test('a later numeric price takes precedence over a stale special flag and preserves checkout and real savings', async () => {
+  const product = { name: 'Now-priced phone', category: 'apple', price: 1500, oldPrice: 1800,
+    inStoreSpecial: true, inquiryOnly: false, blackFriday: true };
+  for (const [surface, html] of await offerSurfaces(product)) {
+    assert.match(html, /XCG 1,500/, surface);
+    assert.match(html, /data-product-price="1500"/, surface);
+    assert.match(html, /Checkout &amp; Pay/, surface);
+    assert.match(html, /XCG 1,800/, surface);
+    assert.doesNotMatch(html, /In-store special|in-store special/, surface);
+    if (surface === 'Black Friday') assert.match(html, /Save XCG 300/);
+  }
+});
+
+test('a priced inquiry-only offer keeps its amount visible without gaining checkout from the special flag', async () => {
+  const product = { name: 'Priced inquiry', category: 'apple', price: 1500,
+    inStoreSpecial: true, inquiryOnly: true, blackFriday: true };
+  for (const [surface, html] of await offerSurfaces(product)) {
+    assert.match(html, /XCG 1,500/, surface);
+    assert.doesNotMatch(html, /In-store special|in-store special|data-product-price|js-order-btn/, surface);
+    assert.match(html, /https:\/\/wa\.me\//, surface);
+  }
+});
 
 test('the themed homepage loads the cheapest advertised airco into an eager-image checkout hero', async () => {
   const app = await boot(catalog);
