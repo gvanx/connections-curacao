@@ -405,15 +405,16 @@
   {
     "name": "Galaxy S25 FE 128GB",
     "suffix": "",
-    "price": 1099,
+    "price": 990,
     "category": "samsung",
     "featured": true,
-    "image": "galaxy-s25-fe-model.jpg"
+    "image": "galaxy-s25-fe-model.jpg",
+    "blackFriday": true
   },
   {
     "name": "Galaxy S25 FE 256GB",
     "suffix": "",
-    "price": 1049,
+    "price": 1250,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-s25-fe-model.jpg",
