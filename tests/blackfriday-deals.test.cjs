@@ -52,14 +52,19 @@ test('the four advertised aircos use the main-site illustration and checkout at 
   }
 });
 
-test('existing tagged tablet and laptop keep checkout using their current catalog prices', () => {
+test('tagged tablets, phones and laptops keep checkout and savings aligned with the catalog', () => {
   const offers = selectDeals(catalog).filter(p => ['samsung', 'laptops'].includes(p.category));
   assert.ok(offers.length >= 2);
   for (const p of offers) {
     const html = cardHTML(p);
     assert.ok(html.includes(`data-product-price="${p.price}"`));
     assert.match(html, /js-order-btn/);
-    assert.doesNotMatch(html, /<del>|Save XCG/);
+    if (savings(p) > 0) {
+      assert.match(html, /<del>/);
+      assert.ok(html.includes(`Save XCG ${savings(p).toLocaleString('en-US')}`));
+    } else {
+      assert.doesNotMatch(html, /<del>|Save XCG/);
+    }
   }
 });
 

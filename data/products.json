@@ -128,10 +128,12 @@
   {
     "name": "iPhone 17",
     "suffix": "",
-    "price": 2290,
+    "price": 1999,
     "category": "apple",
     "featured": true,
-    "image": "iphone-17-model.jpg"
+    "image": "iphone-17-model.jpg",
+    "oldPrice": 2290,
+    "blackFriday": true
   },
   {
     "name": "iPhone 17 Pro",
@@ -302,11 +304,12 @@
   {
     "name": "Galaxy A08",
     "suffix": "",
-    "price": 399,
+    "price": 319,
     "category": "samsung",
     "featured": false,
     "addedAt": "2026-10-28T23:05:54.626Z",
-    "image": "galaxy-a08-model.png"
+    "image": "galaxy-a08-model.png",
+    "blackFriday": true
   },
   {
     "name": "Galaxy A16",
@@ -319,27 +322,31 @@
   {
     "name": "Galaxy A17",
     "suffix": "",
-    "price": 450,
+    "price": 399,
     "category": "samsung",
     "featured": false,
-    "image": "galaxy-a17-model.jpg"
+    "image": "galaxy-a17-model.jpg",
+    "oldPrice": 449,
+    "blackFriday": true
   },
   {
     "name": "Galaxy A26",
     "suffix": "",
-    "price": 550,
+    "price": 519,
     "category": "samsung",
     "featured": false,
-    "image": "galaxy-a26-model.jpg"
+    "image": "galaxy-a26-model.jpg",
+    "blackFriday": true
   },
   {
     "name": "Galaxy A27",
     "suffix": "",
-    "price": 690,
+    "price": 588,
     "category": "samsung",
     "featured": false,
     "landingPage": "https://connectionscuracao.net/galaxya27/",
-    "image": "galaxy-a27-model.jpg"
+    "image": "galaxy-a27-model.jpg",
+    "blackFriday": true
   },
   {
     "name": "Galaxy A36",
@@ -352,20 +359,22 @@
   {
     "name": "Galaxy A37 5G",
     "suffix": "",
-    "price": 699,
+    "price": 689,
     "category": "samsung",
     "featured": false,
     "image": "galaxy-a37-model.jpg",
-    "landingPage": "https://samsungcuracao.com/a37"
+    "landingPage": "https://samsungcuracao.com/a37",
+    "blackFriday": true
   },
   {
     "name": "Galaxy A57 5G",
     "suffix": "",
-    "price": 849,
+    "price": 899,
     "category": "samsung",
     "featured": true,
     "image": "galaxy-a57-model.jpg",
-    "landingPage": "https://samsungcuracao.com/a57"
+    "landingPage": "https://samsungcuracao.com/a57",
+    "blackFriday": true
   },
   {
     "name": "Galaxy S25 FE 128GB",
@@ -378,10 +387,12 @@
   {
     "name": "Galaxy S25 FE 256GB",
     "suffix": "",
-    "price": 1350,
+    "price": 1049,
     "category": "samsung",
     "featured": false,
-    "image": "galaxy-s25-fe-model.jpg"
+    "image": "galaxy-s25-fe-model.jpg",
+    "oldPrice": 1350,
+    "blackFriday": true
   },
   {
     "name": "Galaxy S25 Ultra",
@@ -394,11 +405,12 @@
   {
     "name": "Galaxy S26 FE 256GB",
     "suffix": "",
-    "price": 1590,
+    "price": 1499,
     "category": "samsung",
     "featured": false,
     "image": "/img/products/galaxy-s26-fe-model.png",
-    "oldPrice": 1890
+    "oldPrice": 1890,
+    "blackFriday": true
   },
   {
     "name": "Galaxy S26 Ultra",
@@ -471,7 +483,9 @@
     "category": "samsung",
     "featured": false,
     "subcategory": "tablet",
-    "image": "galaxy-tab-a11-plus-model.png"
+    "image": "galaxy-tab-a11-plus-model.png",
+    "oldPrice": 690,
+    "blackFriday": true
   },
   {
     "name": "32\" HD Smart TV (Android 14)",
