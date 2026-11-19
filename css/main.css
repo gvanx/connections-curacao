@@ -84,3 +84,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 /* Model links preserve product-card image sizing and keyboard access. */
 .hso-product-link{color:inherit;text-decoration:none}.product-img>.hso-product-link,.deal-img>.hso-product-link,.bf-card-image>.hso-product-link{display:flex;width:100%;height:100%;align-items:center;justify-content:center}.hso-product-link:hover{text-decoration:underline;text-underline-offset:4px}.hso-product-link:focus-visible{outline:3px solid #a68a00;outline-offset:-4px}
+
+/* Telegram contact sits above the existing WhatsApp shortcut. */
+#telegram-fab{position:fixed;bottom:83px;right:22px;width:49px;height:49px;background:#087eaf;border:2px solid var(--bg);box-shadow:0 4px 15px #0002;color:#fff;border-radius:50%;display:grid;place-items:center;z-index:55}
+#telegram-fab svg{width:25px;height:25px;fill:currentColor}
+#telegram-fab:hover{background:#06658d}
+#telegram-fab:focus-visible{outline:3px solid #087eaf;outline-offset:3px}
+.telegram-contact-icon svg{width:1em;height:1em;fill:currentColor}
+@media(max-width:650px){#telegram-fab{width:45px;height:45px;right:14px;bottom:71px}}
