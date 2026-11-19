@@ -173,7 +173,7 @@ function parseInventory(csv, pricesCSV, models = MODEL_CATALOG, now = new Date()
       if (!Number.isInteger(batteryHealth) || batteryHealth < 0 || batteryHealth > 100) continue;
     }
     if (!modelId || !validStorage(storage) || !color || color.length > 80 ||
-        /[\u0000-\u001f\u007f]/.test(color) || !/^[A-Za-z0-9]{5,20}$/.test(serial)) continue;
+        /[\u0000-\u001f\u007f]/.test(color) || !/^(?:0|[A-Za-z0-9]{5,20})$/.test(serial)) continue;
     const variant = variants.get(variantKey(modelId, storage, color)) || variants.get(variantKey(modelId, storage, ''));
     if (!variant) continue;
     const price = perUnitPricing ? parsePrice(row[6] || '') : variant.price;

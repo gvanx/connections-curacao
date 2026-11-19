@@ -165,7 +165,7 @@
       modelIds.add(model.id);
     }
     for (const unit of inventory.units) {
-      if (!modelIds.has(unit.modelId) || typeof unit.serial !== 'string' || !/^[A-Za-z0-9]{5,20}$/.test(unit.serial) || serials.has(unit.serial.toUpperCase()) ||
+      if (!modelIds.has(unit.modelId) || typeof unit.serial !== 'string' || !/^(?:0|[A-Za-z0-9]{5,20})$/.test(unit.serial) || serials.has(unit.serial.toUpperCase()) ||
           typeof unit.color !== 'string' || !unit.color.trim() || typeof unit.storage !== 'string' || (unit.storage !== '' && !/^\d+(GB|TB)$/.test(unit.storage)) ||
           !['available', 'reserved', 'sold'].includes(unit.status) ||
           !(unit.batteryHealth === null || (Number.isInteger(unit.batteryHealth) && unit.batteryHealth >= 0 && unit.batteryHealth <= 100))) throw new Error('Invalid device record');

@@ -135,7 +135,7 @@
       const serials = new Set();
       for (const unit of inventory.units) {
         if (!validOffer(unit) || typeof unit.serial !== 'string' ||
-            !/^[a-z0-9]{5,20}$/i.test(unit.serial) || serials.has(unit.serial.toLowerCase()) ||
+            !/^(?:0|[a-z0-9]{5,20})$/i.test(unit.serial) || serials.has(unit.serial.toLowerCase()) ||
             typeof unit.color !== 'string' || !unit.color.trim() ||
             !['available', 'reserved', 'sold'].includes(unit.status)) return null;
         serials.add(unit.serial.toLowerCase());
