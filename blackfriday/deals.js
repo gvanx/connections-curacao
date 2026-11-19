@@ -32,7 +32,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-19-blackfriday-checkout', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-19-blackfriday-airco', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
@@ -97,21 +97,10 @@
     const overrides = { 'tv-generic.png': 'tv-catalog.webp', 'laptop-generic.png': 'laptop-catalog.webp', 'ac-generic.png': 'ac-catalog.webp', 'iphone-16-plus-model.png': 'iphone-16-plus-model.jpg' };
     return '/img/products/' + (overrides[requested] || requested);
   }
-  function validImageCrop(crop) {
-    if (!crop || typeof crop !== 'object' || Array.isArray(crop)) return false;
-    const { x, y, width, height, sourceWidth, sourceHeight } = crop;
-    return [x, y, width, height, sourceWidth, sourceHeight].every(Number.isSafeInteger) &&
-      x >= 0 && y >= 0 && width > 0 && height > 0 && sourceWidth > 0 && sourceHeight > 0 &&
-      x <= sourceWidth - width && y <= sourceHeight - height;
-  }
   function visualHTML(p, name) {
     const src = imageSrc(p);
     if (!src) return modelArt(name, /^Premier/.test(name) ? 'PREMIER' : categoryName(p.category));
-    if (validImageCrop(p.imageCrop)) {
-      const c = p.imageCrop;
-      return `<div class="bf-photo-crop" style="aspect-ratio:${c.width}/${c.height}"><img src="${escapeHtml(src)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" style="width:${c.sourceWidth / c.width * 100}%;left:${-c.x / c.width * 100}%;top:${-c.y / c.height * 100}%"></div>`;
-    }
-    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">`;
+    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">`;
   }
   function actionHTML(p, name) {
     // Digital-card prices and checkout remain authoritative in their own store.
@@ -129,5 +118,5 @@
     const name = [p.name, p.suffix].filter(Boolean).join(' '), saving = savings(p), digital = p.category === 'giftcards';
     return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${visualHTML(p, name)}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${escapeHtml(name)}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? money(p.price) : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
-  return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc, validImageCrop };
+  return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc };
 });

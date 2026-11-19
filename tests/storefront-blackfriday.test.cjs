@@ -9,7 +9,7 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
   const products = suppliedProducts || [
     { name: 'Campaign tablet', price: 339, category: 'samsung', blackFriday: true },
     { name: 'Campaign airco', price: 444, oldPrice: 650, category: 'acs', blackFriday: true, inquiryOnly: false, featured: true,
-      image: '/blackfriday/airco-specials-2026.jpeg', imageCrop: { x: 27, y: 510, width: 441, height: 152, sourceWidth: 1080, sourceHeight: 1350 } },
+      image: 'ac-catalog.webp' },
     { name: 'Ordinary phone', price: 299, category: 'samsung', blackFriday: false },
     { name: 'Mistagged phone', price: 199, category: 'samsung', blackFriday: 'true' }
   ];
@@ -64,38 +64,22 @@ test('Black Friday deep link selects only explicitly tagged offers with checkout
   assert.match(h.element('#product-toolbar').innerHTML, /Black Friday <span class="pf-pill-total">2<\/span>/);
 });
 
-test('catalog and featured cards display the exact flyer photo without changing the original image', async () => {
+test('catalog and featured cards display the clean airco catalog image', async () => {
   const h = await boot();
   for (const id of ['#product-results', '#deals .container']) {
     const html = h.element(id).innerHTML;
-    assert.match(html, /class="product-image-crop" style="aspect-ratio:441\/152"/);
-    assert.match(html, /src="\/blackfriday\/airco-specials-2026\.jpeg" alt="Campaign airco" width="1080" height="1350"/);
+    assert.match(html, /src="img\/products\/ac-catalog\.webp" alt="Campaign airco"/);
     assert.match(html, /data-product-price="444"/);
   }
 });
 
-test('malformed or out-of-bounds crop metadata falls back to the original image without injected styles', async () => {
-  const valid = { x: 27, y: 510, width: 441, height: 152, sourceWidth: 1080, sourceHeight: 1350 };
-  const invalidCrops = [null, [], {}, { ...valid, x: -1 }, { ...valid, y: -1 }, { ...valid, width: 0 },
-    { ...valid, height: 0 }, { ...valid, sourceWidth: Infinity }, { ...valid, sourceHeight: NaN },
-    { ...valid, x: 640 }, { ...valid, y: 1199 }, { ...valid, width: 1.5 }, { ...valid, x: '0;background:red' }];
-  for (const imageCrop of invalidCrops) {
-    const h = await boot('#blackfriday', [{ name: 'Airco', category: 'acs', blackFriday: true, price: 444,
-      image: '/blackfriday/airco-specials-2026.jpeg', imageCrop }]);
-    const html = h.element('#product-results').innerHTML;
-    assert.match(html, /src="\/blackfriday\/airco-specials-2026\.jpeg"/);
-    assert.doesNotMatch(html, /product-image-crop|background:red/);
-    assert.match(html, /data-product-price="444"/);
-  }
-});
-
-test('all four published Premier Black Friday aircos have a real photo and the advertised checkout price', async () => {
+test('all four published Premier Black Friday aircos have the clean catalog image and advertised checkout price', async () => {
   const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json'), 'utf8'))
     .filter(product => product.category === 'acs' && product.blackFriday === true);
   assert.equal(products.length, 4);
   const h = await boot('#blackfriday', products);
   const html = h.element('#product-results').innerHTML;
-  assert.equal((html.match(/class="product-image-crop"/g) || []).length, 4);
+  assert.equal((html.match(/src="img\/products\/ac-catalog\.webp"/g) || []).length, 4);
   for (const price of [444, 875, 1099, 1799]) assert.ok(html.includes(`data-product-price="${price}"`));
   assert.doesNotMatch(html, /Ask availability|Ask about this offer|model-art/);
 });

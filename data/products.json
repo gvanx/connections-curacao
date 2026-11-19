@@ -792,15 +792,7 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "/blackfriday/airco-specials-2026.jpeg",
-    "imageCrop": {
-      "x": 27,
-      "y": 510,
-      "width": 441,
-      "height": 152,
-      "sourceWidth": 1080,
-      "sourceHeight": 1350
-    }
+    "image": "ac-catalog.webp"
   },
   {
     "name": "Premier 18,000 BTU Inverter AC",
@@ -819,15 +811,7 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "/blackfriday/airco-specials-2026.jpeg",
-    "imageCrop": {
-      "x": 599,
-      "y": 509,
-      "width": 451,
-      "height": 153,
-      "sourceWidth": 1080,
-      "sourceHeight": 1350
-    }
+    "image": "ac-catalog.webp"
   },
   {
     "name": "Premier 24,000 BTU Inverter AC",
@@ -846,15 +830,7 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "/blackfriday/airco-specials-2026.jpeg",
-    "imageCrop": {
-      "x": 27,
-      "y": 865,
-      "width": 450,
-      "height": 145,
-      "sourceWidth": 1080,
-      "sourceHeight": 1350
-    }
+    "image": "ac-catalog.webp"
   },
   {
     "name": "Premier 36,000 BTU Inverter AC",
@@ -873,15 +849,7 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "/blackfriday/airco-specials-2026.jpeg",
-    "imageCrop": {
-      "x": 613,
-      "y": 865,
-      "width": 435,
-      "height": 150,
-      "sourceWidth": 1080,
-      "sourceHeight": 1350
-    }
+    "image": "ac-catalog.webp"
   },
   {
     "name": "Digital Air Cooler 5.5L",

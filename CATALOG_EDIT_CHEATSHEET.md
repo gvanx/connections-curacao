@@ -137,12 +137,10 @@ The four Premier inverter AC offers added on 2026-11-19 use the supplied
 campaign prices. The owner authorized **Checkout & Pay** for all four offers;
 keep `inquiryOnly: false`. They are separate from the older generic AC listings.
 
-Their `image` points to `/blackfriday/airco-specials-2026.jpeg`. The optional
-`imageCrop` object selects the corresponding product photo from that poster:
-`x`, `y`, `width`, and `height` are source-image pixels, while `sourceWidth`
-and `sourceHeight` are the full image dimensions. Both the main catalog and
-Black Friday page display this crop responsively without changing the poster.
-Use the original image dimensions and keep each crop inside those bounds.
+Their `image` is `ac-catalog.webp`, the existing main-site airco illustration
+requested by the owner for these offers. Both the main catalog and Black Friday
+page use this shared image. The original campaign posters remain in the
+Black Friday poster gallery.
 
 ### Mark a Product as Limited Supply
 

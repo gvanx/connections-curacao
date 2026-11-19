@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const { selectDeals, savings, cardHTML, imageSrc, validImageCrop } = require('../blackfriday/deals.js');
+const { selectDeals, savings, cardHTML, imageSrc } = require('../blackfriday/deals.js');
 
 const root = path.join(__dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8'));
@@ -27,7 +27,7 @@ test('only explicitly tagged products join the campaign, and filtering/sorting p
   assert.deepEqual(products, snapshot);
 });
 
-test('the four advertised aircos show their flyer photos and checkout at the exact advertised prices', () => {
+test('the four advertised aircos use the main-site illustration and checkout at the exact advertised prices', () => {
   const expected = [[9000, 444, 650, 206], [18000, 875, 1150, 275], [24000, 1099, 1390, 291], [36000, 1799, 2100, 301]];
   for (const [btu, price, oldPrice, saving] of expected) {
     const name = `Premier ${btu.toLocaleString('en-US')} BTU Inverter AC`;
@@ -45,11 +45,10 @@ test('the four advertised aircos show their flyer photos and checkout at the exa
     assert.ok(html.includes(`data-product-price="${price}"`));
     assert.equal(decodeURIComponent(html.match(/data-product-name="([^"]+)"/)[1]), name);
     assert.doesNotMatch(html, /Ask about this offer|wa\.me|bf-model-art/);
-    assert.equal(product.image, '/blackfriday/airco-specials-2026.jpeg');
-    assert.equal(validImageCrop(product.imageCrop), true);
-    assert.ok(html.includes(`src="${product.image}"`));
-    assert.match(html, /class="bf-photo-crop"/);
-    assert.ok(html.includes(`aspect-ratio:${product.imageCrop.width}/${product.imageCrop.height}`));
+    assert.equal(product.image, 'ac-catalog.webp');
+    assert.equal(Object.hasOwn(product, 'imageCrop'), false);
+    assert.match(html, /src="\/img\/products\/ac-catalog\.webp"/);
+    assert.doesNotMatch(html, /bf-photo-crop|airco-specials-2026\.jpeg/);
   }
 });
 
@@ -94,31 +93,6 @@ test('catalog strings are escaped and image paths preserve supported existing ar
   assert.equal(imageSrc({ image: 'galaxy-tab-a11-model.png' }), '/img/products/galaxy-tab-a11-model.png');
   assert.equal(imageSrc({ image: 'ac-generic.png' }), '/img/products/ac-catalog.webp');
   assert.equal(imageSrc({ image: 'ac-generic.png', imageUnavailable: true }), '');
-});
-
-test('poster crops reject invalid dimensions and CSS injection, falling back to an ordinary image', () => {
-  const valid = { x: 27, y: 510, width: 441, height: 152, sourceWidth: 1080, sourceHeight: 1350 };
-  assert.equal(validImageCrop(valid), true);
-  assert.equal(validImageCrop({ x: 0, y: 0, width: 1080, height: 1350, sourceWidth: 1080, sourceHeight: 1350 }), true);
-  const invalid = [
-    undefined, null, [], 'crop', {},
-    { ...valid, x: -1 }, { ...valid, y: -1 },
-    { ...valid, width: 0 }, { ...valid, height: -1 },
-    { ...valid, sourceWidth: 0 }, { ...valid, sourceHeight: -1 },
-    { ...valid, x: 640 }, { ...valid, y: 1199 },
-    { ...valid, width: 1081 }, { ...valid, height: 1351 },
-    { ...valid, x: 0.5 }, { ...valid, width: Infinity },
-    { ...valid, x: '27' }, { ...valid, width: '441' },
-    { ...valid, sourceWidth: Number.MAX_SAFE_INTEGER + 1 },
-    { ...valid, width: '441;--injected:url(https://bad.invalid)' },
-    { ...valid, y: '" onerror="alert(1)' }
-  ];
-  for (const crop of invalid) {
-    assert.equal(validImageCrop(crop), false, JSON.stringify(crop));
-    const html = cardHTML({ name: 'Safe photo', category: 'acs', image: '/poster.jpeg', imageCrop: crop, price: 444 });
-    assert.match(html, /src="\/poster.jpeg"/);
-    assert.doesNotMatch(html, /bf-photo-crop|aspect-ratio|--injected|onerror/);
-  }
 });
 
 function browser(fetch, { spotlight = true } = {}) {
@@ -195,14 +169,13 @@ test('browser loading binds checkout, filters tagged categories, sorts, and reco
   e('bf-sort').listeners.change();
   assert.ok(e('bf-products').innerHTML.indexOf('36,000') < e('bf-products').innerHTML.indexOf('9,000'));
   for (const scope of ['bf-products', 'bf-spotlight']) {
-    const frame = { innerHTML: '<div class="bf-photo-crop">broken</div>' }, cropWrapper = { innerHTML: '' };
+    const frame = { innerHTML: '<img src="/missing.webp">' };
     e(scope).listeners.error({ target: {
-      tagName: 'IMG', alt: 'Missing <model>', parentElement: cropWrapper,
+      tagName: 'IMG', alt: 'Missing <model>', parentElement: frame,
       closest(selector) { assert.equal(selector, '.bf-card-image'); return frame; }
     } });
     assert.match(frame.innerHTML, /Missing &lt;model&gt;/);
-    assert.doesNotMatch(frame.innerHTML, /bf-photo-crop/);
-    assert.equal(cropWrapper.innerHTML, '');
+    assert.doesNotMatch(frame.innerHTML, /<img/);
   }
   assert.equal(app.timers.size, 0);
 });
