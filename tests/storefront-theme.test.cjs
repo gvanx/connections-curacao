@@ -221,6 +221,36 @@ test('a newly configured model appears without a static catalog entry and live p
   assert.match(app.element('#product-results').innerHTML, /XCG 500/);
 });
 
+test('per-serial prices on otherwise identical phones update main and campaign prices without a false crossout', async () => {
+  const variant = { modelId: 'iphone-15', storage: '128GB', color: '', price: 9999, oldPrice: 11999, blackFriday: false, category: 'apple', image: null };
+  let inventory = { schemaVersion: 2, models: [{ id: 'iphone-15', name: 'iPhone 15' }], variants: [variant], units: [
+    { ...variant, serial: 'SERIAL001', color: 'Black', status: 'available', price: 990, oldPrice: 1250, blackFriday: false },
+    { ...variant, serial: 'SERIAL002', color: 'Black', status: 'available', price: 1099, oldPrice: 1350, blackFriday: true },
+    { ...variant, serial: 'SERIAL003', color: 'Black', status: 'available', price: 1190, oldPrice: 1490, blackFriday: true }
+  ] };
+  const app = await boot([], { inventory: () => inventory });
+  let html = app.element('#product-results').innerHTML;
+  assert.match(html, /From XCG 990/);
+  assert.doesNotMatch(html, /old-price|XCG 9,999|XCG 11,999/);
+  let deals = app.element('#deals .container').innerHTML;
+  assert.match(deals, /From XCG 1,099/);
+  assert.doesNotMatch(deals, /XCG 990|old-price/);
+  app.chooseCategory('blackfriday');
+  assert.match(app.element('#product-results').innerHTML, /From XCG 1,099/);
+
+  inventory.units = inventory.units.filter(unit => unit.serial !== 'SERIAL002');
+  await app.dispatch('focus');
+  html = app.element('#product-results').innerHTML;
+  assert.match(html, /XCG 1,190/);
+  assert.match(html, /class="old-price">XCG 1,490/);
+  assert.doesNotMatch(html, /From XCG|XCG 1,099|XCG 1,350/);
+  inventory.units[1].price = 1150;
+  await app.dispatch('online');
+  assert.match(app.element('#product-results').innerHTML, /XCG 1,150/);
+  app.chooseCategory('all');
+  assert.match(app.element('#product-results').innerHTML, /From XCG 990/);
+});
+
 test('unpriced in-store specials show their label and an identified inquiry without a payment amount or invented savings', async () => {
   for (const price of [null, undefined]) {
     const product = { name: 'iPhone 18 Pro', suffix: '256GB', category: 'apple', price, oldPrice: 3999,

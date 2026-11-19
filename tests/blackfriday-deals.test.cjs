@@ -222,6 +222,29 @@ test('Black Friday discovers new models and uses campaign-only live prices inste
   assert.equal(app.elements.get('bf-empty').hidden, false);
 });
 
+test('per-phone Black Friday prices stay separate from identical noncampaign phones and show only supported savings', async () => {
+  const variant = { modelId: 'iphone-15', storage: '128GB', color: '', price: 9999, oldPrice: 11999, blackFriday: false, category: 'apple', image: null };
+  let inventory = { schemaVersion: 2, models: [{ id: 'iphone-15', name: 'iPhone 15' }], variants: [variant], units: [
+    { ...variant, serial: 'SERIAL001', color: 'Black', status: 'available', price: 990, oldPrice: 1250, blackFriday: false },
+    { ...variant, serial: 'SERIAL002', color: 'Black', status: 'available', price: 1099, oldPrice: 1350, blackFriday: true },
+    { ...variant, serial: 'SERIAL003', color: 'Black', status: 'available', price: 1190, oldPrice: 1490, blackFriday: true }
+  ] };
+  const app = browser(async () => ({ ok: true, json: async () => [] }), { inventory: () => inventory });
+  await flush();
+  const grid = app.elements.get('bf-products');
+  assert.match(grid.innerHTML, /From XCG 1,099/);
+  assert.doesNotMatch(grid.innerHTML, /XCG 990|<del>|Save XCG|XCG 9,999/);
+  inventory.units = inventory.units.filter(unit => unit.serial !== 'SERIAL002');
+  await app.events.focus();
+  assert.match(grid.innerHTML, /XCG 1,190/);
+  assert.match(grid.innerHTML, /XCG 1,490/);
+  assert.match(grid.innerHTML, /Save XCG 300/);
+  assert.doesNotMatch(grid.innerHTML, /From XCG|XCG 1,099|XCG 1,350/);
+  inventory.units[1].blackFriday = false;
+  await app.events.online();
+  assert.doesNotMatch(grid.innerHTML, /iPhone 15/);
+});
+
 test('Black Friday feed failures hide legacy HSO on cold load and after a previously healthy registry', async () => {
   const legacy = { name: 'iPhone 12', suffix: 'HSO', category: 'apple', price: 549, blackFriday: true };
   const ordinary = { name: 'Available airco', category: 'acs', price: 444, blackFriday: true };

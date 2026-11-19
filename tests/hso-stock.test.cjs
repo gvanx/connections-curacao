@@ -429,3 +429,60 @@ test('a live blank price is shown as an inquiry even when an old catalog price e
   assert.doesNotMatch(app.element('hso-detail').innerHTML, /XCG 1,099/);
   assert(app.requests.every(request => request.url === '/.netlify/functions/hso-stock'));
 });
+
+test('identical model variants keep independent serial prices, old prices and unpriced inquiries', async () => {
+  const devices = [
+    unit({ serial: 'LOWPRICE1', price: 899, oldPrice: 1150 }),
+    unit({ serial: 'HIGHPRICE', price: 1099, oldPrice: 1350 }),
+    unit({ serial: 'NOPRICE01', price: null, oldPrice: null })
+  ];
+  const data = { ...inventory(devices), models: [{ ...model, price: 1200 }],
+    variants: [{ modelId: model.id, storage: '128GB', color: '', price: 1200, oldPrice: 1500 }] };
+  const overview = stock.modelCardHTML(model, data);
+  assert.match(overview, /From XCG 899/);
+  assert.doesNotMatch(overview, /<del>/, 'different serial offers must not advertise one shared old price');
+  const app = browser({ search: '?model=iphone-15&storage=128GB&color=Black', initialInventory: data });
+  await flush();
+  const html = app.element('hso-detail').innerHTML;
+  assert.match(html, /<p class="hso-price"><\/p>/, 'different serial offers have no shared header price');
+  const cards = [...html.matchAll(/<article class="hso-unit-card">([\s\S]*?)<\/article>/g)].map(match => match[1]);
+  assert.equal(cards.length, 3);
+  const low = cards.find(card => card.includes('LOWPRICE1'));
+  const high = cards.find(card => card.includes('HIGHPRICE'));
+  const unknown = cards.find(card => card.includes('NOPRICE01'));
+  assert.match(low, /XCG 1,150<\/del> <strong>XCG 899/);
+  assert.doesNotMatch(low, /XCG 1,099|XCG 1,350/);
+  assert.match(high, /XCG 1,350<\/del> <strong>XCG 1,099/);
+  assert.doesNotMatch(high, /XCG 899|XCG 1,150/);
+  assert.match(unknown, /Ask for price/);
+  assert.doesNotMatch(unknown, /XCG|data-hso-serial/);
+  await app.click('HIGHPRICE');
+  await app.click('LOWPRICE1');
+  assert.deepEqual(app.checkouts.map(([, price]) => price), [1099, 899]);
+  assert.match(app.checkouts[0][0], /Serial\/IMEI: HIGHPRICE/);
+  assert.match(app.checkouts[1][0], /Serial\/IMEI: LOWPRICE1/);
+});
+
+test('changing one serial price leaves sibling checkout valid and invalidates only the changed serial', async () => {
+  const first = unit({ serial: 'UNITFIRST', price: 899, oldPrice: 1150 });
+  const second = unit({ serial: 'UNITOTHER', price: 1099, oldPrice: 1350 });
+  const app = browser({ search: '?model=iphone-15', initialInventory: inventory([first, second]) });
+  await flush();
+  await app.click('UNITOTHER');
+  const validateSelected = app.checkouts[0][3];
+  app.setSnapshot({ inventory: inventory([{ ...first, price: 849, oldPrice: 1100 }, second]) });
+  assert.equal(await validateSelected(), true, 'editing a sibling must not change the selected device’s order');
+  assert.equal(app.checkouts[0][1], 1099);
+  assert.match(app.checkouts[0][0], /Serial\/IMEI: UNITOTHER/);
+  await app.click('UNITFIRST');
+  assert.equal(app.checkouts[1][1], 849, 'the changed serial gets its new price when opened');
+  const validateFirst = app.checkouts[1][3];
+  app.setSnapshot({ inventory: inventory([{ ...first, price: 849, oldPrice: 1100 }, { ...second, price: 999 }]) });
+  await assert.rejects(validateSelected, /details or price changed/);
+  assert.equal(await validateFirst(), true, 'the other serial’s open checkout is still valid');
+  app.setSnapshot({ inventory: inventory([{ ...first, price: null, oldPrice: null }, { ...second, price: 999 }]) });
+  await assert.rejects(validateFirst, /no longer available/);
+  assert.deepEqual(app.element('hso-detail').buttons.map(button => button.dataset.hsoSerial), ['UNITOTHER']);
+  await app.click('UNITOTHER');
+  assert.equal(app.checkouts[2][1], 999);
+});
