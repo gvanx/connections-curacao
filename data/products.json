@@ -80,6 +80,23 @@
     "image": "/img/products/hso-iphone-14-pro-max-silver.jpg"
   },
   {
+    "name": "iPhone 15",
+    "suffix": "HSO",
+    "price": 1099,
+    "category": "apple",
+    "featured": true,
+    "image": "/img/products/hso-iphone-15-black.jpg",
+    "blackFriday": true,
+    "oldPrice": 1350,
+    "spec": "128GB storage · HSO",
+    "specifications": {
+      "Storage": "128GB",
+      "Condition": "HSO"
+    },
+    "hsoModel": "iphone-15",
+    "hsoStorage": "128GB"
+  },
+  {
     "name": "iPhone 15 Pro",
     "suffix": "HSO",
     "price": 1590,
@@ -96,14 +113,6 @@
     "addedAt": "2026-11-19T19:16:10.707Z",
     "newArrival": true,
     "image": "/img/products/hso-iphone-15-pro-black-titanium.jpg"
-  },
-  {
-    "name": "iPhone 15",
-    "suffix": "",
-    "price": 1599,
-    "category": "apple",
-    "featured": false,
-    "image": "iphone-15-model.jpg"
   },
   {
     "name": "iPhone 15 Pro Max",

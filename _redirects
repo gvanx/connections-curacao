@@ -35,8 +35,10 @@ https://s26.connectionscuracao.net/*  https://connectionscuracao.net/  301!
 /s25plus/*  /  301!
 
 # Retired phone listings in the old shop preview
-/shop-preview-v8k3p/products/iphone-15-hso-f61a0f6  /hso/  301!
-/shop-preview-v8k3p/products/iphone-15-hso-f61a0f6/*  /hso/  301!
+/shop-preview-v8k3p/products/iphone-15-hso-f61a0f6  /hso/?model=iphone-15&storage=128GB  301!
+/shop-preview-v8k3p/products/iphone-15-hso-f61a0f6/*  /hso/?model=iphone-15&storage=128GB  301!
+/shop-preview-v8k3p/products/iphone-15-ea1e92d  /hso/  301!
+/shop-preview-v8k3p/products/iphone-15-ea1e92d/*  /hso/  301!
 /shop-preview-v8k3p/products/iphone-16-hso-f57e75f  /hso/  301!
 /shop-preview-v8k3p/products/iphone-16-hso-f57e75f/*  /hso/  301!
 /shop-preview-v8k3p/products/iphone-17-pro-max-sim-962442e  /blackfriday/  301!

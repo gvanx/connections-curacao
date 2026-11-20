@@ -21,12 +21,13 @@ test('cash contribution reduces the financed amount before the fee, with no nega
   assert.throws(() => quote(NaN));
   assert.throws(() => quote(100, 0, 5));
 });
-test('six current models use catalog prices and existing images, excluding HSO', () => {
+test('current models use catalog prices and existing images, excluding HSO and the retired iPhone 15', () => {
   const products = selectProducts(catalog);
-  assert.equal(products.length, 6);
-  assert.equal(products.filter(p => p.category === 'apple').length, 3);
+  assert.equal(products.length, 5);
+  assert.equal(products.filter(p => p.category === 'apple').length, 2);
   assert.equal(products.filter(p => p.category === 'samsung').length, 3);
   assert.ok(products.every(p => !p.suffix));
+  assert.ok(products.every(p => p.name !== 'iPhone 15'));
   products.forEach(p => assert.ok(fs.existsSync(path.join(__dirname, '..', imageSrc(p))), p.name));
   const updated = catalog.map(p => p.name === 'iPhone 17' ? { ...p, price: 2100 } : p);
   assert.equal(selectProducts(updated).find(p => p.name === 'iPhone 17').price, 2100);
