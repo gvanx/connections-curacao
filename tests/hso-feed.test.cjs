@@ -338,3 +338,37 @@ test('new device models work with per-unit prices once registered, but unregiste
   assert.equal(data.units[0].price, 850);
   assert.equal(data.units[0].category, 'laptops');
 });
+
+test('short stock references preserve 0, 00 and 000 as three distinct devices with their exact individual prices', async () => {
+  const stock = unitCSV(
+    { model: 'iPad 11-inch A16', serial: '0', color: 'Gray', battery: '98', price: '790', oldPrice: '', blackFriday: 'Yes' },
+    { model: 'iPhone 13', serial: '00', battery: '67', price: '425', oldPrice: '450', blackFriday: 'Yes' },
+    { model: 'IPHONE 13 NO FACE ID', serial: '000', battery: '82', price: '325', oldPrice: '350', blackFriday: 'Yes' }
+  );
+  const registry = modelRegistry({ model: 'iPad 11-inch A16' }, { model: 'iPhone 13' }, { model: 'iPhone 13 No Face ID' });
+  const result = await createHandler({ config, models, now, fetchImpl: fetchSources(stock, registry) })({ httpMethod: 'GET' });
+  assert.equal(result.statusCode, 200);
+  const data = JSON.parse(result.body);
+  assert.deepEqual(data.units.map(unit => [unit.serial, unit.price, unit.oldPrice, unit.batteryHealth, unit.blackFriday]),
+    [['0', 790, null, 98, true], ['00', 425, 450, 67, true], ['000', 325, 350, 82, true]]);
+  assert.equal(new Set(data.units.map(unit => unit.serial)).size, 3);
+  assert.ok(data.units.every(unit => typeof unit.serial === 'string'));
+});
+
+test('short reference duplicates and conflicting statuses remain rejected without numeric coercion', () => {
+  for (const [first, second] of [['0', '0'], ['00', '00'], ['000', '000'], ['A1', 'a1']]) {
+    assert.throws(() => parse(unitCSV({ serial: first }, { serial: second })), /Duplicate stock serial/);
+    assert.throws(() => parse(unitCSV({ serial: first }, { serial: second, status: 'Sold' })), /Duplicate stock serial/);
+  }
+  const data = parse(unitCSV({ serial: '0' }, { serial: '00', status: 'Sold' }, { serial: '000', status: 'Reserved' }));
+  assert.deepEqual(data.units.map(unit => unit.serial), ['0']);
+});
+
+test('stock references accept one through twenty alphanumeric characters while rejecting blank, punctuation and overlong values', () => {
+  for (const serial of ['0', '00', '000', '0000', 'A', 'A1', 'B12', 'C123', 'A'.repeat(20)]) {
+    assert.equal(parse(unitCSV({ serial })).units[0].serial, serial);
+  }
+  for (const serial of ['', ' ', 'A-1', 'A 1', '<0>', 'A'.repeat(21)]) {
+    assert.deepEqual(parse(unitCSV({ serial })).units, []);
+  }
+});
