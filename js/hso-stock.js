@@ -54,7 +54,7 @@
     const units = api.selectUnits(inventory, selection);
     doc.title = model.name + ' HSO | Connections Curaçao';
     doc.getElementById('hso-title').textContent = model.name + ' HSO';
-    doc.getElementById('hso-intro').textContent = 'Choose your device. See the serial number, color and battery health for each one below.';
+    doc.getElementById('hso-intro').textContent = 'Choose your device. See the serial number or stock reference, color and battery health for each one below.';
     doc.getElementById('hso-summary').textContent = `${units.length} ${units.length === 1 ? 'device' : 'devices'} listed`;
     detail.innerHTML = api.detailHTML(model, units);
   }
@@ -165,7 +165,7 @@
       modelIds.add(model.id);
     }
     for (const unit of inventory.units) {
-      if (!modelIds.has(unit.modelId) || typeof unit.serial !== 'string' || !/^(?:0|[A-Za-z0-9]{5,20})$/.test(unit.serial) || serials.has(unit.serial.toUpperCase()) ||
+      if (!modelIds.has(unit.modelId) || typeof unit.serial !== 'string' || !/^[A-Za-z0-9]{1,20}$/.test(unit.serial) || serials.has(unit.serial.toUpperCase()) ||
           typeof unit.color !== 'string' || !unit.color.trim() || typeof unit.storage !== 'string' || (unit.storage !== '' && !/^\d+(GB|TB)$/.test(unit.storage)) ||
           !['available', 'reserved', 'sold'].includes(unit.status) ||
           !(unit.batteryHealth === null || (Number.isInteger(unit.batteryHealth) && unit.batteryHealth >= 0 && unit.batteryHealth <= 100))) throw new Error('Invalid device record');
@@ -188,8 +188,9 @@
   const hasPrice = product => !!product && Number.isFinite(product.price) && product.price > 0;
   const canCheckout = (unit, product) => isAvailable(unit) && hasPrice(product) && product.soldOut !== true && !product.inquiryOnly;
   const batteryText = unit => Number.isInteger(unit.batteryHealth) && unit.batteryHealth >= 0 && unit.batteryHealth <= 100 ? unit.batteryHealth + '%' : 'Ask for battery health';
+  const isStockReference = unit => typeof unit.serial === 'string' && unit.serial.length >= 1 && unit.serial.length <= 4;
   function orderName(model, unit) {
-    return [`${model.name} HSO`, unit.storage, unit.color, `Serial/IMEI: ${unit.serial}`, `Battery health: ${batteryText(unit)}`].filter(Boolean).join(' · ');
+    return [`${model.name} HSO`, unit.storage, unit.color, `${isStockReference(unit) ? 'Stock reference' : 'Serial/IMEI'}: ${unit.serial}`, `Battery health: ${batteryText(unit)}`].filter(Boolean).join(' · ');
   }
   function safeImageURL(value) {
     if (typeof value !== 'string') return '';
@@ -234,7 +235,7 @@
       const message = `Hi, I'm interested in ${orderName(model, unit)}${hasPrice(product) ? ' (' + money(product.price) + ')' : ''}. Please confirm ${hasPrice(product) ? 'availability' : 'the price and availability'}.`;
       action = `<a class="hso-unit-action" href="https://wa.me/59996782619?text=${escapeHtml(encodeURIComponent(message))}" target="_blank" rel="noopener">${hasPrice(product) ? 'Ask availability' : 'Ask for price'}</a>`;
     }
-    return `<article class="hso-unit-card"><h3>${escapeHtml(unit.color)}${unit.storage ? ` <span>${escapeHtml(unit.storage)}</span>` : ''}</h3><dl><div><dt>Serial / IMEI</dt><dd class="hso-serial">${escapeHtml(unit.serial)}</dd></div><div><dt>Battery health</dt><dd class="hso-unit-battery">${escapeHtml(batteryText(unit))}</dd></div></dl><p class="hso-unit-price">${priceHTML(product)}</p>${action}</article>`;
+    return `<article class="hso-unit-card"><h3>${escapeHtml(unit.color)}${unit.storage ? ` <span>${escapeHtml(unit.storage)}</span>` : ''}</h3><dl><div><dt>${isStockReference(unit) ? 'Stock reference' : 'Serial / IMEI'}</dt><dd class="hso-serial">${escapeHtml(unit.serial)}</dd></div><div><dt>Battery health</dt><dd class="hso-unit-battery">${escapeHtml(batteryText(unit))}</dd></div></dl><p class="hso-unit-price">${priceHTML(product)}</p>${action}</article>`;
   }
   function samePrice(a, b) {
     return !!a && !!b && a.price === b.price && a.oldPrice === b.oldPrice;
@@ -244,7 +245,7 @@
     const offer = units.length && units.every(unit => samePrice(productForUnit(unit), product)) ? priceHTML(product) : '';
     const unitImages = [...new Set(units.map(unit => safeImageURL(unit.image)).filter(Boolean))];
     const image = unitImages.length === 1 ? unitImages[0] : safeImageURL(model.image) || unitImages[0];
-    return `<div class="hso-model-header"><div>${visualHTML({ ...model, image }, 'hso-detail-image')}<p class="hso-image-note">Model image. Colors listed below.</p></div><div><p class="hso-kicker">SECOND-HAND / HSO</p><h2>Choose your device</h2><p>Your selected serial number is included at checkout.</p><p class="hso-price">${offer}</p><p class="hso-stock-note">Our team confirms availability.</p></div></div>${units.length ? `<div class="hso-unit-grid">${units.map(unit => unitCardHTML(model, unit)).join('')}</div>` : '<div class="hso-empty"><h2>No devices listed for this selection</h2><p>Try another model or ask our team about upcoming stock.</p><a class="hso-link" href="/hso/">Browse all models</a></div>'}`;
+    return `<div class="hso-model-header"><div>${visualHTML({ ...model, image }, 'hso-detail-image')}<p class="hso-image-note">Model image. Colors listed below.</p></div><div><p class="hso-kicker">SECOND-HAND / HSO</p><h2>Choose your device</h2><p>Your selected device reference is included at checkout.</p><p class="hso-price">${offer}</p><p class="hso-stock-note">Our team confirms availability.</p></div></div>${units.length ? `<div class="hso-unit-grid">${units.map(unit => unitCardHTML(model, unit)).join('')}</div>` : '<div class="hso-empty"><h2>No devices listed for this selection</h2><p>Try another model or ask our team about upcoming stock.</p><a class="hso-link" href="/hso/">Browse all models</a></div>'}`;
   }
   return { validateInventory, isAvailable, selectUnits, productForUnit, canCheckout, batteryText, orderName, safeImageURL, priceHTML, modelCardHTML, unitCardHTML, detailHTML };
 });

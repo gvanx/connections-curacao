@@ -35,6 +35,24 @@ test('duplicate serials including case variants and duplicate or unknown models 
   assert.throws(() => stock.validateInventory(inventory([unit({ modelId: 'iphone-unknown' })])), /Invalid device record/);
 });
 
+test('one-to-four character IDs use stock-reference labels while full serials keep their label', () => {
+  for (const serial of ['0', '00', '000', 'A', 'Ab12', 'ABCDE', '12345678901234567890']) {
+    const device = unit({ serial });
+    assert.doesNotThrow(() => stock.validateInventory(inventory([device])));
+    const short = serial.length <= 4;
+    const html = stock.unitCardHTML(model, device);
+    assert.ok(html.includes(`<dt>${short ? 'Stock reference' : 'Serial / IMEI'}</dt><dd class="hso-serial">${serial}</dd>`));
+    assert.ok(stock.orderName(model, device).includes(`${short ? 'Stock reference' : 'Serial/IMEI'}: ${serial} ·`));
+    const inquiry = stock.unitCardHTML(model, { ...device, price: null });
+    const url = inquiry.match(/href="([^"]+)"/)[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+    assert.ok(new URL(url).searchParams.get('text').includes(`${short ? 'Stock reference' : 'Serial/IMEI'}: ${serial} ·`));
+  }
+  for (const serial of [0, '', ' ', 'A B', 'A-B', '123456789012345678901']) {
+    assert.throws(() => stock.validateInventory(inventory([unit({ serial })])), /Invalid device record/);
+  }
+  assert.throws(() => stock.validateInventory(inventory([unit({ serial: 'a1' }), unit({ serial: 'A1' })])), /Invalid device record/);
+});
+
 test('battery health accepts an explicit unknown or an integer percentage and rejects malformed source values', () => {
   for (const value of [null, 0, 78, 100]) {
     const phone = unit({ batteryHealth: value });
@@ -485,4 +503,32 @@ test('changing one serial price leaves sibling checkout valid and invalidates on
   assert.deepEqual(app.element('hso-detail').buttons.map(button => button.dataset.hsoSerial), ['UNITOTHER']);
   await app.click('UNITOTHER');
   assert.equal(app.checkouts[2][1], 999);
+});
+
+test('0, 00 and 000 remain distinct through listing, checkout and refresh with No Face ID wording', async () => {
+  const noFaceID = { ...model, id: 'iphone-11-no-face-id', name: 'iPhone 11 (No Face ID)' };
+  const devices = ['0', '00', '000'].map((serial, index) => unit({ modelId: noFaceID.id, serial, price: 300 + index * 50 }));
+  const data = { ...inventory(devices), models: [noFaceID] };
+  assert.doesNotThrow(() => stock.validateInventory(data));
+  const app = browser({ search: '?model=iphone-11-no-face-id', initialInventory: data });
+  await flush();
+  assert.equal(app.element('hso-title').textContent, 'iPhone 11 (No Face ID) HSO');
+  assert.match(app.element('hso-intro').textContent, /serial number or stock reference/);
+  assert.match(app.element('hso-detail').innerHTML, /selected device reference is included at checkout/);
+  assert.deepEqual(app.element('hso-detail').buttons.map(button => button.dataset.hsoSerial), ['0', '00', '000']);
+  for (const device of devices) await app.click(device.serial);
+  assert.deepEqual(app.checkouts.map(([, price]) => price), [300, 350, 400]);
+  for (const [index, device] of devices.entries()) {
+    const [name, , opener, validate] = app.checkouts[index];
+    assert.ok(name.startsWith('iPhone 11 (No Face ID) HSO ·'));
+    assert.ok(name.includes(`Stock reference: ${device.serial} ·`));
+    assert.doesNotMatch(name, /Serial\/IMEI/);
+    assert.equal(opener.dataset.hsoSerial, device.serial);
+    assert.equal(await validate(), true);
+  }
+  app.setSnapshot({ inventory: { ...data, units: devices.filter(device => device.serial !== '00') } });
+  await assert.rejects(app.checkouts[1][3], /no longer available/);
+  assert.equal(await app.checkouts[0][3](), true);
+  assert.equal(await app.checkouts[2][3](), true);
+  assert.deepEqual(app.element('hso-detail').buttons.map(button => button.dataset.hsoSerial), ['0', '000']);
 });
