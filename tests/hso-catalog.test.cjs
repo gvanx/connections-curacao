@@ -205,6 +205,26 @@ test('sheet images support local product assets and HTTPS without executable or 
   for (const value of ['javascript:alert(1)', 'http://example.com/model.png', '//example.com/a.png', '/img/products/../../x', 'https://user:pass@example.com/a.png']) assert.equal(safeImage(value), '');
 });
 
+test('storage-specific artwork takes precedence over a model image, with unit and model fallbacks', () => {
+  const white = '/img/products/hso-iphone-15-pro-max-white-titanium.jpg';
+  const black = '/img/products/iphone-15-pro-max-black-titanium.jpg';
+  const variants = [
+    priceVariant('iphone-15-pro-max', '256GB', 1499, { image: white }),
+    priceVariant('iphone-15-pro-max', '512GB', 1599, { image: black })
+  ];
+  const inventory = { schemaVersion: 2, models: [{ id: 'iphone-15-pro-max', name: 'iPhone 15 Pro Max', image: white }],
+    variants, units: variants.map((variant, index) => phoneUnit(variant, 'SERIAL00' + index)) };
+  const cards = projectCatalog([], inventory);
+  assert.equal(cards.find(card => card.hsoStorage === '256GB').image, white);
+  assert.equal(cards.find(card => card.hsoStorage === '512GB').image, black);
+  assert.deepEqual(cards.map(card => card.price), [1499, 1599]);
+
+  inventory.variants[1].image = null;
+  assert.equal(projectCatalog([], inventory).find(card => card.hsoStorage === '512GB').image, black);
+  inventory.units[1].image = null;
+  assert.equal(projectCatalog([], inventory).find(card => card.hsoStorage === '512GB').image, white);
+});
+
 test('an unavailable current registry hides every HSO row, including legacy entries newly claimed in the sheet', () => {
   const legacy = { name: 'iPhone 12', suffix: 'HSO', price: 549 };
   const managed = { name: 'iPhone 15', suffix: 'HSO', hsoModel: 'iphone-15', price: 1099 };
