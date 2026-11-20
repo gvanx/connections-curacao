@@ -118,7 +118,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible { 
   .bf-local { margin-top: 20px; }
   .bf-poster { width: min(100%,340px); justify-self: center; }
   .bf-spotlight { width: min(100%,360px); justify-self: center; text-align: left; }
-  .bf-poster-grid { gap: 16px; }
+  .bf-poster-grid { grid-template-columns: 1fr; gap: 24px; }
   .bf-poster-grid>a>span { padding: 12px; font-size: 14px; }
   .bf-tape { gap: 25px; font-size: 17px; padding-block: 12px; }
   .bf-offers { padding: 44px 0; }
