@@ -1,6 +1,6 @@
 (function (root) {
   'use strict';
-  const names = ['iPhone 18 Pro Max 256GB', 'iPhone 17', 'iPhone 15', 'Galaxy S26 Ultra', 'Galaxy S25 FE 128GB', 'Galaxy A57 5G'];
+  const names = ['iPhone 18 Pro Max 256GB', 'iPhone 17', 'Galaxy S26 Ultra', 'Galaxy S25 FE 128GB', 'Galaxy A57 5G'];
   const rates = { 30: 1.07, 4: 1.28, 6: 1.42, 12: 1.465, 24: 1.98 };
   const cents = value => Math.round((value + Number.EPSILON) * 100) / 100;
   const money = value => 'XCG ' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
