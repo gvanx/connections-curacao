@@ -221,7 +221,9 @@
       "Color": "White",
       "Condition": "Active",
       "Apple warranty": "Until 27 July 2027"
-    }
+    },
+    "addedAt": "2026-11-20T20:35:53.963Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 17 Pro",
