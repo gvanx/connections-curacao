@@ -99,7 +99,7 @@
         const identity = legacyIdentity(product, inventory.models);
         return identity && identity.modelId === variant.modelId && identity.storage === storageKey(variant.storage);
       });
-      const image = safeImage(model.image) || safeImage(variant.image) || safeImage(units[0].image);
+      const image = safeImage(variant.image) || safeImage(units[0].image) || safeImage(model.image);
       const campaignUnits = units.filter(unit => unit.blackFriday === true);
       const product = {
         name: model.name + (variant.storage ? ' ' + variant.storage : ''), suffix: 'HSO',
