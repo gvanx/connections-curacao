@@ -207,25 +207,6 @@
     "blackFriday": true
   },
   {
-    "name": "iPhone 17 256GB White",
-    "suffix": "Active",
-    "price": 1850,
-    "oldPrice": 1990,
-    "category": "apple",
-    "featured": false,
-    "blackFriday": true,
-    "spec": "White · 256GB · Active model · Apple warranty until 27 July 2027",
-    "specifications": {
-      "Storage": "256GB",
-      "Color": "White",
-      "Condition": "Active",
-      "Apple warranty": "Until 27 July 2027"
-    },
-    "addedAt": "2026-11-20T20:35:53.963Z",
-    "newArrival": true,
-    "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-17-finish-select-white-202509_GEO_US?wid=940&hei=1112&fmt=png-alpha"
-  },
-  {
     "name": "iPhone 17 Pro",
     "suffix": "",
     "price": 2750,
