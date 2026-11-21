@@ -374,6 +374,22 @@
     "addedAt": "2026-10-15T20:40:05Z"
   },
   {
+    "name": "Apple Watch 12 46mm",
+    "suffix": "",
+    "price": 1390,
+    "category": "apple",
+    "featured": false,
+    "imageUnavailable": true,
+    "oldPrice": 1490,
+    "blackFriday": true,
+    "spec": "46mm case",
+    "specifications": {
+      "Case size": "46mm"
+    },
+    "addedAt": "2026-11-21T18:13:13.297Z",
+    "newArrival": true
+  },
+  {
     "name": "AirPods 4",
     "suffix": "",
     "price": 349,
@@ -514,10 +530,16 @@
   {
     "name": "Galaxy S25 Ultra",
     "suffix": "",
-    "price": 1989,
+    "price": 1990,
     "category": "samsung",
     "featured": false,
-    "image": "galaxy-s25-ultra-model.jpg"
+    "image": "galaxy-s25-ultra-model.jpg",
+    "oldPrice": 2390,
+    "blackFriday": true,
+    "spec": "256GB storage",
+    "specifications": {
+      "Storage": "256GB"
+    }
   },
   {
     "name": "Galaxy S26 FE 256GB",
