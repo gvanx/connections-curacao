@@ -103,7 +103,7 @@ test('catalog strings are escaped and image paths preserve supported existing ar
   assert.equal(imageSrc({ image: 'ac-generic.png', imageUnavailable: true }), '');
 });
 
-function browser(fetch, { spotlight = true, inventory } = {}) {
+function browser(fetch, { spotlight = true, inventory, localStorage } = {}) {
   const elements = new Map();
   function element(id) {
     let html = '';
@@ -134,6 +134,7 @@ function browser(fetch, { spotlight = true, inventory } = {}) {
   let sourceProducts = [];
   const window = {
     HSOCatalog: hsoCatalog,
+    ...(localStorage ? { localStorage } : {}),
     document: { hidden: false, getElementById: id => elements.get(id), addEventListener(type, callback) { events[type] = callback; } },
     fetch: async (url, options) => {
       if (url === '/.netlify/functions/hso-stock') return { ok: true, json: async () => {
@@ -263,6 +264,47 @@ test('Black Friday feed failures hide legacy HSO on cold load and after a previo
   assert.match(grid.innerHTML, /data-product-price="444"/);
 });
 
+test('a stock-feed outage reuses recent good stock across loads but never stale or sold-out stock', async () => {
+  const values = new Map();
+  const localStorage = {
+    getItem: key => values.has(key) ? values.get(key) : null,
+    setItem: (key, value) => values.set(key, String(value))
+  };
+  const legacy = { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB', category: 'apple', price: 1099, blackFriday: true };
+  const ordinary = { name: 'Available airco', category: 'acs', price: 444, blackFriday: true };
+  const available = stockFixture({ models: [{ id: 'iphone-15' }], units: [
+    { modelId: 'iphone-15', serial: 'ABC12345', storage: '128GB', color: 'Black', status: 'available' }
+  ] }, [legacy]);
+  let inventory = available;
+  const fetchProducts = async () => ({ ok: true, json: async () => [legacy, ordinary] });
+  const app = browser(fetchProducts, { inventory: () => inventory, localStorage });
+  await flush();
+  const grid = app.elements.get('bf-products');
+  assert.match(grid.innerHTML, /Managed iPhone/);
+  assert.ok(values.has('bf-hso-stock-v1'));
+
+  inventory = null;
+  await app.events.online();
+  assert.match(grid.innerHTML, /Managed iPhone/);
+
+  const cold = browser(fetchProducts, { inventory: () => null, localStorage });
+  await flush();
+  assert.match(cold.elements.get('bf-products').innerHTML, /Managed iPhone/);
+
+  inventory = { ...available, units: [] };
+  await app.events.focus();
+  assert.doesNotMatch(grid.innerHTML, /Managed iPhone/);
+  assert.match(grid.innerHTML, /Available airco/);
+
+  const saved = JSON.parse(values.get('bf-hso-stock-v1'));
+  saved.savedAt = Date.now() - 31 * 60 * 1000;
+  values.set('bf-hso-stock-v1', JSON.stringify(saved));
+  const expired = browser(fetchProducts, { inventory: () => null, localStorage });
+  await flush();
+  assert.doesNotMatch(expired.elements.get('bf-products').innerHTML, /Managed iPhone/);
+  assert.match(expired.elements.get('bf-products').innerHTML, /Available airco/);
+});
+
 test('browser loading binds checkout, filters tagged categories, sorts, and recovers missing images', async () => {
   const requests = [];
   const app = browser(async (url, options) => {
@@ -279,6 +321,7 @@ test('browser loading binds checkout, filters tagged categories, sorts, and reco
   assert.equal(e('bf-count').textContent, `${selectDeals(catalog).length} Black Friday deals`);
   assert.equal(e('bf-toolbar').hidden, false);
   assert.equal(e('bf-spotlight').hidden, false);
+  assert.match(e('bf-spotlight').innerHTML, /<h2 class="sr-only">Featured Black Friday deal<\/h2>/);
   assert.match(e('bf-spotlight').innerHTML, /Premier 9,000 BTU Inverter AC/);
   assert.match(e('bf-spotlight').innerHTML, /js-order-btn/);
   assert.match(e('bf-spotlight').innerHTML, /data-product-price="444"/);

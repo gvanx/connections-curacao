@@ -16,6 +16,30 @@
   const toolbar = doc.getElementById('bf-toolbar');
   const spotlight = doc.getElementById('bf-spotlight');
   let products = [], baseProducts = [], inventory = null, category = 'all', loading = false, refreshing = false;
+  const INVENTORY_CACHE_KEY = 'bf-hso-stock-v1';
+  const INVENTORY_CACHE_MAX_AGE_MS = 30 * 60 * 1000;
+  function cachedInventory() {
+    try {
+      const saved = JSON.parse(root.localStorage?.getItem(INVENTORY_CACHE_KEY) || 'null');
+      const stock = saved?.inventory;
+      if (!stock || stock.schemaVersion !== 2 || !Array.isArray(stock.models) ||
+          !Array.isArray(stock.variants) || !Array.isArray(stock.units) ||
+          !Number.isFinite(saved.savedAt) || Date.now() - saved.savedAt > INVENTORY_CACHE_MAX_AGE_MS) return null;
+      return stock;
+    } catch (_) { return null; }
+  }
+  function rememberInventory(stock) {
+    try {
+      root.localStorage?.setItem(INVENTORY_CACHE_KEY, JSON.stringify({ savedAt: Date.now(), inventory: stock }));
+    } catch (_) { /* Private browsing or a full quota must not break the deals page. */ }
+  }
+  async function currentInventory() {
+    try {
+      const stock = await hsoCatalog.fetchInventory(root.fetch.bind(root));
+      if (stock) { rememberInventory(stock); return stock; }
+    } catch (_) { /* Use the last known good registry below. */ }
+    return cachedInventory();
+  }
   function applyAvailability() {
     const available = hsoCatalog ? hsoCatalog.projectCatalog(baseProducts, inventory, { previous: products }) : baseProducts.filter(p => p.suffix !== 'HSO');
     if (available.length === products.length && available.every((product, index) => product === products[index])) return false;
@@ -30,7 +54,7 @@
     if (loading || refreshing || !hsoCatalog) return;
     refreshing = true;
     try {
-      inventory = await hsoCatalog.fetchInventory(root.fetch.bind(root));
+      inventory = await currentInventory();
       if (applyAvailability()) render();
     } finally { refreshing = false; }
   }
@@ -57,12 +81,12 @@
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
       baseProducts = data.filter(p => p && typeof p.name === 'string');
-      inventory = hsoCatalog ? await hsoCatalog.fetchInventory(root.fetch.bind(root)) : null;
+      inventory = hsoCatalog ? await currentInventory() : null;
       applyAvailability();
       if (spotlight) {
         const lead = api.selectDeals(products, 'acs', 'price-asc').find(p => Number.isFinite(p.price) && p.price > 0 && !p.inquiryOnly && !p.soldOut);
         spotlight.hidden = !lead;
-        spotlight.innerHTML = lead ? api.cardHTML(lead) : '';
+        spotlight.innerHTML = lead ? '<h2 class="sr-only">Featured Black Friday deal</h2>' + api.cardHTML(lead) : '';
         root.attachOrderButtons(spotlight);
       }
       render();

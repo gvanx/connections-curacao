@@ -55,3 +55,13 @@ test('rejected or interrupted storage requests cannot be reported as saved', asy
   await assert.rejects(submitSignup(data, { fetch: async () => { throw new TypeError('offline'); } }), /offline/);
   await assert.rejects(submitSignup(data, { fetch: async () => { throw new DOMException('Timed out', 'AbortError'); } }), { name: 'AbortError' });
 });
+
+test('campaign copy matches the homepage start date and warns that poster prices are printed', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../blackfriday/index.html'), 'utf8');
+  assert.match(html, /EARLY DEALS LIVE/);
+  assert.match(html, /Black Friday Week starts 23 November/);
+  assert.match(html, /Poster prices are as printed/);
+  assert.doesNotMatch(html, /class="bf-live">SALE NOW LIVE/);
+  assert.doesNotMatch(html, /og:title" content="Black Friday — Sale Now Live/);
+  assert.doesNotMatch(html, /and more to come/i);
+});

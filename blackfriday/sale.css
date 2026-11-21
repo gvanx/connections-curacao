@@ -11,6 +11,7 @@ html { scroll-padding-top: 24px; }
 .bf-hero h1 { font: 300 clamp(88px, 9.2vw, 138px)/.8 'Cormorant Garamond', Georgia, serif; letter-spacing: -.06em; text-shadow: 0 0 26px #ffffff33; }
 .bf-hero h1 br { display: initial; }
 .bf-live { margin-top: 30px; font-size: 18px; letter-spacing: .24em; }
+.bf-live-note { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .bf-intro { margin: 27px 0; color: #b7b7af; font-size: 18px; line-height: 1.7; }
 .bf-hero-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 .bf-group-hero { margin-top: 18px; color: #d5d5cb; }
@@ -49,6 +50,7 @@ html { scroll-padding-top: 24px; }
 .bf-card-button.js-order-btn { color: #10110c; background: #ffe34e; border: 1px solid #ead03d; }
 .bf-card-button.js-order-btn:hover { background: #ffed81; }
 .bf-posters { padding: 0 0 64px; scroll-margin-top: 24px; }
+.bf-poster-note { margin: -12px 0 24px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .bf-poster-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; max-width: 850px; }
 .bf-poster-grid>a { border: 1px solid #35352e; border-radius: 4px; overflow: hidden; }
 .bf-poster-grid img { width: 100%; height: auto; }
