@@ -26,6 +26,13 @@ fbq('track', 'PageView');
 @media(max-width:900px){.hero-grid,.visit{grid-template-columns:1fr}.hero-copy{text-align:center}.lead{margin-inline:auto}.trust{justify-content:center}.calc{max-width:650px;margin:auto}.steps{grid-template-columns:repeat(2,1fr)}.cta{align-items:flex-start;flex-direction:column}}@media(max-width:620px){.navin{height:64px}.brand{font-size:.82rem}.navlink{display:none}.hero{padding-top:2.7rem}.fields,.terms{grid-template-columns:1fr}.term.wide{grid-column:auto}.steps{grid-template-columns:1fr}.step{display:grid;grid-template-columns:60px 1fr}.step h3{margin:.2rem 0 .4rem}.step p{grid-column:2}.stripein{min-height:92px;gap:.4rem;flex-direction:column;padding:1rem}.result{grid-template-columns:1fr}.breakdown{text-align:left}.location,.cta{align-items:flex-start;flex-direction:column}.cta .buttons,.cta .btn{width:100%}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .planrow{grid-template-columns:repeat(5,1fr)}.planrow span{padding:.62rem .15rem;font-size:.69rem}.app-download{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;margin-top:.8rem;padding:.72rem 1rem;border-radius:12px;background:var(--ink);color:#fff;text-decoration:none;font-size:.78rem;font-weight:800}.app-download:after{content:'';width:1em;height:1em;background-color:var(--orange);-webkit-mask:url("data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%221em%22%20height%3D%221em%22%20%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%20%3E%3Cpath%20d%3D%22M5%2019%2019%205M5%205h14v14%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;mask:url("data:image/svg+xml,%3Csvg%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%221em%22%20height%3D%221em%22%20%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%20%3E%3Cpath%20d%3D%22M5%2019%2019%205M5%205h14v14%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat}@media(max-width:430px){.planrow{grid-template-columns:repeat(3,1fr)}.planrow label:first-child{grid-column:span 2}}
 .breakdown{display:none}
+
+/* Suave welcome and self-service guide */
+.suave-guide{width:min(620px,calc(100% - 2rem));max-height:calc(100dvh - 2rem);padding:0;border:1px solid var(--line);border-radius:24px;background:#fff;color:var(--ink);box-shadow:0 24px 100px #0005;overflow:auto;overscroll-behavior:contain}
+.suave-guide::backdrop{background:#17142cbd;backdrop-filter:blur(5px)}
+.suave-guide .guide-inner{padding:clamp(1.25rem,5vw,2rem)}
+.guide-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}.guide-languages{display:flex;gap:.3rem}.guide-languages button,.guide-close{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;min-width:44px;min-height:44px;cursor:pointer;font-size:.875rem;font-weight:800}.guide-languages button[aria-pressed=true]{background:var(--ink);color:#fff}.guide-close{font-size:1.5rem}
+.suave-guide h2{font-size:clamp(1.8rem,5vw,2.5rem);line-height:1.15;letter-spacing:-.04em;margin:.6rem 0 1rem}.suave-guide p{margin:.5rem 0 1rem}.guide-intro{color:var(--muted)}.guide-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.4rem}.suave-guide .btn,.guide-reopen{font-size:1rem;white-space:normal;border:1px solid var(--line);cursor:pointer}.suave-guide .guide-primary{background:var(--violet);border-color:var(--violet);color:#fff}.suave-guide .guide-secondary{background:#fff;color:var(--ink)}.guide-reopen{background:transparent;color:#fff;margin-top:.7rem}.guide-steps{padding-left:1.5rem;margin:1.25rem 0}.guide-steps li{padding-left:.35rem;margin-bottom:1rem}.guide-steps li::marker{color:var(--violet);font-weight:800}.guide-steps strong{display:block}.guide-steps p{margin:.2rem 0;color:var(--muted)}.guide-note{background:#fff5dd;border-radius:14px;padding:1rem}.guide-note p:last-child{margin-bottom:0}.suave-guide a:not(.btn){color:var(--violet)}.suave-guide :focus-visible,.guide-reopen:focus-visible{outline:3px solid var(--orange);outline-offset:3px}html:has(.suave-guide[open]){overflow:hidden}@media(max-width:430px){.guide-actions .btn{width:100%}}
 </style><link rel="stylesheet" href="/suave/offers.css"></head>
 <body>
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=583592416189452&amp;ev=PageView&amp;noscript=1"></noscript>
@@ -81,5 +88,77 @@ document.addEventListener('click', event => {
     });
   }
 });
-</script></body></html>
+</script>
+<dialog class="suave-guide" id="suave-guide" aria-labelledby="suave-guide-title">
+<div class="guide-inner"><div class="guide-top"><div class="guide-languages" role="group" aria-label="Choose language"><button type="button" data-guide-lang="en">EN</button><button type="button" data-guide-lang="pap">PAP</button><button type="button" data-guide-lang="es">ES</button></div><button type="button" class="guide-close" id="guide-close" aria-label="Close">×</button></div><div id="guide-content"></div></div>
+</dialog>
+<script>
+(() => {
+  const copy = {
+    en: {
+      question:'Do you know how Suave works?', intro:'Buy now and pay over time. Get the steps here before you choose your phone.', yes:'Yes, I know', no:'No, show me', title:'Get started with Suave', reopen:'How does Suave work?', close:'Close',
+      steps:[['Download the Suave app','Use the download button below to get started. You must be 18 or older and have valid identification.'],['Check your spending power','Complete the steps requested in the Suave app and check your available spending power. Suave decides your eligibility and approval. Connections cannot approve or increase your limit.'],['Choose your product','Use the calculator on this page to estimate payments. Visit Punda or Otrobanda with valid ID. For an online order, select Suave at checkout and send the order request through WhatsApp to receive your QR code.'],['Review, approve and collect','Scan the purchase QR code in Suave when provided. Review your final total, fees and payment schedule before authorizing. Your order is ready only after approval, payment verification and stock confirmation.']],
+      payment:'What do I pay upfront?', paymentText:'For monthly plans, Suave charges the first monthly payment when you collect your device. On a 12-month plan, this is payment 1 of 12. An optional extra payment to Connections is separate.', fee:'The calculator includes the 3% store fee. Estimates are not an approval or a final offer; Suave confirms the actual amounts, dates and any fees.', help:'Questions about approval, your limit or repayments? Check the Suave app for help with your account. Connections handles products, stock and collection.', download:'Download the Suave app', calculator:'Try the calculator', terms:'Read the terms'
+    },
+    pap: {
+      question:'Bo sa kon Suave ta funshoná?', intro:'Kumpra awor i paga den plaso. Mira e pasonan aki promé ku bo skohe bo telefòn.', yes:'Si, mi sa', no:'Nò, mustra mi', title:'Kuminsá ku Suave', reopen:'Kon Suave ta funshoná?', close:'Sera',
+      steps:[['Download e app di Suave','Usa e boton abou pa kuminsá. Bo mester tin 18 aña òf mas i un ID válido.'],['Kontrolá bo límite','Kompletá e pasonan den e app di Suave i kontrolá bo límite disponibel. Suave ta disidí tokante bo aprobashon. Connections no por aprobá ni oumentá bo límite.'],['Skohe bo produkto','Usa e kalkuladó riba e página aki pa kalkulá bo pagonan. Bishitá Punda òf Otrobanda ku ID válido. Pa órden online, skohe Suave na checkout i manda e petishon di órden via WhatsApp pa risibí bo kódigo QR.'],['Kontrolá, outorisá i buska','Skan e QR di kompra den Suave ora bo risibié. Kontrolá e total final, kostonan i plan di pago promé ku outorisá. E órden ta kla solamente despues di aprobashon, verifikashon di pago i konfirmashon di stok.']],
+      payment:'Kiko mi ta paga promé?', paymentText:'Pa plannan mensual, Suave ta kobra e promé pago mensual ora bo buska bo aparato. Den un plan di 12 luna, esaki ta pago 1 di 12. Un pago èkstra opshonal na Connections ta separá.', fee:'E kalkuladó ta inkluí e 3% di kosto di tienda. E kalkulashon no ta un aprobashon ni oferta final; Suave ta konfirmá e montantenan, fechanan i kostonan.', help:'Pregunta tokante aprobashon, bo límite òf pagonan? Kontrolá e app di Suave pa yudansa ku bo kuenta. Connections ta trata produkto, stok i entrega.', download:'Download e app di Suave', calculator:'Purba e kalkuladó', terms:'Lesa e kondishonnan'
+    },
+    es: {
+      question:'¿Sabes cómo funciona Suave?', intro:'Compra ahora y paga en cuotas. Conoce los pasos aquí antes de elegir tu teléfono.', yes:'Sí, ya sé', no:'No, explícame', title:'Empieza con Suave', reopen:'¿Cómo funciona Suave?', close:'Cerrar',
+      steps:[['Descarga la app de Suave','Usa el botón de abajo para empezar. Debes tener 18 años o más e identificación válida.'],['Consulta tu límite disponible','Completa los pasos solicitados en la app y consulta tu límite disponible. Suave determina tu elegibilidad y aprobación. Connections no puede aprobar ni aumentar tu límite.'],['Elige tu producto','Usa la calculadora de esta página para estimar las cuotas. Visita Punda u Otrobanda con identificación válida. Para pedidos online, selecciona Suave al finalizar la compra y envía la solicitud por WhatsApp para recibir tu código QR.'],['Revisa, autoriza y recoge','Escanea el QR de compra en Suave cuando lo recibas. Revisa el total final, los cargos y el calendario antes de autorizar. El pedido estará listo tras la aprobación, la verificación del pago y la confirmación de inventario.']],
+      payment:'¿Qué pago al recoger?', paymentText:'En los planes mensuales, Suave cobra la primera cuota al recoger el dispositivo. En un plan de 12 meses, es la cuota 1 de 12. Cualquier aportación extra opcional a Connections es aparte.', fee:'La calculadora incluye el cargo de tienda del 3%. Los estimados no son una aprobación ni una oferta final; Suave confirma los importes, las fechas y los cargos.', help:'¿Preguntas sobre aprobación, tu límite o las cuotas? Consulta la app de Suave para recibir ayuda con tu cuenta. Connections gestiona productos, inventario y recogida.', download:'Descarga la app de Suave', calculator:'Prueba la calculadora', terms:'Lee los términos'
+    }
+  };
+  const dialog = document.getElementById('suave-guide');
+  const content = document.getElementById('guide-content');
+  const reopen = document.createElement('button');
+  reopen.type = 'button'; reopen.className = 'btn guide-reopen';
+  document.querySelector('.hero-actions').append(reopen);
+  let showingGuide = false, previousFocus;
+  const key = 'connections-suave-guide-v1';
+  function renderGuide() {
+    const c = copy[document.documentElement.lang] || copy.en;
+    reopen.textContent = c.reopen;
+    document.getElementById('guide-close').setAttribute('aria-label', c.close);
+    dialog.querySelectorAll('[data-guide-lang]').forEach(b => b.setAttribute('aria-pressed', b.dataset.guideLang === document.documentElement.lang));
+    content.innerHTML = '<span class="kicker">CONNECTIONS × SUAVE</span><h2 id="suave-guide-title" tabindex="-1">' + (showingGuide ? c.title : c.question) + '</h2>' + (showingGuide
+      ? '<ol class="guide-steps">' + c.steps.map(s => '<li><strong>' + s[0] + '</strong><p>' + s[1] + '</p></li>').join('') + '</ol><div class="guide-note"><strong>' + c.payment + '</strong><p>' + c.paymentText + '</p><p>' + c.fee + '</p></div><p class="guide-intro">' + c.help + '</p><div class="guide-actions"><a class="btn guide-primary" href="https://onelink.to/q76t2h" target="_blank" rel="noopener">' + c.download + '</a><button type="button" class="btn guide-secondary" data-guide-target="calculator">' + c.calculator + '</button><button type="button" class="btn guide-secondary" data-guide-target="terms">' + c.terms + '</button></div>'
+      : '<p class="guide-intro">' + c.intro + '</p><div class="guide-actions"><button type="button" class="btn guide-secondary" data-guide-yes>' + c.yes + '</button><button type="button" class="btn guide-primary" data-guide-no>' + c.no + '</button></div>');
+  }
+  function openGuide(guide) {
+    showingGuide = guide; previousFocus = document.activeElement; renderGuide();
+    dialog.showModal(); dialog.scrollTop = 0;
+    document.getElementById('suave-guide-title').focus();
+  }
+  dialog.addEventListener('close', () => {
+    try { sessionStorage.setItem(key, 'seen'); } catch (_) {}
+    (previousFocus && previousFocus !== document.body ? previousFocus : reopen).focus();
+  });
+  document.getElementById('guide-close').addEventListener('click', () => dialog.close());
+  dialog.querySelectorAll('[data-guide-lang]').forEach(b => b.addEventListener('click', () => setLang(b.dataset.guideLang)));
+  content.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+    if (button.hasAttribute('data-guide-yes')) dialog.close();
+    if (button.hasAttribute('data-guide-no')) {
+      showingGuide = true; renderGuide(); dialog.scrollTop = 0;
+      document.getElementById('suave-guide-title').focus();
+    }
+    if (button.dataset.guideTarget) {
+      dialog.close();
+      const target = document.getElementById(button.dataset.guideTarget);
+      target.setAttribute('tabindex', '-1'); target.focus({preventScroll:true});
+      target.scrollIntoView({block:'start'});
+    }
+  });
+  reopen.addEventListener('click', () => openGuide(true));
+  document.addEventListener('suave:languagechange', renderGuide);
+  renderGuide();
+  let seen = false; try { seen = sessionStorage.getItem(key) === 'seen'; } catch (_) {}
+  if (!seen && typeof dialog.showModal === 'function') openGuide(false);
+})();
+</script>
+</body></html>
 
