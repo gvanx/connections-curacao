@@ -193,8 +193,7 @@
       "Battery health": "89%",
       "Trade price": "XCG 2,390"
     },
-    "addedAt": "2026-11-09T19:47:53Z",
-    "newArrival": true
+    "addedAt": "2026-11-09T19:47:53Z"
   },
   {
     "name": "iPhone 17",
@@ -337,7 +336,6 @@
       "Condition": "HSO"
     },
     "addedAt": "2026-11-09T20:42:25Z",
-    "newArrival": true,
     "oldPrice": 1290,
     "blackFriday": true
   },
