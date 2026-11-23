@@ -20,7 +20,7 @@
   function mergeCatalog(products, store, now = Date.now()) {
     const valid = store && Array.isArray(store.products);
     const mode = valid && store.storeStatus && store.storeStatus.mode;
-    const open = mode === 'full' || mode === 'apple-only';
+    const open = mode === 'full' || mode === 'apple-only' || mode === 'night';
     const sale = valid && store.config && store.config.sale;
     return products.map(product => {
       if (!isGiftCard(product)) return product;

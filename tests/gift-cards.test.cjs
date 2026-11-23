@@ -149,6 +149,36 @@ test('real product and featured cards link to digital checkout without a physica
   assert(h.elements.get('#product-results').innerHTML.includes('#buy='));
 });
 
+test('nighttime refresh keeps Apple sale prices and checkout links while respecting stock and closure', async () => {
+  const h = await boot();
+  const feed = store();
+  feed.config.sale = { enabled: true, percent: 5, categories: ['Apple'] };
+  feed.storeStatus = { mode: 'night', closed: false };
+  h.state.feed = feed;
+  h.events.focus(); await h.settle();
+  for (const id of ['#product-results', '#deals .container']) {
+    const html = h.elements.get(id).innerHTML;
+    assert(html.includes('XCG 33.25'));
+    assert(html.includes(purchaseUrl(card)));
+  }
+  feed.products[0].soldOut = true;
+  h.events.focus(); await h.settle();
+  for (const id of ['#product-results', '#deals .container']) {
+    const html = h.elements.get(id).innerHTML;
+    assert(html.includes('disabled>Sold out'));
+    assert(!html.includes('#buy='));
+  }
+  delete feed.products[0].soldOut;
+  feed.storeStatus.closed = true;
+  h.events.focus(); await h.settle();
+  for (const id of ['#product-results', '#deals .container']) {
+    const html = h.elements.get(id).innerHTML;
+    assert(html.includes('View gift-card store'));
+    assert(!html.includes('XCG 33.25'));
+    assert(!html.includes('#buy='));
+  }
+});
+
 test('feed failure clears stale prices and offers the source store without breaking other products', async () => {
   const h = await boot();
   h.state.fail = true;
