@@ -207,6 +207,24 @@
     "blackFriday": true
   },
   {
+    "name": "iPhone 17 256GB White",
+    "suffix": "",
+    "price": 1850,
+    "category": "apple",
+    "featured": false,
+    "image": "iphone-17-model.jpg",
+    "blackFriday": true,
+    "oldPrice": 1990,
+    "spec": "256GB · White · Activated · With box · Warranty until July 2027",
+    "specifications": {
+      "Storage": "256GB",
+      "Color": "White",
+      "Condition": "Activated",
+      "Box": "Included",
+      "Warranty": "Until July 2027"
+    }
+  },
+  {
     "name": "iPhone 17 Pro",
     "suffix": "",
     "price": 2750,
@@ -1992,3 +2010,4 @@
     "addedAt": "2026-10-28T23:56:02.133Z"
   }
 ]
+
