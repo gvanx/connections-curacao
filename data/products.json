@@ -222,7 +222,9 @@
       "Condition": "Activated",
       "Box": "Included",
       "Warranty": "Until July 2027"
-    }
+    },
+    "addedAt": "2026-11-23T14:39:09.151Z",
+    "newArrival": true
   },
   {
     "name": "iPhone 17 Pro",
@@ -2010,4 +2012,3 @@
     "addedAt": "2026-10-28T23:56:02.133Z"
   }
 ]
-
