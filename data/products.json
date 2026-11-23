@@ -208,7 +208,7 @@
   },
   {
     "name": "iPhone 17 256GB White",
-    "suffix": "",
+    "suffix": "Active",
     "price": 1850,
     "category": "apple",
     "featured": false,
@@ -216,6 +216,7 @@
     "blackFriday": true,
     "oldPrice": 1990,
     "spec": "256GB · White · Activated · With box · Warranty until July 2027",
+    "activeNote": "Activated model. Box included. Warranty until July 2027",
     "specifications": {
       "Storage": "256GB",
       "Color": "White",

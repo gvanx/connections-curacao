@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-21-iphone17-white-sold';
+    const PRODUCTS_DATA_VERSION = '2026-11-23-active-note';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -102,6 +102,22 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
+    }
+
+    /* Active badge: optional plain-text activeNote overrides the default note. */
+    const DEFAULT_ACTIVE_NOTE = 'New & sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.';
+    const DEFAULT_ACTIVE_NOTE_HTML = 'New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.';
+    const ACTIVE_INFO_ICON = '<svg class="ui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-.125em;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01"/></svg>';
+
+    function activeBadgeAndNote(p) {
+      if (!p || p.suffix !== 'Active') return { badge: '', note: '' };
+      const custom = typeof p.activeNote === 'string' && p.activeNote.trim() ? p.activeNote.trim() : '';
+      const title = escapeHtml(custom || DEFAULT_ACTIVE_NOTE);
+      const noteHtml = custom ? escapeHtml(custom) : DEFAULT_ACTIVE_NOTE_HTML;
+      return {
+        badge: `<span class="badge-active" role="button" tabindex="0" title="${title}">Active ${ACTIVE_INFO_ICON}</span>`,
+        note: `<div class="active-note" hidden>${noteHtml}</div>`
+      };
     }
 
     function hsoDetailsUrl(product) {
@@ -324,8 +340,7 @@
         const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
         const hsoUrl = hsoDetailsUrl(p);
         const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-        const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
-        const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
+        const { badge: activeBadge, note: activeNote } = activeBadgeAndNote(p);
         const productVisual = productVisualHTML(p, fullName);
         const encodedName = encodeURIComponent(fullName);
         const { ribbon, oldPriceHtml } = saleInfo(p);
@@ -379,8 +394,7 @@
       const fullName = p.name + (p.suffix ? ' ' + p.suffix : '');
       const hsoUrl = hsoDetailsUrl(p);
       const hsoBadge = p.suffix === 'HSO' ? '<span class="badge-hso">HSO</span>' : '';
-      const activeBadge = p.suffix === 'Active' ? "<span class=\"badge-active\" role=\"button\" tabindex=\"0\" title=\"New &amp; sealed. Apple warranty is already running — phone carries a 1-year warranty with Connections.\">Active <svg class=\"ui-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" style=\"display:inline-block;vertical-align:-.125em;flex-shrink:0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0M12 11v6M12 7h.01\"/></svg></span>" : '';
-      const activeNote = p.suffix === 'Active' ? '<div class="active-note" hidden>New &amp; sealed. Apple warranty is already running — phone carries a <strong>1-year warranty with Connections</strong>.</div>' : '';
+      const { badge: activeBadge, note: activeNote } = activeBadgeAndNote(p);
       const productVisual = productVisualHTML(p, fullName);
       const encodedName = encodeURIComponent(fullName);
       const { ribbon, oldPriceHtml } = saleInfo(p);
