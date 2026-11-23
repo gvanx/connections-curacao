@@ -38,7 +38,7 @@ test('live pricing follows the source sale dates in Curaçao, rounding, original
   feed.config.sale = { enabled: true, percent: 5, startDate: '2026-10-28', endDate: '2026-10-28' };
   const now = Date.parse('2026-10-29T03:59:59Z');
   const [sale] = mergeCatalog([card], feed, now);
-  assert.equal(sale.price, 33);
+  assert.equal(sale.price, 33.25);
   assert.equal(sale.oldPrice, 35);
   assert.equal(mergeCatalog([card], feed, now + 1000)[0].price, 35);
   feed.products[0].noSale = true;
@@ -47,6 +47,31 @@ test('live pricing follows the source sale dates in Curaçao, rounding, original
   feed.products[0].originalPrice = 40;
   assert.equal(mergeCatalog([card], feed, now)[0].price, 35);
   assert.equal(mergeCatalog([card], feed, now)[0].oldPrice, 40);
+});
+
+test('sale category filters match the source store, with omitted or empty lists applying to all categories', () => {
+  for (const [categories, expectedPrice, expectedOldPrice] of [
+    [undefined, 33.25, 35],
+    [[], 33.25, 35],
+    [['Apple'], 33.25, 35],
+    [['PSN', 'Apple'], 33.25, 35],
+    [['PSN'], 35, undefined]
+  ]) {
+    const feed = store();
+    feed.config.sale = { enabled: true, percent: 5 };
+    if (categories !== undefined) feed.config.sale.categories = categories;
+    const [result] = mergeCatalog([card], feed);
+    assert.equal(result.price, expectedPrice, JSON.stringify(categories));
+    assert.equal(result.oldPrice, expectedOldPrice);
+  }
+});
+
+test('sale prices round fractional cents while retaining the original price', () => {
+  const feed = store({ price: 35.01 });
+  feed.config.sale = { enabled: true, percent: 5, categories: ['Apple'] };
+  const [result] = mergeCatalog([card], feed);
+  assert.equal(result.price, 33.26);
+  assert.equal(result.oldPrice, 35.01);
 });
 
 async function boot({ fail = false, feed = store(), stall = false, hash = '#gift-cards' } = {}) {

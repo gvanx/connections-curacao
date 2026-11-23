@@ -32,7 +32,7 @@
       const source = matches[0];
       let price = source.price, oldPrice = source.originalPrice || null;
       // Match the digital store's rounding and per-product sale opt-out.
-      if (saleActive(sale, now) && (!Array.isArray(sale.categories) || sale.categories.includes(source.cat)) && !oldPrice && !source.noSale) {
+      if (saleActive(sale, now) && (!Array.isArray(sale.categories) || sale.categories.length === 0 || sale.categories.includes(source.cat)) && !oldPrice && !source.noSale) {
         const discounted = Math.round(price * (1 - sale.percent / 100) * 100) / 100;
         if (discounted > 0 && discounted < price) { oldPrice = price; price = discounted; }
       }
