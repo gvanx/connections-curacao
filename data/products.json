@@ -336,6 +336,27 @@
     "image": "/img/products/macbook-neo-indigo.jpg"
   },
   {
+    "name": "MacBook Air 13-inch (2012) 128GB/4GB",
+    "suffix": "HSO",
+    "price": 299,
+    "category": "apple",
+    "featured": false,
+    "model": "A1466",
+    "type": "Laptop",
+    "imageUnavailable": true,
+    "spec": "Intel Core i5 · 4GB RAM · 128GB SSD · Intel HD Graphics 4000",
+    "specifications": {
+      "Model": "MacBook Air 13-inch, Mid 2012 (A1466)",
+      "Processor": "Intel Core i5",
+      "Memory": "4GB DDR3",
+      "Storage": "128GB SSD",
+      "Graphics": "Intel HD Graphics 4000",
+      "Condition": "HSO (second-hand)"
+    },
+    "addedAt": "2026-11-24T19:07:32.804Z",
+    "newArrival": true
+  },
+  {
     "name": "MacBook Pro 13-inch (2020) 256GB/8GB",
     "suffix": "HSO",
     "price": 999,
