@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-23-active-note';
+    const PRODUCTS_DATA_VERSION = '2026-11-23-16plus-a18-watch';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {

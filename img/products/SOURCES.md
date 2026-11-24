@@ -202,3 +202,19 @@ Source pages:
 - https://www.apple.com/shop/product/fxv03ll/a/Refurbished-iPhone-16-Plus-256GB-White-Unlocked
 
 Unmodified Apple model photography, visually checked against each listed finish: White for iPhone 16 Plus; White Titanium, Natural Titanium and Desert Titanium for iPhone 16 Pro Max. These are illustrative model images, not photographs of the individual HSO units. Storage, battery health, HSO condition and retail prices were supplied by the store owner; no Apple refurbishment certification, warranty or SIM specification is implied.
+
+## apple-watch-12-46mm.png
+
+- Local asset: `apple-watch-12-46mm.png`
+- Source page: https://www.apple.com/us/shop/buy-watch/apple-watch/46mm-gps-black-aluminum-black-sport-band
+- Original image: https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MJVV4ref_VW_34FR_NCE+watch-case-46-aluminum-black-nc-s12_VW_34FR+watch-face-46-aluminum-black-s12_VW_34FR?wid=2000&hei=2000&fmt=png-alpha&.v=bHoyOXBOek91OTRxY2R2Mm1QcTVtZTNBUDJrcVJULytKcGloTXUxMUdXQmIyYkZSZ2lxNm5ndWdxNUtadXV2QlNXdm5KSFpzWnlKRFozS1dKMmdNM1RVd0dKdHdLc1NtSCsvZFZHNkR1VVFCQ2dmKzdkYnNORjNpVGtwMHBHbjVkNXhib1YvWDJGdCtnakFRT0xqUmFTVGRNc1k4UllOK1NUUTQ0eXRVbkJyOG51a25MU2R4T0Z0NzB1QlM1TEFxZkYxeTJUcVAwNEZuNEFwc2cvM3ZSdw
+- Retrieved: 2026-11-23
+- Manufacturer product image, used without modifying the image. Color shown is illustrative; no stock color was specified.
+
+## galaxy-a18-model.png
+
+- Local asset: `galaxy-a18-model.png`
+- Source page: https://www.samsung.com/latin_en/smartphones/galaxy-a/galaxy-a18-black-128gb-sm-a185gzkplty/
+- Original image: https://images.samsung.com/is/image/samsung/p6pim/latin_en/sm-a185gzkplty/gallery/latin-en-galaxy-a18-sm-a185-608455-sm-a185gzkplty-554938486?$1164_776_PNG$=
+- Retrieved: 2026-11-23
+- Manufacturer product image, used without modifying the image. Color shown is illustrative; no stock color was specified.

@@ -76,7 +76,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-21-s25-ultra-watch12-blackfriday', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-23-16plus-a18-watch', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');

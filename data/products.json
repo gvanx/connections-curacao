@@ -152,6 +152,23 @@
     "oldPrice": 1950
   },
   {
+    "name": "iPhone 16 Plus 128GB",
+    "suffix": "",
+    "price": 1990,
+    "oldPrice": 2190,
+    "category": "apple",
+    "featured": false,
+    "image": "/img/products/iphone-16-plus-model.jpg",
+    "blackFriday": true,
+    "limited": true,
+    "spec": "128GB storage · Limited supply",
+    "specifications": {
+      "Storage": "128GB"
+    },
+    "addedAt": "2026-11-24T00:26:31.238Z",
+    "newArrival": true
+  },
+  {
     "name": "iPhone 16e",
     "suffix": "",
     "price": 1390,
@@ -379,7 +396,6 @@
     "price": 1390,
     "category": "apple",
     "featured": false,
-    "imageUnavailable": true,
     "oldPrice": 1490,
     "blackFriday": true,
     "spec": "46mm case",
@@ -387,7 +403,8 @@
       "Case size": "46mm"
     },
     "addedAt": "2026-11-21T18:13:13.297Z",
-    "newArrival": true
+    "newArrival": true,
+    "image": "/img/products/apple-watch-12-46mm.png"
   },
   {
     "name": "AirPods 4",
@@ -460,6 +477,21 @@
     "image": "galaxy-a17-model.jpg",
     "oldPrice": 449,
     "blackFriday": true
+  },
+  {
+    "name": "Galaxy A18 128GB",
+    "suffix": "",
+    "price": 499,
+    "category": "samsung",
+    "featured": false,
+    "image": "/img/products/galaxy-a18-model.png",
+    "blackFriday": true,
+    "spec": "128GB storage",
+    "specifications": {
+      "Storage": "128GB"
+    },
+    "addedAt": "2026-11-24T00:26:31.238Z",
+    "newArrival": true
   },
   {
     "name": "Galaxy A26",
