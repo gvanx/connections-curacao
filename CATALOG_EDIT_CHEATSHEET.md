@@ -164,8 +164,11 @@ opens at `/#blackfriday-appliances`; the campaign page opens at
 `acs` catalog category. `applianceGroup` groups the featured view into
 `personal-care`, `kitchen`, and `cooling`; price sorting produces a single list.
 Keep the exact SKU in the name, `model`, and `sku`. These offers use
-`inquiryOnly: true` with **Ask availability** and model-name artwork until
-stock/checkout and product photographs are confirmed. No regular prices were
+`inquiryOnly: true` with **Ask availability** until stock/checkout is confirmed.
+Verified product photographs are stored in `img/products/blackfriday-appliances/`,
+with exact-model source evidence in `docs/blackfriday-appliance-photo-sources.json`.
+Models without a verified photo keep their model-name artwork. A photo's color
+does not guarantee color availability. No regular prices were
 supplied, so do not add a comparison price or savings claim.
 
 Their `image` is `ac-catalog.webp`, the existing main-site airco illustration

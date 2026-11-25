@@ -1,0 +1,96 @@
+{
+  "checkedAt": "2026-11-25",
+  "note": "Exact-model photos selected from the linked product pages. A pictured color does not guarantee color availability; ask the store. Existing prices and product claims were not changed from these sources.",
+  "photos": [
+    {
+      "sku": "SN 023",
+      "image": "/img/products/blackfriday-appliances/sn-023.jpg",
+      "pageUrl": "https://www.falabella.com.pe/falabella-pe/product/144791414/Cortadora-Afeitadora-De-Cabello-Sonar-Sn-023-Electrica/144791415",
+      "imageUrl": "https://media.falabella.com/falabellaPE/144791415_01/public",
+      "evidence": "Exact retailer product title identifies Sonar SN-023. Image inspected: gold T-blade trimmer with skull/barber embossing and LED battery display."
+    },
+    {
+      "sku": "SN 025",
+      "image": "/img/products/blackfriday-appliances/sn-025.jpg",
+      "pageUrl": "https://www.mytek.tn/tondeuse-a-cheveux-rechargeable-sonar-sn-025-noir.html",
+      "imageUrl": "https://mk-media.mytek.tn/media/catalog/product/t/o/tondeuse-a-cheveux-rechargeable-sonar-sn-025-noir-z.jpg",
+      "evidence": "Mytek exact product title and SKU identify SONAR SN-025 Noir. Same image also indexed on Hawwini exact SN-025 page. Image inspected: black textured clipper with transparent neck and T blade."
+    },
+    {
+      "sku": "SN 107",
+      "image": "/img/products/blackfriday-appliances/sn-107.webp",
+      "pageUrl": "https://bt.rozetka.com.ua/308929053/p308929053/",
+      "imageUrl": "https://content1.rozetka.com.ua/goods/images/big/303022923.jpg",
+      "evidence": "Rozetka exact product page identifies Sonar SN-107. Image inspected: Sonar black and silver clipper kit with charger, guides, scissors, comb, oil, and manual."
+    },
+    {
+      "sku": "DL 9258",
+      "image": "/img/products/blackfriday-appliances/dl-9258.webp",
+      "pageUrl": "https://www.bprof.com.ar/productos/daling-maquina-afeitadora-dl-9258/",
+      "imageUrl": "https://acdn-us.mitiendanube.com/stores/007/970/984/products/dl-9258_1-34d0133c913bea923a17925950911473-640-0.webp",
+      "evidence": "Exact BPROF product title Daling Máquina Afeitadora DL-9258 and SKU DL-9258. Image inspected: black rectangle foil shaver with gold head and rose-gold DALING strip."
+    },
+    {
+      "sku": "DL 9272",
+      "image": "/img/products/blackfriday-appliances/dl-9272.jpg",
+      "pageUrl": "https://shopee.com.br/Maquina-de-Barbear-Barbeador-2-L%C3%A2minas-El%C3%A9trico-Daling-Recarreg%C3%A1vel-Bivolt-i.352618329.18098123395",
+      "imageUrl": "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m5iqcjdq1mlu35",
+      "evidence": "Image inspected and DL-9272 model visibly printed on included retail box. MercadoLivre exact DL-9272 product page corroborates gold ribbed Daling foil shaver."
+    },
+    {
+      "sku": "BKMC 7003",
+      "image": "/img/products/blackfriday-appliances/bkmc-7003.jpg",
+      "pageUrl": "https://www.nwtenterprises.com/Ecommerce/General/GeneralProductDetail.aspx?PROD_CD=BKMC7003",
+      "imageUrl": "https://www.nwtenterprises.com/Pic/nwt//BKMC7003-1.jpg",
+      "evidence": "Distributor page Item No. BKMC7003, title BLAUPUNKT 1.5CUP 150W FOOD CHOPPER; gallery product-only image. Packaging confirms BKMC7003."
+    },
+    {
+      "sku": "BKSM 021",
+      "image": "/img/products/blackfriday-appliances/bksm-021.jpg",
+      "pageUrl": "https://www.nwtenterprises.com/Ecommerce/General/GeneralProductDetail.aspx?PROD_CD=BKSM021",
+      "imageUrl": "https://www.nwtenterprises.com/Pic/nwt//BKSM021-1.jpg",
+      "evidence": "Distributor page Item No. BKSM021, BLAUPUNKT 2 SLICE SANDWICH MAKER; gallery product-only image. Packaging confirms BKSM021."
+    },
+    {
+      "sku": "BKPB 6076",
+      "image": "/img/products/blackfriday-appliances/bkpb-6076.jpg",
+      "pageUrl": "https://www.nwtenterprises.com/Ecommerce/General/GeneralProductDetail.aspx?PROD_CD=BKPB6076",
+      "imageUrl": "https://www.nwtenterprises.com/Pic/nwt//BKPB6076-1.jpg",
+      "evidence": "Distributor page Item No. BKPB6076, BLAUPUNKT PERSONAL BLENDER 1000ML BLACK. Black variant of user mixed-color listing. Product-only gallery image."
+    },
+    {
+      "sku": "BKSM 002",
+      "image": "/img/products/blackfriday-appliances/bksm-002.jpg",
+      "pageUrl": "https://www.myhandb.bb/blaupunkt-sandwich-maker-bksm002.html",
+      "imageUrl": "https://www.myhandb.bb/media/catalog/product/1/4/1401914_2_RwMkB4iqmq1lvHye.jpg",
+      "evidence": "Retailer page title Blaupunkt Sandwich Maker (BKSM002). Product gallery image; source original behind displayed thumbnail."
+    },
+    {
+      "sku": "BKPTB 2334 BK",
+      "image": "/img/products/blackfriday-appliances/bkptb-2334-bk.jpg",
+      "pageUrl": "https://agroferreteriaelalgodon.com/products/licuadora-jarra-de-plastico-1-5-litro-bkptb2334bk-blaupunkt",
+      "imageUrl": "https://agroferreteriaelalgodon.com/cdn/shop/files/B1024C18-79F2-44CB-AD1B-2DC05A96B43F.jpg?v=1769570623&width=1600",
+      "evidence": "Retailer product page explicitly states Modelo: BKPTB2334BK twice. Gallery packaging photo shows black blender and grinder, matching SKU printed bottom-right. Packaging photograph, not product-only; original unedited."
+    },
+    {
+      "sku": "BK18SF 9917",
+      "image": "/img/products/blackfriday-appliances/bk18sf-9917.jpg",
+      "pageUrl": "https://gibbsdirect.com/products/blaupunkt-18-high-velocity-standing-fan",
+      "imageUrl": "https://gibbsdirect.com/cdn/shop/files/BK18SF991718inHighVelocityStandFanProductPhoto.jpg?v=1761315290",
+      "evidence": "Exact BK18SF9917 filename linked from 18-inch standing-fan product page. Companion sheet BK18SF9917.png confirms model and product appearance; viewed both images."
+    },
+    {
+      "sku": "BHS 10461",
+      "image": "/img/products/blackfriday-appliances/bhs-10461.png",
+      "pageUrl": "https://gibbsdirect.com/products/blaupunkt-titanium-hair-straightener",
+      "imageUrl": "https://gibbsdirect.com/cdn/shop/files/BHS10461_1.png?v=1773064678",
+      "evidence": "Product marketing image visibly prints BHS10461 and Titanium Hair Straightener; linked image filenames exact. Includes Blaupunkt branding and model, no retailer price."
+    }
+  ],
+  "awaitingExactPhoto": [
+    "SN 026",
+    "SN 138",
+    "BKSM 9817",
+    "BKAC 12 K 9652"
+  ]
+}
