@@ -81,7 +81,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-appliance-checkout', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-premier-tvs', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
@@ -192,7 +192,7 @@
     return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${detailLink(hsoUrl, visualHTML(p, name), 'View available ' + name + ' devices')}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${detailLink(hsoUrl, escapeHtml(name))}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? (p.hsoPriceFrom ? 'From ' : '') + money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
   function applianceGroupsHTML(products) {
-    const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning' };
+    const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning', televisions: 'Televisions' };
     return Object.entries(groups).map(([key, label]) => {
       const items = products.filter(p => p.applianceGroup === key);
       return items.length ? `<section class="bf-appliance-group" aria-label="${label}"><h3>${label}</h3><div class="bf-grid">${items.map(cardHTML).join('')}</div></section>` : '';

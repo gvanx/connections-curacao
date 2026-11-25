@@ -1417,12 +1417,38 @@
     "image": "tv-generic.png"
   },
   {
-    "name": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC",
-    "suffix": "TV-9480SF40WFN",
-    "price": 361,
+    "name": "Premier 32\" Smart LED TV",
+    "suffix": "TV-954432H",
+    "price": 299,
     "category": "tvs",
     "featured": false,
-    "image": "tv-generic.png"
+    "model": "TV-954432H",
+    "sku": "TV-954432H",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 32-inch Smart LED TV",
+    "spec": "32-inch · Android 14 · Frameless display · Voice remote",
+    "image": "/img/products/blackfriday-appliances/premier-tv-954432h.png",
+    "inquiryOnly": false,
+    "addedAt": "2026-11-25T18:32:52.607Z",
+    "newArrival": true
+  },
+  {
+    "name": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC",
+    "suffix": "TV-9480SF40WFN",
+    "price": 349,
+    "category": "tvs",
+    "featured": false,
+    "image": "/img/products/blackfriday-appliances/premier-tv-9480sf40wfn.png",
+    "model": "TV-9480SF40WFN",
+    "sku": "TV-9480SF40WFN",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 40-inch Smart LED TV",
+    "spec": "Premier · 40-inch · Android 14 · Frameless display · Voice remote",
+    "inquiryOnly": false
   },
   {
     "name": "Midea Side-by-Side Inverter Refrigerator 18 cu ft",
