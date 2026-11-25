@@ -153,6 +153,15 @@ Keep `price` as the current offer price; add `oldPrice` only when the original
 price is confirmed. Remove the `blackFriday` field to remove the product from
 the campaign. This tag does not change availability or enable checkout.
 
+The homepage **Black Friday** tab remains the complete campaign collection.
+**Black Friday Electronics** opens at `/#blackfriday-electronics` and includes
+tagged phones, tablets, laptops, watches, earbuds and other electronic accessories
+from `apple`, `samsung`, `phones`, `laptops`, and `other`. It excludes items with
+`blackFridayAppliance: true`, plus TVs, appliances, aircos, scooters and gift cards.
+Keep its count tied to the live available catalog. Managed HSO listings use their
+Black Friday prices before search, price filtering and sorting, and retain their
+existing exact-device checkout flow.
+
 The four Premier inverter AC offers added on 2026-11-19 use the supplied
 campaign prices. The owner authorized **Checkout & Pay** for all four offers;
 keep `inquiryOnly: false`. They are separate from the older generic AC listings.

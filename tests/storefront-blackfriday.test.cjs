@@ -27,7 +27,7 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
     });
     return elements.get(key);
   }
-  const pills = ['all', 'blackfriday', 'samsung', 'acs', 'blackfriday-appliances', 'tvs'].map(category => {
+  const pills = ['all', 'blackfriday', 'samsung', 'acs', 'blackfriday-appliances', 'tvs', 'blackfriday-electronics'].map(category => {
     const pill = element('pill:' + category); pill.dataset.cat = category; return pill;
   });
   const document = {
@@ -101,6 +101,65 @@ test('campaign pill navigation and hash changes keep the filter and URL in sync'
   assert.match(h.element('#product-results').innerHTML, /Black Friday · 2 results/);
   assert.equal(h.pills[1].attributes['aria-pressed'], 'true');
   assert.equal(h.pills[2].attributes['aria-pressed'], 'false');
+});
+
+test('Electronics deep link includes tagged devices and accessories, preserves the full campaign, and supports navigation and filters', async () => {
+  const electronics = [
+    { name: 'Campaign phone', category: 'apple', price: 1799 },
+    { name: 'Campaign tablet', category: 'samsung', price: 325 },
+    { name: 'Campaign laptop', category: 'laptops', price: 399 },
+    { name: 'Campaign Apple laptop', category: 'apple', price: 999 },
+    { name: 'Campaign earbuds', category: 'other', price: 49 },
+    { name: 'Campaign watch', category: 'apple', price: 1390 },
+    { name: 'Campaign other phone', category: 'phones', price: 209 },
+    { name: 'Campaign in-store phone', category: 'apple', price: null, inStoreSpecial: true, inquiryOnly: true }
+  ].map(p => ({ ...p, blackFriday: true }));
+  const separate = [
+    { name: 'Campaign television', category: 'tvs', price: 299, blackFridayAppliance: true },
+    { name: 'Campaign airco', category: 'acs', price: 444, blackFridayAppliance: true },
+    { name: 'Campaign chopper', category: 'appliances', price: 39, blackFridayAppliance: true },
+    { name: 'Campaign scooter', category: 'motor', price: 3000 },
+    { name: 'Campaign gift card', category: 'giftcards', price: 20 },
+    { name: 'Explicit appliance override', category: 'apple', price: 50, blackFridayAppliance: true }
+  ].map(p => ({ ...p, blackFriday: true }));
+  const products = [...electronics, ...separate,
+    { name: 'Ordinary electronics', category: 'samsung', price: 88 },
+    { name: 'Mistagged electronics', category: 'apple', price: 77, blackFriday: 'true' }];
+  const h = await boot('#blackfriday-electronics', products);
+  const results = () => h.element('#product-results').innerHTML;
+  const electronicsPill = h.pills.find(p => p.dataset.cat === 'blackfriday-electronics');
+  assert.match(results(), /Black Friday Electronics · 8 results/);
+  for (const p of electronics) assert.ok(results().includes(p.name), `${p.name} is included`);
+  for (const p of [...separate, ...products.slice(-2)]) assert.ok(!results().includes(p.name), `${p.name} is excluded`);
+  assert.equal(electronicsPill.attributes['aria-pressed'], 'true');
+  assert.equal(h.element('.pf-pill-electronics .pf-pill-total').textContent, 8);
+  assert.equal(h.element('.pf-pill-blackfriday .pf-pill-total').textContent, 14);
+  assert.match(h.element('#product-toolbar').innerHTML, /Black Friday Electronics <span class="pf-pill-total">8<\/span>/);
+  assert.match(results(), /In-store special|Ask about in-store special/);
+  assert.doesNotMatch(results(), /data-product-name="Campaign%20in-store%20phone"/);
+  h.element('#product-toolbar #pf-sort').events.change({ target: { value: 'price-asc' } });
+  assert.deepEqual([...results().matchAll(/data-product-price="([^"]+)"/g)].map(m => Number(m[1])), [49, 209, 325, 399, 999, 1390, 1799]);
+  h.element('#product-toolbar #pf-price').events.change({ target: { value: '300-700' } });
+  assert.match(results(), /Black Friday Electronics · 2 results/);
+  h.element('#product-toolbar #pf-search').value = 'laptop';
+  h.element('#product-toolbar #pf-search').events.input();
+  h.flushSearch();
+  assert.match(results(), /Black Friday Electronics · 1 result/);
+  assert.match(results(), /Campaign laptop/);
+  h.location.hash = '#blackfriday';
+  h.windowEvents.hashchange();
+  assert.match(results(), /Black Friday · 14 results/);
+  for (const p of [...electronics, ...separate]) assert.ok(results().includes(p.name), `${p.name} stays in all Black Friday`);
+  electronicsPill.events.click();
+  assert.equal(h.location.hash, '#blackfriday-electronics');
+  assert.match(results(), /Black Friday Electronics · 8 results/);
+  h.pills.find(p => p.dataset.cat === 'samsung').events.click();
+  assert.equal(h.location.hash, '#products');
+  assert.match(results(), /Ordinary electronics/);
+  h.location.hash = '#blackfriday-electronics';
+  h.windowEvents.hashchange();
+  assert.match(results(), /Black Friday Electronics · 8 results/);
+  assert.equal(electronicsPill.attributes['aria-pressed'], 'true');
 });
 
 test('appliance tab deep link groups the 26 offers, includes aircos and TVs, and preserves search, sorting and category navigation', async () => {

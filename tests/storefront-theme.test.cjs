@@ -20,14 +20,14 @@ async function boot(products, { theme = true, inventory, giftCatalog, hsoHelper 
   };
   function element(key) {
     if (!elements.has(key)) elements.set(key, {
-      innerHTML: '', style: {}, value: '', children: [],
+      innerHTML: '', style: {}, value: '', children: [], events: {},
       replaceChildren() { this.children = []; }, appendChild(child) { this.children.push(child); },
       classList: {
         toggle() {}, remove() {}, add() {},
         contains(name) { return key === 'body' && theme && name === 'black-friday-theme'; }
       },
       querySelector: selector => element(key + ' ' + selector), querySelectorAll: () => [],
-      closest: selector => element(selector), addEventListener() {}, setAttribute() {}, scrollIntoView() {}
+      closest: selector => element(selector), addEventListener(name, callback) { this.events[name] = callback; }, setAttribute() {}, scrollIntoView() {}
     });
     return elements.get(key);
   }
@@ -219,6 +219,65 @@ test('a newly configured model appears without a static catalog entry and live p
   app.chooseCategory('all');
   assert.match(app.element('#product-results').innerHTML, /Galaxy Fold/);
   assert.match(app.element('#product-results').innerHTML, /XCG 500/);
+});
+
+test('electronics filters use live campaign prices and counts as campaign units change or sell out', async () => {
+  const model = { id: 'iphone-15', name: 'iPhone 15' };
+  const regular = { modelId: model.id, storage: '128GB', color: '', price: 250, oldPrice: null, blackFriday: false, category: 'apple', image: null };
+  const campaign = { ...regular, price: 500, oldPrice: 650, blackFriday: true };
+  let inventory = { schemaVersion: 2, models: [model], variants: [regular], units: [
+    { ...regular, color: 'Black', serial: 'REGULAR001', status: 'available' },
+    { ...campaign, color: 'Silver', serial: 'SPECIAL001', status: 'available' }
+  ] };
+  const tablet = { name: 'Campaign tablet', category: 'samsung', price: 620, blackFriday: true };
+  const app = await boot([tablet, airco('Campaign airco', 444, { blackFridayAppliance: true, applianceGroup: 'cooling' })], { inventory: () => inventory });
+  const html = () => app.element('#product-results').innerHTML;
+  const electronicsCount = () => Number(app.element('.pf-pill-electronics .pf-pill-total').textContent);
+  const totalCount = () => Number(app.element('.pf-pill-blackfriday .pf-pill-total').textContent);
+  const changePrice = value => app.element('#product-toolbar #pf-price').events.change({ target: { value } });
+  app.chooseCategory('blackfriday');
+  assert.match(html(), /Black Friday · 3 results/);
+  assert.match(html(), /Campaign airco/);
+  assert.equal(totalCount(), 3);
+  assert.equal(electronicsCount(), 2);
+  app.chooseCategory('blackfriday-electronics');
+  assert.match(html(), /Black Friday Electronics · 2 results/);
+  assert.match(html(), /XCG 500/);
+  assert.doesNotMatch(html(), /Campaign airco|XCG 250/);
+  changePrice('u300');
+  assert.match(html(), /No products match your search/);
+  changePrice('300-700');
+  app.element('#product-toolbar #pf-sort').events.change({ target: { value: 'price-asc' } });
+  assert.ok(html().indexOf('iPhone 15') < html().indexOf('Campaign tablet'));
+  inventory.units[1].price = 800;
+  await app.dispatch('focus');
+  assert.match(html(), /Black Friday Electronics · 1 result/);
+  assert.doesNotMatch(html(), /iPhone 15/);
+  assert.equal(electronicsCount(), 2, 'The tab count is independent of the current price filter');
+  changePrice('all');
+  assert.match(html(), /XCG 800/);
+  assert.doesNotMatch(html(), /XCG 250|XCG 500/);
+  assert.ok(html().indexOf('Campaign tablet') < html().indexOf('iPhone 15'));
+  inventory.units[1].status = 'sold';
+  await app.dispatch('online');
+  assert.match(html(), /Black Friday Electronics · 1 result/);
+  assert.doesNotMatch(html(), /iPhone 15/);
+  assert.equal(electronicsCount(), 1);
+  assert.equal(totalCount(), 2);
+  app.chooseCategory('blackfriday');
+  assert.match(html(), /Black Friday · 2 results/);
+  assert.match(html(), /Campaign airco/);
+  app.chooseCategory('all');
+  assert.match(html(), /iPhone 15/);
+  assert.match(html(), /XCG 250/, 'The separate regular unit remains available outside campaign tabs');
+  app.chooseCategory('blackfriday-electronics');
+  inventory.units[1].status = 'available';
+  inventory.units[1].price = 475;
+  await app.dispatch('focus');
+  assert.match(html(), /Black Friday Electronics · 2 results/);
+  assert.match(html(), /XCG 475/);
+  assert.equal(electronicsCount(), 2);
+  assert.equal(totalCount(), 3);
 });
 
 test('per-serial prices on otherwise identical phones update main and campaign prices without a false crossout', async () => {
