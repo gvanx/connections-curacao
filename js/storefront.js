@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-all-aircos';
+    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-electronics';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -438,7 +438,7 @@
           </div>`;
         } else {
           const resultCount = products.length === 1 ? '1 result' : `${products.length} results`;
-          const campaignLabel = { 'new-arrivals': 'New Arrivals', blackfriday: 'Black Friday', 'blackfriday-appliances': 'Black Friday Appliances' }[filterState.category];
+          const campaignLabel = { 'new-arrivals': 'New Arrivals', blackfriday: 'Black Friday', 'blackfriday-electronics': 'Black Friday Electronics', 'blackfriday-appliances': 'Black Friday Appliances' }[filterState.category];
           const label = campaignLabel ? `${campaignLabel} · ${resultCount}` : resultCount;
           html = `<div class="product-section">
             <h2 class="results-title">${label}</h2>
@@ -495,6 +495,8 @@
     function syncLiveFilterCounts() {
       const total = document.querySelector('.pf-pill-blackfriday .pf-pill-total');
       if (total) total.textContent = ALL_PRODUCTS.filter(product => product.blackFriday === true).length;
+      const electronics = document.querySelector('.pf-pill-electronics .pf-pill-total');
+      if (electronics) electronics.textContent = ALL_PRODUCTS.filter(product => matchesCategory(product, 'blackfriday-electronics')).length;
       const appliances = document.querySelector('.pf-pill-appliances .pf-pill-total');
       if (appliances) appliances.textContent = ALL_PRODUCTS.filter(product => matchesCategory(product, 'blackfriday-appliances')).length;
       const arrivals = document.querySelector('.pf-pill[data-cat="new-arrivals"]');
@@ -525,6 +527,7 @@
     function matchesCategory(p, category) {
       if (category === 'new-arrivals') return isNewArrival(p);
       if (category === 'blackfriday') return p.blackFriday === true;
+      if (category === 'blackfriday-electronics') return p.blackFriday === true && p.blackFridayAppliance !== true && ['apple', 'samsung', 'phones', 'laptops', 'other'].includes(p.category);
       if (category === 'blackfriday-appliances') return p.blackFriday === true && p.blackFridayAppliance === true;
       return p.category === category || (category === 'laptops' && /macbook/i.test(p.name));
     }
@@ -541,7 +544,7 @@
 
     function applyFilters() {
       const q = filterState.search.trim().toLowerCase();
-      const source = filterState.category === 'blackfriday' ? ALL_PRODUCTS.map(HSOAvailability.campaignProduct) : ALL_PRODUCTS;
+      const source = ['blackfriday', 'blackfriday-electronics'].includes(filterState.category) ? ALL_PRODUCTS.map(HSOAvailability.campaignProduct) : ALL_PRODUCTS;
       let list = source.filter(p => {
         const name = [p.name, p.suffix, p.spec, p.model, p.sku, ...Object.values(p.specifications || {})].filter(Boolean).join(' ').toLowerCase();
         if (q && !name.includes(q)) return false;
@@ -609,6 +612,8 @@
       let pills = `<button type="button" class="pf-pill active" data-cat="all" aria-pressed="true">All</button>`;
       const blackFridayCount = products.filter(p => p.blackFriday === true).length;
       if (blackFridayCount) pills += `<button type="button" class="pf-pill pf-pill-blackfriday" data-cat="blackfriday" aria-pressed="false">Black Friday <span class="pf-pill-total">${blackFridayCount}</span></button>`;
+      const electronicsCount = products.filter(p => matchesCategory(p, 'blackfriday-electronics')).length;
+      pills += `<button type="button" class="pf-pill pf-pill-blackfriday pf-pill-electronics" data-cat="blackfriday-electronics" aria-pressed="false">Black Friday Electronics <span class="pf-pill-total">${electronicsCount}</span></button>`;
       const applianceCount = products.filter(p => matchesCategory(p, 'blackfriday-appliances')).length;
       if (applianceCount) pills += `<button type="button" class="pf-pill pf-pill-blackfriday pf-pill-appliances" data-cat="blackfriday-appliances" aria-pressed="false">Black Friday Appliances <span class="pf-pill-total">${applianceCount}</span></button>`;
       const hasArrivals = products.some(p => isNewArrival(p));
@@ -678,9 +683,10 @@
           syncCategoryPills();
           if (filterState.category === 'new-arrivals') history.replaceState(null, '', '#new-arrivals');
           else if (filterState.category === 'blackfriday') history.replaceState(null, '', '#blackfriday');
+          else if (filterState.category === 'blackfriday-electronics') history.replaceState(null, '', '#blackfriday-electronics');
           else if (filterState.category === 'blackfriday-appliances') history.replaceState(null, '', '#blackfriday-appliances');
           else if (filterState.category === 'giftcards') history.replaceState(null, '', '#gift-cards');
-          else if (['#new-arrivals', '#gift-cards', '#blackfriday', '#blackfriday-appliances'].includes(location.hash)) history.replaceState(null, '', '#products');
+          else if (['#new-arrivals', '#gift-cards', '#blackfriday', '#blackfriday-electronics', '#blackfriday-appliances'].includes(location.hash)) history.replaceState(null, '', '#products');
           applyFilters();
         });
       });
@@ -790,6 +796,7 @@
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
         if (location.hash === '#blackfriday') openProductCategory('blackfriday');
+        if (location.hash === '#blackfriday-electronics') openProductCategory('blackfriday-electronics');
         if (location.hash === '#blackfriday-appliances') openProductCategory('blackfriday-appliances');
         if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
@@ -818,6 +825,7 @@
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
       if (ALL_PRODUCTS.length && location.hash === '#blackfriday') openProductCategory('blackfriday');
+      if (ALL_PRODUCTS.length && location.hash === '#blackfriday-electronics') openProductCategory('blackfriday-electronics');
       if (ALL_PRODUCTS.length && location.hash === '#blackfriday-appliances') openProductCategory('blackfriday-appliances');
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
