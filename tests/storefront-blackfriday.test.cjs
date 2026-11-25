@@ -183,7 +183,7 @@ test('appliance tab deep link groups the 26 offers, includes aircos and TVs, and
   const televisionGroup = results().match(/<section class="product-section" aria-label="Televisions">([\s\S]*?)<\/section>/);
   assert.ok(televisionGroup, 'Televisions has a dedicated appliance group');
   assert.deepEqual([...televisionGroup[1].matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
-    [299, 349, 599, 649, 875, 925]);
+    [199, 349, 599, 649, 875, 925]);
   assert.match(results(), /TV-954432H/);
   assert.match(results(), /TV-9480SF40WFN/);
   assert.doesNotMatch(results(), /iPhone|Galaxy|Ask availability/);
@@ -201,7 +201,7 @@ test('appliance tab deep link groups the 26 offers, includes aircos and TVs, and
     assert.equal(products.find(p => p.name === name).oldPrice, oldPrice);
     assert.ok(coolingGroup[1].includes(`<span class="old-price">XCG ${oldPrice.toLocaleString('en-US')}</span>`));
   }
-  const tvOffers = [['TV-954432H', 299], ['TV-9480SF40WFN', 349], ['TV-9308SF50WKL', 599],
+  const tvOffers = [['TV-954432H', 199], ['TV-9480SF40WFN', 349], ['TV-9308SF50WKL', 599],
     ['55" UHD Smart TV (Whale OS)', 649], ['60" UHD Smart TV', 875], ['TV-9304SF65WKL', 925]];
   for (const [identifier, price] of tvOffers) {
     const button = orderButtons.find(match => decodeURIComponent(match[1]).includes(identifier));

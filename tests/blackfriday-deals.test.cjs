@@ -171,7 +171,7 @@ test('appliance deep link includes all 26 exact offers, groups aircos and TVs, s
     'SN 138': 29, 'SN 107': 29, 'DL 9272': 29, 'BKMC 7003': 39,
     'BKSM 9817': 39, 'BKSM 002': 39, 'BKSM 021': 39, 'BKPTB 2334 BK': 69,
     'BKPB 6076': 89, 'BK18SF 9917': 45, 'BHS 10461': 69, 'BKAC 12 K 9652': 519,
-    'TV-954432H': 299, 'TV-9480SF40WFN': 349, 'TV-9308SF50WKL': 599,
+    'TV-954432H': 199, 'TV-9480SF40WFN': 349, 'TV-9308SF50WKL': 599,
     '55" UHD Smart TV (Whale OS)': 649, '60" UHD Smart TV': 875, 'TV-9304SF65WKL': 925,
     'Premier 9,000 BTU Inverter AC': 444, 'Premier 18,000 BTU Inverter AC': 875,
     'Premier 24,000 BTU Inverter AC': 1099, 'Premier 36,000 BTU Inverter AC': 1799
@@ -236,7 +236,7 @@ test('appliance deep link includes all 26 exact offers, groups aircos and TVs, s
   const televisionGroup = groups.find(group => /<h3>Televisions<\/h3>/.test(group[1]));
   assert.ok(televisionGroup, 'Televisions has a dedicated appliance group');
   assert.deepEqual([...televisionGroup[1].matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
-    [299, 349, 599, 649, 875, 925]);
+    [199, 349, 599, 649, 875, 925]);
   assert.match(e('bf-products').innerHTML, /Personal care/);
   assert.match(e('bf-products').innerHTML, /Kitchen essentials/);
   assert.match(e('bf-products').innerHTML, /Fans &amp; air conditioning|Fans & air conditioning/);
@@ -267,7 +267,7 @@ test('appliance deep link includes all 26 exact offers, groups aircos and TVs, s
   assert.equal(app.location.hash, '#tvs');
   assert.equal(e('bf-count').textContent, '6 Black Friday deals');
   const tvPrices = [...e('bf-products').innerHTML.matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1]));
-  assert.deepEqual(tvPrices, [299, 349, 599, 649, 875, 925]);
+  assert.deepEqual(tvPrices, [199, 349, 599, 649, 875, 925]);
   assert.doesNotMatch(e('bf-products').innerHTML, /Galaxy|SN 023|BKAC 12 K 9652/);
   app.location.hash = '#appliances';
   app.events.hashchange();
