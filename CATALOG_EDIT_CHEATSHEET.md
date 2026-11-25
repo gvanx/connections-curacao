@@ -185,7 +185,7 @@ supplied, so do not add a comparison price or savings claim.
 
 The Black Friday Appliances collection has 26 offers: the original 16 appliances,
 six Premier TVs, and the four existing Premier inverter AC deals.
-On 2026-11-25 the owner supplied these prices: 32-inch XCG 299, 40-inch XCG 349,
+On 2026-11-25 the owner supplied these prices: 32-inch XCG 199, 40-inch XCG 349,
 50-inch XCG 599, 55-inch XCG 649, 60-inch XCG 875, and 65-inch XCG 925.
 Keep them in category `tvs`, with `blackFriday: true`, `blackFridayAppliance: true`,
 `applianceGroup: "televisions"`, and `inquiryOnly: false`. All six use
