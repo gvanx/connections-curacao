@@ -165,50 +165,64 @@ function browser(fetch, { spotlight = true, inventory, localStorage, hash = '' }
 
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
-test('appliance deep link includes all 18 exact offers, groups TVs, sorts globally and keeps phone tabs separate', async () => {
+test('appliance deep link includes all 22 exact offers, groups TVs, sorts globally and keeps phone tabs separate', async () => {
   const expected = {
     'SN 023': 19, 'SN 025': 19, 'SN 026': 25, 'DL 9258': 29,
     'SN 138': 29, 'SN 107': 29, 'DL 9272': 29, 'BKMC 7003': 39,
     'BKSM 9817': 39, 'BKSM 002': 39, 'BKSM 021': 39, 'BKPTB 2334 BK': 69,
     'BKPB 6076': 89, 'BK18SF 9917': 45, 'BHS 10461': 69, 'BKAC 12 K 9652': 519,
-    'TV-954432H': 299, 'TV-9480SF40WFN': 349
+    'TV-954432H': 299, 'TV-9480SF40WFN': 349, 'TV-9308SF50WKL': 599,
+    '55" UHD Smart TV (Whale OS)': 649, '60" UHD Smart TV': 875, 'TV-9304SF65WKL': 925
   };
   const offers = selectDeals(catalog, 'appliances');
-  assert.deepEqual(Object.fromEntries(offers.map(p => [p.sku, p.price])), expected);
-  for (const sku of ['TV-954432H', 'TV-9480SF40WFN']) {
-    const matching = catalog.filter(p => p.sku === sku || p.suffix === sku);
-    assert.equal(matching.length, 1, `${sku} must have one catalog listing`);
+  assert.deepEqual(Object.fromEntries(offers.map(p => [p.sku || p.name, p.price])), expected);
+  const tvIdentifiers = ['TV-954432H', 'TV-9480SF40WFN', 'TV-9308SF50WKL',
+    '55" UHD Smart TV (Whale OS)', '60" UHD Smart TV', 'TV-9304SF65WKL'];
+  for (const identifier of tvIdentifiers) {
+    const matching = catalog.filter(p => p.sku === identifier || p.suffix === identifier || p.name === identifier);
+    assert.equal(matching.length, 1, `${identifier} must have one catalog listing`);
     const tv = matching[0];
     assert.equal(tv.category, 'tvs');
-    assert.equal(tv.model, sku);
+    if (identifier.startsWith('TV-')) assert.equal(tv.model, identifier);
+    else {
+      assert.equal(tv.model, undefined, 'An obscured model must not be invented');
+      assert.equal(tv.sku, undefined, 'An obscured SKU must not be invented');
+    }
     assert.equal(tv.applianceGroup, 'televisions');
     assert.equal(tv.inquiryOnly, false);
-    assert.equal(tv.image, `/img/products/blackfriday-appliances/premier-${sku.toLowerCase()}.png`);
-    assert.ok(fs.existsSync(path.join(root, tv.image)), `${sku} photo exists`);
+    assert.equal(tv.price, expected[identifier]);
+    assert.equal(tv.image, '/img/products/tv-catalog.webp');
+    assert.equal(tv.imagePlaceholder, true);
+    assert.ok(fs.existsSync(path.join(root, tv.image)), `${identifier} placeholder exists`);
     assert.ok(cardHTML(tv).includes(`src="${tv.image}"`));
+    assert.match(cardHTML(tv), /alt="[^"]+ — illustration"/);
   }
   for (const p of offers) {
     const html = cardHTML(p);
     assert.match(html, /js-order-btn/);
     assert.match(html, /Checkout &amp; Pay/);
     assert.doesNotMatch(html, /Ask availability|wa\.me|<del>|Save XCG/);
-    assert.equal(Number(html.match(/data-product-price="([^"]+)"/)[1]), expected[p.sku]);
+    assert.equal(Number(html.match(/data-product-price="([^"]+)"/)[1]), expected[p.sku || p.name]);
     const checkoutName = decodeURIComponent(html.match(/data-product-name="([^"]+)"/)[1]);
     assert.equal(checkoutName, [p.name, p.suffix].filter(Boolean).join(' '));
-    assert.ok(checkoutName.includes(p.sku));
+    assert.ok(checkoutName.includes(p.sku || p.name));
   }
   const app = browser(async () => ({ ok: true, json: async () => catalog }), { hash: '#appliances' });
   await flush();
   const e = id => app.elements.get(id);
-  assert.equal(e('bf-count').textContent, '18 Black Friday deals');
+  assert.equal(e('bf-count').textContent, '22 Black Friday deals');
   const groups = [...e('bf-products').innerHTML.matchAll(/<section class="bf-appliance-group"[^>]*>([\s\S]*?)<\/section>/g)];
-  assert.deepEqual(groups.map(group => (group[1].match(/<article /g) || []).length), [8, 6, 2, 2]);
+  assert.deepEqual(groups.map(group => (group[1].match(/<article /g) || []).length), [8, 6, 2, 6]);
+  const televisionGroup = groups.find(group => /<h3>Televisions<\/h3>/.test(group[1]));
+  assert.ok(televisionGroup, 'Televisions has a dedicated appliance group');
+  assert.deepEqual([...televisionGroup[1].matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
+    [299, 349, 599, 649, 875, 925]);
   assert.match(e('bf-products').innerHTML, /Personal care/);
   assert.match(e('bf-products').innerHTML, /Kitchen essentials/);
   assert.match(e('bf-products').innerHTML, /Fans &amp; air conditioning|Fans & air conditioning/);
   assert.match(e('bf-products').innerHTML, /Televisions/);
   assert.doesNotMatch(e('bf-products').innerHTML, /iPhone|Galaxy|Premier 9,000 BTU/);
-  assert.equal((e('bf-products').innerHTML.match(/js-order-btn/g) || []).length, 18);
+  assert.equal((e('bf-products').innerHTML.match(/js-order-btn/g) || []).length, 22);
   assert.doesNotMatch(e('bf-products').innerHTML, /Ask availability/);
   e('bf-sort').value = 'price-asc';
   e('bf-sort').listeners.change();
@@ -218,18 +232,18 @@ test('appliance deep link includes all 18 exact offers, groups TVs, sorts global
   const samsung = e('bf-filters').buttons.find(button => button.dataset.category === 'samsung');
   e('bf-filters').listeners.click({ target: samsung });
   assert.equal(app.location.hash, '#samsung');
-  assert.doesNotMatch(e('bf-products').innerHTML, /SN 023|BKAC 12 K 9652|TV-954432H|TV-9480SF40WFN/);
+  assert.doesNotMatch(e('bf-products').innerHTML, /SN 023|BKAC 12 K 9652|TV-954432H|TV-9480SF40WFN|TV-9308SF50WKL|TV-9304SF65WKL|55&quot; UHD Smart TV|60&quot; UHD Smart TV/);
   assert.match(e('bf-products').innerHTML, /Galaxy/);
   const televisions = e('bf-filters').buttons.find(button => button.dataset.category === 'tvs');
   e('bf-filters').listeners.click({ target: televisions });
   assert.equal(app.location.hash, '#tvs');
-  assert.equal(e('bf-count').textContent, '2 Black Friday deals');
-  assert.match(e('bf-products').innerHTML, /TV-954432H/);
-  assert.match(e('bf-products').innerHTML, /TV-9480SF40WFN/);
+  assert.equal(e('bf-count').textContent, '6 Black Friday deals');
+  const tvPrices = [...e('bf-products').innerHTML.matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1]));
+  assert.deepEqual(tvPrices, [299, 349, 599, 649, 875, 925]);
   assert.doesNotMatch(e('bf-products').innerHTML, /Galaxy|SN 023|BKAC 12 K 9652/);
   app.location.hash = '#appliances';
   app.events.hashchange();
-  assert.equal(e('bf-count').textContent, '18 Black Friday deals');
+  assert.equal(e('bf-count').textContent, '22 Black Friday deals');
   assert.match(e('bf-products').innerHTML, /BKAC 12 K 9652/);
   assert.equal(e('bf-filters').buttons.find(button => button.dataset.category === 'appliances').attributes['aria-pressed'], 'true');
 });

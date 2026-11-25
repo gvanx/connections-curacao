@@ -162,7 +162,7 @@ as well as `blackFriday: true`. The homepage **Black Friday Appliances** tab
 opens at `/#blackfriday-appliances`; the campaign page opens at
 `/blackfriday#appliances`. Both include the Blaupunkt AC without changing its
 `acs` catalog category. `applianceGroup` groups the featured view into
-`personal-care`, `kitchen`, and `cooling`; price sorting produces a single list.
+`personal-care`, `kitchen`, `cooling`, and `televisions`; price sorting produces a single list.
 Keep the exact SKU in the name, `model`, and `sku`. On 2026-11-25, the owner
 authorized selling all 16 appliance offers with **Checkout & Pay**. Keep
 `inquiryOnly: false`; do not reinstate availability-inquiry buttons.
@@ -173,6 +173,17 @@ with `imagePlaceholder: true`, labeled as illustrations. Replace these when an
 exact product photo is available and remove the placeholder flag. A photo's color
 does not guarantee color availability. No regular prices were
 supplied, so do not add a comparison price or savings claim.
+
+The six Premier TV offers bring the Black Friday Appliances collection to 22 offers.
+On 2026-11-25 the owner supplied these prices: 32-inch XCG 299, 40-inch XCG 349,
+50-inch XCG 599, 55-inch XCG 649, 60-inch XCG 875, and 65-inch XCG 925.
+Keep them in category `tvs`, with `blackFriday: true`, `blackFridayAppliance: true`,
+`applianceGroup: "televisions"`, and `inquiryOnly: false`. All six use
+`/img/products/tv-catalog.webp` with `imagePlaceholder: true`, as requested.
+The 50-inch listing is TV-9308SF50WKL; the existing 65-inch Whale OS listing
+is TV-9304SF65WKL. The 55-inch Whale OS and 60-inch UHD listings do not have
+confirmed model numbers; do not invent them or substitute the 55-inch QLED/Tizen model.
+Preserve existing catalog names and arrival history when updating these offers.
 
 The four Premier offers use `ac-catalog.webp`, the existing main-site airco illustration
 requested by the owner for these offers. Both the main catalog and Black Friday
