@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-24-macbook-air-image';
+    const PRODUCTS_DATA_VERSION = '2026-11-25-airpods-blackfriday';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {

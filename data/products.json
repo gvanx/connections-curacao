@@ -409,36 +409,42 @@
   {
     "name": "AirPods 4",
     "suffix": "",
-    "price": 349,
+    "price": 375,
     "category": "apple",
     "featured": false,
-    "image": "airpods-4-model.jpg"
+    "image": "airpods-4-model.jpg",
+    "blackFriday": true
   },
   {
     "name": "AirPods 4 ANC",
     "suffix": "",
-    "price": 449,
+    "price": 499,
     "category": "apple",
     "featured": false,
-    "image": "airpods-4-anc-model.jpg"
+    "image": "airpods-4-anc-model.jpg",
+    "blackFriday": true
   },
   {
     "name": "AirPods 5",
     "suffix": "",
-    "price": 550,
+    "price": 499,
     "category": "apple",
     "featured": false,
     "image": "/img/products/airpods-5-model.jpg",
-    "addedAt": "2026-10-15T20:40:05Z"
+    "addedAt": "2026-10-15T20:40:05Z",
+    "oldPrice": 550,
+    "blackFriday": true
   },
   {
     "name": "AirPods 5 with Wireless Charging",
     "suffix": "",
-    "price": 650,
+    "price": 550,
     "category": "apple",
     "featured": false,
     "image": "/img/products/airpods-5-wireless-charging-model.jpg",
-    "addedAt": "2026-10-15T20:40:05Z"
+    "addedAt": "2026-10-15T20:40:05Z",
+    "oldPrice": 650,
+    "blackFriday": true
   },
   {
     "name": "Galaxy A07s",
