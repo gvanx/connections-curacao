@@ -706,18 +706,32 @@
   {
     "name": "55\" UHD Smart TV (Whale OS)",
     "suffix": "",
-    "price": 767,
+    "price": 649,
     "category": "tvs",
     "featured": false,
-    "image": "tv-generic.png"
+    "image": "/img/products/tv-catalog.webp",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 55-inch Smart TV",
+    "spec": "Premier · 55-inch · 4K UHD · Whale TV",
+    "inquiryOnly": false,
+    "imagePlaceholder": true
   },
   {
     "name": "60\" UHD Smart TV",
     "suffix": "",
-    "price": 835,
+    "price": 875,
     "category": "tvs",
     "featured": false,
-    "image": "tv-generic.png"
+    "image": "/img/products/tv-catalog.webp",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 60-inch Smart TV",
+    "spec": "Premier · 60-inch · 4K UHD · Android 14",
+    "inquiryOnly": false,
+    "imagePlaceholder": true
   },
   {
     "name": "65\" UHD Smart TV",
@@ -1371,18 +1385,36 @@
   {
     "name": "65\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
     "suffix": "TV-9304SF65WKL",
-    "price": 993,
+    "price": 925,
     "category": "tvs",
     "featured": false,
-    "image": "tv-generic.png"
+    "image": "/img/products/tv-catalog.webp",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 65-inch Smart TV",
+    "spec": "Premier · 65-inch · 4K UHD · Whale TV",
+    "inquiryOnly": false,
+    "model": "TV-9304SF65WKL",
+    "sku": "TV-9304SF65WKL",
+    "imagePlaceholder": true
   },
   {
     "name": "50\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC",
     "suffix": "TV-9308SF50WKL",
-    "price": 647,
+    "price": 599,
     "category": "tvs",
     "featured": false,
-    "image": "tv-generic.png"
+    "image": "/img/products/tv-catalog.webp",
+    "blackFriday": true,
+    "blackFridayAppliance": true,
+    "applianceGroup": "televisions",
+    "type": "Premier 50-inch Smart TV",
+    "spec": "Premier · 50-inch · 4K UHD · Whale TV",
+    "inquiryOnly": false,
+    "model": "TV-9308SF50WKL",
+    "sku": "TV-9308SF50WKL",
+    "imagePlaceholder": true
   },
   {
     "name": "32\" HD Smart TV w/DVB-T2 Tizen Frameless w/Voice RC",
@@ -1429,10 +1461,11 @@
     "applianceGroup": "televisions",
     "type": "Premier 32-inch Smart LED TV",
     "spec": "32-inch · Android 14 · Frameless display · Voice remote",
-    "image": "/img/products/blackfriday-appliances/premier-tv-954432h.png",
+    "image": "/img/products/tv-catalog.webp",
     "inquiryOnly": false,
     "addedAt": "2026-11-25T18:32:52.607Z",
-    "newArrival": true
+    "newArrival": true,
+    "imagePlaceholder": true
   },
   {
     "name": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC",
@@ -1440,7 +1473,7 @@
     "price": 349,
     "category": "tvs",
     "featured": false,
-    "image": "/img/products/blackfriday-appliances/premier-tv-9480sf40wfn.png",
+    "image": "/img/products/tv-catalog.webp",
     "model": "TV-9480SF40WFN",
     "sku": "TV-9480SF40WFN",
     "blackFriday": true,
@@ -1448,7 +1481,8 @@
     "applianceGroup": "televisions",
     "type": "Premier 40-inch Smart LED TV",
     "spec": "Premier · 40-inch · Android 14 · Frameless display · Voice remote",
-    "inquiryOnly": false
+    "inquiryOnly": false,
+    "imagePlaceholder": true
   },
   {
     "name": "Midea Side-by-Side Inverter Refrigerator 18 cu ft",

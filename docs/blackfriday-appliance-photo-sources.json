@@ -91,14 +91,14 @@
       "image": "/img/products/blackfriday-appliances/premier-tv-954432h.png",
       "source": "Owner-provided product photograph, 2026-11-25",
       "evidence": "32-inch Premier Smart TV LED TV-954432H. Packaging confirms Android 14, frameless display and voice remote.",
-      "note": "Original unedited photograph. Black Friday price supplied separately by the owner."
+      "note": "Original unedited photograph. Black Friday price supplied separately by the owner. Archived reference: the storefront now uses the shared TV placeholder at the owner's request."
     },
     {
       "sku": "TV-9480SF40WFN",
       "image": "/img/products/blackfriday-appliances/premier-tv-9480sf40wfn.png",
       "source": "Owner-provided product photograph, 2026-11-25",
       "evidence": "40-inch Premier Smart TV LED TV-9480SF40WFN. Packaging confirms Android 14, frameless display and voice remote.",
-      "note": "Original unedited photograph. Black Friday price supplied separately by the owner."
+      "note": "Original unedited photograph. Black Friday price supplied separately by the owner. Archived reference: the storefront now uses the shared TV placeholder at the owner's request."
     }
   ],
   "awaitingExactPhoto": [
@@ -127,6 +127,40 @@
       "sku": "BKAC 12 K 9652",
       "image": "/img/products/blackfriday-appliances/airco-placeholder.svg",
       "note": "Original generic SVG illustration; not a photograph of this exact model."
+    },
+    {
+      "product": "55\" UHD Smart TV (Whale OS)",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
+    },
+    {
+      "product": "60\" UHD Smart TV",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
+    },
+    {
+      "product": "65\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC TV-9304SF65WKL",
+      "sku": "TV-9304SF65WKL",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
+    },
+    {
+      "product": "50\" UHD Smart TV w/DVB-T2 Android (Whale OS) Frameless w/Voice RC TV-9308SF50WKL",
+      "sku": "TV-9308SF50WKL",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
+    },
+    {
+      "product": "Premier 32\" Smart LED TV TV-954432H",
+      "sku": "TV-954432H",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
+    },
+    {
+      "product": "40\" FHD Smart TV w/DVB-T2 Android Frameless w/Voice RC TV-9480SF40WFN",
+      "sku": "TV-9480SF40WFN",
+      "image": "/img/products/tv-catalog.webp",
+      "note": "Existing shared TV catalog illustration used at the owner’s request on 2026-11-25; not an exact-model photograph."
     }
   ]
 }
