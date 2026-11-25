@@ -174,7 +174,8 @@ exact product photo is available and remove the placeholder flag. A photo's colo
 does not guarantee color availability. No regular prices were
 supplied, so do not add a comparison price or savings claim.
 
-The six Premier TV offers bring the Black Friday Appliances collection to 22 offers.
+The Black Friday Appliances collection has 26 offers: the original 16 appliances,
+six Premier TVs, and the four existing Premier inverter AC deals.
 On 2026-11-25 the owner supplied these prices: 32-inch XCG 299, 40-inch XCG 349,
 50-inch XCG 599, 55-inch XCG 649, 60-inch XCG 875, and 65-inch XCG 925.
 Keep them in category `tvs`, with `blackFriday: true`, `blackFridayAppliance: true`,
@@ -184,6 +185,13 @@ The 50-inch listing is TV-9308SF50WKL; the existing 65-inch Whale OS listing
 is TV-9304SF65WKL. The 55-inch Whale OS and 60-inch UHD listings do not have
 confirmed model numbers; do not invent them or substitute the 55-inch QLED/Tizen model.
 Preserve existing catalog names and arrival history when updating these offers.
+
+The four Premier inverter AC offers also appear in **Black Friday Appliances**
+with `blackFridayAppliance: true` and `applianceGroup: "cooling"`, as requested
+on 2026-11-25. Keep their existing prices (9,000 BTU XCG 444; 18,000 BTU
+XCG 875; 24,000 BTU XCG 1,099; 36,000 BTU XCG 1,799), comparison prices,
+checkout, specifications, and arrival history. Cooling offers are ordered by
+price in the grouped view, alongside the stand fan and Blaupunkt AC.
 
 The four Premier offers use `ac-catalog.webp`, the existing main-site airco illustration
 requested by the owner for these offers. Both the main catalog and Black Friday

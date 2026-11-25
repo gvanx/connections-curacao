@@ -81,7 +81,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-tv-range', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-all-aircos', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
@@ -195,7 +195,7 @@
     const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning', televisions: 'Televisions' };
     return Object.entries(groups).map(([key, label]) => {
       const items = products.filter(p => p.applianceGroup === key);
-      if (key === 'televisions') items.sort((a, b) => a.price - b.price);
+      if (key === 'televisions' || key === 'cooling') items.sort((a, b) => a.price - b.price);
       return items.length ? `<section class="bf-appliance-group" aria-label="${label}"><h3>${label}</h3><div class="bf-grid">${items.map(cardHTML).join('')}</div></section>` : '';
     }).join('') + products.filter(p => !groups[p.applianceGroup]).map(cardHTML).join('');
   }
