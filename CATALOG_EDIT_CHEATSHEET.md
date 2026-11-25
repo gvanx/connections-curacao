@@ -157,7 +157,24 @@ The four Premier inverter AC offers added on 2026-11-19 use the supplied
 campaign prices. The owner authorized **Checkout & Pay** for all four offers;
 keep `inquiryOnly: false`. They are separate from the older generic AC listings.
 
-Their `image` is `ac-catalog.webp`, the existing main-site airco illustration
+The 16 appliance offers added on 2026-11-25 have `blackFridayAppliance: true`
+as well as `blackFriday: true`. The homepage **Black Friday Appliances** tab
+opens at `/#blackfriday-appliances`; the campaign page opens at
+`/blackfriday#appliances`. Both include the Blaupunkt AC without changing its
+`acs` catalog category. `applianceGroup` groups the featured view into
+`personal-care`, `kitchen`, and `cooling`; price sorting produces a single list.
+Keep the exact SKU in the name, `model`, and `sku`. On 2026-11-25, the owner
+authorized selling all 16 appliance offers with **Checkout & Pay**. Keep
+`inquiryOnly: false`; do not reinstate availability-inquiry buttons.
+Verified product photographs are stored in `img/products/blackfriday-appliances/`,
+with exact-model source evidence in `docs/blackfriday-appliance-photo-sources.json`.
+SN 026, SN 138, BKSM 9817, and BKAC 12 K 9652 use generic SVG placeholders
+with `imagePlaceholder: true`, labeled as illustrations. Replace these when an
+exact product photo is available and remove the placeholder flag. A photo's color
+does not guarantee color availability. No regular prices were
+supplied, so do not add a comparison price or savings claim.
+
+The four Premier offers use `ac-catalog.webp`, the existing main-site airco illustration
 requested by the owner for these offers. Both the main catalog and Black Friday
 page use this shared image. The original campaign posters remain in the
 Black Friday poster gallery.

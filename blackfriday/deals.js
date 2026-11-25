@@ -15,7 +15,11 @@
   const error = doc.getElementById('bf-error');
   const toolbar = doc.getElementById('bf-toolbar');
   const spotlight = doc.getElementById('bf-spotlight');
-  let products = [], baseProducts = [], inventory = null, category = 'all', loading = false, refreshing = false;
+  let products = [], baseProducts = [], inventory = null, category = categoryFromHash(), loading = false, refreshing = false;
+  function categoryFromHash() {
+    const key = (root.location?.hash || '').slice(1);
+    return ['appliances', 'acs', 'samsung', 'apple', 'laptops', 'phones', 'tvs', 'motor', 'other', 'giftcards'].includes(key) ? key : 'all';
+  }
   const INVENTORY_CACHE_KEY = 'bf-hso-stock-v1';
   const INVENTORY_CACHE_MAX_AGE_MS = 30 * 60 * 1000;
   function cachedInventory() {
@@ -45,6 +49,7 @@
     if (available.length === products.length && available.every((product, index) => product === products[index])) return false;
     products = available;
     const categories = [...new Set(api.selectDeals(products).map(p => p.category))];
+    if (!categories.includes('appliances') && api.selectDeals(products).some(p => p.blackFridayAppliance === true)) categories.push('appliances');
     if (!categories.includes(category)) category = 'all';
     filters.innerHTML = [['all', 'All deals'], ...categories.map(key => [key, api.categoryName(key)])].map(([key, label]) => `<button type="button" data-category="${api.escapeHtml(key)}" aria-pressed="${key === category}">${api.escapeHtml(label)}</button>`).join('');
     toolbar.hidden = !categories.length;
@@ -60,7 +65,7 @@
   }
   function render() {
     const visible = api.selectDeals(products, category, sort.value);
-    grid.innerHTML = visible.map(api.cardHTML).join('');
+    grid.innerHTML = category === 'appliances' && sort.value === 'featured' ? api.applianceGroupsHTML(visible) : visible.map(api.cardHTML).join('');
     root.attachOrderButtons(grid);
     count.textContent = `${visible.length} Black Friday ${visible.length === 1 ? 'deal' : 'deals'}`;
     empty.hidden = visible.length > 0;
@@ -76,7 +81,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-23-16plus-a18-watch', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-appliance-checkout', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
@@ -90,6 +95,7 @@
         root.attachOrderButtons(spotlight);
       }
       render();
+      if (category === 'appliances') doc.getElementById('offers')?.scrollIntoView?.({ block: 'start' });
     } catch (_) {
       baseProducts = []; products = []; inventory = null;
       grid.replaceChildren(); toolbar.hidden = true; error.hidden = false;
@@ -101,7 +107,16 @@
   }
   filters.addEventListener('click', event => {
     const button = event.target.closest('button[data-category]');
-    if (button) { category = button.dataset.category; render(); }
+    if (button) {
+      category = button.dataset.category;
+      root.history?.replaceState(null, '', category === 'all' ? '#offers' : '#' + category);
+      render();
+    }
+  });
+  root.addEventListener('hashchange', () => {
+    category = categoryFromHash();
+    render();
+    if (category === 'appliances') doc.getElementById('offers')?.scrollIntoView?.({ block: 'start' });
   });
   sort.addEventListener('change', render);
   doc.getElementById('bf-retry').addEventListener('click', load);
@@ -129,7 +144,7 @@
   function savings(p) { return hasPrice(p) && Number.isFinite(p.oldPrice) && p.oldPrice > p.price ? Math.round((p.oldPrice - p.price) * 100) / 100 : 0; }
   function money(value) { return 'XCG ' + value.toLocaleString('en-US', { maximumFractionDigits: 2 }); }
   function selectDeals(products, category = 'all', sort = 'featured') {
-    const list = products.filter(p => p.blackFriday === true && (category === 'all' || p.category === category)).map(p => hsoCatalog ? hsoCatalog.campaignProduct(p) : p);
+    const list = products.filter(p => p.blackFriday === true && (category === 'all' || p.category === category || (category === 'appliances' && p.blackFridayAppliance === true))).map(p => hsoCatalog ? hsoCatalog.campaignProduct(p) : p);
     if (sort === 'price-asc') return list.sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
     if (sort === 'price-desc') return list.sort((a, b) => (hasPrice(b) ? b.price : -Infinity) - (hasPrice(a) ? a.price : -Infinity));
     if (sort === 'savings') return list.sort((a, b) => savings(b) - savings(a));
@@ -147,8 +162,9 @@
   }
   function visualHTML(p, name) {
     const src = imageSrc(p);
+    if (!src && p.blackFridayAppliance === true && p.sku) return `<div class="bf-model-art bf-appliance-art" role="img" aria-label="${escapeHtml(name)}"><span>${escapeHtml(p.type || categoryName(p.category))}</span><strong>${escapeHtml(p.sku)}</strong></div>`;
     if (!src) return modelArt(name, /^Premier/.test(name) ? 'PREMIER' : categoryName(p.category));
-    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' && !p.imagePlaceholder ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name + (p.imagePlaceholder ? ' — illustration' : ''))}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
   }
   function detailsUrl(p) {
     return hsoCatalog ? hsoCatalog.detailsUrl(p) : p.suffix === 'HSO' && p.hsoModel ? '/hso/' : '';
@@ -175,5 +191,12 @@
     const hsoUrl = detailsUrl(p);
     return `<article class="bf-card"><div class="bf-card-image"><span class="bf-badge">BLACK FRIDAY</span>${detailLink(hsoUrl, visualHTML(p, name), 'View available ' + name + ' devices')}</div><div class="bf-card-body"><p class="bf-card-category">${escapeHtml(categoryName(p.category))}</p><h3>${detailLink(hsoUrl, escapeHtml(name))}</h3><p class="bf-card-spec">${escapeHtml(p.spec || '')}</p><div class="bf-price-row">${!digital && saving ? `<del><span class="sr-only">Was </span>${money(p.oldPrice)}</del>` : ''}<strong>${digital ? 'Check current price' : hasPrice(p) ? (p.hsoPriceFrom ? 'From ' : '') + money(p.price) : isInStoreSpecial(p) ? 'In-store special' : 'Ask for price'}</strong></div><p class="bf-saving">${!digital && saving ? 'Save ' + money(saving) : 'Black Friday pick'}</p>${actionHTML(p, name)}</div></article>`;
   }
-  return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc };
+  function applianceGroupsHTML(products) {
+    const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning' };
+    return Object.entries(groups).map(([key, label]) => {
+      const items = products.filter(p => p.applianceGroup === key);
+      return items.length ? `<section class="bf-appliance-group" aria-label="${label}"><h3>${label}</h3><div class="bf-grid">${items.map(cardHTML).join('')}</div></section>` : '';
+    }).join('') + products.filter(p => !groups[p.applianceGroup]).map(cardHTML).join('');
+  }
+  return { categoryName, escapeHtml, selectDeals, savings, cardHTML, modelArt, imageSrc, applianceGroupsHTML };
 });

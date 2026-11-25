@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Sandwich maker illustration</title>
+  <desc id="desc">Generic sandwich maker illustration, not a photograph of a specific model.</desc>
+  <rect width="640" height="640" rx="36" fill="#f0f0eb"/>
+  <circle cx="320" cy="302" r="219" fill="#e3e8e5"/>
+  <g stroke="#173b4a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M177 194q143-61 286 0l39 177q-182 73-364 0z" fill="#fff"/>
+    <path d="M138 371v39q182 75 364 0v-39" fill="#c4d1d3"/>
+    <rect x="260" y="355" width="120" height="44" rx="14" fill="#173b4a"/>
+    <circle cx="302" cy="240" r="13" fill="#ffe34e" stroke-width="7"/>
+    <circle cx="343" cy="240" r="13" fill="#a1c9b4" stroke-width="7"/>
+    <path d="M195 437v18m250-18v18" fill="none"/>
+  </g>
+  <text x="320" y="567" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="600" fill="#566b70">Illustration</text>
+</svg>

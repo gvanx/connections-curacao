@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Air conditioner illustration</title>
+  <desc id="desc">Generic wall mounted air conditioner illustration, not a photograph of a specific model.</desc>
+  <rect width="640" height="640" rx="36" fill="#f0f0eb"/>
+  <circle cx="320" cy="302" r="219" fill="#e3e8e5"/>
+  <g fill="none" stroke="#173b4a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="95" y="189" width="450" height="171" rx="30" fill="#fff"/>
+    <path d="M115 304h410v32H115z" fill="#c4d1d3" stroke-width="8"/>
+    <path d="M435 233h42" stroke="#b39c20"/>
+    <path d="M218 395c-34 27 34 44 0 73m102-73c-34 27 34 44 0 73m102-73c-34 27 34 44 0 73" stroke="#7b939c"/>
+  </g>
+  <text x="320" y="567" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="600" fill="#566b70">Illustration</text>
+</svg>
