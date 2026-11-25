@@ -1971,8 +1971,7 @@
     "type": "Hair Clipper",
     "spec": "Hair clipper",
     "image": "/img/products/blackfriday-appliances/sn-023.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -1990,8 +1989,7 @@
     "type": "Hair Clipper",
     "spec": "Hair clipper",
     "image": "/img/products/blackfriday-appliances/sn-025.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2008,12 +2006,11 @@
     "applianceGroup": "personal-care",
     "type": "Hair Clipper",
     "spec": "Hair clipper",
-    "image": "",
-    "imageUnavailable": true,
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "image": "/img/products/blackfriday-appliances/clipper-placeholder.svg",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
-    "newArrival": true
+    "newArrival": true,
+    "imagePlaceholder": true
   },
   {
     "name": "Shaver DL 9258",
@@ -2029,8 +2026,7 @@
     "type": "Shaver",
     "spec": "Shaver",
     "image": "/img/products/blackfriday-appliances/dl-9258.webp",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2047,12 +2043,11 @@
     "applianceGroup": "personal-care",
     "type": "Hair Clipper",
     "spec": "Hair clipper",
-    "image": "",
-    "imageUnavailable": true,
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "image": "/img/products/blackfriday-appliances/clipper-placeholder.svg",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
-    "newArrival": true
+    "newArrival": true,
+    "imagePlaceholder": true
   },
   {
     "name": "Hair Clipper SN 107",
@@ -2068,8 +2063,7 @@
     "type": "Hair Clipper",
     "spec": "Hair clipper",
     "image": "/img/products/blackfriday-appliances/sn-107.webp",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2087,8 +2081,7 @@
     "type": "Shaver",
     "spec": "Shaver",
     "image": "/img/products/blackfriday-appliances/dl-9272.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2106,8 +2099,7 @@
     "type": "Mini Chopper",
     "spec": "Mini chopper",
     "image": "/img/products/blackfriday-appliances/bkmc-7003.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2124,12 +2116,11 @@
     "applianceGroup": "kitchen",
     "type": "Sandwich Maker",
     "spec": "Sandwich maker",
-    "image": "",
-    "imageUnavailable": true,
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "image": "/img/products/blackfriday-appliances/sandwich-maker-placeholder.svg",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
-    "newArrival": true
+    "newArrival": true,
+    "imagePlaceholder": true
   },
   {
     "name": "2-Slice Sandwich Maker BKSM 002",
@@ -2145,8 +2136,7 @@
     "type": "2-Slice Sandwich Maker",
     "spec": "2-slice sandwich maker",
     "image": "/img/products/blackfriday-appliances/bksm-002.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2164,8 +2154,7 @@
     "type": "Sandwich Maker",
     "spec": "Sandwich maker",
     "image": "/img/products/blackfriday-appliances/bksm-021.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2183,8 +2172,7 @@
     "type": "Table Blender",
     "spec": "Table blender · Multiple colors",
     "image": "/img/products/blackfriday-appliances/bkptb-2334-bk.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2202,8 +2190,7 @@
     "type": "Personal Blender (Bullet)",
     "spec": "Personal blender · Mixed colors",
     "image": "/img/products/blackfriday-appliances/bkpb-6076.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2221,8 +2208,7 @@
     "type": "18-inch Stand Fan",
     "spec": "18-inch stand fan",
     "image": "/img/products/blackfriday-appliances/bk18sf-9917.jpg",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2240,8 +2226,7 @@
     "type": "Titanium Hair Straightener",
     "spec": "Titanium hair straightener",
     "image": "/img/products/blackfriday-appliances/bhs-10461.png",
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
     "newArrival": true
   },
@@ -2258,11 +2243,10 @@
     "applianceGroup": "cooling",
     "type": "Blaupunkt 12,000 BTU Inverter AC",
     "spec": "12,000 BTU · Inverter air conditioner",
-    "image": "",
-    "imageUnavailable": true,
-    "inquiryOnly": true,
-    "inquiryLabel": "Ask availability",
+    "image": "/img/products/blackfriday-appliances/airco-placeholder.svg",
+    "inquiryOnly": false,
     "addedAt": "2026-11-25T18:02:05.042Z",
-    "newArrival": true
+    "newArrival": true,
+    "imagePlaceholder": true
   }
 ]

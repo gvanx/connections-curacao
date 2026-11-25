@@ -81,7 +81,7 @@
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     try {
-      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-appliance-photos', { cache: 'no-store', signal: controller.signal });
+      const response = await root.fetch('/data/products.json?v=2026-11-25-bf-appliance-checkout', { cache: 'no-store', signal: controller.signal });
       if (!response.ok) throw new Error('Catalog unavailable');
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Invalid catalog');
@@ -164,7 +164,7 @@
     const src = imageSrc(p);
     if (!src && p.blackFridayAppliance === true && p.sku) return `<div class="bf-model-art bf-appliance-art" role="img" aria-label="${escapeHtml(name)}"><span>${escapeHtml(p.type || categoryName(p.category))}</span><strong>${escapeHtml(p.sku)}</strong></div>`;
     if (!src) return modelArt(name, /^Premier/.test(name) ? 'PREMIER' : categoryName(p.category));
-    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+    return `<img src="${escapeHtml(src)}" class="${p.category === 'acs' && !p.imagePlaceholder ? 'bf-airco-image' : 'bf-product-image'}" alt="${escapeHtml(name + (p.imagePlaceholder ? ' — illustration' : ''))}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
   }
   function detailsUrl(p) {
     return hsoCatalog ? hsoCatalog.detailsUrl(p) : p.suffix === 'HSO' && p.hsoModel ? '/hso/' : '';

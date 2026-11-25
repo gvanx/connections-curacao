@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-appliance-photos';
+    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-appliance-checkout';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -174,7 +174,7 @@
     function productVisualHTML(product, fullName) {
       const filename = (product.image || '').replace(/\.jpe?g$/i, '.png');
       if (product.image && !product.imageUnavailable && !GENERIC_IMAGE_FILES.has(filename)) {
-        return `<img src="${escapeHtml(productImageSrc(product))}" alt="${escapeHtml(fullName)}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+        return `<img src="${escapeHtml(productImageSrc(product))}" alt="${escapeHtml(fullName + (product.imagePlaceholder ? ' — illustration' : ''))}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
       }
       const mark = ({ tvs: 'TV', laptops: 'PC', acs: '°', appliances: '+' })[product.category] || '•';
       return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">

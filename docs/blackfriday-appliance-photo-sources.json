@@ -92,5 +92,27 @@
     "SN 138",
     "BKSM 9817",
     "BKAC 12 K 9652"
+  ],
+  "placeholders": [
+    {
+      "sku": "SN 026",
+      "image": "/img/products/blackfriday-appliances/clipper-placeholder.svg",
+      "note": "Original generic SVG illustration; not a photograph of this exact model."
+    },
+    {
+      "sku": "SN 138",
+      "image": "/img/products/blackfriday-appliances/clipper-placeholder.svg",
+      "note": "Original generic SVG illustration; not a photograph of this exact model."
+    },
+    {
+      "sku": "BKSM 9817",
+      "image": "/img/products/blackfriday-appliances/sandwich-maker-placeholder.svg",
+      "note": "Original generic SVG illustration; not a photograph of this exact model."
+    },
+    {
+      "sku": "BKAC 12 K 9652",
+      "image": "/img/products/blackfriday-appliances/airco-placeholder.svg",
+      "note": "Original generic SVG illustration; not a photograph of this exact model."
+    }
   ]
 }

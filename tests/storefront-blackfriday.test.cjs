@@ -114,7 +114,13 @@ test('appliance tab deep link groups the 16 offers, includes the AC, and preserv
   assert.match(results(), /Personal care/);
   assert.match(results(), /Kitchen essentials/);
   assert.match(results(), /Fans &amp; air conditioning|Fans & air conditioning/);
-  assert.doesNotMatch(results(), /iPhone|Galaxy|Premier|js-order-btn|Save XCG/);
+  assert.doesNotMatch(results(), /iPhone|Galaxy|Premier|Ask availability|Save XCG/);
+  const orderButtons = [...results().matchAll(/class="[^"]*js-order-btn" data-product-name="([^"]+)" data-product-price="([^"]+)"/g)];
+  const offers = products.filter(p => p.blackFriday === true && p.blackFridayAppliance === true);
+  assert.equal(orderButtons.length, 16);
+  assert.deepEqual(Object.fromEntries(orderButtons.map(match => [decodeURIComponent(match[1]), Number(match[2])])),
+    Object.fromEntries(offers.map(p => [[p.name, p.suffix].filter(Boolean).join(' '), p.price])));
+  assert.equal((results().match(/Checkout &amp; Pay/g) || []).length, 16);
   assert.equal(appliancePill.attributes['aria-pressed'], 'true');
   assert.match(h.element('#product-toolbar').innerHTML, /Black Friday Appliances <span class="pf-pill-total">16<\/span>/);
   h.element('#product-toolbar #pf-sort').events.change({ target: { value: 'price-asc' } });

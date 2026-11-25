@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Hair clipper illustration</title>
+  <desc id="desc">Generic hair clipper illustration, not a photograph of a specific model.</desc>
+  <rect width="640" height="640" rx="36" fill="#f0f0eb"/>
+  <circle cx="320" cy="302" r="219" fill="#e3e8e5"/>
+  <g fill="none" stroke="#173b4a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M248 196h144l-16 253c-2 37-110 37-112 0z" fill="#fff"/>
+    <rect x="230" y="146" width="180" height="62" rx="10" fill="#c4d1d3"/>
+    <path d="M248 143v-35m24 35v-35m24 35v-35m24 35v-35m24 35v-35m24 35v-35m24 35v-35"/>
+    <rect x="300" y="270" width="40" height="72" rx="20" fill="#ffe34e"/>
+    <path d="M291 388h58m-55 29h52" stroke="#7b939c"/>
+  </g>
+  <text x="320" y="567" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="600" fill="#566b70">Illustration</text>
+</svg>

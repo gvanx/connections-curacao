@@ -176,11 +176,13 @@ test('appliance deep link includes all 16 exact offers, groups them, sorts globa
   assert.deepEqual(Object.fromEntries(offers.map(p => [p.sku, p.price])), expected);
   for (const p of offers) {
     const html = cardHTML(p);
-    assert.match(html, /Ask availability/);
-    assert.doesNotMatch(html, /js-order-btn|<del>|Save XCG/);
-    const inquiry = new URL(html.match(/href="(https:\/\/wa\.me\/[^"]+)"/)[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
-    assert.ok(inquiry.searchParams.get('text').includes(p.sku));
-    assert.ok(inquiry.searchParams.get('text').includes(`XCG ${expected[p.sku]}`));
+    assert.match(html, /js-order-btn/);
+    assert.match(html, /Checkout &amp; Pay/);
+    assert.doesNotMatch(html, /Ask availability|wa\.me|<del>|Save XCG/);
+    assert.equal(Number(html.match(/data-product-price="([^"]+)"/)[1]), expected[p.sku]);
+    const checkoutName = decodeURIComponent(html.match(/data-product-name="([^"]+)"/)[1]);
+    assert.equal(checkoutName, [p.name, p.suffix].filter(Boolean).join(' '));
+    assert.ok(checkoutName.includes(p.sku));
   }
   const app = browser(async () => ({ ok: true, json: async () => catalog }), { hash: '#appliances' });
   await flush();
@@ -192,6 +194,8 @@ test('appliance deep link includes all 16 exact offers, groups them, sorts globa
   assert.match(e('bf-products').innerHTML, /Kitchen essentials/);
   assert.match(e('bf-products').innerHTML, /Fans &amp; air conditioning|Fans & air conditioning/);
   assert.doesNotMatch(e('bf-products').innerHTML, /iPhone|Galaxy|Premier/);
+  assert.equal((e('bf-products').innerHTML.match(/js-order-btn/g) || []).length, 16);
+  assert.doesNotMatch(e('bf-products').innerHTML, /Ask availability/);
   e('bf-sort').value = 'price-asc';
   e('bf-sort').listeners.change();
   assert.doesNotMatch(e('bf-products').innerHTML, /bf-appliance-group/);
