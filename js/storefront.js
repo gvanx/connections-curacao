@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-tv-range';
+    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-all-aircos';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -476,7 +476,7 @@
       const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning', televisions: 'Televisions' };
       return Object.entries(groups).map(([key, label]) => {
         const items = products.filter(p => p.applianceGroup === key);
-        if (key === 'televisions') items.sort((a, b) => a.price - b.price);
+        if (key === 'televisions' || key === 'cooling') items.sort((a, b) => a.price - b.price);
         return items.length ? `<section class="product-section" aria-label="${label}"><h3 class="section-title">${label}</h3><div class="product-grid">${items.map(productCardHTML).join('')}</div></section>` : '';
       }).join('') + (products.some(p => !groups[p.applianceGroup])
         ? `<div class="product-grid">${products.filter(p => !groups[p.applianceGroup]).map(productCardHTML).join('')}</div>` : '');

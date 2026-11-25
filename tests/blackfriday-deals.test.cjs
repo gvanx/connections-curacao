@@ -165,14 +165,20 @@ function browser(fetch, { spotlight = true, inventory, localStorage, hash = '' }
 
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
-test('appliance deep link includes all 22 exact offers, groups TVs, sorts globally and keeps phone tabs separate', async () => {
+test('appliance deep link includes all 26 exact offers, groups aircos and TVs, sorts globally and keeps phone tabs separate', async () => {
   const expected = {
     'SN 023': 19, 'SN 025': 19, 'SN 026': 25, 'DL 9258': 29,
     'SN 138': 29, 'SN 107': 29, 'DL 9272': 29, 'BKMC 7003': 39,
     'BKSM 9817': 39, 'BKSM 002': 39, 'BKSM 021': 39, 'BKPTB 2334 BK': 69,
     'BKPB 6076': 89, 'BK18SF 9917': 45, 'BHS 10461': 69, 'BKAC 12 K 9652': 519,
     'TV-954432H': 299, 'TV-9480SF40WFN': 349, 'TV-9308SF50WKL': 599,
-    '55" UHD Smart TV (Whale OS)': 649, '60" UHD Smart TV': 875, 'TV-9304SF65WKL': 925
+    '55" UHD Smart TV (Whale OS)': 649, '60" UHD Smart TV': 875, 'TV-9304SF65WKL': 925,
+    'Premier 9,000 BTU Inverter AC': 444, 'Premier 18,000 BTU Inverter AC': 875,
+    'Premier 24,000 BTU Inverter AC': 1099, 'Premier 36,000 BTU Inverter AC': 1799
+  };
+  const aircoOldPrices = {
+    'Premier 9,000 BTU Inverter AC': 650, 'Premier 18,000 BTU Inverter AC': 1150,
+    'Premier 24,000 BTU Inverter AC': 1390, 'Premier 36,000 BTU Inverter AC': 2100
   };
   const offers = selectDeals(catalog, 'appliances');
   assert.deepEqual(Object.fromEntries(offers.map(p => [p.sku || p.name, p.price])), expected);
@@ -201,7 +207,16 @@ test('appliance deep link includes all 22 exact offers, groups TVs, sorts global
     const html = cardHTML(p);
     assert.match(html, /js-order-btn/);
     assert.match(html, /Checkout &amp; Pay/);
-    assert.doesNotMatch(html, /Ask availability|wa\.me|<del>|Save XCG/);
+    assert.doesNotMatch(html, /Ask availability|wa\.me/);
+    if (Object.hasOwn(aircoOldPrices, p.name)) {
+      assert.equal(catalog.filter(item => item.name === p.name).length, 1);
+      assert.equal(p.category, 'acs');
+      assert.equal(p.applianceGroup, 'cooling');
+      assert.equal(p.oldPrice, aircoOldPrices[p.name]);
+      assert.equal(p.image, 'ac-catalog.webp');
+      assert.match(html, /<del>/);
+      assert.ok(html.includes(`Save XCG ${p.oldPrice - p.price}`));
+    } else assert.doesNotMatch(html, /<del>|Save XCG/);
     assert.equal(Number(html.match(/data-product-price="([^"]+)"/)[1]), expected[p.sku || p.name]);
     const checkoutName = decodeURIComponent(html.match(/data-product-name="([^"]+)"/)[1]);
     assert.equal(checkoutName, [p.name, p.suffix].filter(Boolean).join(' '));
@@ -210,9 +225,14 @@ test('appliance deep link includes all 22 exact offers, groups TVs, sorts global
   const app = browser(async () => ({ ok: true, json: async () => catalog }), { hash: '#appliances' });
   await flush();
   const e = id => app.elements.get(id);
-  assert.equal(e('bf-count').textContent, '22 Black Friday deals');
+  assert.equal(e('bf-count').textContent, '26 Black Friday deals');
   const groups = [...e('bf-products').innerHTML.matchAll(/<section class="bf-appliance-group"[^>]*>([\s\S]*?)<\/section>/g)];
-  assert.deepEqual(groups.map(group => (group[1].match(/<article /g) || []).length), [8, 6, 2, 6]);
+  assert.deepEqual(groups.map(group => (group[1].match(/<article /g) || []).length), [8, 6, 6, 6]);
+  const coolingGroup = groups.find(group => /<h3>Fans &(?:amp;)? air conditioning<\/h3>/.test(group[1]));
+  assert.ok(coolingGroup, 'Fans and all five aircos share the cooling group');
+  assert.deepEqual([...coolingGroup[1].matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
+    [45, 444, 519, 875, 1099, 1799]);
+  assert.equal((coolingGroup[1].match(/src="\/img\/products\/ac-catalog\.webp"/g) || []).length, 4);
   const televisionGroup = groups.find(group => /<h3>Televisions<\/h3>/.test(group[1]));
   assert.ok(televisionGroup, 'Televisions has a dedicated appliance group');
   assert.deepEqual([...televisionGroup[1].matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
@@ -221,8 +241,9 @@ test('appliance deep link includes all 22 exact offers, groups TVs, sorts global
   assert.match(e('bf-products').innerHTML, /Kitchen essentials/);
   assert.match(e('bf-products').innerHTML, /Fans &amp; air conditioning|Fans & air conditioning/);
   assert.match(e('bf-products').innerHTML, /Televisions/);
-  assert.doesNotMatch(e('bf-products').innerHTML, /iPhone|Galaxy|Premier 9,000 BTU/);
-  assert.equal((e('bf-products').innerHTML.match(/js-order-btn/g) || []).length, 22);
+  assert.doesNotMatch(e('bf-products').innerHTML, /iPhone|Galaxy/);
+  assert.equal((e('bf-products').innerHTML.match(/js-order-btn/g) || []).length, 26);
+  assert.equal((e('bf-products').innerHTML.match(/<del>/g) || []).length, 4);
   assert.doesNotMatch(e('bf-products').innerHTML, /Ask availability/);
   e('bf-sort').value = 'price-asc';
   e('bf-sort').listeners.change();
@@ -234,6 +255,13 @@ test('appliance deep link includes all 22 exact offers, groups TVs, sorts global
   assert.equal(app.location.hash, '#samsung');
   assert.doesNotMatch(e('bf-products').innerHTML, /SN 023|BKAC 12 K 9652|TV-954432H|TV-9480SF40WFN|TV-9308SF50WKL|TV-9304SF65WKL|55&quot; UHD Smart TV|60&quot; UHD Smart TV/);
   assert.match(e('bf-products').innerHTML, /Galaxy/);
+  assert.doesNotMatch(e('bf-products').innerHTML, /Premier [\d,]+ BTU Inverter AC/);
+  const aircos = e('bf-filters').buttons.find(button => button.dataset.category === 'acs');
+  e('bf-filters').listeners.click({ target: aircos });
+  assert.equal(app.location.hash, '#acs');
+  assert.equal(e('bf-count').textContent, '5 Black Friday deals');
+  assert.deepEqual([...e('bf-products').innerHTML.matchAll(/data-product-price="([^"]+)"/g)].map(match => Number(match[1])),
+    [444, 519, 875, 1099, 1799]);
   const televisions = e('bf-filters').buttons.find(button => button.dataset.category === 'tvs');
   e('bf-filters').listeners.click({ target: televisions });
   assert.equal(app.location.hash, '#tvs');
@@ -243,7 +271,7 @@ test('appliance deep link includes all 22 exact offers, groups TVs, sorts global
   assert.doesNotMatch(e('bf-products').innerHTML, /Galaxy|SN 023|BKAC 12 K 9652/);
   app.location.hash = '#appliances';
   app.events.hashchange();
-  assert.equal(e('bf-count').textContent, '22 Black Friday deals');
+  assert.equal(e('bf-count').textContent, '26 Black Friday deals');
   assert.match(e('bf-products').innerHTML, /BKAC 12 K 9652/);
   assert.equal(e('bf-filters').buttons.find(button => button.dataset.category === 'appliances').attributes['aria-pressed'], 'true');
 });

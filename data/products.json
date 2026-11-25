@@ -1005,7 +1005,9 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "ac-catalog.webp"
+    "image": "ac-catalog.webp",
+    "blackFridayAppliance": true,
+    "applianceGroup": "cooling"
   },
   {
     "name": "Premier 18,000 BTU Inverter AC",
@@ -1024,7 +1026,9 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "ac-catalog.webp"
+    "image": "ac-catalog.webp",
+    "blackFridayAppliance": true,
+    "applianceGroup": "cooling"
   },
   {
     "name": "Premier 24,000 BTU Inverter AC",
@@ -1043,7 +1047,9 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "ac-catalog.webp"
+    "image": "ac-catalog.webp",
+    "blackFridayAppliance": true,
+    "applianceGroup": "cooling"
   },
   {
     "name": "Premier 36,000 BTU Inverter AC",
@@ -1062,7 +1068,9 @@
     "inquiryOnly": false,
     "addedAt": "2026-11-19T13:46:36.434Z",
     "newArrival": true,
-    "image": "ac-catalog.webp"
+    "image": "ac-catalog.webp",
+    "blackFridayAppliance": true,
+    "applianceGroup": "cooling"
   },
   {
     "name": "Digital Air Cooler 5.5L",
