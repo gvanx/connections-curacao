@@ -27,7 +27,7 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
     });
     return elements.get(key);
   }
-  const pills = ['all', 'blackfriday', 'samsung', 'acs', 'blackfriday-appliances'].map(category => {
+  const pills = ['all', 'blackfriday', 'samsung', 'acs', 'blackfriday-appliances', 'tvs'].map(category => {
     const pill = element('pill:' + category); pill.dataset.cat = category; return pill;
   });
   const document = {
@@ -103,26 +103,35 @@ test('campaign pill navigation and hash changes keep the filter and URL in sync'
   assert.equal(h.pills[2].attributes['aria-pressed'], 'false');
 });
 
-test('appliance tab deep link groups the 16 offers, includes the AC, and preserves search, sorting and phone navigation', async () => {
+test('appliance tab deep link groups the 18 offers, includes TVs, and preserves search, sorting and category navigation', async () => {
   const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json'), 'utf8'));
   const h = await boot('#blackfriday-appliances', products);
   const results = () => h.element('#product-results').innerHTML;
   const appliancePill = h.pills.find(p => p.dataset.cat === 'blackfriday-appliances');
-  assert.match(results(), /Black Friday Appliances · 16 results/);
+  assert.match(results(), /Black Friday Appliances · 18 results/);
   assert.match(results(), /BKAC 12 K 9652/);
   assert.match(results(), /XCG 519/);
   assert.match(results(), /Personal care/);
   assert.match(results(), /Kitchen essentials/);
   assert.match(results(), /Fans &amp; air conditioning|Fans & air conditioning/);
-  assert.doesNotMatch(results(), /iPhone|Galaxy|Premier|Ask availability|Save XCG/);
+  assert.match(results(), /Televisions/);
+  assert.match(results(), /TV-954432H/);
+  assert.match(results(), /TV-9480SF40WFN/);
+  assert.doesNotMatch(results(), /iPhone|Galaxy|Premier 9,000 BTU|Ask availability|Save XCG/);
   const orderButtons = [...results().matchAll(/class="[^"]*js-order-btn" data-product-name="([^"]+)" data-product-price="([^"]+)"/g)];
   const offers = products.filter(p => p.blackFriday === true && p.blackFridayAppliance === true);
-  assert.equal(orderButtons.length, 16);
+  assert.equal(orderButtons.length, 18);
   assert.deepEqual(Object.fromEntries(orderButtons.map(match => [decodeURIComponent(match[1]), Number(match[2])])),
     Object.fromEntries(offers.map(p => [[p.name, p.suffix].filter(Boolean).join(' '), p.price])));
-  assert.equal((results().match(/Checkout &amp; Pay/g) || []).length, 16);
+  for (const [sku, price] of [['TV-954432H', 299], ['TV-9480SF40WFN', 349]]) {
+    const button = orderButtons.find(match => decodeURIComponent(match[1]).includes(sku));
+    assert.ok(button, `${sku} checkout button`);
+    assert.equal(Number(button[2]), price);
+    assert.ok(results().includes(`src="/img/products/blackfriday-appliances/premier-${sku.toLowerCase()}.png"`));
+  }
+  assert.equal((results().match(/Checkout &amp; Pay/g) || []).length, 18);
   assert.equal(appliancePill.attributes['aria-pressed'], 'true');
-  assert.match(h.element('#product-toolbar').innerHTML, /Black Friday Appliances <span class="pf-pill-total">16<\/span>/);
+  assert.match(h.element('#product-toolbar').innerHTML, /Black Friday Appliances <span class="pf-pill-total">18<\/span>/);
   h.element('#product-toolbar #pf-sort').events.change({ target: { value: 'price-asc' } });
   assert.doesNotMatch(results(), /<h3 class="section-title">/);
   assert.ok(results().indexOf('SN 023') < results().indexOf('BKAC 12 K 9652'));
@@ -133,13 +142,17 @@ test('appliance tab deep link groups the 16 offers, includes the AC, and preserv
   assert.doesNotMatch(results(), /SN 023/);
   h.location.hash = '#blackfriday-appliances';
   h.windowEvents.hashchange();
-  assert.match(results(), /Black Friday Appliances · 16 results/);
+  assert.match(results(), /Black Friday Appliances · 18 results/);
   h.pills.find(p => p.dataset.cat === 'samsung').events.click();
   assert.equal(h.location.hash, '#products');
   assert.match(results(), /Galaxy/);
-  assert.doesNotMatch(results(), /SN 023|BKAC 12 K 9652/);
+  assert.doesNotMatch(results(), /SN 023|BKAC 12 K 9652|TV-954432H|TV-9480SF40WFN/);
+  h.pills.find(p => p.dataset.cat === 'tvs').events.click();
+  assert.match(results(), /TV-954432H/);
+  assert.match(results(), /TV-9480SF40WFN/);
+  assert.doesNotMatch(results(), /Galaxy|SN 023|BKAC 12 K 9652/);
   appliancePill.events.click();
   assert.equal(h.location.hash, '#blackfriday-appliances');
-  assert.match(results(), /Black Friday Appliances · 16 results/);
+  assert.match(results(), /Black Friday Appliances · 18 results/);
   assert.equal(appliancePill.attributes['aria-pressed'], 'true');
 });
