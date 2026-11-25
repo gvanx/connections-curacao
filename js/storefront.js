@@ -87,7 +87,7 @@
     };
 
     const CATEGORY_ORDER = ['apple', 'samsung', 'phones', 'tvs', 'laptops', 'acs', 'appliances', 'motor', 'other', 'giftcards'];
-    const PRODUCTS_DATA_VERSION = '2026-11-25-airpods-anc-image';
+    const PRODUCTS_DATA_VERSION = '2026-11-25-bf-appliances';
     const { isNewArrival, isBackInStock, nextChangeAt } = NewArrivals;
 
     function waLink(name, price) {
@@ -152,7 +152,7 @@
 
     function productBrand(product) {
       const text = `${product.name || ''} ${product.spec || ''}`.toLowerCase();
-      const brands = ['Midea', 'Premier', 'Samsung', 'Redmi', 'Fujifilm', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
+      const brands = ['Midea', 'Premier', 'Blaupunkt', 'Samsung', 'Redmi', 'Fujifilm', 'Hisense', 'Skytech', 'Amazon', 'Lenovo', 'HP', 'Ninja', 'Frigidaire', 'San-Den', 'Oster', 'Toshiba'];
       return brands.find(brand => text.includes(brand.toLowerCase())) || CATEGORY_META[product.category]?.name || 'Connections';
     }
 
@@ -180,7 +180,7 @@
       return `<div class="model-art" data-category="${escapeHtml(product.category)}" data-mark="${mark}" role="img" aria-label="${escapeHtml(fullName)}">
         <span class="model-art-brand">${escapeHtml(productBrand(product))}</span>
         <span class="model-art-type">${escapeHtml(productType(product))}</span>
-        <strong class="model-art-name">${escapeHtml(fullName)}</strong>
+        <strong class="model-art-name">${escapeHtml(product.blackFridayAppliance === true && product.sku ? product.sku : fullName)}</strong>
       </div>`;
     }
 
@@ -438,12 +438,14 @@
           </div>`;
         } else {
           const resultCount = products.length === 1 ? '1 result' : `${products.length} results`;
-          const campaignLabel = { 'new-arrivals': 'New Arrivals', blackfriday: 'Black Friday' }[filterState.category];
+          const campaignLabel = { 'new-arrivals': 'New Arrivals', blackfriday: 'Black Friday', 'blackfriday-appliances': 'Black Friday Appliances' }[filterState.category];
           const label = campaignLabel ? `${campaignLabel} · ${resultCount}` : resultCount;
           html = `<div class="product-section">
             <h2 class="results-title">${label}</h2>
             ${filterState.category === 'giftcards' ? giftCardNoteHTML() : ''}
-            <div class="product-grid">${products.map(productCardHTML).join('')}</div>
+            ${filterState.category === 'blackfriday-appliances' && filterState.sort === 'featured'
+              ? applianceGroupsHTML(products)
+              : `<div class="product-grid">${products.map(productCardHTML).join('')}</div>`}
           </div>`;
         }
       } else {
@@ -470,6 +472,15 @@
       container.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
     }
 
+    function applianceGroupsHTML(products) {
+      const groups = { 'personal-care': 'Personal care', kitchen: 'Kitchen essentials', cooling: 'Fans & air conditioning' };
+      return Object.entries(groups).map(([key, label]) => {
+        const items = products.filter(p => p.applianceGroup === key);
+        return items.length ? `<section class="product-section" aria-label="${label}"><h3 class="section-title">${label}</h3><div class="product-grid">${items.map(productCardHTML).join('')}</div></section>` : '';
+      }).join('') + (products.some(p => !groups[p.applianceGroup])
+        ? `<div class="product-grid">${products.filter(p => !groups[p.applianceGroup]).map(productCardHTML).join('')}</div>` : '');
+    }
+
     /* ---- Search / filter / sort toolbar ---- */
     // A failed optional helper must not expose unverified phones or break ordinary shopping.
     const HSOAvailability = typeof HSOCatalog !== 'undefined' ? HSOCatalog : {
@@ -483,6 +494,8 @@
     function syncLiveFilterCounts() {
       const total = document.querySelector('.pf-pill-blackfriday .pf-pill-total');
       if (total) total.textContent = ALL_PRODUCTS.filter(product => product.blackFriday === true).length;
+      const appliances = document.querySelector('.pf-pill-appliances .pf-pill-total');
+      if (appliances) appliances.textContent = ALL_PRODUCTS.filter(product => matchesCategory(product, 'blackfriday-appliances')).length;
       const arrivals = document.querySelector('.pf-pill[data-cat="new-arrivals"]');
       if (arrivals) {
         const hasArrivals = ALL_PRODUCTS.some(product => isNewArrival(product));
@@ -511,6 +524,7 @@
     function matchesCategory(p, category) {
       if (category === 'new-arrivals') return isNewArrival(p);
       if (category === 'blackfriday') return p.blackFriday === true;
+      if (category === 'blackfriday-appliances') return p.blackFriday === true && p.blackFridayAppliance === true;
       return p.category === category || (category === 'laptops' && /macbook/i.test(p.name));
     }
     const filterState = { search: '', category: 'all', price: 'all', sort: 'featured' };
@@ -594,6 +608,8 @@
       let pills = `<button type="button" class="pf-pill active" data-cat="all" aria-pressed="true">All</button>`;
       const blackFridayCount = products.filter(p => p.blackFriday === true).length;
       if (blackFridayCount) pills += `<button type="button" class="pf-pill pf-pill-blackfriday" data-cat="blackfriday" aria-pressed="false">Black Friday <span class="pf-pill-total">${blackFridayCount}</span></button>`;
+      const applianceCount = products.filter(p => matchesCategory(p, 'blackfriday-appliances')).length;
+      if (applianceCount) pills += `<button type="button" class="pf-pill pf-pill-blackfriday pf-pill-appliances" data-cat="blackfriday-appliances" aria-pressed="false">Black Friday Appliances <span class="pf-pill-total">${applianceCount}</span></button>`;
       const hasArrivals = products.some(p => isNewArrival(p));
       pills += `<button type="button" class="pf-pill pf-pill-new" data-cat="new-arrivals" aria-pressed="false"${hasArrivals ? '' : ' hidden style="display:none"'}>New Arrivals</button>`;
       cats.forEach(c => {
@@ -661,8 +677,9 @@
           syncCategoryPills();
           if (filterState.category === 'new-arrivals') history.replaceState(null, '', '#new-arrivals');
           else if (filterState.category === 'blackfriday') history.replaceState(null, '', '#blackfriday');
+          else if (filterState.category === 'blackfriday-appliances') history.replaceState(null, '', '#blackfriday-appliances');
           else if (filterState.category === 'giftcards') history.replaceState(null, '', '#gift-cards');
-          else if (['#new-arrivals', '#gift-cards', '#blackfriday'].includes(location.hash)) history.replaceState(null, '', '#products');
+          else if (['#new-arrivals', '#gift-cards', '#blackfriday', '#blackfriday-appliances'].includes(location.hash)) history.replaceState(null, '', '#products');
           applyFilters();
         });
       });
@@ -772,6 +789,7 @@
         initCheckoutModal();
         if (location.hash === '#new-arrivals') openNewArrivals();
         if (location.hash === '#blackfriday') openProductCategory('blackfriday');
+        if (location.hash === '#blackfriday-appliances') openProductCategory('blackfriday-appliances');
         if (location.hash === '#gift-cards') openProductCategory('giftcards');
         refreshProductBadgeState();
         setInterval(() => { if (!document.hidden) refreshHSOInventory(); }, 30000);
@@ -799,6 +817,7 @@
     window.addEventListener('hashchange', () => {
       if (ALL_PRODUCTS.length && location.hash === '#new-arrivals') openNewArrivals();
       if (ALL_PRODUCTS.length && location.hash === '#blackfriday') openProductCategory('blackfriday');
+      if (ALL_PRODUCTS.length && location.hash === '#blackfriday-appliances') openProductCategory('blackfriday-appliances');
       if (ALL_PRODUCTS.length && location.hash === '#gift-cards') openProductCategory('giftcards');
     });
 

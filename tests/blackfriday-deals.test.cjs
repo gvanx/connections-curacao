@@ -103,7 +103,7 @@ test('catalog strings are escaped and image paths preserve supported existing ar
   assert.equal(imageSrc({ image: 'ac-generic.png', imageUnavailable: true }), '');
 });
 
-function browser(fetch, { spotlight = true, inventory, localStorage } = {}) {
+function browser(fetch, { spotlight = true, inventory, localStorage, hash = '' } = {}) {
   const elements = new Map();
   function element(id) {
     let html = '';
@@ -134,6 +134,8 @@ function browser(fetch, { spotlight = true, inventory, localStorage } = {}) {
   let sourceProducts = [];
   const window = {
     HSOCatalog: hsoCatalog,
+    location: { hash },
+    history: { replaceState(_state, _title, hash) { window.location.hash = hash; } },
     ...(localStorage ? { localStorage } : {}),
     document: { hidden: false, getElementById: id => elements.get(id), addEventListener(type, callback) { events[type] = callback; } },
     fetch: async (url, options) => {
@@ -158,10 +160,54 @@ function browser(fetch, { spotlight = true, inventory, localStorage } = {}) {
     clearTimeout(id) { timers.delete(id); },
     setInterval(callback, delay) { intervals.push({ callback, delay }); }
   });
-  return { elements, timers, boundScopes, events, intervals, document: window.document, get initialized() { return initialized; } };
+  return { elements, timers, boundScopes, events, intervals, document: window.document, location: window.location, get initialized() { return initialized; } };
 }
 
 const flush = () => new Promise(resolve => setImmediate(resolve));
+
+test('appliance deep link includes all 16 exact offers, groups them, sorts globally and keeps phone tabs separate', async () => {
+  const expected = {
+    'SN 023': 19, 'SN 025': 19, 'SN 026': 25, 'DL 9258': 29,
+    'SN 138': 29, 'SN 107': 29, 'DL 9272': 29, 'BKMC 7003': 39,
+    'BKSM 9817': 39, 'BKSM 002': 39, 'BKSM 021': 39, 'BKPTB 2334 BK': 69,
+    'BKPB 6076': 89, 'BK18SF 9917': 45, 'BHS 10461': 69, 'BKAC 12 K 9652': 519
+  };
+  const offers = selectDeals(catalog, 'appliances');
+  assert.deepEqual(Object.fromEntries(offers.map(p => [p.sku, p.price])), expected);
+  for (const p of offers) {
+    const html = cardHTML(p);
+    assert.match(html, /Ask availability/);
+    assert.doesNotMatch(html, /js-order-btn|<del>|Save XCG/);
+    const inquiry = new URL(html.match(/href="(https:\/\/wa\.me\/[^"]+)"/)[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
+    assert.ok(inquiry.searchParams.get('text').includes(p.sku));
+    assert.ok(inquiry.searchParams.get('text').includes(`XCG ${expected[p.sku]}`));
+  }
+  const app = browser(async () => ({ ok: true, json: async () => catalog }), { hash: '#appliances' });
+  await flush();
+  const e = id => app.elements.get(id);
+  assert.equal(e('bf-count').textContent, '16 Black Friday deals');
+  const groups = [...e('bf-products').innerHTML.matchAll(/<section class="bf-appliance-group"[^>]*>([\s\S]*?)<\/section>/g)];
+  assert.deepEqual(groups.map(group => (group[1].match(/<article /g) || []).length), [8, 6, 2]);
+  assert.match(e('bf-products').innerHTML, /Personal care/);
+  assert.match(e('bf-products').innerHTML, /Kitchen essentials/);
+  assert.match(e('bf-products').innerHTML, /Fans &amp; air conditioning|Fans & air conditioning/);
+  assert.doesNotMatch(e('bf-products').innerHTML, /iPhone|Galaxy|Premier/);
+  e('bf-sort').value = 'price-asc';
+  e('bf-sort').listeners.change();
+  assert.doesNotMatch(e('bf-products').innerHTML, /bf-appliance-group/);
+  const prices = [...e('bf-products').innerHTML.matchAll(/<strong>XCG ([\d,]+)<\/strong>/g)].map(m => Number(m[1].replace(/,/g, '')));
+  assert.deepEqual(prices, Object.values(expected).sort((a, b) => a - b));
+  const samsung = e('bf-filters').buttons.find(button => button.dataset.category === 'samsung');
+  e('bf-filters').listeners.click({ target: samsung });
+  assert.equal(app.location.hash, '#samsung');
+  assert.doesNotMatch(e('bf-products').innerHTML, /SN 023|BKAC 12 K 9652/);
+  assert.match(e('bf-products').innerHTML, /Galaxy/);
+  app.location.hash = '#appliances';
+  app.events.hashchange();
+  assert.equal(e('bf-count').textContent, '16 Black Friday deals');
+  assert.match(e('bf-products').innerHTML, /BKAC 12 K 9652/);
+  assert.equal(e('bf-filters').buttons.find(button => button.dataset.category === 'appliances').attributes['aria-pressed'], 'true');
+});
 
 test('live HSO stock updates Black Friday cards without losing ordinary deals or restocked phones', async () => {
   const phone = { name: 'Managed iPhone', suffix: 'HSO', hsoModel: 'iphone-15', hsoStorage: '128GB', category: 'apple', price: 1099, blackFriday: true };
@@ -328,7 +374,7 @@ test('browser loading binds checkout, filters tagged categories, sorts, and reco
   assert.doesNotMatch(e('bf-spotlight').innerHTML, /Galaxy Tab|Chromebook/);
   const airco = e('bf-filters').buttons.find(button => button.dataset.category === 'acs');
   e('bf-filters').listeners.click({ target: airco });
-  assert.equal(e('bf-count').textContent, '4 Black Friday deals');
+  assert.equal(e('bf-count').textContent, '5 Black Friday deals');
   assert.equal(airco.attributes['aria-pressed'], 'true');
   assert.doesNotMatch(e('bf-products').innerHTML, /Galaxy Tab/);
   e('bf-sort').value = 'price-desc';

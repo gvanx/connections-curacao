@@ -27,7 +27,7 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
     });
     return elements.get(key);
   }
-  const pills = ['all', 'blackfriday', 'samsung', 'acs'].map(category => {
+  const pills = ['all', 'blackfriday', 'samsung', 'acs', 'blackfriday-appliances'].map(category => {
     const pill = element('pill:' + category); pill.dataset.cat = category; return pill;
   });
   const document = {
@@ -36,20 +36,21 @@ async function boot(hash = '#blackfriday', suppliedProducts) {
     addEventListener(name, callback) { (documentEvents[name] ||= []).push(callback); }
   };
   const location = { hash };
+  let searchDebounce;
   const context = vm.createContext({
     Date, AbortController, document, location, window: { addEventListener(name, callback) { windowEvents[name] = callback; } },
     history: { replaceState(_state, _title, hash) { location.hash = hash; } },
     IntersectionObserver: class { observe() {} }, console: { error: (...args) => errors.push(args.map(String).join(' ')) },
     fetch: async url => ({ ok: true, json: async () => url === '/.netlify/functions/hso-stock' ?
       stockFixture(JSON.parse(fs.readFileSync(path.join(__dirname, '../data/hso-stock.json'), 'utf8')), products) : products }),
-    setTimeout() {}, clearTimeout() {}, setInterval() {}
+    setTimeout(callback, delay) { if (delay === 150) searchDebounce = callback; }, clearTimeout() {}, setInterval() {}
   });
   for (const name of ['checkout', 'new-arrivals', 'gift-cards', 'hso-catalog', 'storefront']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../js', name + '.js'), 'utf8'), context);
   }
   for (const callback of documentEvents.DOMContentLoaded) await callback();
   assert.deepEqual(errors, []);
-  return { element, pills, location, windowEvents };
+  return { element, pills, location, windowEvents, flushSearch() { searchDebounce?.(); } };
 }
 
 test('Black Friday deep link selects only explicitly tagged offers with checkout enabled for authorized aircos', async () => {
@@ -77,7 +78,7 @@ test('catalog and featured cards display the clean airco catalog image', async (
 
 test('all four published Premier Black Friday aircos have the clean catalog image and advertised checkout price', async () => {
   const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json'), 'utf8'))
-    .filter(product => product.category === 'acs' && product.blackFriday === true);
+    .filter(product => product.category === 'acs' && product.blackFriday === true && product.name.startsWith('Premier '));
   assert.equal(products.length, 4);
   const h = await boot('#blackfriday', products);
   const html = h.element('#product-results').innerHTML;
@@ -100,4 +101,39 @@ test('campaign pill navigation and hash changes keep the filter and URL in sync'
   assert.match(h.element('#product-results').innerHTML, /Black Friday · 2 results/);
   assert.equal(h.pills[1].attributes['aria-pressed'], 'true');
   assert.equal(h.pills[2].attributes['aria-pressed'], 'false');
+});
+
+test('appliance tab deep link groups the 16 offers, includes the AC, and preserves search, sorting and phone navigation', async () => {
+  const products = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/products.json'), 'utf8'));
+  const h = await boot('#blackfriday-appliances', products);
+  const results = () => h.element('#product-results').innerHTML;
+  const appliancePill = h.pills.find(p => p.dataset.cat === 'blackfriday-appliances');
+  assert.match(results(), /Black Friday Appliances · 16 results/);
+  assert.match(results(), /BKAC 12 K 9652/);
+  assert.match(results(), /XCG 519/);
+  assert.match(results(), /Personal care/);
+  assert.match(results(), /Kitchen essentials/);
+  assert.match(results(), /Fans &amp; air conditioning|Fans & air conditioning/);
+  assert.doesNotMatch(results(), /iPhone|Galaxy|Premier|js-order-btn|Save XCG/);
+  assert.equal(appliancePill.attributes['aria-pressed'], 'true');
+  assert.match(h.element('#product-toolbar').innerHTML, /Black Friday Appliances <span class="pf-pill-total">16<\/span>/);
+  h.element('#product-toolbar #pf-sort').events.change({ target: { value: 'price-asc' } });
+  assert.doesNotMatch(results(), /<h3 class="section-title">/);
+  assert.ok(results().indexOf('SN 023') < results().indexOf('BKAC 12 K 9652'));
+  h.element('#product-toolbar #pf-search').value = 'BKAC 12 K 9652';
+  h.element('#product-toolbar #pf-search').events.input();
+  h.flushSearch();
+  assert.match(results(), /Black Friday Appliances · 1 result/);
+  assert.doesNotMatch(results(), /SN 023/);
+  h.location.hash = '#blackfriday-appliances';
+  h.windowEvents.hashchange();
+  assert.match(results(), /Black Friday Appliances · 16 results/);
+  h.pills.find(p => p.dataset.cat === 'samsung').events.click();
+  assert.equal(h.location.hash, '#products');
+  assert.match(results(), /Galaxy/);
+  assert.doesNotMatch(results(), /SN 023|BKAC 12 K 9652/);
+  appliancePill.events.click();
+  assert.equal(h.location.hash, '#blackfriday-appliances');
+  assert.match(results(), /Black Friday Appliances · 16 results/);
+  assert.equal(appliancePill.attributes['aria-pressed'], 'true');
 });
