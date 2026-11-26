@@ -2,6 +2,10 @@
 /home  /  301!
 /home/  /  301!
 
+# Domain sales page aliases
+/domainsforsale  /domainforsales/  301!
+/domainsforsale/  /domainforsales/  301!
+
 # Live Apple gift-card prices and stock from the digital store
 /data/gift-card-store.json  https://giftcard.connectionscuracao.net/data/store.json  200!
 
