@@ -121,7 +121,10 @@ function getCheckoutTotals() {
   if (!activeCheckout) return { paymentType: 'full', paymentAmount: 0, fee: 0, total: 0, deliveryType: 'pickup' };
   const paymentType = (document.querySelector('input[name="checkout-payment"]:checked') || {}).value || 'full';
   const deliveryType = (document.querySelector('input[name="checkout-delivery"]:checked') || {}).value || 'pickup';
-  const paymentAmount = paymentType === 'reserve' ? Math.min(CHECKOUT_CONFIG.reserveAmount, activeCheckout.price) : activeCheckout.price;
+  const reserveAmount = Number.isFinite(activeCheckout.reserveAmount) && activeCheckout.reserveAmount > 0
+    ? activeCheckout.reserveAmount
+    : CHECKOUT_CONFIG.reserveAmount;
+  const paymentAmount = paymentType === 'reserve' ? Math.min(reserveAmount, activeCheckout.price) : activeCheckout.price;
   const fee = deliveryType === 'delivery' ? CHECKOUT_CONFIG.deliveryFee : 0;
   return { paymentType, paymentAmount, fee, total: paymentAmount + fee, deliveryType };
 }
@@ -180,7 +183,7 @@ function closeCheckout() {
   }
 }
 
-function openCheckout(name, price, opener = document.activeElement, validateAvailability) {
+function openCheckout(name, price, opener = document.activeElement, validateAvailability, options = {}) {
   if (typeof name !== 'string' || !name.trim() || !Number.isFinite(price) || price <= 0) return;
   const overlay = document.getElementById('checkout-modal');
   if (!overlay) return;
@@ -191,7 +194,7 @@ function openCheckout(name, price, opener = document.activeElement, validateAvai
   }
   document.body.style.overflow = 'hidden';
   activeCheckout?.restoreAvailabilityControls?.();
-  activeCheckout = { name, price, validateAvailability };
+  activeCheckout = { name, price, validateAvailability, reserveAmount: options?.reserveAmount };
   const form = document.getElementById('checkout-form');
   form.reset();
   form.hidden = false;

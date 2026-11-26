@@ -12,7 +12,8 @@ Both stablecoins use **Ethereum (ERC-20)** and the owner-provided receiving wall
 The amount due is the current XCG payment amount divided by **1.74**, rounded to
 two decimal places. There is **no Connections crypto fee**. Customers pay any
 network or exchange withdrawal fees separately. Delivery fees are included before
-conversion. Reservations use the existing XCG 100 deposit, capped at the product
+conversion. Reservations use a 50% deposit for HSO second-hand devices and the
+standard XCG 100 deposit elsewhere, always capped at the product
 price; the remaining product balance stays in XCG.
 
 Customers choose a coin, review the amount and network, and receive the wallet

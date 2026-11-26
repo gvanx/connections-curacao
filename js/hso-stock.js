@@ -127,7 +127,7 @@
           throw new Error('This device’s details or price changed. Close checkout and review the updated listing.');
         }
         return true;
-      });
+      }, { reserveAmount: Math.round(product.price * 50) / 100 });
     } catch (_) {
       showStockError();
     } finally { busy = false; }

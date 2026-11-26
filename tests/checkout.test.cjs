@@ -46,8 +46,8 @@ function harness() {
   const api = context.api;
   api.initCheckoutModal();
   const selectRadio = (name, value) => radios[name].forEach(radio => { radio.checked = radio.value === value; });
-  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup', name = 'Test phone <&>', validateAvailability } = {}) {
-    api.openCheckout(name, price, undefined, validateAvailability);
+  function open({ method = 'sentoo', price = 174, payment = 'full', delivery = 'pickup', name = 'Test phone <&>', validateAvailability, options = {} } = {}) {
+    api.openCheckout(name, price, undefined, validateAvailability, options);
     selectRadio('checkout-payment', payment); selectRadio('checkout-delivery', delivery);
     get('checkout-method').value = method;
     get('checkout-name').value = 'Test customer'; get('checkout-phone').value = '+5999 1234567';
@@ -111,6 +111,26 @@ for (const method of ['USDT', 'USDC']) {
     });
   }
 }
+
+test('a custom reserve amount applies per checkout without changing the default XCG 100 deposit', () => {
+  const h = harness();
+  h.open({ price: 1840, payment: 'reserve', options: { reserveAmount: 920 } });
+  assert.equal(h.api.getCheckoutTotals().paymentAmount, 920);
+  assert.equal(h.api.getCheckoutTotals().total, 920);
+  h.submit();
+  assert.deepEqual(h.popups, [['https://sentoo.pro/connections-curacao/92000', '_blank', 'noopener,noreferrer']]);
+  const confirmation = h.get('checkout-confirmation');
+  const link = confirmation.children.find(child => child.tagName === 'a' && new URL(child.href).hostname === 'wa.me');
+  assert.ok(link, 'WhatsApp order link exists');
+  const message = new URL(link.href).searchParams.get('text');
+  assert.match(message, /Payment type: RESERVE/);
+  assert.match(message, /Pay now: XCG 920/);
+  assert.match(message, /Remaining product balance: XCG 920/);
+
+  const other = harness();
+  other.open({ price: 1840, payment: 'reserve' });
+  assert.equal(other.api.getCheckoutTotals().paymentAmount, 100);
+});
 
 test('Sentoo retains integer-cent payment links, including reservation and delivery, with a persistent fallback', () => {
   for (const [payment, total] of [['full', 383], ['reserve', 135]]) {

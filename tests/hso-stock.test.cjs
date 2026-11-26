@@ -305,9 +305,10 @@ test('checkout refreshes the live endpoint only and uses the newest sheet price 
     assert.ok(request.options.signal);
   }
   assert.equal(app.checkouts.length, 1);
-  const [name, price, opener] = app.checkouts[0];
+  const [name, price, opener, , options] = app.checkouts[0];
   assert.equal(name, 'iPhone 15 HSO · 128GB · Black · Serial/IMEI: TEST12345 · Battery health: 91%');
   assert.equal(price, 999);
+  assert.equal(options.reserveAmount, 499.5, 'HSO reserves 50% of the selected device price');
   assert.ok(app.element('hso-detail').buttons.includes(opener), 'focus returns to the refreshed, connected unit button');
   assert.equal(app.timers.size, 0);
 });
