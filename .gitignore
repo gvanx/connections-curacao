@@ -1,5 +1,11 @@
 # Local Netlify folder
 .netlify
 
+# Local credentials (also applies inside subdirectories)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
 # Superpowers brainstorm mockups
 .superpowers/
