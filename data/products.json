@@ -1931,7 +1931,6 @@
     "type": "Instant camera",
     "featured": false,
     "addedAt": "2026-11-13T14:06:20.991Z",
-    "newArrival": true,
     "image": "/img/products/instax-mini12-mint-green-bundle.png"
   },
   {
@@ -1941,7 +1940,6 @@
     "category": "phones",
     "featured": false,
     "addedAt": "2026-11-13T14:00:45.960Z",
-    "newArrival": true,
     "image": "/img/products/redmi-a7-pro-official.png",
     "specifications": {
       "Storage": "64GB"
